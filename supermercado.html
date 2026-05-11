@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Supermercado · Morashop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<link rel="stylesheet" href="assets/category.css" />
+</head>
+<body style="background: var(--ink);">
+
+<nav class="nav" data-screen-label="Nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/logo-morashop.png" alt="Morashop" />
+      <span class="wordmark">MORASHOP</span>
+    </a>
+    <div class="nav-links">
+      <a href="suplementos.html">Suplementos</a>
+      <a href="supermercado.html" style="opacity:1;">Supermercado</a>
+      <a href="electro.html">Electrodomésticos</a>
+    </div>
+    <div class="nav-actions">
+      <button class="cart-btn" aria-label="Carrito" id="cartBtn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+        <span class="cart-badge" id="cartCount">2</span>
+      </button>
+      <a href="#login" class="btn btn-red btn-sm">Iniciar sesión <span class="arr">→</span></a>
+    </div>
+  </div>
+</nav>
+
+<section class="cat-hero" data-screen-label="Supermercado Hero">
+  <img class="cat-hero-img" src="assets/products/omega3-innova.png" alt="" />
+  <div class="container cat-hero-inner">
+    <div class="crumb">
+      <a href="index.html">Inicio</a><span class="sep">/</span><span>Supermercado</span>
+    </div>
+    <div class="cat-overline"></div>
+    <h1>Super-<br/>mercado</h1>
+    <p class="desc">Snacks fit, bebidas funcionales, granos, aceites y básicos para tu cocina. Lo que te sostiene fuera del gym.</p>
+  </div>
+</section>
+
+<div class="pill-bar">
+  <div class="container">
+    <div class="pill-row">
+      <span class="pill-label">Tipo</span>
+      <button class="pill active" data-group="type" data-value="all">Todo</button>
+      <button class="pill" data-group="type" data-value="snacks-fit">Snacks fit</button>
+      <button class="pill" data-group="type" data-value="bebidas">Bebidas funcionales</button>
+      <button class="pill" data-group="type" data-value="granos">Granos y semillas</button>
+      <button class="pill" data-group="type" data-value="aceites">Aceites</button>
+      <button class="pill" data-group="type" data-value="basicos">Básicos de cocina</button>
+    </div>
+    <div class="pill-row">
+      <span class="pill-label">Marca</span>
+      <button class="pill active" data-group="brand" data-value="all">Todas</button>
+      <button class="pill" data-group="brand" data-value="Mantra">Mantra</button>
+      <button class="pill" data-group="brand" data-value="Quaker">Quaker</button>
+      <button class="pill" data-group="brand" data-value="AdeS">AdeS</button>
+      <button class="pill" data-group="brand" data-value="Vital">Vital</button>
+      <button class="pill" data-group="brand" data-value="Tomasito">Tomasito</button>
+      <button class="pill" data-group="brand" data-value="Cocinero">Cocinero</button>
+      <button class="pill" data-group="brand" data-value="Natura">Natura</button>
+      <button class="pill" data-group="brand" data-value="Ledesma">Ledesma</button>
+    </div>
+  </div>
+</div>
+
+<section class="cat-body">
+  <div class="container">
+    <div class="cat-toolbar">
+      <div class="results" id="resultsCount"></div>
+      <div class="sort">
+        <label for="sort">Ordenar</label>
+        <select id="sort">
+          <option value="featured">Destacados</option>
+          <option value="price-asc">Menor precio</option>
+          <option value="price-desc">Mayor precio</option>
+          <option value="name">Alfabético</option>
+        </select>
+      </div>
+    </div>
+    <div class="cat-grid cols-3" id="catGrid"></div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="container">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="wordmark"><img src="assets/logo-morashop.png" alt="" /> MORASHOP</div>
+        <p>Suplementación deportiva, supermercado y electrodomésticos. Distribuidor autorizado desde 2018.</p>
+      </div>
+      <div class="foot-col"><h5>Tienda</h5><ul>
+        <li><a href="suplementos.html">Suplementos</a></li>
+        <li><a href="supermercado.html">Supermercado</a></li>
+        <li><a href="electro.html">Electrodomésticos</a></li>
+      </ul></div>
+      <div class="foot-col"><h5>Compañía</h5><ul>
+        <li><a href="#">Sobre nosotros</a></li>
+        <li><a href="#">Mayorista</a></li>
+      </ul></div>
+      <div class="foot-col"><h5>Soporte</h5><ul>
+        <li><a href="#">Envíos y entregas</a></li>
+        <li><a href="https://wa.me/5491100000000">WhatsApp</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-bot">
+      <div>© 2026 Morashop</div>
+      <div>Términos · Privacidad · Cookies</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.PRODUCTS = [
+  { brand:"Mantra",       name:"Barra Proteica Cacao",   meta:"Caja x 12 · 50 g c/u",      price:"$  8.900", tag:"Más vendido", img:"assets/products/whey-star.png",     types:["snacks-fit"] },
+  { brand:"Mantra",       name:"Barrita Avena Choc.",    meta:"Caja x 16 · 35 g c/u",      price:"$  6.500", img:"assets/products/whey-star.png",     types:["snacks-fit"] },
+  { brand:"Quaker",       name:"Granola Crocante",       meta:"Bolsa 350 g",               price:"$  3.490", img:"assets/products/whey-star.png",     types:["snacks-fit","granos"] },
+  { brand:"Mantra",       name:"Chips de Garbanzo",      meta:"100 g · sin TACC",          price:"$  2.450", tag:"Nuevo", tagType:"new", img:"assets/products/whey-star.png", types:["snacks-fit"] },
+  { brand:"Vital",        name:"Agua Saborizada",        meta:"Pack 6 x 1.5 L",            price:"$  5.890", img:"assets/products/omega3-innova.png", types:["bebidas"] },
+  { brand:"AdeS",         name:"Bebida Almendras",       meta:"1 L · sin azúcar",          price:"$  2.190", img:"assets/products/omega3-innova.png", types:["bebidas"] },
+  { brand:"AdeS",         name:"Mate Cocido Detox",      meta:"Caja x 25 saquitos",        price:"$  1.890", img:"assets/products/omega3-innova.png", types:["bebidas"] },
+  { brand:"Vital",        name:"Agua Mineral",           meta:"Pack 6 x 2 L",              price:"$  4.290", img:"assets/products/omega3-innova.png", types:["bebidas"] },
+  { brand:"Tomasito",     name:"Avena Tradicional",      meta:"500 g",                     price:"$  1.690", img:"assets/products/creatina-ena.png",  types:["granos","basicos"] },
+  { brand:"Tomasito",     name:"Quinoa Real",            meta:"500 g · sin TACC",          price:"$  3.900", img:"assets/products/creatina-ena.png",  types:["granos"] },
+  { brand:"Tomasito",     name:"Semillas de Chía",       meta:"500 g · orgánicas",         price:"$  3.200", was:"$  3.800", tag:"-15%", tagType:"sale", img:"assets/products/creatina-ena.png", types:["granos"] },
+  { brand:"Ledesma",      name:"Lentejas",               meta:"500 g · primera",           price:"$  1.490", img:"assets/products/creatina-ena.png",  types:["granos","basicos"] },
+  { brand:"Cocinero",     name:"Aceite de Oliva Extra V.", meta:"500 ml · primera presión", price:"$  4.890", img:"assets/products/omega3-innova.png", types:["aceites","basicos"] },
+  { brand:"Natura",       name:"Aceite de Coco",         meta:"360 ml · virgen",           price:"$  6.500", tag:"Stock", img:"assets/products/omega3-innova.png", types:["aceites"] },
+  { brand:"Cocinero",     name:"Aceite Girasol Alto Oleico", meta:"900 ml",            price:"$  2.890", img:"assets/products/omega3-innova.png", types:["aceites","basicos"] },
+  { brand:"Ledesma",      name:"Azúcar Mascabo",         meta:"500 g · orgánico",          price:"$  2.190", img:"assets/products/creatina-ena.png",  types:["basicos"] }
+];
+</script>
+<script src="assets/category.js"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Suplementos · Morashop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<link rel="stylesheet" href="assets/category.css" />
+</head>
+<body style="background: var(--ink);">
+
+<nav class="nav" data-screen-label="Nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/logo-morashop.png" alt="Morashop" />
+      <span class="wordmark">MORASHOP</span>
+    </a>
+    <div class="nav-links">
+      <a href="suplementos.html" style="opacity:1;">Suplementos</a>
+      <a href="supermercado.html">Supermercado</a>
+      <a href="electro.html">Electrodomésticos</a>
+    </div>
+    <div class="nav-actions">
+      <button class="cart-btn" aria-label="Carrito" id="cartBtn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+        <span class="cart-badge" id="cartCount">2</span>
+      </button>
+      <a href="#login" class="btn btn-red btn-sm">Iniciar sesión <span class="arr">→</span></a>
+    </div>
+  </div>
+</nav>
+
+<section class="cat-hero" data-screen-label="Suplementos Hero">
+  <img class="cat-hero-img" src="assets/products/whey-star.png" alt="" />
+  <div class="container cat-hero-inner">
+    <div class="crumb">
+      <a href="index.html">Inicio</a><span class="sep">/</span><span>Suplementos</span>
+    </div>
+    <div class="cat-overline"></div>
+    <h1>Suplementos<br/>deportivos</h1>
+    <p class="desc">Proteínas, creatinas, pre-entrenos, BCAA, vitaminas y quemadores. Más de 500 SKUs originales, distribuidor autorizado.</p>
+  </div>
+</section>
+
+<div class="pill-bar">
+  <div class="container">
+    <div class="pill-row">
+      <span class="pill-label">Tipo</span>
+      <button class="pill active" data-group="type" data-value="all">Todo</button>
+      <button class="pill" data-group="type" data-value="proteinas">Proteínas</button>
+      <button class="pill" data-group="type" data-value="creatinas">Creatinas</button>
+      <button class="pill" data-group="type" data-value="pre-entrenos">Pre-entrenos</button>
+      <button class="pill" data-group="type" data-value="bcaa">BCAA</button>
+      <button class="pill" data-group="type" data-value="vitaminas">Vitaminas</button>
+      <button class="pill" data-group="type" data-value="quemadores">Quemadores</button>
+    </div>
+    <div class="pill-row">
+      <span class="pill-label">Marca</span>
+      <button class="pill active" data-group="brand" data-value="all">Todas</button>
+      <button class="pill" data-group="brand" data-value="Star Nutrition">Star Nutrition</button>
+      <button class="pill" data-group="brand" data-value="ENA Sport">ENA Sport</button>
+      <button class="pill" data-group="brand" data-value="Optimum Nutrition">Optimum</button>
+      <button class="pill" data-group="brand" data-value="BSN">BSN</button>
+      <button class="pill" data-group="brand" data-value="InnovaNaturals">InnovaNaturals</button>
+      <button class="pill" data-group="brand" data-value="Universal">Universal</button>
+      <button class="pill" data-group="brand" data-value="Nutrex Research">Nutrex</button>
+      <button class="pill" data-group="brand" data-value="Gold Nutrition">Gold Nutrition</button>
+      <button class="pill" data-group="brand" data-value="Body Advance">Body Advance</button>
+      <button class="pill" data-group="brand" data-value="LeguiLab">LeguiLab</button>
+    </div>
+  </div>
+</div>
+
+<section class="cat-body">
+  <div class="container">
+    <div class="cat-toolbar">
+      <div class="results" id="resultsCount"></div>
+      <div class="sort">
+        <label for="sort">Ordenar</label>
+        <select id="sort">
+          <option value="featured">Destacados</option>
+          <option value="price-asc">Menor precio</option>
+          <option value="price-desc">Mayor precio</option>
+          <option value="name">Alfabético</option>
+        </select>
+      </div>
+    </div>
+    <div class="cat-grid cols-3" id="catGrid"></div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="container">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="wordmark"><img src="assets/logo-morashop.png" alt="" /> MORASHOP</div>
+        <p>Suplementación deportiva, supermercado y electrodomésticos. Distribuidor autorizado desde 2018.</p>
+      </div>
+      <div class="foot-col"><h5>Tienda</h5><ul>
+        <li><a href="suplementos.html">Suplementos</a></li>
+        <li><a href="supermercado.html">Supermercado</a></li>
+        <li><a href="electro.html">Electrodomésticos</a></li>
+      </ul></div>
+      <div class="foot-col"><h5>Compañía</h5><ul>
+        <li><a href="#">Sobre nosotros</a></li>
+        <li><a href="#">Mayorista</a></li>
+      </ul></div>
+      <div class="foot-col"><h5>Soporte</h5><ul>
+        <li><a href="#">Envíos y entregas</a></li>
+        <li><a href="https://wa.me/5491100000000">WhatsApp</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-bot">
+      <div>© 2026 Morashop</div>
+      <div>Términos · Privacidad · Cookies</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.PRODUCTS = [
+  { brand:"Star Nutrition",   name:"Whey Protein",          meta:"Vainilla · 1.4 kg · 40 srv",  price:"$ 21.900", tag:"Más vendido", img:"assets/products/whey-star.png",       types:["proteinas"] },
+  { brand:"ENA Sport",        name:"Pro Premium Whey",      meta:"Frutilla · 1 kg · 28 srv",    price:"$ 19.500", img:"assets/products/whey-star.png",       types:["proteinas"] },
+  { brand:"Optimum Nutrition",name:"Gold Standard Whey",    meta:"Chocolate · 2 kg · 67 srv",   price:"$ 38.900", was:"$ 44.900", tag:"-13%", tagType:"sale", img:"assets/products/whey-star.png", types:["proteinas"] },
+  { brand:"BSN",              name:"Syntha-6 Edge",         meta:"Cookies · 1.8 kg · 48 srv",   price:"$ 34.500", img:"assets/products/whey-star.png",       types:["proteinas"] },
+  { brand:"ENA Sport",        name:"Creatina Monohidrato",  meta:"Sin sabor · 300 g · 60 srv",  price:"$  9.900", was:"$ 12.500", tag:"-20%", tagType:"sale", img:"assets/products/creatina-ena.png", types:["creatinas"] },
+  { brand:"Universal",        name:"Creatine Powder",       meta:"Sin sabor · 500 g · 100 srv", price:"$ 14.900", img:"assets/products/creatina-ena.png",    types:["creatinas"] },
+  { brand:"Star Nutrition",   name:"Creatina HCL",          meta:"Sin sabor · 250 g · 50 srv",  price:"$ 12.500", img:"assets/products/creatina-ena.png",    types:["creatinas"] },
+  { brand:"Optimum Nutrition",name:"Amino Energy",          meta:"Sandía · 270 g · 30 srv",     price:"$ 17.900", tag:"Nuevo", tagType:"new", img:"assets/products/amino-energy.png", types:["pre-entrenos","bcaa"] },
+  { brand:"Nutrex Research",  name:"Outlift Pre-Workout",   meta:"Cherry · 30 srv · 555 g",     price:"$ 24.900", img:"assets/products/amino-energy.png",    types:["pre-entrenos"] },
+  { brand:"BSN",              name:"N.O.-Xplode 3.0",       meta:"Frutos rojos · 30 srv",       price:"$ 22.500", img:"assets/products/amino-energy.png",    types:["pre-entrenos"] },
+  { brand:"Gold Nutrition",   name:"BCAA 8:1:1",            meta:"Limón · 300 g · 30 srv",      price:"$ 11.900", img:"assets/products/amino-energy.png",    types:["bcaa"] },
+  { brand:"Body Advance",     name:"BCAA Pro 2:1:1",        meta:"Manzana · 250 g · 25 srv",    price:"$  9.500", img:"assets/products/amino-energy.png",    types:["bcaa"] },
+  { brand:"InnovaNaturals",   name:"Omega 3 + Vit D",       meta:"120 cápsulas · 4 meses",      price:"$ 12.400", tag:"Combo", img:"assets/products/omega3-innova.png", types:["vitaminas"] },
+  { brand:"LeguiLab",         name:"Multivitamínico",       meta:"60 cápsulas · 2 meses",       price:"$  7.900", img:"assets/products/omega3-innova.png",   types:["vitaminas"] },
+  { brand:"Optimum Nutrition",name:"Opti-Men",              meta:"90 cápsulas · 1 mes",         price:"$ 18.500", img:"assets/products/omega3-innova.png",   types:["vitaminas"] },
+  { brand:"Universal",        name:"Animal Pak",            meta:"44 packs · 22 srv",           price:"$ 28.900", img:"assets/products/omega3-innova.png",   types:["vitaminas"] },
+  { brand:"ENA Sport",        name:"L-Carnitina Líquida",   meta:"Naranja · 500 ml · 25 srv",   price:"$  8.900", was:"$ 10.500", tag:"-15%", tagType:"sale", img:"assets/products/omega3-innova.png", types:["quemadores"] },
+  { brand:"Star Nutrition",   name:"Thermo Burn",           meta:"60 cápsulas",                 price:"$ 13.900", img:"assets/products/omega3-innova.png",   types:["quemadores"] }
+];
+</script>
+<script src="assets/category.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Electrodomésticos · Morashop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<link rel="stylesheet" href="assets/category.css" />
+</head>
+<body style="background: var(--ink);">
+
+<nav class="nav" data-screen-label="Nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/logo-morashop.png" alt="Morashop" />
+      <span class="wordmark">MORASHOP</span>
+    </a>
+    <div class="nav-links">
+      <a href="suplementos.html">Suplementos</a>
+      <a href="supermercado.html">Supermercado</a>
+      <a href="electro.html" style="opacity:1;">Electrodomésticos</a>
+    </div>
+    <div class="nav-actions">
+      <button class="cart-btn" aria-label="Carrito" id="cartBtn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+        <span class="cart-badge" id="cartCount">2</span>
+      </button>
+      <a href="#login" class="btn btn-red btn-sm">Iniciar sesión <span class="arr">→</span></a>
+    </div>
+  </div>
+</nav>
+
+<section class="cat-hero" data-screen-label="Electro Hero">
+  <img class="cat-hero-img" src="assets/products/creatina-ena.png" alt="" />
+  <div class="container cat-hero-inner">
+    <div class="crumb">
+      <a href="index.html">Inicio</a><span class="sep">/</span><span>Electrodomésticos</span>
+    </div>
+    <div class="cat-overline"></div>
+    <h1>Electro-<br/>domésticos</h1>
+    <p class="desc">Licuadoras, balanzas, batidoras y equipos que sostienen tu rutina. Marcas reconocidas con garantía oficial.</p>
+  </div>
+</section>
+
+<div class="pill-bar">
+  <div class="container">
+    <div class="pill-row">
+      <span class="pill-label">Tipo</span>
+      <button class="pill active" data-group="type" data-value="all">Todo</button>
+      <button class="pill" data-group="type" data-value="licuadoras">Licuadoras</button>
+      <button class="pill" data-group="type" data-value="balanzas">Balanzas digitales</button>
+      <button class="pill" data-group="type" data-value="batidoras">Batidoras</button>
+      <button class="pill" data-group="type" data-value="otros">Otros equipos</button>
+    </div>
+    <div class="pill-row">
+      <span class="pill-label">Marca</span>
+      <button class="pill active" data-group="brand" data-value="all">Todas</button>
+      <button class="pill" data-group="brand" data-value="Oster">Oster</button>
+      <button class="pill" data-group="brand" data-value="Philips">Philips</button>
+      <button class="pill" data-group="brand" data-value="Ninja">Ninja</button>
+      <button class="pill" data-group="brand" data-value="Atma">Atma</button>
+      <button class="pill" data-group="brand" data-value="Xiaomi">Xiaomi</button>
+      <button class="pill" data-group="brand" data-value="Beurer">Beurer</button>
+      <button class="pill" data-group="brand" data-value="KitchenAid">KitchenAid</button>
+      <button class="pill" data-group="brand" data-value="Smeg">Smeg</button>
+      <button class="pill" data-group="brand" data-value="Nespresso">Nespresso</button>
+    </div>
+  </div>
+</div>
+
+<section class="cat-body">
+  <div class="container">
+    <div class="cat-toolbar">
+      <div class="results" id="resultsCount"></div>
+      <div class="sort">
+        <label for="sort">Ordenar</label>
+        <select id="sort">
+          <option value="featured">Destacados</option>
+          <option value="price-asc">Menor precio</option>
+          <option value="price-desc">Mayor precio</option>
+          <option value="name">Alfabético</option>
+        </select>
+      </div>
+    </div>
+    <div class="cat-grid cols-2" id="catGrid"></div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="container">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="wordmark"><img src="assets/logo-morashop.png" alt="" /> MORASHOP</div>
+        <p>Suplementación deportiva, supermercado y electrodomésticos. Distribuidor autorizado desde 2018.</p>
+      </div>
+      <div class="foot-col"><h5>Tienda</h5><ul>
+        <li><a href="suplementos.html">Suplementos</a></li>
+        <li><a href="supermercado.html">Supermercado</a></li>
+        <li><a href="electro.html">Electrodomésticos</a></li>
+      </ul></div>
+      <div class="foot-col"><h5>Compañía</h5><ul>
+        <li><a href="#">Sobre nosotros</a></li>
+        <li><a href="#">Mayorista</a></li>
+      </ul></div>
+      <div class="foot-col"><h5>Soporte</h5><ul>
+        <li><a href="#">Envíos y entregas</a></li>
+        <li><a href="https://wa.me/5491100000000">WhatsApp</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-bot">
+      <div>© 2026 Morashop</div>
+      <div>Términos · Privacidad · Cookies</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.PRODUCTS = [
+  { brand:"Oster",       name:"Licuadora Reversible Pro", meta:"600 W · vaso vidrio 1.25 L",   price:"$ 89.900", was:"$104.900", tag:"-15%", tagType:"sale", img:"assets/products/creatina-ena.png", types:["licuadoras"] },
+  { brand:"Philips",     name:"Licuadora ProBlend 5000",  meta:"1000 W · 2 L",                 price:"$129.900", tag:"Más vendido", img:"assets/products/creatina-ena.png", types:["licuadoras"] },
+  { brand:"Ninja",       name:"Personal Blender BL480",   meta:"900 W · 700 ml · to-go",       price:"$ 79.500", img:"assets/products/creatina-ena.png", types:["licuadoras"] },
+  { brand:"Atma",        name:"Licuadora Compacta",       meta:"500 W · vaso 1.5 L",           price:"$ 38.900", img:"assets/products/creatina-ena.png", types:["licuadoras"] },
+  { brand:"Xiaomi",      name:"Mi Body Composition 2",    meta:"Bluetooth · 13 métricas",      price:"$ 49.900", tag:"Nuevo", tagType:"new", img:"assets/products/whey-star.png", types:["balanzas"] },
+  { brand:"Beurer",      name:"Balanza Digital BG13",     meta:"Vidrio templado · 180 kg",     price:"$ 32.500", img:"assets/products/whey-star.png", types:["balanzas"] },
+  { brand:"Beurer",      name:"Balanza de Cocina Digital",meta:"5 kg · acero inoxidable",      price:"$ 18.900", img:"assets/products/whey-star.png", types:["balanzas"] },
+  { brand:"KitchenAid",  name:"Batidora Artisan 5KSM",    meta:"Planetaria · 4.8 L · 10 vel",  price:"$549.000", tag:"Premium", img:"assets/products/amino-energy.png", types:["batidoras"] },
+  { brand:"Oster",       name:"Batidora de Mano 5 vel.",  meta:"250 W · 5 velocidades",        price:"$ 24.900", img:"assets/products/amino-energy.png", types:["batidoras"] },
+  { brand:"Philips",     name:"Batidora de Mano ProMix",  meta:"650 W · accesorios",           price:"$ 38.500", img:"assets/products/amino-energy.png", types:["batidoras"] },
+  { brand:"Smeg",        name:"Tostadora 2 Rebanadas",    meta:"Estilo retro · 6 niveles",     price:"$229.000", img:"assets/products/omega3-innova.png", types:["otros"] },
+  { brand:"Nespresso",   name:"Essenza Mini",             meta:"Cápsulas · 19 bar",            price:"$179.900", tag:"Stock", img:"assets/products/omega3-innova.png", types:["otros"] }
+];
+</script>
+<script src="assets/category.js"></script>
+</body>
+</html>

@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Morashop — El mejor precio siempre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink:        #0D1117;
+    --ink-deep:   #080D18;
+    --navy:       #1A2744;
+    --cream:      #E8E0CE;
+    --red:        #E8341A;
+    --red-deep:   #C42710;
+    --green:      #4ADE80;
+    --line:       rgba(232,224,206,0.15);
+    --line-soft:  rgba(232,224,206,0.10);
+    --muted:      rgba(232,224,206,0.55);
+    --font-d: "Barlow Condensed","Arial Narrow",sans-serif;
+    --font-b: "Inter",system-ui,sans-serif;
+    --pad-x: clamp(20px,5vw,96px);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--ink);color:var(--cream)}
+  body{font-family:var(--font-b);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  .container{width:100%;max-width:1440px;margin:0 auto;padding:0 var(--pad-x)}
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;opacity:0.55}
+  .overline{width:64px;height:3px;background:var(--red);display:block}
+  .display{font-family:var(--font-d);font-weight:900;letter-spacing:-0.01em;line-height:0.88;text-transform:uppercase}
+
+  /* ---------- BUTTONS ---------- */
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:18px 28px;font-family:var(--font-d);font-weight:800;font-size:15px;letter-spacing:0.16em;text-transform:uppercase;border-radius:2px;transition:transform .18s ease, background .18s ease, color .18s ease, border-color .18s ease;white-space:nowrap;cursor:pointer}
+  .btn .arr{transition:transform .2s ease;display:inline-block}
+  .btn:hover .arr{transform:translateX(4px)}
+  .btn-red{background:var(--red);color:#fff}
+  .btn-red:hover{background:var(--red-deep);transform:translateY(-1px)}
+  .btn-outline{border:1.5px solid var(--cream);color:var(--cream)}
+  .btn-outline:hover{background:var(--cream);color:var(--ink)}
+  .btn-sm{padding:12px 18px;font-size:12px}
+  .btn-lg{padding:22px 34px;font-size:16px}
+
+  /* ---------- NAV ---------- */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:74px}
+  .nav-logo{display:flex;align-items:center;gap:10px}
+  .nav-logo img{height:36px;width:auto}
+  .nav-logo .wm{font-family:var(--font-d);font-weight:900;font-size:22px;letter-spacing:0.02em;color:var(--cream)}
+  .nav-links{display:flex;align-items:center;gap:32px}
+  .nav-links a{font-size:12px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--cream);opacity:0.7;transition:opacity .15s ease}
+  .nav-links a:hover{opacity:1}
+  .nav-actions{display:flex;align-items:center;gap:12px}
+  .icon-btn{width:42px;height:42px;display:grid;place-items:center;border-radius:999px;color:var(--cream);transition:background .15s ease;position:relative}
+  .icon-btn:hover{background:rgba(232,224,206,0.08)}
+  .cart-badge{position:absolute;top:6px;right:6px;background:var(--red);color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;padding:0 4px;border-radius:999px;display:grid;place-items:center}
+  .hamb{display:none}
+  .search-overlay{position:fixed;top:0;left:0;right:0;background:var(--ink);border-bottom:1px solid var(--line-soft);transform:translateY(-100%);transition:transform .25s ease;z-index:60;padding:24px 0}
+  .search-overlay.open{transform:translateY(0)}
+  .search-row{display:flex;align-items:center;gap:18px}
+  .search-row input{flex:1;background:transparent;border:0;border-bottom:1px solid var(--line);color:var(--cream);font-family:var(--font-d);font-weight:700;font-size:clamp(28px,4vw,52px);padding:14px 0;letter-spacing:-0.005em;text-transform:uppercase;outline:none}
+  .search-row input::placeholder{color:rgba(232,224,206,0.3)}
+  .search-row .close{font-size:14px;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;opacity:0.6;cursor:pointer;flex-shrink:0;font-family:var(--font-b)}
+  .search-row .close:hover{opacity:1}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden;padding:48px 0}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:24px;align-items:center;width:100%;position:relative;z-index:2}
+  .hero-copy{position:relative;z-index:3}
+  .hero h1{font-family:var(--font-d);font-weight:900;font-size:clamp(56px,11vw,156px);line-height:0.84;letter-spacing:-0.02em;text-transform:uppercase;margin:24px 0 28px;color:var(--cream)}
+  .hero h1 .red{color:var(--red)}
+  .hero .lede{font-size:16px;line-height:1.5;color:var(--cream);opacity:0.65;max-width:480px;margin:0 0 36px}
+  .hero-stats{margin-top:48px;display:flex;gap:clamp(20px,4vw,56px);flex-wrap:wrap}
+  .hero-stat{border-left:1px solid var(--line);padding-left:18px}
+  .hero-stat:first-child{border-left:0;padding-left:0}
+  .hero-stat .n{font-family:var(--font-d);font-weight:900;font-size:32px;line-height:1;color:var(--cream)}
+  .hero-stat .l{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;opacity:0.55;margin-top:6px;font-weight:600}
+  .hero-img{position:absolute;right:-6%;top:50%;transform:translateY(-50%);height:120%;max-height:1100px;width:auto;z-index:1;filter:drop-shadow(0 40px 60px rgba(0,0,0,0.55))}
+
+  /* ---------- DIFFERENTIATORS ---------- */
+  .diffs{background:var(--navy);padding:clamp(80px,10vw,140px) 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+  .diffs-head{margin-bottom:64px;max-width:760px}
+  .diffs-head h2{font-family:var(--font-d);font-weight:900;font-size:clamp(44px,6vw,96px);line-height:0.9;letter-spacing:-0.015em;text-transform:uppercase;color:var(--cream);margin:18px 0 0}
+  .diffs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .diff{background:rgba(13,17,23,0.55);border:1px solid var(--line);padding:40px 32px;display:flex;flex-direction:column;gap:8px;transition:transform .25s ease, border-color .2s ease}
+  .diff:hover{transform:translateY(-3px);border-color:rgba(232,224,206,0.3)}
+  .diff .n{font-family:var(--font-d);font-weight:900;font-size:clamp(80px,10vw,140px);line-height:0.85;color:var(--cream);letter-spacing:-0.02em}
+  .diff .n .u{font-size:0.5em;opacity:0.55;margin-left:6px;vertical-align:0.2em;font-weight:800}
+  .diff .lab{font-size:12px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream);opacity:0.7;margin-top:14px}
+
+  /* ---------- TICKER ---------- */
+  .ticker{padding:36px 0 48px;background:var(--ink);overflow:hidden;position:relative;border-bottom:1px solid var(--line-soft)}
+  .ticker .lbl{text-align:center;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;opacity:0.4;margin-bottom:20px;font-weight:600}
+  .ticker-track{display:flex;gap:64px;animation:scroll 40s linear infinite;width:max-content;align-items:center}
+  .ticker:hover .ticker-track{animation-play-state:paused}
+  .ticker-track span{font-family:var(--font-d);font-weight:800;font-size:clamp(28px,3.5vw,44px);letter-spacing:0.04em;text-transform:uppercase;color:var(--cream);opacity:0.5;transition:opacity .2s ease;white-space:nowrap;flex-shrink:0;cursor:default}
+  .ticker-track span:hover{opacity:1}
+  .ticker-track span.dot{opacity:0.35;font-family:var(--font-b);font-weight:400}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---------- FEATURED ---------- */
+  .feat{padding:clamp(80px,10vw,140px) 0;background:var(--ink)}
+  .feat-head{margin-bottom:64px;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+  .feat-head h2{font-family:var(--font-d);font-weight:900;font-size:clamp(44px,6vw,96px);line-height:0.9;letter-spacing:-0.015em;text-transform:uppercase;color:var(--cream);margin:18px 0 0;max-width:600px}
+  .feat-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,minmax(280px,1fr));gap:16px}
+  .pcard{background:var(--ink);border:1px solid var(--line-soft);display:flex;flex-direction:column;position:relative;overflow:hidden;transition:border-color .2s ease, transform .25s ease;cursor:pointer}
+  .pcard:hover{border-color:var(--line);transform:translateY(-3px)}
+  .pcard.big{grid-row:span 2;grid-column:span 2}
+  .pcard .ph{flex:1;display:grid;place-items:center;position:relative;padding:24px;min-height:200px;overflow:hidden}
+  .pcard.big .ph{min-height:380px}
+  .pcard .ph img{max-width:80%;max-height:80%;width:auto;height:auto;object-fit:contain;filter:drop-shadow(0 24px 36px rgba(0,0,0,0.55));transition:transform .35s ease}
+  .pcard:hover .ph img{transform:scale(1.05)}
+  .pcard .tag{position:absolute;top:16px;left:16px;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;background:var(--cream);color:var(--ink);padding:6px 10px;border-radius:2px;font-family:var(--font-b);z-index:2}
+  .pcard .tag.sale{background:var(--red);color:#fff}
+  .pcard .info{padding:0 24px 24px;display:flex;flex-direction:column;gap:4px}
+  .pcard .brand{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;opacity:0.55}
+  .pcard .name{font-family:var(--font-d);font-weight:800;font-size:22px;line-height:1.05;letter-spacing:0.005em;text-transform:uppercase;margin:4px 0 14px}
+  .pcard.big .name{font-size:32px;margin-bottom:18px}
+  .pcard .row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto}
+  .pcard .price{font-family:var(--font-d);font-weight:900;font-size:28px;line-height:1}
+  .pcard.big .price{font-size:36px}
+  .pcard .price small{font-size:13px;font-weight:600;opacity:0.45;text-decoration:line-through;margin-left:8px;font-family:var(--font-b);letter-spacing:normal}
+  .pcard-btn{background:transparent;color:var(--cream);padding:11px 16px;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;border:1px solid var(--cream);border-radius:2px;transition:background .15s ease, color .15s ease, border-color .15s ease;font-family:var(--font-b)}
+  .pcard-btn:hover{background:var(--red);color:#fff;border-color:var(--red)}
+
+  /* ---------- CATEGORÍAS — FRANJAS ---------- */
+  .strips{background:var(--ink)}
+  .strip{position:relative;min-height:70vh;display:flex;align-items:center;overflow:hidden;border-top:1px solid var(--line-soft)}
+  .strip-inner{position:relative;z-index:2;width:100%;padding:80px 0}
+  .strip .num{font-family:var(--font-d);font-weight:900;font-size:14px;letter-spacing:0.2em;opacity:0.4;margin-bottom:16px;color:var(--cream)}
+  .strip h3{font-family:var(--font-d);font-weight:900;font-size:clamp(56px,10vw,180px);line-height:0.85;letter-spacing:-0.02em;text-transform:uppercase;color:var(--cream);margin:0 0 24px;max-width:60%}
+  .strip .desc{font-size:16px;line-height:1.5;color:var(--cream);opacity:0.65;max-width:480px;margin:0 0 36px}
+  .strip .go{display:inline-flex;align-items:center;gap:14px;font-family:var(--font-d);font-weight:800;font-size:18px;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream);padding-bottom:10px;border-bottom:1.5px solid var(--cream);transition:gap .25s ease}
+  .strip .go:hover{gap:22px}
+  .strip-img{position:absolute;right:-8%;top:50%;transform:translateY(-50%);height:130%;max-height:900px;width:auto;z-index:1;filter:drop-shadow(0 40px 60px rgba(0,0,0,0.55))}
+
+  /* ---------- ENVÍOS ---------- */
+  .ship{background:var(--navy);padding:clamp(80px,10vw,140px) 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+  .ship-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+  .ship-col h3{font-family:var(--font-d);font-weight:900;font-size:clamp(36px,5vw,72px);line-height:0.9;letter-spacing:-0.01em;text-transform:uppercase;color:var(--cream);margin:14px 0 18px}
+  .ship-col p{color:var(--cream);opacity:0.65;font-size:15px;line-height:1.55;max-width:380px;margin:0}
+  .wa-bar{margin-top:64px;padding:28px 0 0;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .wa-link{display:inline-flex;align-items:center;gap:16px;color:var(--cream);font-family:var(--font-d);font-weight:800;font-size:20px;letter-spacing:0.08em;text-transform:uppercase;transition:color .15s ease}
+  .wa-link:hover{color:#fff}
+  .wa-ic{width:44px;height:44px;border-radius:999px;background:#25D366;display:grid;place-items:center;color:#0D1117;flex-shrink:0}
+  .wa-num{font-size:13px;letter-spacing:0.12em;opacity:0.6;font-weight:600}
+
+  /* ---------- TESTIMONIOS ---------- */
+  .testi{background:var(--ink);padding:clamp(80px,10vw,140px) 0}
+  .testi-head{margin-bottom:64px}
+  .testi-head h2{font-family:var(--font-d);font-weight:900;font-size:clamp(40px,5.5vw,84px);line-height:0.9;letter-spacing:-0.015em;text-transform:uppercase;color:var(--cream);margin:18px 0 0;max-width:720px}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .testi-card{background:var(--navy);border:1px solid var(--line-soft);padding:36px 32px}
+  .testi-card .stars{color:var(--cream);letter-spacing:6px;font-size:14px;opacity:0.95;margin-bottom:24px}
+  .testi-card blockquote{font-family:var(--font-d);font-weight:700;font-size:22px;line-height:1.2;color:var(--cream);margin:0 0 28px;letter-spacing:0.005em}
+  .testi-card .who{display:flex;align-items:center;gap:14px;font-size:13px}
+  .testi-card .av{width:38px;height:38px;border-radius:999px;background:var(--cream);color:var(--navy);display:grid;place-items:center;font-weight:700;flex-shrink:0;font-size:13px}
+  .testi-card .nm{font-weight:600;color:var(--cream)}
+  .testi-card .ct{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;opacity:0.55;margin-top:2px}
+
+  /* ---------- MORA ---------- */
+  .mora{background:var(--ink);padding:clamp(60px,8vw,110px) 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+  .mora-inner{display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:center;max-width:920px;margin:0 auto}
+  .mora-img{width:clamp(160px,22vw,260px);height:auto;border-radius:50%;background:var(--navy);padding:18px;box-shadow:0 30px 50px -20px rgba(0,0,0,0.6)}
+  .mora-copy .lab{font-size:11px;font-weight:600;letter-spacing:0.24em;text-transform:uppercase;opacity:0.5;margin-bottom:18px;display:flex;align-items:center;gap:14px}
+  .mora-copy .lab::before{content:"";width:32px;height:1.5px;background:var(--red);display:block}
+  .mora-copy p{font-family:var(--font-d);font-weight:700;font-size:clamp(24px,3vw,36px);line-height:1.15;letter-spacing:-0.005em;color:var(--cream);margin:0;max-width:560px}
+  .mora-copy .sig{margin-top:18px;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;opacity:0.5;font-weight:600;font-family:var(--font-b)}
+
+  /* ---------- FINAL CTA ---------- */
+  .final{background:var(--ink);padding:clamp(120px,16vw,220px) 0;text-align:center;border-top:1px solid var(--line-soft)}
+  .final .ov{width:80px;height:3px;background:var(--red);margin:0 auto 32px}
+  .final h2{font-family:var(--font-d);font-weight:900;font-size:clamp(56px,9vw,156px);line-height:0.84;letter-spacing:-0.02em;text-transform:uppercase;color:var(--cream);margin:0 auto 28px;max-width:16ch}
+  .final p{font-size:16px;color:var(--cream);opacity:0.65;max-width:540px;margin:0 auto 44px}
+  .final .ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .dot{width:8px;height:8px;background:var(--green);border-radius:999px;box-shadow:0 0 0 4px rgba(74,222,128,0.22);animation:pulse 1.8s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(74,222,128,0.22)}50%{box-shadow:0 0 0 8px rgba(74,222,128,0)}}
+
+  /* ---------- FLOATING WHATSAPP ---------- */
+  .wa-float{position:fixed;right:24px;bottom:24px;width:56px;height:56px;border-radius:999px;background:#25D366;color:#fff;display:grid;place-items:center;z-index:80;box-shadow:0 10px 24px -6px rgba(0,0,0,0.45),0 4px 10px rgba(0,0,0,0.25);transition:transform .2s ease, box-shadow .2s ease}
+  .wa-float:hover{transform:scale(1.08);box-shadow:0 14px 28px -6px rgba(0,0,0,0.5),0 6px 12px rgba(0,0,0,0.3)}
+  .wa-float svg{width:30px;height:30px;display:block}
+  @media (max-width:768px){.wa-float{right:16px;bottom:16px}}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--ink-deep);color:var(--cream);padding:72px 0 32px}
+  .foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;padding-bottom:56px;border-bottom:1px solid var(--line-soft)}
+  .foot-brand .wm{font-family:var(--font-d);font-weight:900;font-size:26px;letter-spacing:0.02em;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+  .foot-brand .wm img{height:34px;width:auto}
+  .foot-brand p{font-size:13px;line-height:1.6;opacity:0.6;max-width:320px;margin:0 0 20px}
+  .foot-brand .mora-mini{display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;opacity:0.5;font-weight:600}
+  .foot-brand .mora-mini img{width:28px;height:28px;border-radius:999px;background:var(--navy);padding:3px}
+  .foot h5{font-family:var(--font-d);font-weight:800;font-size:13px;letter-spacing:0.2em;text-transform:uppercase;color:var(--cream);opacity:0.5;margin:0 0 18px}
+  .foot-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+  .foot-col a{font-size:13px;opacity:0.75;transition:opacity .15s ease}
+  .foot-col a:hover{opacity:1}
+  .foot-bot{padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-size:12px;opacity:0.55;letter-spacing:0.04em}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:1280px){
+    .feat-grid{grid-template-columns:repeat(3,1fr)}
+    .pcard.big{grid-column:span 3;grid-row:span 1}
+    .pcard.big .ph{min-height:280px}
+  }
+  @media (max-width:768px){
+    .nav-links{display:none}
+    .hamb{display:grid}
+    .nav-actions .btn{display:none}
+    .hero{min-height:auto;padding:32px 0 56px}
+    .hero-grid{grid-template-columns:1fr;gap:0}
+    .hero-img{position:relative;right:auto;top:auto;transform:none;height:auto;width:80%;max-width:360px;margin:0 auto 24px;display:block}
+    .hero-stats{margin-top:32px;gap:20px}
+    .hero-stat{flex:1 1 100%;border-left:0;border-top:1px solid var(--line);padding:14px 0 0}
+    .hero-stat:first-child{border-top:0;padding-top:0}
+    .diffs-grid{grid-template-columns:1fr;gap:12px}
+    .feat-grid{grid-template-columns:1fr;grid-template-rows:auto}
+    .pcard.big{grid-column:span 1;grid-row:span 1}
+    .pcard.big .ph{min-height:240px}
+    .strip{min-height:auto;padding:40px 0}
+    .strip-inner{padding:0}
+    .strip-img{position:relative;right:auto;top:auto;transform:none;height:auto;width:70%;max-width:280px;margin:0 0 24px;filter:drop-shadow(0 24px 36px rgba(0,0,0,0.55))}
+    .strip h3{max-width:100%}
+    .ship-grid{grid-template-columns:1fr;gap:36px}
+    .testi-grid{grid-template-columns:1fr;gap:14px}
+    .mora-inner{grid-template-columns:1fr;text-align:center;gap:28px}
+    .mora-copy .lab{justify-content:center}
+    .mora-img{margin:0 auto;width:200px}
+    .foot-top{grid-template-columns:1fr 1fr;gap:32px}
+    .foot-brand{grid-column:span 2}
+    .search-row input{font-size:24px}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" data-screen-label="Nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="#top">
+      <img src="assets/logo-morashop.png" alt="Morashop" />
+      <span class="wm">MORASHOP</span>
+    </a>
+    <div class="nav-links">
+      <a href="suplementos.html">Suplementos</a>
+      <a href="supermercado.html">Supermercado</a>
+      <a href="electro.html">Electro-Hogar</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="Buscar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </button>
+      <button class="icon-btn" aria-label="Carrito">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+        <span class="cart-badge" id="cartCount">2</span>
+      </button>
+      <a href="suplementos.html" class="btn btn-red btn-sm">Ver catálogo <span class="arr">→</span></a>
+      <button class="icon-btn hamb" aria-label="Menú">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="container search-row">
+    <input id="searchInput" type="text" placeholder="Buscar suplementos, marcas, productos…" />
+    <button class="close" id="searchClose">Cerrar · Esc</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top" data-screen-label="Hero">
+  <img class="hero-img" src="assets/products/whey-star-choc.png" alt="Star Nutrition Whey Protein Chocolate 2 lb" />
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="overline"></span>
+      <h1>El mejor<br/>precio<br/>siempre.</h1>
+      <p class="lede">Suplementos originales de las mejores marcas. Distribuidor autorizado en Argentina — supermercado fit y electro-hogar para sostener tu rutina.</p>
+      <a href="suplementos.html" class="btn btn-red btn-lg">Ver catálogo <span class="arr">→</span></a>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="n">+500</div><div class="l">Productos en stock</div></div>
+        <div class="hero-stat"><div class="n">Hoy</div><div class="l">Envío GBA / CABA</div></div>
+        <div class="hero-stat"><div class="n">100%</div><div class="l">Producto original</div></div>
+      </div>
+    </div>
+    <div></div>
+  </div>
+</section>
+
+<!-- DIFFERENTIATORS -->
+<section class="diffs" data-screen-label="Diferenciadores">
+  <div class="container">
+    <div class="diffs-head">
+      <span class="overline"></span>
+      <h2>Lo que nos<br/>diferencia.</h2>
+    </div>
+    <div class="diffs-grid">
+      <div class="diff">
+        <div class="n">15<span class="u">%</span></div>
+        <div class="lab">Descuento pagando<br/>en efectivo</div>
+      </div>
+      <div class="diff">
+        <div class="n">5<span class="u">%</span></div>
+        <div class="lab">Descuento por<br/>transferencia</div>
+      </div>
+      <div class="diff">
+        <div class="n">3</div>
+        <div class="lab">Cuotas sin interés<br/>con todas las tarjetas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<section class="ticker" aria-label="Marcas">
+  <div class="lbl">Distribuidores autorizados</div>
+  <div class="ticker-track" id="tickerTrack"></div>
+</section>
+
+<!-- FEATURED -->
+<section class="feat" data-screen-label="Destacados">
+  <div class="container">
+    <div class="feat-head">
+      <div>
+        <span class="overline"></span>
+        <h2>Lo más<br/>vendido.</h2>
+      </div>
+      <a href="suplementos.html" class="btn btn-outline btn-sm">Ver todos <span class="arr">→</span></a>
+    </div>
+
+    <div class="feat-grid">
+      <article class="pcard big">
+        <span class="tag sale">Más vendido</span>
+        <div class="ph"><img src="assets/products/whey-star-choc.png" alt="Whey Protein" /></div>
+        <div class="info">
+          <div class="brand">Star Nutrition</div>
+          <div class="name">Whey Protein Chocolate</div>
+          <div class="row">
+            <div class="price">$ 21.900<small>$ 25.900</small></div>
+            <button class="pcard-btn" data-add>Agregar</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="pcard">
+        <span class="tag">Nuevo</span>
+        <div class="ph"><img src="assets/products/amino-energy-sparkling.png" alt="Amino Energy" /></div>
+        <div class="info">
+          <div class="brand">Optimum Nutrition</div>
+          <div class="name">Amino Energy + Electrolytes</div>
+          <div class="row">
+            <div class="price">$ 17.900</div>
+            <button class="pcard-btn" data-add>Agregar</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="pcard">
+        <span class="tag sale">-20%</span>
+        <div class="ph"><img src="assets/products/creatina-ena-doypack.png" alt="Creatina ENA" /></div>
+        <div class="info">
+          <div class="brand">ENA Sport</div>
+          <div class="name">Creatina Monohidrato 300 g</div>
+          <div class="row">
+            <div class="price">$ 9.900<small>$ 12.500</small></div>
+            <button class="pcard-btn" data-add>Agregar</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="pcard">
+        <div class="ph"><img src="assets/products/omega3-innova-max.png" alt="Omega 3" /></div>
+        <div class="info">
+          <div class="brand">InnovaNaturals</div>
+          <div class="name">Omega 3 Max · 60 cáps</div>
+          <div class="row">
+            <div class="price">$ 12.400</div>
+            <button class="pcard-btn" data-add>Agregar</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="pcard">
+        <span class="tag">Stock</span>
+        <div class="ph"><img src="assets/products/whey-star-choc.png" alt="Whey vainilla" /></div>
+        <div class="info">
+          <div class="brand">Star Nutrition</div>
+          <div class="name">Whey Protein Vainilla</div>
+          <div class="row">
+            <div class="price">$ 21.900</div>
+            <button class="pcard-btn" data-add>Agregar</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- STRIPS / CATEGORÍAS -->
+<section class="strips" data-screen-label="Categorias">
+  <a href="suplementos.html" class="strip">
+    <img class="strip-img" src="assets/products/creatina-ena-doypack.png" alt="" />
+    <div class="container strip-inner">
+      <div class="num">— 01 / Categoría</div>
+      <span class="overline"></span>
+      <h3 style="margin-top:18px;">Suplementos<br/>deportivos</h3>
+      <p class="desc">Proteínas, creatinas, pre-entrenos, BCAA, vitaminas y quemadores. Más de 500 SKUs originales, distribuidor autorizado.</p>
+      <span class="go">Ver todo <span class="arr">→</span></span>
+    </div>
+  </a>
+  <a href="supermercado.html" class="strip">
+    <img class="strip-img" src="assets/products/amino-energy-sparkling.png" alt="" />
+    <div class="container strip-inner">
+      <div class="num">— 02 / Categoría</div>
+      <span class="overline"></span>
+      <h3 style="margin-top:18px;">Super-<br/>mercado</h3>
+      <p class="desc">Snacks fit, bebidas funcionales, granos, aceites y básicos para tu cocina. Lo que te sostiene fuera del gym.</p>
+      <span class="go">Ver todo <span class="arr">→</span></span>
+    </div>
+  </a>
+  <a href="electro.html" class="strip">
+    <div class="container strip-inner">
+      <div class="num">— 03 / Categoría</div>
+      <span class="overline"></span>
+      <h3 style="margin-top:18px;">Electro-<br/>hogar</h3>
+      <p class="desc">Licuadoras, balanzas, batidoras y equipos que sostienen tu rutina. Marcas reconocidas con garantía oficial.</p>
+      <span class="go">Ver todo <span class="arr">→</span></span>
+    </div>
+  </a>
+</section>
+
+<!-- ENVÍOS -->
+<section class="ship" data-screen-label="Envios">
+  <div class="container">
+    <div class="ship-grid">
+      <div class="ship-col">
+        <span class="overline"></span>
+        <h3>Envío<br/>en el día</h3>
+        <p>Despachamos el mismo día en GBA y CABA para todos los pedidos confirmados antes de las 10 hs.</p>
+      </div>
+      <div class="ship-col">
+        <span class="overline"></span>
+        <h3>Envíos a todo<br/>el país</h3>
+        <p>Enviamos a todo Argentina por OCA y Andreani. Llega en 24–72 horas hábiles según destino.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="testi" data-screen-label="Testimonios">
+  <div class="container">
+    <div class="testi-head">
+      <span class="overline"></span>
+      <h2>Lo que dicen<br/>nuestros clientes.</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Hace 3 años que compro en Morashop. Producto original, precio que no encuentro en otro lado y siempre llega cuando dicen."</blockquote>
+        <div class="who">
+          <div class="av">DR</div>
+          <div><div class="nm">Diego Ramírez</div><div class="ct">Coach · Buenos Aires</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"El catálogo de suplementos es enorme. Encontré marcas que ya no traía nadie y a mejor precio que en mi gym."</blockquote>
+        <div class="who">
+          <div class="av">MA</div>
+          <div><div class="nm">María Acosta</div><div class="ct">Atleta · Córdoba</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Pedí mi whey un martes y llegó al día siguiente. Stock real, sin pretextos. Volví a comprar tres veces."</blockquote>
+        <div class="who">
+          <div class="av">JS</div>
+          <div><div class="nm">Javier Salas</div><div class="ct">Crossfitter · Rosario</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MORA -->
+<section class="mora" data-screen-label="Mora">
+  <div class="container">
+    <div class="mora-inner">
+      <img class="mora-img" src="assets/mora.png" alt="Mora, la perra labradora que dio nombre a Morashop" />
+      <div class="mora-copy">
+        <div class="lab">El nombre detrás de Morashop</div>
+        <p>El nombre viene de Mora, la perra de la familia. Lo demás es suplementos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final" data-screen-label="Final">
+  <div class="container">
+    <div class="ov"></div>
+    <h2>Tu próxima<br/>compra empieza<br/>acá.</h2>
+    <p>Suplementos originales, envío en el día y atención humana por WhatsApp. Sin trampas.</p>
+    <div class="ctas">
+      <a href="suplementos.html" class="btn btn-red btn-lg">Ver catálogo <span class="arr">→</span></a>
+      <a href="https://wa.me/" class="btn btn-outline btn-lg"><span class="dot"></span> WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- FLOATING WHATSAPP -->
+<a class="wa-float" href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.92.5 3.78 1.46 5.43L2 22l4.78-1.55a9.85 9.85 0 0 0 5.26 1.5c5.45 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 17.92c-1.6 0-3.17-.43-4.55-1.24l-.33-.2-3.16 1.02 1.04-3.06-.22-.34a8.05 8.05 0 0 1-1.27-4.31c0-4.5 3.66-8.17 8.17-8.17 4.5 0 8.17 3.66 8.17 8.17.01 4.51-3.66 8.13-8.16 8.13zm4.47-6.13c-.25-.13-1.45-.72-1.68-.8-.22-.08-.39-.13-.55.13-.16.25-.62.79-.76.95-.14.16-.28.18-.52.06-.25-.13-1.04-.38-1.99-1.22-.73-.65-1.23-1.46-1.37-1.71-.14-.25-.02-.39.11-.51.11-.11.25-.28.37-.43.13-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.13-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.41.06-.62.31-.22.25-.83.81-.83 1.98 0 1.17.85 2.29.97 2.45.13.16 1.68 2.56 4.07 3.59.57.25 1.01.39 1.35.5.57.18 1.08.15 1.49.09.45-.07 1.45-.59 1.65-1.16.2-.57.2-1.05.14-1.16-.06-.1-.22-.16-.47-.28z"/></svg>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="wm"><img src="assets/logo-morashop.png" alt="" /> MORASHOP</div>
+        <p>Suplementación deportiva, supermercado y electro-hogar. Distribuidor autorizado en Argentina desde 2018.</p>
+        <div class="mora-mini">
+          <img src="assets/mora.png" alt="" />
+          <span>Mora, nuestra socia mayoritaria</span>
+        </div>
+      </div>
+      <div class="foot-col"><h5>Tienda</h5><ul>
+        <li><a href="suplementos.html">Suplementos</a></li>
+        <li><a href="supermercado.html">Supermercado</a></li>
+        <li><a href="electro.html">Electro-Hogar</a></li>
+        <li><a href="#">Ofertas</a></li>
+      </ul></div>
+      <div class="foot-col"><h5>Información</h5><ul>
+        <li><a href="#">Sobre Morashop</a></li>
+        <li><a href="#">Mayorista</a></li>
+        <li><a href="#">Programa de afiliados</a></li>
+        <li><a href="#">Trabajá con nosotros</a></li>
+      </ul></div>
+      <div class="foot-col"><h5>Soporte</h5><ul>
+        <li><a href="#">Envíos y entregas</a></li>
+        <li><a href="#">Devoluciones</a></li>
+        <li><a href="https://wa.me/">WhatsApp</a></li>
+        <li><a href="#">Centro de ayuda</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-bot">
+      <div>© 2026 Morashop · Hecho con amor por Mora 🐾</div>
+      <div>Términos · Privacidad · Cookies</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Ticker brands (duplicated for seamless loop)
+  const BRANDS = ["Star Nutrition","ENA Sport","Optimum Nutrition","BSN","InnovaNaturals","Universal","Nutrex Research","Gold Nutrition","Body Advance","LeguiLab"];
+  const track = document.getElementById('tickerTrack');
+  const html = BRANDS.map(b => `<span>${b}</span><span class="dot">·</span>`).join('');
+  track.innerHTML = html + html;
+
+  // Search overlay
+  const overlay = document.getElementById('searchOverlay');
+  const input = document.getElementById('searchInput');
+  document.getElementById('searchBtn').addEventListener('click', () => {
+    overlay.classList.add('open'); setTimeout(() => input.focus(), 60);
+  });
+  function closeSearch(){ overlay.classList.remove('open'); input.blur(); }
+  document.getElementById('searchClose').addEventListener('click', closeSearch);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSearch(); });
+
+  // Add to cart bump
+  let count = parseInt(document.getElementById('cartCount').textContent, 10);
+  document.querySelectorAll('[data-add]').forEach(b => {
+    b.addEventListener('click', e => {
+      e.preventDefault(); e.stopPropagation();
+      count += 1;
+      const badge = document.getElementById('cartCount');
+      badge.textContent = count;
+      badge.animate([{transform:'scale(1)'},{transform:'scale(1.4)'},{transform:'scale(1)'}], {duration:280, easing:'ease-out'});
+      const btn = e.currentTarget;
+      btn.textContent = 'Agregado ✓';
+      btn.style.background = 'var(--red)'; btn.style.color = '#fff'; btn.style.borderColor = 'var(--red)';
+      setTimeout(() => {
+        btn.textContent = 'Agregar';
+        btn.style.background = ''; btn.style.color = ''; btn.style.borderColor = '';
+      }, 1400);
+    });
+  });
+</script>
+</body>
+</html>
