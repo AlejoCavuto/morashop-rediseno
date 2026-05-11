@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sobre nosotros · Morashop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink:        #0D1117;
+    --ink-deep:   #080D18;
+    --navy:       #1A2744;
+    --cream:      #E8E0CE;
+    --red:        #E8341A;
+    --red-deep:   #C42710;
+    --green:      #4ADE80;
+    --line:       rgba(232,224,206,0.15);
+    --line-soft:  rgba(232,224,206,0.10);
+    --muted:      rgba(232,224,206,0.55);
+    --font-d: "Barlow Condensed","Arial Narrow",sans-serif;
+    --font-b: "Inter",system-ui,sans-serif;
+    --pad-x: clamp(20px,5vw,96px);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--ink);color:var(--cream)}
+  body{font-family:var(--font-b);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  .container{width:100%;max-width:1440px;margin:0 auto;padding:0 var(--pad-x)}
+  .overline{width:64px;height:3px;background:var(--red);display:block}
+
+  /* BUTTONS */
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:18px 28px;font-family:var(--font-d);font-weight:800;font-size:15px;letter-spacing:0.16em;text-transform:uppercase;border-radius:2px;transition:transform .18s ease, background .18s ease, color .18s ease, border-color .18s ease;white-space:nowrap;cursor:pointer}
+  .btn .arr{transition:transform .2s ease;display:inline-block}
+  .btn:hover .arr{transform:translateX(4px)}
+  .btn-red{background:var(--red);color:#fff}
+  .btn-red:hover{background:var(--red-deep);transform:translateY(-1px)}
+  .btn-outline{border:1.5px solid var(--cream);color:var(--cream)}
+  .btn-outline:hover{background:var(--cream);color:var(--ink)}
+  .btn-sm{padding:12px 18px;font-size:12px}
+  .btn-lg{padding:22px 34px;font-size:16px}
+
+  /* NAV */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:74px}
+  .nav-logo{display:flex;align-items:center;gap:10px}
+  .nav-logo img{height:36px;width:auto}
+  .nav-logo .wm{font-family:var(--font-d);font-weight:900;font-size:22px;letter-spacing:0.02em;color:var(--cream)}
+  .nav-links{display:flex;align-items:center;gap:32px}
+  .nav-links a{font-size:12px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--cream);opacity:0.7;transition:opacity .15s ease}
+  .nav-links a:hover{opacity:1}
+  .nav-actions{display:flex;align-items:center;gap:12px}
+  .icon-btn{width:42px;height:42px;display:grid;place-items:center;border-radius:999px;color:var(--cream);transition:background .15s ease;position:relative}
+  .icon-btn:hover{background:rgba(232,224,206,0.08)}
+  .cart-badge{position:absolute;top:6px;right:6px;background:var(--red);color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;padding:0 4px;border-radius:999px;display:grid;place-items:center}
+  .hamb{display:none}
+
+  /* HERO */
+  .hero{position:relative;min-height:80vh;display:flex;align-items:center;overflow:hidden;padding:64px 0}
+  .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center;width:100%;position:relative;z-index:2}
+  .crumb{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;opacity:0.55;margin-bottom:24px;font-weight:600}
+  .crumb a{transition:opacity .15s ease}
+  .crumb a:hover{opacity:1}
+  .crumb .sep{margin:0 10px;opacity:0.4}
+  .hero h1{font-family:var(--font-d);font-weight:900;font-size:clamp(56px,10vw,148px);line-height:0.86;letter-spacing:-0.02em;text-transform:uppercase;margin:18px 0 28px;color:var(--cream)}
+  .hero .lede{font-size:17px;line-height:1.55;color:var(--cream);opacity:0.7;max-width:520px;margin:0 0 36px}
+  .hero-img-wrap{display:flex;justify-content:center;align-items:center}
+  .hero-img-wrap img{width:min(90%,420px);height:auto;border-radius:50%;background:var(--navy);padding:28px;box-shadow:0 40px 70px -20px rgba(0,0,0,0.7)}
+
+  /* STORY */
+  .story{background:var(--navy);padding:clamp(80px,10vw,140px) 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+  .story-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start}
+  .story-grid h2{font-family:var(--font-d);font-weight:900;font-size:clamp(40px,5vw,80px);line-height:0.9;letter-spacing:-0.015em;text-transform:uppercase;color:var(--cream);margin:18px 0 0}
+  .story-copy p{font-size:16px;line-height:1.65;color:var(--cream);opacity:0.78;margin:0 0 20px;max-width:680px}
+  .story-copy p:last-child{margin-bottom:0}
+  .story-copy strong{color:var(--cream);opacity:1;font-weight:600}
+
+  /* VALUES */
+  .vals{background:var(--ink);padding:clamp(80px,10vw,140px) 0}
+  .vals-head{margin-bottom:64px;max-width:760px}
+  .vals-head h2{font-family:var(--font-d);font-weight:900;font-size:clamp(40px,5vw,80px);line-height:0.9;letter-spacing:-0.015em;text-transform:uppercase;color:var(--cream);margin:18px 0 0}
+  .vals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .val{background:rgba(26,39,68,0.4);border:1px solid var(--line);padding:40px 32px;display:flex;flex-direction:column;gap:14px;transition:transform .25s ease, border-color .2s ease}
+  .val:hover{transform:translateY(-3px);border-color:rgba(232,224,206,0.3)}
+  .val .n{font-family:var(--font-d);font-weight:900;font-size:14px;letter-spacing:0.2em;opacity:0.45;color:var(--cream)}
+  .val h3{font-family:var(--font-d);font-weight:900;font-size:clamp(28px,3vw,40px);line-height:1;letter-spacing:-0.005em;text-transform:uppercase;color:var(--cream);margin:0}
+  .val p{font-size:14px;line-height:1.55;color:var(--cream);opacity:0.65;margin:0}
+
+  /* BRANDS BAND */
+  .brands{background:var(--navy);padding:clamp(80px,10vw,120px) 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+  .brands-head{margin-bottom:48px}
+  .brands-head h2{font-family:var(--font-d);font-weight:900;font-size:clamp(36px,5vw,72px);line-height:0.9;letter-spacing:-0.01em;text-transform:uppercase;color:var(--cream);margin:18px 0 12px}
+  .brands-head p{font-size:14px;opacity:0.6;max-width:520px;margin:0}
+  .brand-list{display:flex;flex-wrap:wrap;gap:10px 14px}
+  .brand-list span{font-family:var(--font-d);font-weight:800;font-size:clamp(18px,2.2vw,26px);letter-spacing:0.02em;text-transform:uppercase;color:var(--cream);padding:14px 20px;border:1px solid var(--line);border-radius:2px;transition:border-color .15s ease, background .15s ease}
+  .brand-list span:hover{border-color:rgba(232,224,206,0.45);background:rgba(232,224,206,0.04)}
+
+  /* FINAL CTA */
+  .final{background:var(--ink);padding:clamp(120px,16vw,200px) 0;text-align:center;border-top:1px solid var(--line-soft)}
+  .final .ov{width:80px;height:3px;background:var(--red);margin:0 auto 28px}
+  .final h2{font-family:var(--font-d);font-weight:900;font-size:clamp(48px,8vw,128px);line-height:0.86;letter-spacing:-0.02em;text-transform:uppercase;color:var(--cream);margin:0 auto 24px;max-width:16ch}
+  .final p{font-size:16px;color:var(--cream);opacity:0.65;max-width:540px;margin:0 auto 40px}
+  .final .ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .dot{width:8px;height:8px;background:var(--green);border-radius:999px;box-shadow:0 0 0 4px rgba(74,222,128,0.22);animation:pulse 1.8s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(74,222,128,0.22)}50%{box-shadow:0 0 0 8px rgba(74,222,128,0)}}
+
+  /* FLOATING WHATSAPP */
+  .wa-float{position:fixed;right:24px;bottom:24px;width:56px;height:56px;border-radius:999px;background:#25D366;color:#fff;display:grid;place-items:center;z-index:80;box-shadow:0 10px 24px -6px rgba(0,0,0,0.45),0 4px 10px rgba(0,0,0,0.25);transition:transform .2s ease, box-shadow .2s ease}
+  .wa-float:hover{transform:scale(1.08);box-shadow:0 14px 28px -6px rgba(0,0,0,0.5),0 6px 12px rgba(0,0,0,0.3)}
+  .wa-float svg{width:30px;height:30px;display:block}
+
+  /* FOOTER */
+  footer{background:var(--ink-deep);color:var(--cream);padding:72px 0 32px}
+  .foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;padding-bottom:56px;border-bottom:1px solid var(--line-soft)}
+  .foot-brand .wm{font-family:var(--font-d);font-weight:900;font-size:26px;letter-spacing:0.02em;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+  .foot-brand .wm img{height:34px;width:auto}
+  .foot-brand p{font-size:13px;line-height:1.6;opacity:0.6;max-width:320px;margin:0 0 20px}
+  .foot h5{font-family:var(--font-d);font-weight:800;font-size:13px;letter-spacing:0.2em;text-transform:uppercase;color:var(--cream);opacity:0.5;margin:0 0 18px}
+  .foot-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+  .foot-col a{font-size:13px;opacity:0.75;transition:opacity .15s ease}
+  .foot-col a:hover{opacity:1}
+  .foot-bot{padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-size:12px;opacity:0.55;letter-spacing:0.04em}
+
+  /* RESPONSIVE */
+  @media (max-width:1024px){
+    .hero{min-height:auto;padding:48px 0 64px}
+    .hero-grid{grid-template-columns:1fr;gap:32px}
+    .hero-img-wrap{order:-1}
+    .hero-img-wrap img{width:min(70%,300px);padding:18px}
+    .hero h1{font-size:clamp(44px,10vw,68px)}
+    .story-grid{grid-template-columns:1fr;gap:32px}
+    .vals-grid{grid-template-columns:1fr;gap:12px}
+  }
+  @media (max-width:768px){
+    .nav-links{display:none}
+    .hamb{display:grid}
+    .nav-actions .btn{display:none}
+    .foot-top{grid-template-columns:1fr 1fr;gap:32px}
+    .foot-brand{grid-column:span 2}
+    .wa-float{right:16px;bottom:16px}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/logo-morashop.png" alt="Morashop" />
+      <span class="wm">MORASHOP</span>
+    </a>
+    <div class="nav-links">
+      <a href="suplementos.html">Suplementos</a>
+      <a href="supermercado.html">Supermercado</a>
+      <a href="electro.html">Electro-Hogar</a>
+      <a href="sobre-nosotros.html" style="opacity:1;">Sobre nosotros</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" aria-label="Carrito">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+        <span class="cart-badge">2</span>
+      </button>
+      <a href="suplementos.html" class="btn btn-red btn-sm">Ver catálogo <span class="arr">→</span></a>
+      <button class="icon-btn hamb" aria-label="Menú">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="crumb"><a href="index.html">Inicio</a><span class="sep">/</span><span>Sobre nosotros</span></div>
+      <span class="overline"></span>
+      <h1>El nombre<br/>viene de<br/>Mora.</h1>
+      <p class="lede">El nombre viene de Mora, la perra de la familia. Lo demás es suplementos.</p>
+      <a href="suplementos.html" class="btn btn-red btn-lg">Ver catálogo <span class="arr">→</span></a>
+    </div>
+    <div class="hero-img-wrap">
+      <img src="assets/mora.png" alt="Mora, la perra labradora que dio nombre a Morashop" />
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story">
+  <div class="container">
+    <div class="story-grid">
+      <div>
+        <span class="overline"></span>
+        <h2>Quiénes<br/>somos.</h2>
+      </div>
+      <div class="story-copy">
+        <p>Morashop es un <strong>e-commerce argentino</strong> dedicado a la suplementación deportiva, el supermercado fit y el electro-hogar para entrenar. Trabajamos como distribuidor autorizado de las marcas más respetadas del país.</p>
+        <p>Operamos desde <strong>Buenos Aires</strong> con stock real, despacho propio y atención humana por WhatsApp. Si pediste antes de las 10 hs en GBA o CABA, tu compra sale el mismo día. Para el resto del país enviamos por OCA y Andreani, con entrega en 24-72 horas hábiles.</p>
+        <p>No vendemos lo que no tenemos. No inventamos descuentos. <strong>El mejor precio siempre</strong> — y si lo encontrás más barato en otro lado, decinos y lo igualamos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="vals">
+  <div class="container">
+    <div class="vals-head">
+      <span class="overline"></span>
+      <h2>Cómo<br/>trabajamos.</h2>
+    </div>
+    <div class="vals-grid">
+      <div class="val">
+        <div class="n">— 01</div>
+        <h3>Producto<br/>original</h3>
+        <p>Somos distribuidores autorizados. Todo lo que vendemos viene con factura, vencimientos vigentes y trazabilidad. Sin imitaciones, sin "réplicas", sin trampa.</p>
+      </div>
+      <div class="val">
+        <div class="n">— 02</div>
+        <h3>Stock real,<br/>despacho hoy</h3>
+        <p>Si lo ves en la web, está en el depósito. Pedidos antes de las 10 hs salen el mismo día en GBA y CABA. El resto del país por OCA y Andreani.</p>
+      </div>
+      <div class="val">
+        <div class="n">— 03</div>
+        <h3>Atención<br/>humana</h3>
+        <p>WhatsApp directo con el equipo de Morashop. Sin bots, sin formularios, sin esperar 48 horas para una respuesta. Hablás con quien te despacha.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section class="brands">
+  <div class="container">
+    <div class="brands-head">
+      <span class="overline"></span>
+      <h2>Marcas que<br/>distribuimos.</h2>
+      <p>Trabajamos directo con las marcas. Todas las que ves acá son distribución oficial autorizada en Argentina.</p>
+    </div>
+    <div class="brand-list">
+      <span>Star Nutrition</span>
+      <span>ENA Sport</span>
+      <span>Optimum Nutrition</span>
+      <span>BSN</span>
+      <span>InnovaNaturals</span>
+      <span>Universal</span>
+      <span>Nutrex Research</span>
+      <span>Gold Nutrition</span>
+      <span>Body Advance</span>
+      <span>LeguiLab</span>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="container">
+    <div class="ov"></div>
+    <h2>Tu próxima<br/>compra empieza<br/>acá.</h2>
+    <p>Suplementos originales, envío en el día y atención humana por WhatsApp. Sin trampas.</p>
+    <div class="ctas">
+      <a href="suplementos.html" class="btn btn-red btn-lg">Ver catálogo <span class="arr">→</span></a>
+      <a href="https://wa.me/" class="btn btn-outline btn-lg"><span class="dot"></span> WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- FLOATING WHATSAPP -->
+<a class="wa-float" href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.92.5 3.78 1.46 5.43L2 22l4.78-1.55a9.85 9.85 0 0 0 5.26 1.5c5.45 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 17.92c-1.6 0-3.17-.43-4.55-1.24l-.33-.2-3.16 1.02 1.04-3.06-.22-.34a8.05 8.05 0 0 1-1.27-4.31c0-4.5 3.66-8.17 8.17-8.17 4.5 0 8.17 3.66 8.17 8.17.01 4.51-3.66 8.13-8.16 8.13zm4.47-6.13c-.25-.13-1.45-.72-1.68-.8-.22-.08-.39-.13-.55.13-.16.25-.62.79-.76.95-.14.16-.28.18-.52.06-.25-.13-1.04-.38-1.99-1.22-.73-.65-1.23-1.46-1.37-1.71-.14-.25-.02-.39.11-.51.11-.11.25-.28.37-.43.13-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.13-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.41.06-.62.31-.22.25-.83.81-.83 1.98 0 1.17.85 2.29.97 2.45.13.16 1.68 2.56 4.07 3.59.57.25 1.01.39 1.35.5.57.18 1.08.15 1.49.09.45-.07 1.45-.59 1.65-1.16.2-.57.2-1.05.14-1.16-.06-.1-.22-.16-.47-.28z"/></svg>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="wm"><img src="assets/logo-morashop.png" alt="" /> MORASHOP</div>
+        <p>Suplementación deportiva, supermercado y electro-hogar. Distribuidor autorizado en Argentina desde 2018.</p>
+      </div>
+      <div class="foot-col"><h5>Tienda</h5><ul>
+        <li><a href="suplementos.html">Suplementos</a></li>
+        <li><a href="supermercado.html">Supermercado</a></li>
+        <li><a href="electro.html">Electro-Hogar</a></li>
+        <li><a href="#">Ofertas</a></li>
+      </ul></div>
+      <div class="foot-col"><h5>Información</h5><ul>
+        <li><a href="sobre-nosotros.html">Sobre Morashop</a></li>
+        <li><a href="#">Mayorista</a></li>
+        <li><a href="#">Programa de afiliados</a></li>
+        <li><a href="#">Trabajá con nosotros</a></li>
+      </ul></div>
+      <div class="foot-col"><h5>Soporte</h5><ul>
+        <li><a href="#">Envíos y entregas</a></li>
+        <li><a href="#">Devoluciones</a></li>
+        <li><a href="https://wa.me/">WhatsApp</a></li>
+        <li><a href="#">Centro de ayuda</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-bot">
+      <div>© 2026 Morashop · Suplementación deportiva en Argentina</div>
+      <div>Términos · Privacidad · Cookies</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
