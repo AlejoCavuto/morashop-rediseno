@@ -200,6 +200,44 @@
   .foot-col a:hover{opacity:1}
   .foot-bot{padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-size:12px;opacity:0.55;letter-spacing:0.04em}
 
+  /* ---------- SEARCH DROPDOWN (live results) ---------- */
+  .search-overlay{padding:24px 0 0}
+  .search-overlay.open{padding-bottom:0}
+  .search-results{max-height:calc(100vh - 140px);overflow-y:auto;border-top:1px solid var(--line-soft);margin-top:18px}
+  .search-results:empty{display:none}
+  .sr-empty{padding:48px 0;text-align:center;font-size:14px;letter-spacing:0.12em;text-transform:uppercase;opacity:0.45;font-weight:600}
+  .sr-item{display:flex;align-items:center;gap:18px;padding:14px 0;border-bottom:1px solid var(--line-soft);transition:background .15s ease, padding .15s ease}
+  .sr-item:hover{background:rgba(232,224,206,0.04);padding-left:8px;padding-right:8px}
+  .sr-img{width:56px;height:56px;background:var(--navy);border-radius:2px;display:grid;place-items:center;flex-shrink:0;overflow:hidden}
+  .sr-img img{max-width:80%;max-height:80%;object-fit:contain}
+  .sr-meta{flex:1;min-width:0}
+  .sr-brand{font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;opacity:0.55;margin-bottom:4px}
+  .sr-name{font-family:var(--font-d);font-weight:700;font-size:17px;letter-spacing:0.005em;text-transform:uppercase;color:var(--cream);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sr-price{font-family:var(--font-d);font-weight:900;font-size:18px;color:var(--cream);flex-shrink:0;margin-left:12px}
+
+  /* ---------- CAROUSEL (sort pills + scroll-snap) ---------- */
+  .carrusel{padding:clamp(80px,10vw,140px) 0;background:var(--ink)}
+  .carrusel-head{margin-bottom:32px;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+  .carrusel-head h2{font-family:var(--font-d);font-weight:900;font-size:clamp(44px,6vw,96px);line-height:0.9;letter-spacing:-0.015em;text-transform:uppercase;color:var(--cream);margin:18px 0 0}
+  .sort-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+  .sort-pill{padding:10px 18px;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;border:1px solid var(--line);color:var(--cream);background:transparent;border-radius:999px;transition:background .15s ease, color .15s ease, border-color .15s ease;font-family:var(--font-b);cursor:pointer}
+  .sort-pill:hover{border-color:rgba(232,224,206,0.45)}
+  .sort-pill.active{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+  .carrusel-wrap{position:relative}
+  .carrusel-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:8px;scroll-padding:0 var(--pad-x)}
+  .carrusel-track::-webkit-scrollbar{display:none}
+  .carrusel-track .pcard{flex:0 0 clamp(240px,28vw,320px);scroll-snap-align:start;display:flex;flex-direction:column;min-height:420px}
+  .carrusel-track .pcard .ph{min-height:240px}
+  .carrusel-arrows{display:flex;gap:8px;margin-top:18px;justify-content:flex-end}
+  .carrusel-arrow{width:46px;height:46px;display:grid;place-items:center;border:1px solid var(--line);border-radius:999px;color:var(--cream);background:transparent;transition:border-color .15s ease, background .15s ease;cursor:pointer}
+  .carrusel-arrow:hover{border-color:var(--cream);background:rgba(232,224,206,0.06)}
+  .carrusel-arrow[disabled]{opacity:0.3;cursor:not-allowed}
+  @media (max-width:768px){
+    .carrusel-arrows{display:none}
+    .carrusel-track{padding:0 var(--pad-x) 8px;margin:0 calc(var(--pad-x) * -1)}
+    .carrusel-track .pcard{flex-basis:78vw}
+  }
+
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:1024px){
     .hero{min-height:auto;padding:32px 0 56px;display:block}
@@ -273,9 +311,12 @@
 
 <!-- SEARCH OVERLAY -->
 <div class="search-overlay" id="searchOverlay">
-  <div class="container search-row">
-    <input id="searchInput" type="text" placeholder="Buscar suplementos, marcas, productos…" />
-    <button class="close" id="searchClose">Cerrar · Esc</button>
+  <div class="container">
+    <div class="search-row">
+      <input id="searchInput" type="text" placeholder="Buscar suplementos, marcas, productos…" autocomplete="off" />
+      <button class="close" id="searchClose">Cerrar · Esc</button>
+    </div>
+    <div class="search-results" id="searchResults" role="listbox" aria-label="Resultados de búsqueda"></div>
   </div>
 </div>
 
@@ -328,81 +369,62 @@
   <div class="ticker-track" id="tickerTrack"></div>
 </section>
 
-<!-- FEATURED -->
-<section class="feat" data-screen-label="Destacados">
+<!-- CARRUSEL: MÁS VENDIDOS -->
+<section class="carrusel" data-screen-label="Mas Vendidos" id="masVendidos">
   <div class="container">
-    <div class="feat-head">
+    <div class="carrusel-head">
       <div>
         <span class="overline"></span>
         <h2>Lo más<br/>vendido.</h2>
       </div>
       <a href="suplementos.html" class="btn btn-outline btn-sm">Ver todos <span class="arr">→</span></a>
     </div>
+    <div class="sort-pills" data-pills-for="bestTrack">
+      <button class="sort-pill active" data-sort="bestseller">Más vendidos</button>
+      <button class="sort-pill" data-sort="price-asc">Menor precio</button>
+      <button class="sort-pill" data-sort="price-desc">Mayor precio</button>
+      <button class="sort-pill" data-sort="new">Novedades</button>
+    </div>
+    <div class="carrusel-wrap">
+      <div class="carrusel-track" id="bestTrack" data-pool="bestsellers"></div>
+      <div class="carrusel-arrows">
+        <button class="carrusel-arrow" data-scroll="bestTrack" data-dir="-1" aria-label="Anterior">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="carrusel-arrow" data-scroll="bestTrack" data-dir="1" aria-label="Siguiente">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <div class="feat-grid">
-      <article class="pcard big">
-        <span class="tag sale">Más vendido</span>
-        <div class="ph"><img src="assets/products/whey-star-choc.png" alt="Whey Protein" /></div>
-        <div class="info">
-          <div class="brand">Star Nutrition</div>
-          <div class="name">Whey Protein Chocolate</div>
-          <div class="row">
-            <div class="price">$ 21.900<small>$ 25.900</small></div>
-            <button class="pcard-btn" data-add>Agregar</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="pcard">
-        <span class="tag">Nuevo</span>
-        <div class="ph"><img src="assets/products/amino-energy-sparkling.png" alt="Amino Energy" /></div>
-        <div class="info">
-          <div class="brand">Optimum Nutrition</div>
-          <div class="name">Amino Energy + Electrolytes</div>
-          <div class="row">
-            <div class="price">$ 17.900</div>
-            <button class="pcard-btn" data-add>Agregar</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="pcard">
-        <span class="tag sale">-20%</span>
-        <div class="ph"><img src="assets/products/creatina-ena-doypack.png" alt="Creatina ENA" /></div>
-        <div class="info">
-          <div class="brand">ENA Sport</div>
-          <div class="name">Creatina Monohidrato 300 g</div>
-          <div class="row">
-            <div class="price">$ 9.900<small>$ 12.500</small></div>
-            <button class="pcard-btn" data-add>Agregar</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="pcard">
-        <div class="ph"><img src="assets/products/omega3-innova-max.png" alt="Omega 3" /></div>
-        <div class="info">
-          <div class="brand">InnovaNaturals</div>
-          <div class="name">Omega 3 Max · 60 cáps</div>
-          <div class="row">
-            <div class="price">$ 12.400</div>
-            <button class="pcard-btn" data-add>Agregar</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="pcard">
-        <span class="tag">Stock</span>
-        <div class="ph"><img src="assets/products/whey-star-choc.png" alt="Whey vainilla" /></div>
-        <div class="info">
-          <div class="brand">Star Nutrition</div>
-          <div class="name">Whey Protein Vainilla</div>
-          <div class="row">
-            <div class="price">$ 21.900</div>
-            <button class="pcard-btn" data-add>Agregar</button>
-          </div>
-        </div>
-      </article>
+<!-- CARRUSEL: NOVEDADES -->
+<section class="carrusel" data-screen-label="Novedades" id="novedades" style="padding-top:0;">
+  <div class="container">
+    <div class="carrusel-head">
+      <div>
+        <span class="overline"></span>
+        <h2>Recién<br/>llegados.</h2>
+      </div>
+      <a href="suplementos.html" class="btn btn-outline btn-sm">Ver todos <span class="arr">→</span></a>
+    </div>
+    <div class="sort-pills" data-pills-for="newTrack">
+      <button class="sort-pill active" data-sort="new">Novedades</button>
+      <button class="sort-pill" data-sort="bestseller">Más vendidos</button>
+      <button class="sort-pill" data-sort="price-asc">Menor precio</button>
+      <button class="sort-pill" data-sort="price-desc">Mayor precio</button>
+    </div>
+    <div class="carrusel-wrap">
+      <div class="carrusel-track" id="newTrack" data-pool="novedades"></div>
+      <div class="carrusel-arrows">
+        <button class="carrusel-arrow" data-scroll="newTrack" data-dir="-1" aria-label="Anterior">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="carrusel-arrow" data-scroll="newTrack" data-dir="1" aria-label="Siguiente">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
     </div>
   </div>
 </section>
@@ -564,15 +586,142 @@
 </footer>
 
 <script>
-  // Ticker brands (duplicated for seamless loop)
-  const BRANDS = ["Star Nutrition","ENA Sport","Optimum Nutrition","BSN","InnovaNaturals","Universal","Nutrex Research","Gold Nutrition","Body Advance","LeguiLab"];
-  const track = document.getElementById('tickerTrack');
-  const html = BRANDS.map(b => `<span>${b}</span><span class="dot">·</span>`).join('');
-  track.innerHTML = html + html;
+  // ---------- CATALOG (single source of truth) ----------
+  // sales: rough ranking for "bestseller" sort (higher = más vendido)
+  // newAt: ISO date for "novedades" sort (más reciente primero)
+  const CATALOG = [
+    { id:'whey-star-choc',     brand:'Star Nutrition',     name:'Whey Protein Chocolate 2 lb',  price:21900, oldPrice:25900, tag:'Más vendido', tagKind:'sale', img:'assets/products/whey-star-choc.png',         sales:98, newAt:'2025-08-10' },
+    { id:'amino-energy-spk',   brand:'Optimum Nutrition',  name:'Amino Energy + Electrolytes',  price:17900, oldPrice:null,  tag:'Nuevo',       tagKind:'',     img:'assets/products/amino-energy-sparkling.png', sales:74, newAt:'2026-03-22' },
+    { id:'creatina-ena',       brand:'ENA Sport',          name:'Creatina Monohidrato 300 g',   price:9900,  oldPrice:12500, tag:'-20%',        tagKind:'sale', img:'assets/products/creatina-ena-doypack.png',   sales:91, newAt:'2025-06-04' },
+    { id:'omega-innova',       brand:'InnovaNaturals',     name:'Omega 3 Max · 60 cáps',        price:12400, oldPrice:null,  tag:'',            tagKind:'',     img:'assets/products/omega3-innova-max.png',      sales:62, newAt:'2025-11-18' },
+    { id:'whey-star-van',      brand:'Star Nutrition',     name:'Whey Protein Vainilla 2 lb',   price:21900, oldPrice:null,  tag:'Stock',       tagKind:'',     img:'assets/products/whey-star-choc.png',         sales:80, newAt:'2025-09-02' },
+    { id:'amino-energy',       brand:'Optimum Nutrition',  name:'Essential Amino Energy 270 g', price:16500, oldPrice:19800, tag:'-15%',        tagKind:'sale', img:'assets/products/amino-energy.png',           sales:55, newAt:'2025-05-12' },
+    { id:'creatina-ena-300',   brand:'ENA Sport',          name:'Creatina ENA Pote 300 g',      price:10900, oldPrice:null,  tag:'',            tagKind:'',     img:'assets/products/creatina-ena.png',           sales:48, newAt:'2025-10-05' },
+    { id:'omega-innova-std',   brand:'InnovaNaturals',     name:'Omega 3 · 30 cáps',            price:7900,  oldPrice:null,  tag:'Nuevo',       tagKind:'',     img:'assets/products/omega3-innova.png',          sales:38, newAt:'2026-02-08' },
+  ];
 
-  // Search overlay
+  const POOLS = {
+    bestsellers: CATALOG.map(p => p.id),
+    novedades:   ['amino-energy-spk','omega-innova-std','omega-innova','creatina-ena-300','whey-star-van','whey-star-choc','amino-energy','creatina-ena'],
+  };
+
+  const SORTERS = {
+    'bestseller': (a,b) => b.sales - a.sales,
+    'price-asc':  (a,b) => a.price - b.price,
+    'price-desc': (a,b) => b.price - a.price,
+    'new':        (a,b) => new Date(b.newAt) - new Date(a.newAt),
+  };
+
+  const formatARS = n => '$ ' + n.toLocaleString('es-AR');
+
+  function cardHTML(p){
+    const tag = p.tag ? `<span class="tag ${p.tagKind}">${p.tag}</span>` : '';
+    const old = p.oldPrice ? `<small>${formatARS(p.oldPrice)}</small>` : '';
+    return `<article class="pcard" data-id="${p.id}">
+      ${tag}
+      <div class="ph"><img src="${p.img}" alt="${p.name}" loading="lazy" /></div>
+      <div class="info">
+        <div class="brand">${p.brand}</div>
+        <div class="name">${p.name}</div>
+        <div class="row">
+          <div class="price">${formatARS(p.price)}${old}</div>
+          <button class="pcard-btn" data-add>Agregar</button>
+        </div>
+      </div>
+    </article>`;
+  }
+
+  function renderTrack(trackId, sortKey){
+    const track = document.getElementById(trackId);
+    if (!track) return;
+    const poolKey = track.dataset.pool;
+    const ids = POOLS[poolKey];
+    const products = ids.map(id => CATALOG.find(p => p.id === id)).filter(Boolean);
+    products.sort(SORTERS[sortKey] || SORTERS.bestseller);
+    track.innerHTML = products.map(cardHTML).join('');
+    bindAddButtons(track);
+    track.scrollTo({left:0, behavior:'instant' in track ? 'instant' : 'auto'});
+    updateArrows(trackId);
+  }
+
+  // Pills (sort)
+  document.querySelectorAll('.sort-pills').forEach(group => {
+    const targetId = group.dataset.pillsFor;
+    group.addEventListener('click', e => {
+      const btn = e.target.closest('.sort-pill');
+      if (!btn) return;
+      group.querySelectorAll('.sort-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      renderTrack(targetId, btn.dataset.sort);
+    });
+  });
+
+  // Arrows
+  function updateArrows(trackId){
+    const track = document.getElementById(trackId);
+    document.querySelectorAll(`[data-scroll="${trackId}"]`).forEach(btn => {
+      const dir = parseInt(btn.dataset.dir, 10);
+      const atStart = track.scrollLeft <= 4;
+      const atEnd   = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+      btn.disabled = (dir < 0 && atStart) || (dir > 0 && atEnd);
+    });
+  }
+  document.querySelectorAll('.carrusel-arrow').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const track = document.getElementById(btn.dataset.scroll);
+      const dir = parseInt(btn.dataset.dir, 10);
+      const step = track.clientWidth * 0.85;
+      track.scrollBy({left: dir * step, behavior:'smooth'});
+    });
+  });
+  document.querySelectorAll('.carrusel-track').forEach(track => {
+    track.addEventListener('scroll', () => updateArrows(track.id), {passive:true});
+  });
+
+  // Initial render
+  renderTrack('bestTrack', 'bestseller');
+  renderTrack('newTrack',  'new');
+
+  // ---------- TICKER ----------
+  const BRANDS = ["Star Nutrition","ENA Sport","Optimum Nutrition","BSN","InnovaNaturals","Universal","Nutrex Research","Gold Nutrition","Body Advance","LeguiLab"];
+  const tickerTrack = document.getElementById('tickerTrack');
+  const tickerHTML = BRANDS.map(b => `<span>${b}</span><span class="dot">·</span>`).join('');
+  tickerTrack.innerHTML = tickerHTML + tickerHTML;
+
+  // ---------- SEARCH (live dropdown) ----------
   const overlay = document.getElementById('searchOverlay');
   const input = document.getElementById('searchInput');
+  const results = document.getElementById('searchResults');
+
+  function searchFilter(q){
+    q = q.trim().toLowerCase();
+    if (!q) return [];
+    const terms = q.split(/\s+/);
+    return CATALOG.filter(p => {
+      const hay = (p.brand + ' ' + p.name).toLowerCase();
+      return terms.every(t => hay.includes(t));
+    }).slice(0, 8);
+  }
+  function renderResults(){
+    const q = input.value;
+    if (!q.trim()) { results.innerHTML = ''; return; }
+    const matches = searchFilter(q);
+    if (!matches.length) {
+      results.innerHTML = `<div class="sr-empty">Sin resultados para "${q}"</div>`;
+      return;
+    }
+    results.innerHTML = matches.map(p => `
+      <a href="suplementos.html#${p.id}" class="sr-item" role="option">
+        <div class="sr-img"><img src="${p.img}" alt="" loading="lazy" /></div>
+        <div class="sr-meta">
+          <div class="sr-brand">${p.brand}</div>
+          <div class="sr-name">${p.name}</div>
+        </div>
+        <div class="sr-price">${formatARS(p.price)}</div>
+      </a>
+    `).join('');
+  }
+  input.addEventListener('input', renderResults);
   document.getElementById('searchBtn').addEventListener('click', () => {
     overlay.classList.add('open'); setTimeout(() => input.focus(), 60);
   });
@@ -580,24 +729,30 @@
   document.getElementById('searchClose').addEventListener('click', closeSearch);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSearch(); });
 
-  // Add to cart bump
-  let count = parseInt(document.getElementById('cartCount').textContent, 10);
-  document.querySelectorAll('[data-add]').forEach(b => {
-    b.addEventListener('click', e => {
-      e.preventDefault(); e.stopPropagation();
-      count += 1;
-      const badge = document.getElementById('cartCount');
-      badge.textContent = count;
-      badge.animate([{transform:'scale(1)'},{transform:'scale(1.4)'},{transform:'scale(1)'}], {duration:280, easing:'ease-out'});
-      const btn = e.currentTarget;
-      btn.textContent = 'Agregado ✓';
-      btn.style.background = 'var(--red)'; btn.style.color = '#fff'; btn.style.borderColor = 'var(--red)';
-      setTimeout(() => {
-        btn.textContent = 'Agregar';
-        btn.style.background = ''; btn.style.color = ''; btn.style.borderColor = '';
-      }, 1400);
+  // ---------- ADD-TO-CART ----------
+  let cartCount = parseInt(document.getElementById('cartCount').textContent, 10);
+  function bindAddButtons(scope){
+    scope.querySelectorAll('[data-add]').forEach(b => {
+      if (b._bound) return;
+      b._bound = true;
+      b.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        cartCount += 1;
+        const badge = document.getElementById('cartCount');
+        badge.textContent = cartCount;
+        badge.animate([{transform:'scale(1)'},{transform:'scale(1.4)'},{transform:'scale(1)'}], {duration:280, easing:'ease-out'});
+        const btn = e.currentTarget;
+        const original = btn.textContent;
+        btn.textContent = 'Agregado ✓';
+        btn.style.background = 'var(--red)'; btn.style.color = '#fff'; btn.style.borderColor = 'var(--red)';
+        setTimeout(() => {
+          btn.textContent = original.includes('Agregado') ? 'Agregar' : original;
+          btn.style.background = ''; btn.style.color = ''; btn.style.borderColor = '';
+        }, 1400);
+      });
     });
-  });
+  }
+  bindAddButtons(document);
 </script>
 </body>
 </html>
