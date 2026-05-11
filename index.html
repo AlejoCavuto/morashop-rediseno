@@ -238,6 +238,85 @@
     .carrusel-track .pcard{flex-basis:78vw}
   }
 
+  /* ---------- QUIZ ENTRY BLOCK ---------- */
+  .quiz-entry{background:var(--navy);padding:clamp(60px,8vw,110px) 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);position:relative;overflow:hidden}
+  .quiz-entry-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center;position:relative;z-index:2}
+  .quiz-entry .eyebrow{font-size:11px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--cream);opacity:0.55;margin-bottom:18px;display:block}
+  .quiz-entry h2{font-family:var(--font-d);font-weight:900;font-size:clamp(40px,5.5vw,80px);line-height:0.9;letter-spacing:-0.015em;text-transform:uppercase;color:var(--cream);margin:0 0 18px}
+  .quiz-entry p.sub{font-size:16px;line-height:1.55;color:var(--cream);opacity:0.7;max-width:480px;margin:0 0 32px}
+  .quiz-entry .qbtn{padding:18px 28px;font-family:var(--font-d);font-weight:800;font-size:14px;letter-spacing:0.16em;text-transform:uppercase;border:1.5px solid var(--cream);color:var(--cream);background:transparent;border-radius:2px;display:inline-flex;align-items:center;gap:12px;transition:background .18s ease, color .18s ease, transform .18s ease}
+  .quiz-entry .qbtn:hover{background:var(--cream);color:var(--ink);transform:translateY(-1px)}
+  .quiz-entry .qbtn .arr{transition:transform .2s ease}
+  .quiz-entry .qbtn:hover .arr{transform:translateX(4px)}
+  .quiz-entry-deco{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center;opacity:0.5}
+  .quiz-entry-deco::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg, transparent 0%, var(--navy) 92%);pointer-events:none}
+  .quiz-entry-deco .qpic{aspect-ratio:1/1;background:rgba(13,17,23,0.45);border:1px solid var(--line-soft);display:grid;place-items:center;padding:18px}
+  .quiz-entry-deco .qpic img{max-width:75%;max-height:75%;object-fit:contain;filter:drop-shadow(0 14px 22px rgba(0,0,0,0.5))}
+  .quiz-entry-deco .qpic:nth-child(2){transform:translateY(24px)}
+
+  /* ---------- QUIZ MODAL ---------- */
+  .quiz-modal{position:fixed;inset:0;z-index:100;background:rgba(13,17,23,0.97);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;overflow-y:auto}
+  .quiz-modal.open{display:block;animation:qm-in .35s cubic-bezier(.2,.7,.2,1)}
+  @keyframes qm-in{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+  body.quiz-locked{overflow:hidden}
+  .qm-progress{position:sticky;top:0;left:0;right:0;height:3px;background:rgba(232,224,206,0.08);z-index:2}
+  .qm-progress-bar{height:100%;background:var(--red);width:33%;transition:width .35s ease}
+  .qm-bar{display:flex;align-items:center;justify-content:space-between;padding:22px var(--pad-x);max-width:1440px;margin:0 auto;width:100%;position:sticky;top:3px;background:rgba(13,17,23,0.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:2}
+  .qm-back{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--cream);opacity:0.55;transition:opacity .15s ease;font-family:var(--font-b);visibility:hidden;background:transparent;border:0;cursor:pointer}
+  .qm-back.show{visibility:visible}
+  .qm-back:hover{opacity:1}
+  .qm-step-label{font-size:11px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--cream);opacity:0.4}
+  .qm-close{width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--line);border-radius:999px;color:var(--cream);background:transparent;transition:border-color .15s ease, background .15s ease;cursor:pointer}
+  .qm-close:hover{border-color:var(--cream);background:rgba(232,224,206,0.06)}
+  .qm-stage{max-width:1100px;margin:0 auto;padding:clamp(40px,8vw,80px) var(--pad-x) 80px}
+  .qm-step{display:none}
+  .qm-step.active{display:block;animation:qm-step-in .3s ease}
+  @keyframes qm-step-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .qm-step h2{font-family:var(--font-d);font-weight:900;font-size:clamp(36px,6vw,84px);line-height:0.9;letter-spacing:-0.015em;text-transform:uppercase;color:var(--cream);margin:0 0 12px;max-width:18ch}
+  .qm-step .qm-sub{font-size:15px;color:var(--cream);opacity:0.6;margin:0 0 48px;max-width:480px}
+  .qm-options{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .qm-options.three{grid-template-columns:repeat(3,1fr)}
+  .qm-opt{background:rgba(26,39,68,0.25);border:1.5px solid rgba(232,224,206,0.2);padding:clamp(28px,4vw,44px) clamp(22px,3vw,32px);min-height:160px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;text-align:left;cursor:pointer;transition:border-color .2s ease, background .2s ease, transform .15s ease;font-family:var(--font-d);font-weight:800;font-size:clamp(22px,2.4vw,30px);line-height:1.05;letter-spacing:0.005em;text-transform:uppercase;color:var(--cream);border-radius:2px}
+  .qm-opt:hover{border-color:rgba(232,224,206,0.5);background:rgba(26,39,68,0.45);transform:translateY(-2px)}
+  .qm-opt.selected{border-color:var(--red);background:rgba(232,52,26,0.08)}
+  .qm-opt .qm-opt-num{font-family:var(--font-d);font-weight:900;font-size:13px;letter-spacing:0.2em;opacity:0.45;font-weight:700}
+  .qm-opt .qm-opt-arrow{align-self:flex-end;opacity:0.5;transition:opacity .2s ease, transform .2s ease}
+  .qm-opt:hover .qm-opt-arrow{opacity:1;transform:translateX(4px)}
+
+  /* RESULTS STEP */
+  .qm-results-head{margin-bottom:48px}
+  .qm-results-head h2{margin-bottom:14px}
+  .qm-results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+  .qm-results-grid.two{grid-template-columns:repeat(2,1fr);max-width:760px}
+  .qm-rcard{background:var(--ink);border:1px solid var(--line-soft);display:flex;flex-direction:column;overflow:hidden;transition:border-color .2s ease, transform .25s ease}
+  .qm-rcard:hover{border-color:var(--line);transform:translateY(-3px)}
+  .qm-rcard .ph{flex:1;display:grid;place-items:center;padding:24px;min-height:220px;background:var(--ink)}
+  .qm-rcard .ph img{max-width:75%;max-height:75%;object-fit:contain;filter:drop-shadow(0 24px 36px rgba(0,0,0,0.55))}
+  .qm-rcard .info{padding:0 22px 22px;display:flex;flex-direction:column;gap:6px}
+  .qm-rcard .brand{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;opacity:0.55}
+  .qm-rcard .name{font-family:var(--font-d);font-weight:800;font-size:20px;line-height:1.1;text-transform:uppercase;margin:4px 0 14px}
+  .qm-rcard .row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto}
+  .qm-rcard .price{font-family:var(--font-d);font-weight:900;font-size:24px;line-height:1}
+  .qm-rcard .add{background:var(--red);color:#fff;padding:11px 16px;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;border:0;border-radius:2px;font-family:var(--font-b);cursor:pointer;transition:background .15s ease}
+  .qm-rcard .add:hover{background:var(--red-deep)}
+  .qm-disclaimer{font-size:13px;color:var(--cream);opacity:0.45;max-width:640px;margin:0 0 36px;line-height:1.55}
+  .qm-results-cta{display:flex;gap:12px;flex-wrap:wrap}
+  .qm-results-cta .btn-outline{border:1.5px solid var(--cream);color:var(--cream);padding:16px 26px;font-family:var(--font-d);font-weight:800;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;border-radius:2px;transition:background .18s ease, color .18s ease;display:inline-flex;align-items:center;gap:10px;cursor:pointer;background:transparent}
+  .qm-results-cta .btn-outline:hover{background:var(--cream);color:var(--ink)}
+
+  @media (max-width:1024px){
+    .quiz-entry-grid{grid-template-columns:1fr;gap:32px}
+    .quiz-entry-deco{display:none}
+  }
+  @media (max-width:768px){
+    .qm-stage{padding:24px var(--pad-x) 64px}
+    .qm-bar{padding:16px var(--pad-x)}
+    .qm-options,.qm-options.three{grid-template-columns:1fr;gap:10px}
+    .qm-opt{min-height:auto;padding:24px 22px}
+    .qm-results-grid,.qm-results-grid.two{grid-template-columns:1fr;gap:12px}
+    .quiz-entry .qbtn{width:100%;justify-content:center}
+  }
+
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:1024px){
     .hero{min-height:auto;padding:32px 0 56px;display:block}
@@ -400,6 +479,24 @@
   </div>
 </section>
 
+<!-- QUIZ ENTRY -->
+<section class="quiz-entry" data-screen-label="Quiz" aria-labelledby="quizEntryTitle">
+  <div class="container">
+    <div class="quiz-entry-grid">
+      <div>
+        <span class="eyebrow">Para el que empieza</span>
+        <h2 id="quizEntryTitle">¿No sabés<br/>por dónde<br/>empezar?</h2>
+        <p class="sub">Respondé 3 preguntas y te recomendamos qué llevar. Una guía inicial — no reemplaza el consejo de un profesional.</p>
+        <button class="qbtn" id="quizOpenBtn" type="button">Encontrá tu suplemento <span class="arr">→</span></button>
+      </div>
+      <div class="quiz-entry-deco" aria-hidden="true">
+        <div class="qpic"><img src="assets/products/whey-star-choc.png" alt="" /></div>
+        <div class="qpic"><img src="assets/products/creatina-ena-doypack.png" alt="" /></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CARRUSEL: NOVEDADES -->
 <section class="carrusel" data-screen-label="Novedades" id="novedades" style="padding-top:0;">
   <div class="container">
@@ -529,6 +626,114 @@
     </div>
   </div>
 </section>
+
+<!-- QUIZ MODAL -->
+<div class="quiz-modal" id="quizModal" role="dialog" aria-modal="true" aria-labelledby="quizModalTitle" aria-hidden="true">
+  <div class="qm-progress" aria-hidden="true"><div class="qm-progress-bar" id="qmProgressBar"></div></div>
+  <div class="qm-bar">
+    <button class="qm-back" id="qmBack" type="button" aria-label="Volver">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Volver
+    </button>
+    <div class="qm-step-label" id="qmStepLabel">Pregunta 1 de 3</div>
+    <button class="qm-close" id="qmClose" type="button" aria-label="Cerrar quiz">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="qm-stage">
+    <!-- Q1: Objetivo -->
+    <div class="qm-step active" data-step="1" data-q="goal">
+      <span class="overline" style="margin-bottom:18px;display:block"></span>
+      <h2 id="quizModalTitle">¿Qué querés<br/>lograr?</h2>
+      <p class="qm-sub">Tu objetivo principal hoy. Después podés ajustar.</p>
+      <div class="qm-options">
+        <button class="qm-opt" data-value="weight-loss" type="button">
+          <span class="qm-opt-num">— 01</span>
+          <span>Bajar<br/>de peso</span>
+          <span class="qm-opt-arrow">→</span>
+        </button>
+        <button class="qm-opt" data-value="muscle" type="button">
+          <span class="qm-opt-num">— 02</span>
+          <span>Ganar<br/>músculo</span>
+          <span class="qm-opt-arrow">→</span>
+        </button>
+        <button class="qm-opt" data-value="performance" type="button">
+          <span class="qm-opt-num">— 03</span>
+          <span>Mejorar mi<br/>rendimiento</span>
+          <span class="qm-opt-arrow">→</span>
+        </button>
+        <button class="qm-opt" data-value="health" type="button">
+          <span class="qm-opt-num">— 04</span>
+          <span>Cuidar<br/>mi salud</span>
+          <span class="qm-opt-arrow">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Q2: Nivel -->
+    <div class="qm-step" data-step="2" data-q="level">
+      <span class="overline" style="margin-bottom:18px;display:block"></span>
+      <h2>¿Hace cuánto<br/>entrenás?</h2>
+      <p class="qm-sub">Para calibrar la recomendación según tu nivel.</p>
+      <div class="qm-options three">
+        <button class="qm-opt" data-value="new" type="button">
+          <span class="qm-opt-num">— 01</span>
+          <span>Soy<br/>nuevo</span>
+          <span class="qm-opt-arrow">→</span>
+        </button>
+        <button class="qm-opt" data-value="some" type="button">
+          <span class="qm-opt-num">— 02</span>
+          <span>Tengo algo<br/>de experiencia</span>
+          <span class="qm-opt-arrow">→</span>
+        </button>
+        <button class="qm-opt" data-value="experienced" type="button">
+          <span class="qm-opt-num">— 03</span>
+          <span>Entreno<br/>hace tiempo</span>
+          <span class="qm-opt-arrow">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Q3: Restricción -->
+    <div class="qm-step" data-step="3" data-q="restriction">
+      <span class="overline" style="margin-bottom:18px;display:block"></span>
+      <h2>¿Tenés alguna<br/>restricción?</h2>
+      <p class="qm-sub">Filtramos los productos que aplican a tu caso.</p>
+      <div class="qm-options three">
+        <button class="qm-opt" data-value="none" type="button">
+          <span class="qm-opt-num">— 01</span>
+          <span>Ninguna</span>
+          <span class="qm-opt-arrow">→</span>
+        </button>
+        <button class="qm-opt" data-value="gluten-free" type="button">
+          <span class="qm-opt-num">— 02</span>
+          <span>Sin<br/>TACC</span>
+          <span class="qm-opt-arrow">→</span>
+        </button>
+        <button class="qm-opt" data-value="vegan" type="button">
+          <span class="qm-opt-num">— 03</span>
+          <span>Vegano</span>
+          <span class="qm-opt-arrow">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Resultados -->
+    <div class="qm-step" data-step="4">
+      <div class="qm-results-head">
+        <span class="overline" style="margin-bottom:18px;display:block"></span>
+        <h2>Esto es lo que<br/>te recomendamos.</h2>
+        <p class="qm-sub" id="qmResultsSub">Combinación armada en base a tus respuestas.</p>
+      </div>
+      <div class="qm-results-grid" id="qmResultsGrid"></div>
+      <p class="qm-disclaimer">Esta es una sugerencia general. Para una recomendación personalizada consultá con un profesional de la salud o nutrición deportiva.</p>
+      <div class="qm-results-cta">
+        <button class="btn-outline" id="qmRestart" type="button">Volver a empezar <span class="arr">↺</span></button>
+        <a class="btn-outline" href="suplementos.html">Ver todo el catálogo <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- FLOATING WHATSAPP -->
 <a class="wa-float" href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">
@@ -715,7 +920,6 @@
   });
   function closeSearch(){ overlay.classList.remove('open'); input.blur(); }
   document.getElementById('searchClose').addEventListener('click', closeSearch);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSearch(); });
 
   // ---------- ADD-TO-CART ----------
   let cartCount = parseInt(document.getElementById('cartCount').textContent, 10);
@@ -741,6 +945,164 @@
     });
   }
   bindAddButtons(document);
+
+  // ---------- QUIZ ----------
+  const quizModal = document.getElementById('quizModal');
+  const quizOpenBtn = document.getElementById('quizOpenBtn');
+  const qmClose = document.getElementById('qmClose');
+  const qmBack = document.getElementById('qmBack');
+  const qmBar = document.getElementById('qmProgressBar');
+  const qmStepLabel = document.getElementById('qmStepLabel');
+  const qmRestart = document.getElementById('qmRestart');
+  const qmResultsGrid = document.getElementById('qmResultsGrid');
+  const qmResultsSub = document.getElementById('qmResultsSub');
+  const qmSteps = Array.from(quizModal.querySelectorAll('.qm-step'));
+
+  const quizState = { step: 1, answers: { goal: null, level: null, restriction: null } };
+  let quizLastTrigger = null;
+
+  // Recommendation rules — returns array of product IDs from CATALOG
+  function recommend({ goal, level, restriction }){
+    let picks = [];
+    if (goal === 'muscle' && level === 'new') {
+      picks = ['whey-star-choc','creatina-ena'];
+    } else if (goal === 'muscle') {
+      picks = ['whey-star-choc','creatina-ena','amino-energy-spk'];
+    } else if (goal === 'performance') {
+      picks = ['amino-energy-spk','creatina-ena'];
+    } else if (goal === 'weight-loss') {
+      picks = ['omega-innova','amino-energy-spk'];
+    } else if (goal === 'health') {
+      picks = ['omega-innova','amino-energy-spk'];
+    } else {
+      picks = ['whey-star-choc','omega-innova'];
+    }
+    // Restricción: priorizar InnovaNaturals + Amino Energy si vegano/sin TACC
+    if (restriction === 'vegan' || restriction === 'gluten-free') {
+      const priority = ['omega-innova','amino-energy-spk','omega-innova-std'];
+      const filtered = picks.filter(id => priority.includes(id));
+      picks = filtered.length ? filtered : priority.slice(0, 2);
+    }
+    return picks;
+  }
+
+  function resultsSubtext({ goal, level, restriction }){
+    const goalMap = {
+      'weight-loss':'bajar de peso',
+      'muscle':'ganar músculo',
+      'performance':'mejorar tu rendimiento',
+      'health':'cuidar tu salud',
+    };
+    const levelMap = {
+      'new':'arrancando',
+      'some':'con algo de experiencia',
+      'experienced':'entrenando hace tiempo',
+    };
+    const restrMap = {
+      'none':'',
+      'gluten-free':' · sin TACC',
+      'vegan':' · vegano',
+    };
+    return `Objetivo: ${goalMap[goal]||'—'} · ${levelMap[level]||'—'}${restrMap[restriction]||''}`;
+  }
+
+  function resultCard(p){
+    return `<article class="qm-rcard" data-id="${p.id}">
+      <div class="ph"><img src="${p.img}" alt="${p.name}" loading="lazy" /></div>
+      <div class="info">
+        <div class="brand">${p.brand}</div>
+        <div class="name">${p.name}</div>
+        <div class="row">
+          <div class="price">${formatARS(p.price)}</div>
+          <button class="add" data-add type="button">Agregar</button>
+        </div>
+      </div>
+    </article>`;
+  }
+
+  function showStep(n){
+    quizState.step = n;
+    qmSteps.forEach(s => s.classList.toggle('active', parseInt(s.dataset.step, 10) === n));
+    const pct = n === 4 ? 100 : Math.round((n / 3) * 100);
+    qmBar.style.width = pct + '%';
+    if (n <= 3) qmStepLabel.textContent = `Pregunta ${n} de 3`;
+    else qmStepLabel.textContent = 'Resultados';
+    qmBack.classList.toggle('show', n === 2 || n === 3);
+    // focus primer opción para teclado
+    const active = quizModal.querySelector('.qm-step.active .qm-opt');
+    if (active) setTimeout(() => active.focus(), 50);
+  }
+
+  function renderResults(){
+    const ids = recommend(quizState.answers);
+    const products = ids.map(id => CATALOG.find(p => p.id === id)).filter(Boolean);
+    qmResultsGrid.className = 'qm-results-grid' + (products.length === 2 ? ' two' : '');
+    qmResultsGrid.innerHTML = products.map(resultCard).join('');
+    qmResultsSub.textContent = resultsSubtext(quizState.answers);
+    bindAddButtons(qmResultsGrid);
+  }
+
+  function openQuiz(trigger){
+    quizLastTrigger = trigger || null;
+    quizModal.classList.add('open');
+    quizModal.setAttribute('aria-hidden','false');
+    document.body.classList.add('quiz-locked');
+    quizState.answers = { goal:null, level:null, restriction:null };
+    qmSteps.forEach(s => {
+      s.querySelectorAll('.qm-opt.selected').forEach(o => o.classList.remove('selected'));
+    });
+    showStep(1);
+  }
+  function closeQuiz(){
+    quizModal.classList.remove('open');
+    quizModal.setAttribute('aria-hidden','true');
+    document.body.classList.remove('quiz-locked');
+    if (quizLastTrigger && typeof quizLastTrigger.focus === 'function') quizLastTrigger.focus();
+  }
+
+  quizOpenBtn.addEventListener('click', e => openQuiz(e.currentTarget));
+  qmClose.addEventListener('click', closeQuiz);
+  qmRestart.addEventListener('click', () => {
+    quizState.answers = { goal:null, level:null, restriction:null };
+    qmSteps.forEach(s => {
+      s.querySelectorAll('.qm-opt.selected').forEach(o => o.classList.remove('selected'));
+    });
+    showStep(1);
+  });
+
+  qmBack.addEventListener('click', () => {
+    if (quizState.step > 1) showStep(quizState.step - 1);
+  });
+
+  // Click en opciones — avance automático
+  qmSteps.forEach(step => {
+    const qKey = step.dataset.q;
+    if (!qKey) return;
+    step.addEventListener('click', e => {
+      const btn = e.target.closest('.qm-opt');
+      if (!btn) return;
+      step.querySelectorAll('.qm-opt').forEach(o => o.classList.remove('selected'));
+      btn.classList.add('selected');
+      quizState.answers[qKey] = btn.dataset.value;
+      const n = parseInt(step.dataset.step, 10);
+      setTimeout(() => {
+        if (n < 3) showStep(n + 1);
+        else { renderResults(); showStep(4); }
+      }, 220);
+    });
+  });
+
+  // Click en fondo cierra el modal (solo si clickeás el container, no en una opción)
+  quizModal.addEventListener('click', e => {
+    if (e.target === quizModal) closeQuiz();
+  });
+
+  // Escape global: prioriza quiz > buscador
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (quizModal.classList.contains('open')) { closeQuiz(); return; }
+    if (overlay.classList.contains('open')) { closeSearch(); }
+  });
 </script>
 </body>
 </html>
