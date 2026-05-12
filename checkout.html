@@ -141,6 +141,51 @@
     .pay-opt .pay-disc{margin-top:0}
     .row2{grid-template-columns:1fr;gap:10px}
   }
+  @media (max-width:768px){
+    /* Topbar: logo izquierda + back chico derecha. Esconder el "Paso 2 de 2" */
+    .topbar-inner{height:60px;gap:10px}
+    .topbar-logo img{height:26px}
+    .topbar-step{display:none}
+    .topbar-back{font-size:11px;letter-spacing:0.1em}
+    /* Head: bajar el headline */
+    .head{padding:24px 0 12px}
+    .head h1{font-size:clamp(36px,9vw,52px);line-height:0.92;margin-bottom:10px}
+    .head p{font-size:13px}
+    /* Form cards */
+    .grid{padding:16px 0 120px}
+    .form-card{padding:22px 18px}
+    .form-card h2{font-size:18px;gap:10px;margin-bottom:4px}
+    .form-card h2 .step{font-size:11px;letter-spacing:0.16em}
+    .form-card p.lede{font-size:12px;margin-bottom:18px}
+    /* Tipo de entrega: cards apiladas verticales otra vez (el "row" del 960px sigue activo y queda chico) */
+    #shipOptions{grid-template-columns:1fr !important}
+    /* Demo banner: stack vertical para que no se pise */
+    .demo-banner{flex-wrap:wrap;gap:8px;padding:12px 14px;font-size:11px;line-height:1.5}
+    .demo-banner .pill{font-size:9px;padding:3px 8px}
+    /* Local info card */
+    #localInfo{padding:14px}
+    /* Summary mobile */
+    .summary{padding:18px 16px}
+    .summary h2{font-size:18px;margin-bottom:14px}
+    .sum-items{max-height:none}
+    .sum-thumb{width:42px;height:42px}
+    .sum-item{grid-template-columns:42px 1fr auto;gap:10px;padding:10px 0}
+    .sum-name{font-size:12px}
+    .sum-qty{font-size:10px}
+    .sum-price{font-size:14px}
+    .sum-row-v{font-size:18px}
+    .sum-row.total .v{font-size:22px}
+    /* Botón Confirmar pedido sticky en mobile */
+    .summary .sum-place{position:fixed;left:0;right:0;bottom:0;z-index:80;margin:0;padding:18px;border-radius:0;border-top:1px solid var(--line);background:var(--red);box-shadow:0 -10px 30px -10px rgba(0,0,0,0.5)}
+    .summary .sum-place:hover:not([disabled]){transform:none}
+    .summary .sum-note{padding:0 16px 16px 16px;margin:0 0 80px 0;font-size:10px}
+    /* Success modal */
+    .success-card{padding:36px 24px}
+    .success-card h2{font-size:28px}
+  }
+  @media (max-width:480px){
+    .container{padding:0 16px}
+  }
 </style>
 </head>
 <body>

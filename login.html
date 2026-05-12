@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Iniciar sesión · Morashop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/cart.css" />
+<style>
+  :root {
+    --ink:        #0D1117;
+    --ink-deep:   #080D18;
+    --navy:       #1A2744;
+    --cream:      #E8E0CE;
+    --red:        #E8341A;
+    --red-deep:   #C42710;
+    --green:      #4ADE80;
+    --line:       rgba(232,224,206,0.15);
+    --line-soft:  rgba(232,224,206,0.10);
+    --font-d: "Barlow Condensed","Arial Narrow",sans-serif;
+    --font-b: "Inter",system-ui,sans-serif;
+    --pad-x: clamp(20px,5vw,96px);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--ink);color:var(--cream)}
+  body{font-family:var(--font-b);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  .container{width:100%;max-width:1280px;margin:0 auto;padding:0 var(--pad-x)}
+
+  /* TOP BAR */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(13,17,23,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .topbar-logo{display:flex;align-items:center;gap:8px}
+  .topbar-logo img{height:32px;width:auto;display:block}
+  .topbar-back{font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;opacity:0.6;transition:opacity .15s ease}
+  .topbar-back:hover{opacity:1}
+
+  /* MAIN */
+  main{flex:1;display:flex;align-items:center;justify-content:center;padding:48px var(--pad-x)}
+  .auth{width:100%;max-width:1000px;display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);background:rgba(26,39,68,0.18);border-radius:2px;overflow:hidden}
+
+  /* SIDE editorial */
+  .auth-side{background:var(--navy);padding:clamp(40px,6vw,72px);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;min-height:520px}
+  .auth-side::before{content:"";position:absolute;top:50%;right:-30%;width:80%;aspect-ratio:1/1;background:radial-gradient(circle,rgba(232,52,26,0.18) 0%,transparent 70%);transform:translateY(-50%);pointer-events:none}
+  .auth-side-top{position:relative;z-index:2}
+  .auth-side .overline{width:64px;height:3px;background:var(--red);display:block;margin-bottom:24px}
+  .auth-side h1{font-family:var(--font-d);font-weight:900;font-size:clamp(40px,5vw,76px);line-height:0.9;letter-spacing:-0.015em;text-transform:uppercase;margin:0 0 18px;color:var(--cream)}
+  .auth-side p{font-size:15px;opacity:0.7;margin:0 0 36px;max-width:380px;line-height:1.55}
+  .auth-perks{position:relative;z-index:2;display:flex;flex-direction:column;gap:16px;padding-top:32px;border-top:1px solid var(--line-soft)}
+  .auth-perk{display:flex;align-items:center;gap:12px;font-size:13px;opacity:0.78}
+  .auth-perk svg{opacity:0.65;flex-shrink:0}
+  .auth-perk strong{color:var(--cream);opacity:1;font-weight:600}
+
+  /* FORM side */
+  .auth-form{padding:clamp(36px,5vw,64px);display:flex;flex-direction:column;justify-content:center}
+  .auth-tabs{display:flex;gap:6px;margin-bottom:32px;border-bottom:1px solid var(--line-soft)}
+  .auth-tab{flex:1;background:transparent;border:0;padding:14px 0;font-family:var(--font-d);font-weight:800;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;color:var(--cream);opacity:0.45;cursor:pointer;position:relative;transition:opacity .15s ease}
+  .auth-tab:hover{opacity:0.75}
+  .auth-tab.active{opacity:1}
+  .auth-tab.active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--red)}
+
+  .auth-panel{display:none;flex-direction:column;gap:14px}
+  .auth-panel.active{display:flex;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field label{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;opacity:0.55}
+  .field input{background:var(--ink-deep);border:1px solid var(--line);color:var(--cream);padding:14px 16px;font-family:var(--font-b);font-size:14px;border-radius:2px;outline:none;transition:border-color .15s ease}
+  .field input:focus{border-color:rgba(232,224,206,0.45)}
+  .field input::placeholder{color:rgba(232,224,206,0.3)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+  .auth-options{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-top:4px}
+  .auth-options label{display:inline-flex;align-items:center;gap:8px;opacity:0.65;cursor:pointer}
+  .auth-options input{accent-color:var(--red)}
+  .auth-options a{opacity:0.65;transition:opacity .15s ease}
+  .auth-options a:hover{opacity:1}
+
+  .auth-submit{background:var(--red);color:#fff;padding:16px;font-family:var(--font-d);font-weight:900;font-size:14px;letter-spacing:0.16em;text-transform:uppercase;border-radius:2px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;transition:background .18s ease, transform .15s ease;margin-top:8px}
+  .auth-submit:hover{background:var(--red-deep);transform:translateY(-1px)}
+
+  .auth-divider{display:flex;align-items:center;gap:14px;margin:24px 0 16px;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;opacity:0.4}
+  .auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--line-soft)}
+
+  .auth-social{display:flex;flex-direction:column;gap:10px}
+  .auth-social button{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px;background:transparent;border:1px solid var(--line);color:var(--cream);font-family:var(--font-b);font-weight:600;font-size:13px;border-radius:2px;cursor:pointer;transition:border-color .15s ease, background .15s ease}
+  .auth-social button:hover{border-color:rgba(232,224,206,0.4);background:rgba(232,224,206,0.04)}
+
+  .auth-disclaimer{font-size:11px;opacity:0.45;margin-top:18px;line-height:1.6;text-align:center}
+  .auth-disclaimer a{text-decoration:underline}
+
+  /* Demo badge */
+  .demo-badge{position:absolute;top:18px;right:18px;background:rgba(232,52,26,0.12);border:1px solid rgba(232,52,26,0.35);color:var(--red);font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:5px 10px;border-radius:2px;z-index:3}
+
+  /* FOOTER */
+  footer{background:var(--ink-deep);padding:32px 0;text-align:center;font-size:12px;opacity:0.5;letter-spacing:0.04em}
+
+  /* RESPONSIVE */
+  @media (max-width:880px){
+    .auth{grid-template-columns:1fr}
+    .auth-side{min-height:auto;padding:36px var(--pad-x);order:-1}
+    .auth-side h1{font-size:clamp(32px,8vw,48px)}
+    .auth-perks{display:none}
+  }
+  @media (max-width:480px){
+    main{padding:24px 16px}
+    .auth-form{padding:28px 22px}
+    .row2{grid-template-columns:1fr;gap:14px}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a class="topbar-logo" href="index.html">
+      <img src="assets/mora_minorista.png" alt="Morashop" />
+    </a>
+    <a class="topbar-back" href="index.html">← Volver al inicio</a>
+  </div>
+</header>
+
+<main>
+  <div class="auth" role="region" aria-label="Iniciar sesión o crear cuenta">
+    <aside class="auth-side">
+      <span class="demo-badge">Demo</span>
+      <div class="auth-side-top">
+        <span class="overline"></span>
+        <h1 id="sideTitle">Bienvenido<br/>de vuelta.</h1>
+        <p id="sideDesc">Accedé a tu historial de compras, seguí tus pedidos y recibí mejores precios.</p>
+      </div>
+      <div class="auth-perks">
+        <div class="auth-perk">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 5v3h-7zM6 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM18 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+          <span><strong>Envío en el día</strong> en GBA y CABA</span>
+        </div>
+        <div class="auth-perk">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
+          <span><strong>15% off</strong> pagando en efectivo</span>
+        </div>
+        <div class="auth-perk">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <span><strong>Atención</strong> por WhatsApp</span>
+        </div>
+      </div>
+    </aside>
+
+    <section class="auth-form">
+      <div class="auth-tabs" role="tablist">
+        <button class="auth-tab active" data-tab="login" type="button">Iniciar sesión</button>
+        <button class="auth-tab" data-tab="signup" type="button">Crear cuenta</button>
+      </div>
+
+      <!-- LOGIN -->
+      <form class="auth-panel active" data-panel="login" novalidate>
+        <div class="field">
+          <label for="loginEmail">Email</label>
+          <input id="loginEmail" name="email" type="email" placeholder="vos@ejemplo.com" required />
+        </div>
+        <div class="field">
+          <label for="loginPass">Contraseña</label>
+          <input id="loginPass" name="password" type="password" placeholder="••••••••" required />
+        </div>
+        <div class="auth-options">
+          <label><input type="checkbox" /> Recordarme</label>
+          <a href="#recuperar">¿Olvidaste tu contraseña?</a>
+        </div>
+        <button class="auth-submit" type="submit">Entrar <span>→</span></button>
+
+        <div class="auth-divider">o seguí con</div>
+        <div class="auth-social">
+          <button type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z" fill="#34A853"/><path d="M5.84 14.09a6.6 6.6 0 0 1 0-4.18V7.07H2.18a11 11 0 0 0 0 9.86l2.85-2.22.81-.62z" fill="#FBBC04"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15A11 11 0 0 0 2.18 7.07l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z" fill="#EA4335"/></svg>
+            Continuar con Google
+          </button>
+        </div>
+
+        <div class="auth-disclaimer">
+          Este es un boceto. <a href="index.html">No hay autenticación real.</a>
+        </div>
+      </form>
+
+      <!-- SIGNUP -->
+      <form class="auth-panel" data-panel="signup" novalidate>
+        <div class="row2">
+          <div class="field">
+            <label for="signupNombre">Nombre</label>
+            <input id="signupNombre" name="nombre" type="text" placeholder="Diego" required />
+          </div>
+          <div class="field">
+            <label for="signupApellido">Apellido</label>
+            <input id="signupApellido" name="apellido" type="text" placeholder="Ramírez" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="signupEmail">Email</label>
+          <input id="signupEmail" name="email" type="email" placeholder="vos@ejemplo.com" required />
+        </div>
+        <div class="field">
+          <label for="signupTel">WhatsApp</label>
+          <input id="signupTel" name="telefono" type="tel" placeholder="11 0000-0000" />
+        </div>
+        <div class="field">
+          <label for="signupPass">Contraseña</label>
+          <input id="signupPass" name="password" type="password" placeholder="Mínimo 8 caracteres" required minlength="8" />
+        </div>
+        <div class="auth-options">
+          <label><input type="checkbox" required /> Acepto los <a href="#tyc">términos y condiciones</a></label>
+        </div>
+        <button class="auth-submit" type="submit">Crear cuenta <span>→</span></button>
+
+        <div class="auth-disclaimer">
+          Este es un boceto. <a href="index.html">No hay autenticación real.</a>
+        </div>
+      </form>
+    </section>
+  </div>
+</main>
+
+<footer>
+  © 2026 Morashop · Suplementación deportiva en Argentina
+</footer>
+
+<script src="assets/cart.js"></script>
+<script>
+(function(){
+  // Tabs
+  const sideTitle = document.getElementById('sideTitle');
+  const sideDesc  = document.getElementById('sideDesc');
+  const titles = {
+    login:  ['Bienvenido<br/>de vuelta.',     'Accedé a tu historial de compras, seguí tus pedidos y recibí mejores precios.'],
+    signup: ['Empezá<br/>a entrenar mejor.',  'Creá tu cuenta y desbloqueá precios mayoristas, envíos preferentes y recomendaciones personalizadas.'],
+  };
+  document.querySelectorAll('.auth-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      document.querySelectorAll('.auth-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`.auth-panel[data-panel="${tab}"]`).classList.add('active');
+      const [t,d] = titles[tab];
+      sideTitle.innerHTML = t;
+      sideDesc.textContent = d;
+    });
+  });
+
+  // Submit demo: alerta y vuelve al index
+  document.querySelectorAll('.auth-panel').forEach(form => {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      alert('Demo · No hay autenticación real. Te devolvemos al inicio.');
+      window.location.href = 'index.html';
+    });
+  });
+
+  // Si la URL tiene ?tab=signup, abrir directo el tab de registro
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('tab') === 'signup') {
+    document.querySelector('.auth-tab[data-tab="signup"]').click();
+  }
+})();
+</script>
+</body>
+</html>

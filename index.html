@@ -416,7 +416,7 @@
       <button class="icon-btn" id="searchBtn" aria-label="Buscar">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
       </button>
-      <a href="#login" class="icon-btn" aria-label="Iniciar sesión">
+      <a href="login.html" class="icon-btn" aria-label="Iniciar sesión">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
       </a>
       <button class="icon-btn" id="cartBtn" aria-label="Carrito">
@@ -834,25 +834,11 @@
   </div>
 </footer>
 
+<script src="assets/catalog.js"></script>
 <script>
-  // ---------- CATALOG (single source of truth) ----------
-  // sales: rough ranking for "bestseller" sort (higher = más vendido)
-  // newAt: ISO date for "novedades" sort (más reciente primero)
-  const CATALOG = [
-    { id:'whey-star-choc',     brand:'Star Nutrition',     name:'Whey Protein Chocolate 2 lb',  price:21900, oldPrice:25900, tag:'Más vendido', tagKind:'sale', img:'assets/products/whey-star-choc.png',         sales:98, newAt:'2025-08-10' },
-    { id:'amino-energy-spk',   brand:'Optimum Nutrition',  name:'Amino Energy + Electrolytes',  price:17900, oldPrice:null,  tag:'Nuevo',       tagKind:'',     img:'assets/products/amino-energy-sparkling.png', sales:74, newAt:'2026-03-22' },
-    { id:'creatina-ena',       brand:'ENA Sport',          name:'Creatina Monohidrato 300 g',   price:9900,  oldPrice:12500, tag:'-20%',        tagKind:'sale', img:'assets/products/creatina-ena-doypack.png',   sales:91, newAt:'2025-06-04' },
-    { id:'omega-innova',       brand:'InnovaNaturals',     name:'Omega 3 Max · 60 cáps',        price:12400, oldPrice:null,  tag:'',            tagKind:'',     img:'assets/products/omega3-innova-max.png',      sales:62, newAt:'2025-11-18' },
-    { id:'whey-star-van',      brand:'Star Nutrition',     name:'Whey Protein Vainilla 2 lb',   price:21900, oldPrice:null,  tag:'Stock',       tagKind:'',     img:'assets/products/whey-star-choc.png',         sales:80, newAt:'2025-09-02' },
-    { id:'amino-energy',       brand:'Optimum Nutrition',  name:'Essential Amino Energy 270 g', price:16500, oldPrice:19800, tag:'-15%',        tagKind:'sale', img:'assets/products/amino-energy.png',           sales:55, newAt:'2025-05-12' },
-    { id:'creatina-ena-300',   brand:'ENA Sport',          name:'Creatina ENA Pote 300 g',      price:10900, oldPrice:null,  tag:'',            tagKind:'',     img:'assets/products/creatina-ena.png',           sales:48, newAt:'2025-10-05' },
-    { id:'omega-innova-std',   brand:'InnovaNaturals',     name:'Omega 3 · 30 cáps',            price:7900,  oldPrice:null,  tag:'Nuevo',       tagKind:'',     img:'assets/products/omega3-innova.png',          sales:38, newAt:'2026-02-08' },
-  ];
-
-  const POOLS = {
-    bestsellers: CATALOG.map(p => p.id),
-    novedades:   ['amino-energy-spk','omega-innova-std','omega-innova','creatina-ena-300','whey-star-van','whey-star-choc','amino-energy','creatina-ena'],
-  };
+  // CATALOG y POOLS vienen de assets/catalog.js (window.CATALOG / window.POOLS)
+  const CATALOG = window.CATALOG;
+  const POOLS   = window.POOLS;
 
   const SORTERS = {
     'bestseller': (a,b) => b.sales - a.sales,
@@ -866,7 +852,7 @@
   function cardHTML(p){
     const tag = p.tag ? `<span class="tag ${p.tagKind}">${p.tag}</span>` : '';
     const old = p.oldPrice ? `<small>${formatARS(p.oldPrice)}</small>` : '';
-    return `<article class="pcard" data-id="${p.id}">
+    return `<a class="pcard" href="producto.html?id=${p.id}" data-id="${p.id}">
       ${tag}
       <div class="ph"><img src="${p.img}" alt="${p.name}" loading="lazy" /></div>
       <div class="info">
@@ -877,7 +863,7 @@
           <button class="pcard-btn" data-add>Agregar</button>
         </div>
       </div>
-    </article>`;
+    </a>`;
   }
 
   function renderTrack(trackId, sortKey){
@@ -1100,7 +1086,7 @@
   }
 
   function resultCard(p){
-    return `<article class="qm-rcard" data-id="${p.id}">
+    return `<a class="qm-rcard" href="producto.html?id=${p.id}" data-id="${p.id}">
       <div class="ph"><img src="${p.img}" alt="${p.name}" loading="lazy" /></div>
       <div class="info">
         <div class="brand">${p.brand}</div>
@@ -1110,7 +1096,7 @@
           <button class="add" data-add type="button">Agregar</button>
         </div>
       </div>
-    </article>`;
+    </a>`;
   }
 
   function showStep(n){
