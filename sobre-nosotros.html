@@ -50,6 +50,10 @@
   .nav-logo{display:flex;align-items:center;gap:10px}
   .nav-logo img{height:36px;width:auto}
   .nav-logo .wm{font-family:var(--font-d);font-weight:900;font-size:22px;letter-spacing:0.02em;color:var(--cream)}
+  .nav-logos{display:flex;align-items:center;gap:8px}
+  .nav-logos a{display:flex;align-items:center;transition:transform .15s ease}
+  .nav-logos a:hover{transform:translateY(-1px)}
+  .nav-logos img{height:34px;width:auto;display:block}
   .nav-links{display:flex;align-items:center;gap:32px}
   .nav-links a{font-size:12px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--cream);opacity:0.7;transition:opacity .15s ease}
   .nav-links a:hover{opacity:1}
@@ -58,6 +62,14 @@
   .icon-btn:hover{background:rgba(232,224,206,0.08)}
   .cart-badge{position:absolute;top:6px;right:6px;background:var(--red);color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;padding:0 4px;border-radius:999px;display:grid;place-items:center}
   .hamb{display:none}
+  .hamb-mobile{display:none}
+  .nav-search{display:none;position:sticky;top:74px;z-index:49;background:rgba(13,17,23,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft);padding:10px var(--pad-x)}
+  .nav-search form{display:flex;align-items:center;gap:10px;background:rgba(232,224,206,0.06);border:1px solid var(--line);border-radius:999px;padding:10px 16px;transition:border-color .15s ease, background .15s ease}
+  .nav-search form:focus-within{border-color:rgba(232,224,206,0.4);background:rgba(232,224,206,0.10)}
+  .nav-search input{flex:1;background:transparent;border:0;outline:none;color:var(--cream);font-family:var(--font-b);font-size:14px;font-weight:500;padding:0}
+  .nav-search input::placeholder{color:rgba(232,224,206,0.45)}
+  .nav-search button{display:grid;place-items:center;background:transparent;border:0;color:var(--cream);opacity:0.7;cursor:pointer;flex-shrink:0}
+  .nav-search button:hover{opacity:1}
 
   /* HERO */
   .hero{position:relative;min-height:80vh;display:flex;align-items:center;overflow:hidden;padding:64px 0}
@@ -137,8 +149,12 @@
   }
   @media (max-width:768px){
     .nav-links{display:none}
-    .hamb{display:grid}
+    .hamb{display:none}
+    .hamb-mobile{display:grid;place-items:center}
     .nav-actions .btn{display:none}
+    .nav-logos{justify-self:center;gap:5px}
+    .nav-logos img{height:20px}
+    .nav-search{display:block}
     .foot-top{grid-template-columns:1fr 1fr;gap:32px}
     .foot-brand{grid-column:span 2}
     .wa-float{right:16px;bottom:16px}
@@ -150,10 +166,13 @@
 <!-- NAV -->
 <nav class="nav">
   <div class="container nav-inner">
-    <a class="nav-logo" href="index.html">
-      <img src="assets/logo-morashop.png" alt="Morashop" />
-      <span class="wm">MORASHOP</span>
-    </a>
+    <button class="icon-btn hamb-mobile" aria-label="Menú">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+    </button>
+    <div class="nav-logos">
+      <a href="index.html" aria-label="Morashop"><img src="assets/mora_minorista.png" alt="Morashop" /></a>
+      <a href="mayoristas.html" aria-label="Mayoristas"><img src="assets/mora_mayorista.png" alt="Mayoristas" /></a>
+    </div>
     <div class="nav-links">
       <a href="suplementos.html">Suplementos</a>
       <a href="supermercado.html">Supermercado</a>
@@ -161,6 +180,9 @@
       <a href="sobre-nosotros.html" style="opacity:1;">Sobre nosotros</a>
     </div>
     <div class="nav-actions">
+      <a href="#login" class="icon-btn" aria-label="Iniciar sesión">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+      </a>
       <button class="icon-btn" id="cartBtn" aria-label="Carrito">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
         <span class="cart-badge" id="cartCount" style="display:none">0</span>
@@ -172,6 +194,16 @@
     </div>
   </div>
 </nav>
+
+<!-- MOBILE SEARCH BAR -->
+<div class="nav-search">
+  <form role="search" action="index.html" method="get">
+    <button type="submit" aria-label="Buscar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    </button>
+    <input type="search" name="q" placeholder="¿Qué estás buscando?" autocomplete="off" />
+  </form>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -279,7 +311,7 @@
   <div class="container">
     <div class="foot-top">
       <div class="foot-brand">
-        <div class="wm"><img src="assets/logo-morashop.png" alt="" /> MORASHOP</div>
+        <div class="wm"><img src="assets/mora_minorista.png" alt="Morashop" style="height:32px;width:auto" /></div>
         <p>Suplementación deportiva, supermercado y electro-hogar. Distribuidor autorizado en Argentina desde 2018.</p>
       </div>
       <div class="foot-col"><h5>Tienda</h5><ul>
@@ -309,5 +341,6 @@
 </footer>
 
 <script src="assets/cart.js"></script>
+<script src="assets/nav.js"></script>
 </body>
 </html>

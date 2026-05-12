@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mayoristas · Morashop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/cart.css" />
+<style>
+  :root {
+    --ink:        #0D1117;
+    --ink-deep:   #080D18;
+    --navy:       #1A2744;
+    --cream:      #E8E0CE;
+    --red:        #E8341A;
+    --red-deep:   #C42710;
+    --green:      #4ADE80;
+    --line:       rgba(232,224,206,0.15);
+    --line-soft:  rgba(232,224,206,0.10);
+    --font-d: "Barlow Condensed","Arial Narrow",sans-serif;
+    --font-b: "Inter",system-ui,sans-serif;
+    --pad-x: clamp(20px,5vw,96px);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--ink);color:var(--cream)}
+  body{font-family:var(--font-b);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  .container{width:100%;max-width:1280px;margin:0 auto;padding:0 var(--pad-x)}
+  .overline{width:64px;height:3px;background:var(--red);display:block}
+
+  /* NAV */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:74px}
+  .nav-logos{display:flex;align-items:center;gap:8px}
+  .nav-logos a{display:flex;align-items:center;transition:transform .15s ease,opacity .15s ease}
+  .nav-logos a:hover{transform:translateY(-1px)}
+  .nav-logos img{height:32px;width:auto;display:block}
+  .nav-links{display:flex;align-items:center;gap:32px}
+  .nav-links a{font-size:12px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--cream);opacity:0.7;transition:opacity .15s ease}
+  .nav-links a:hover{opacity:1}
+  .nav-actions{display:flex;align-items:center;gap:12px}
+  .icon-btn{width:42px;height:42px;display:grid;place-items:center;border-radius:999px;color:var(--cream);transition:background .15s ease;position:relative}
+  .icon-btn:hover{background:rgba(232,224,206,0.08)}
+  .cart-badge{position:absolute;top:6px;right:6px;background:var(--red);color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;padding:0 4px;border-radius:999px;display:grid;place-items:center}
+  .hamb{display:none}
+  .hamb-mobile{display:none}
+  .nav-search{display:none;position:sticky;top:74px;z-index:49;background:rgba(13,17,23,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft);padding:10px var(--pad-x)}
+  .nav-search form{display:flex;align-items:center;gap:10px;background:rgba(232,224,206,0.06);border:1px solid var(--line);border-radius:999px;padding:10px 16px;transition:border-color .15s ease, background .15s ease}
+  .nav-search form:focus-within{border-color:rgba(232,224,206,0.4);background:rgba(232,224,206,0.10)}
+  .nav-search input{flex:1;background:transparent;border:0;outline:none;color:var(--cream);font-family:var(--font-b);font-size:14px;font-weight:500;padding:0}
+  .nav-search input::placeholder{color:rgba(232,224,206,0.45)}
+  .nav-search button{display:grid;place-items:center;background:transparent;border:0;color:var(--cream);opacity:0.7;cursor:pointer;flex-shrink:0}
+  .nav-search button:hover{opacity:1}
+
+  /* HERO */
+  .hero{padding:clamp(60px,8vw,120px) 0 clamp(80px,10vw,140px)}
+  .crumb{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;opacity:0.55;margin-bottom:18px;font-weight:600}
+  .crumb .sep{margin:0 10px;opacity:0.4}
+  .hero h1{font-family:var(--font-d);font-weight:900;font-size:clamp(56px,9vw,128px);line-height:0.88;letter-spacing:-0.02em;text-transform:uppercase;margin:14px 0 24px}
+  .hero h1 .red{color:var(--red)}
+  .hero .lede{font-size:17px;line-height:1.55;opacity:0.7;max-width:560px;margin:0 0 36px}
+  .hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:18px 28px;font-family:var(--font-d);font-weight:800;font-size:15px;letter-spacing:0.16em;text-transform:uppercase;border-radius:2px;transition:transform .18s ease, background .18s ease, color .18s ease, border-color .18s ease;cursor:pointer}
+  .btn .arr{transition:transform .2s ease;display:inline-block}
+  .btn:hover .arr{transform:translateX(4px)}
+  .btn-red{background:var(--red);color:#fff}
+  .btn-red:hover{background:var(--red-deep);transform:translateY(-1px)}
+  .btn-outline{border:1.5px solid var(--cream);color:var(--cream)}
+  .btn-outline:hover{background:var(--cream);color:var(--ink)}
+  .btn-lg{padding:22px 34px;font-size:16px}
+
+  /* INFO */
+  .info{background:var(--navy);padding:clamp(60px,8vw,110px) 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+  .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .info-card{background:rgba(13,17,23,0.4);border:1px solid var(--line);padding:36px 28px;display:flex;flex-direction:column;gap:12px}
+  .info-card .n{font-family:var(--font-d);font-weight:900;font-size:13px;letter-spacing:0.2em;opacity:0.45}
+  .info-card h3{font-family:var(--font-d);font-weight:900;font-size:clamp(26px,3vw,36px);line-height:1;letter-spacing:-0.005em;text-transform:uppercase;margin:0}
+  .info-card p{font-size:14px;line-height:1.55;opacity:0.7;margin:0}
+
+  /* SOON */
+  .soon{padding:clamp(80px,10vw,140px) 0;text-align:center}
+  .soon h2{font-family:var(--font-d);font-weight:900;font-size:clamp(40px,6vw,84px);line-height:0.9;letter-spacing:-0.015em;text-transform:uppercase;margin:18px 0 20px}
+  .soon p{max-width:520px;margin:0 auto 32px;opacity:0.7}
+  .dot{width:8px;height:8px;background:var(--green);border-radius:999px;box-shadow:0 0 0 4px rgba(74,222,128,0.22);animation:pulse 1.8s ease-in-out infinite;display:inline-block;margin-right:6px;vertical-align:middle}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(74,222,128,0.22)}50%{box-shadow:0 0 0 8px rgba(74,222,128,0)}}
+
+  /* FLOATING WHATSAPP */
+  .wa-float{position:fixed;right:24px;bottom:24px;width:56px;height:56px;border-radius:999px;background:#25D366;color:#fff;display:grid;place-items:center;z-index:80;box-shadow:0 10px 24px -6px rgba(0,0,0,0.45),0 4px 10px rgba(0,0,0,0.25);transition:transform .2s ease}
+  .wa-float:hover{transform:scale(1.08)}
+  .wa-float svg{width:30px;height:30px;display:block}
+
+  /* FOOTER */
+  footer{background:var(--ink-deep);color:var(--cream);padding:64px 0 32px;text-align:center}
+  footer .copy{font-size:12px;opacity:0.5;letter-spacing:0.04em;margin-top:18px}
+
+  /* RESPONSIVE */
+  @media (max-width:1024px){
+    .info-grid{grid-template-columns:1fr;gap:12px}
+  }
+  @media (max-width:768px){
+    .nav-links{display:none}
+    .hamb{display:none}
+    .hamb-mobile{display:grid;place-items:center}
+    .nav-actions .btn{display:none}
+    .nav-logos{justify-self:center;gap:5px}
+    .nav-logos img{height:20px}
+    .nav-search{display:block}
+    .wa-float{width:48px;height:48px}
+    .wa-float svg{width:24px;height:24px}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <button class="icon-btn hamb-mobile" aria-label="Menú">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+    </button>
+    <div class="nav-logos">
+      <a href="index.html" aria-label="Morashop"><img src="assets/mora_minorista.png" alt="Morashop" /></a>
+      <a href="mayoristas.html" aria-label="Mayoristas"><img src="assets/mora_mayorista.png" alt="Mayoristas" /></a>
+    </div>
+    <div class="nav-links">
+      <a href="suplementos.html">Suplementos</a>
+      <a href="supermercado.html">Supermercado</a>
+      <a href="electro.html">Electro-Hogar</a>
+      <a href="sobre-nosotros.html">Sobre nosotros</a>
+    </div>
+    <div class="nav-actions">
+      <a href="#login" class="icon-btn" aria-label="Iniciar sesión">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+      </a>
+      <button class="icon-btn" id="cartBtn" aria-label="Carrito">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+        <span class="cart-badge" id="cartCount" style="display:none">0</span>
+      </button>
+      <a href="suplementos.html" class="btn btn-red" style="padding:12px 18px;font-size:12px">Ver catálogo <span class="arr">→</span></a>
+      <button class="icon-btn hamb" aria-label="Menú">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE SEARCH BAR -->
+<div class="nav-search">
+  <form role="search" action="index.html" method="get">
+    <button type="submit" aria-label="Buscar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    </button>
+    <input type="search" name="q" placeholder="¿Qué estás buscando?" autocomplete="off" />
+  </form>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="crumb"><a href="index.html">Inicio</a><span class="sep">/</span><span>Mayoristas</span></div>
+    <span class="overline"></span>
+    <h1>Comprá<br/>al <span class="red">por mayor.</span></h1>
+    <p class="lede">Vendemos suplementación deportiva al por mayor a gimnasios, dietéticas, suplementeras y nutricionistas en toda Argentina. Lista de precios mayorista por WhatsApp, despacho desde Buenos Aires.</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/" class="btn btn-red btn-lg" target="_blank" rel="noopener"><span class="dot"></span> Pedir lista mayorista</a>
+      <a href="sobre-nosotros.html" class="btn btn-outline btn-lg">Sobre Morashop <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- INFO -->
+<section class="info">
+  <div class="container">
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="n">— 01</div>
+        <h3>Quién compra<br/>mayorista</h3>
+        <p>Gimnasios, dietéticas, suplementeras, nutricionistas y revendedores con CUIT activo. Pedido mínimo a coordinar por WhatsApp.</p>
+      </div>
+      <div class="info-card">
+        <div class="n">— 02</div>
+        <h3>Cómo<br/>funciona</h3>
+        <p>Te pasamos la lista mayorista actualizada por WhatsApp. Coordinamos el pedido, te enviamos factura A o B y despachamos por OCA / Andreani.</p>
+      </div>
+      <div class="info-card">
+        <div class="n">— 03</div>
+        <h3>Marcas que<br/>distribuimos</h3>
+        <p>Star Nutrition · ENA Sport · Optimum Nutrition · BSN · InnovaNaturals · Universal · Nutrex · Gold Nutrition · Body Advance · LeguiLab.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOON -->
+<section class="soon">
+  <div class="container">
+    <span class="overline" style="margin:0 auto"></span>
+    <h2>Catálogo mayorista<br/>online — próximamente.</h2>
+    <p><span class="dot"></span> Estamos armando la sección completa de mayoristas. Por ahora, contactanos directo por WhatsApp y te pasamos la lista en el día.</p>
+    <a href="https://wa.me/" class="btn btn-red btn-lg" target="_blank" rel="noopener">Contactar por WhatsApp <span class="arr">→</span></a>
+  </div>
+</section>
+
+<a class="wa-float" href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.92.5 3.78 1.46 5.43L2 22l4.78-1.55a9.85 9.85 0 0 0 5.26 1.5c5.45 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 17.92c-1.6 0-3.17-.43-4.55-1.24l-.33-.2-3.16 1.02 1.04-3.06-.22-.34a8.05 8.05 0 0 1-1.27-4.31c0-4.5 3.66-8.17 8.17-8.17 4.5 0 8.17 3.66 8.17 8.17.01 4.51-3.66 8.13-8.16 8.13z"/></svg>
+</a>
+
+<footer>
+  <div class="container">
+    <div class="nav-logos" style="justify-content:center"><img src="assets/mora_minorista.png" alt="" style="height:28px" /><img src="assets/mora_mayorista.png" alt="" style="height:28px" /></div>
+    <div class="copy">© 2026 Morashop · Suplementación deportiva en Argentina</div>
+  </div>
+</footer>
+
+<script src="assets/cart.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

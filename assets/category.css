@@ -292,6 +292,33 @@
   .cat-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
   .pill-label { width: auto; }
 }
+@media (max-width: 768px) {
+  /* Pills en una sola fila horizontal scrolleable por grupo (Tipo / Marca) */
+  .pill-bar { padding: 12px 0; top: 64px; }
+  .pill-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0 var(--pad-x, 20px);
+    margin: 0 calc(var(--pad-x, 20px) * -1);
+    gap: 6px;
+  }
+  .pill-row::-webkit-scrollbar { display: none; }
+  .pill-row + .pill-row { margin-top: 8px; }
+  .pill-label {
+    width: auto;
+    padding: 6px 0;
+    margin-right: 4px;
+    flex-shrink: 0;
+    position: sticky;
+    left: 0;
+    background: linear-gradient(90deg, rgba(13,17,23,0.95) 60%, rgba(13,17,23,0));
+    padding-right: 12px;
+  }
+  .pill { padding: 8px 14px; font-size: 11px; flex-shrink: 0; }
+}
 @media (max-width: 560px) {
   .cat-hero-img { display: none; }
   .cat-grid.cols-3, .cat-grid.cols-2 { grid-template-columns: 1fr; }

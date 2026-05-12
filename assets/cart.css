@@ -231,3 +231,120 @@ body.cart-locked { overflow: hidden; }
   .cart-body { padding: 8px 18px; }
   .cart-foot { padding: 16px 18px 20px; }
 }
+
+/* ===== NAV DRAWER (mobile menu) ===== */
+body.nav-locked { overflow: hidden; }
+
+.nav-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(8, 13, 24, 0.6);
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  z-index: 90;
+  opacity: 0; visibility: hidden;
+  transition: opacity .25s ease, visibility 0s linear .25s;
+}
+.nav-backdrop.open { opacity: 1; visibility: visible; transition: opacity .25s ease, visibility 0s; }
+
+.nav-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(360px, 100vw);
+  background: #0D1117;
+  color: #E8E0CE;
+  border-left: 1px solid rgba(232,224,206,0.10);
+  z-index: 95;
+  transform: translateX(100%);
+  transition: transform .3s cubic-bezier(.2,.7,.2,1);
+  display: flex; flex-direction: column;
+  font-family: "Inter", system-ui, sans-serif;
+}
+.nav-drawer.open { transform: translateX(0); box-shadow: -30px 0 60px -10px rgba(0,0,0,0.55); }
+
+.nav-drawer-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 24px;
+  border-bottom: 1px solid rgba(232,224,206,0.10);
+}
+.nav-drawer-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 900; font-size: 18px; letter-spacing: 0.02em;
+}
+.nav-drawer-brand img { height: 28px; width: auto; }
+.nav-drawer-close {
+  width: 38px; height: 38px;
+  display: grid; place-items: center;
+  border: 1px solid rgba(232,224,206,0.15);
+  background: transparent; color: #E8E0CE;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease;
+}
+.nav-drawer-close:hover { border-color: #E8E0CE; background: rgba(232,224,206,0.06); }
+
+.nav-drawer-links {
+  flex: 1; overflow-y: auto;
+  padding: 12px 24px;
+  display: flex; flex-direction: column;
+}
+.nav-drawer-link {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(232,224,206,0.08);
+  text-decoration: none;
+  color: #E8E0CE;
+  transition: padding-left .2s ease;
+}
+.nav-drawer-link:hover { padding-left: 6px; }
+.nav-drawer-num {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 700; font-size: 11px; letter-spacing: 0.2em;
+  opacity: 0.4;
+}
+.nav-drawer-label {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 800; font-size: 28px; line-height: 1;
+  text-transform: uppercase; letter-spacing: 0.005em;
+}
+.nav-drawer-arrow {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 700; font-size: 22px;
+  opacity: 0.4;
+  transition: transform .2s ease, opacity .2s ease;
+}
+.nav-drawer-link:hover .nav-drawer-arrow { transform: translateX(4px); opacity: 1; }
+
+.nav-drawer-foot {
+  padding: 18px 24px 24px;
+  border-top: 1px solid rgba(232,224,206,0.10);
+  display: flex; flex-direction: column; gap: 10px;
+}
+.nav-drawer-cta {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%;
+  padding: 16px;
+  background: #E8341A;
+  color: #fff;
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 900; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background .18s ease;
+}
+.nav-drawer-cta:hover { background: #C42710; }
+.nav-drawer-wa {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%;
+  padding: 14px;
+  border: 1.5px solid rgba(37,211,102,0.4);
+  color: #25D366;
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 800; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background .18s ease, border-color .18s ease;
+}
+.nav-drawer-wa:hover { background: rgba(37,211,102,0.08); border-color: #25D366; }
+

@@ -7,3 +7,9 @@ node_modules
 uploads/
 export/
 tweaks-panel.jsx
+
+# Tiendanube tooling (no parte del boceto web)
+categorizar.py
+productos_recategorizados.csv
+reporte_categorias.txt
+tiendanube-*.csv
