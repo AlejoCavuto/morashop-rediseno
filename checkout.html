@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Checkout · Morashop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/cart.css" />
+<style>
+  :root {
+    --ink:        #0D1117;
+    --ink-deep:   #080D18;
+    --navy:       #1A2744;
+    --cream:      #E8E0CE;
+    --red:        #E8341A;
+    --red-deep:   #C42710;
+    --green:      #4ADE80;
+    --line:       rgba(232,224,206,0.15);
+    --line-soft:  rgba(232,224,206,0.10);
+    --muted:      rgba(232,224,206,0.55);
+    --font-d: "Barlow Condensed","Arial Narrow",sans-serif;
+    --font-b: "Inter",system-ui,sans-serif;
+    --pad-x: clamp(20px,5vw,96px);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--ink);color:var(--cream)}
+  body{font-family:var(--font-b);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  .container{width:100%;max-width:1280px;margin:0 auto;padding:0 var(--pad-x)}
+
+  /* TOP BAR */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(13,17,23,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .topbar-logo{display:flex;align-items:center;gap:10px}
+  .topbar-logo img{height:32px;width:auto}
+  .topbar-logo .wm{font-family:var(--font-d);font-weight:900;font-size:22px;letter-spacing:0.02em}
+  .topbar-step{font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;opacity:0.55}
+  .topbar-step .ok{color:var(--green);margin-right:6px}
+  .topbar-back{font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;opacity:0.6;transition:opacity .15s ease}
+  .topbar-back:hover{opacity:1}
+
+  /* HERO */
+  .head{padding:48px 0 24px}
+  .head .crumb{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;opacity:0.55;margin-bottom:14px;font-weight:600}
+  .head .crumb a:hover{opacity:1}
+  .head .crumb .sep{margin:0 10px;opacity:0.4}
+  .head h1{font-family:var(--font-d);font-weight:900;font-size:clamp(44px,7vw,92px);line-height:0.88;letter-spacing:-0.02em;text-transform:uppercase;margin:0 0 12px}
+  .head p{font-size:14px;opacity:0.6;margin:0;max-width:560px}
+
+  /* LAYOUT */
+  .grid{display:grid;grid-template-columns:1.4fr 0.9fr;gap:32px;padding:32px 0 96px;align-items:start}
+
+  /* FORM */
+  .form-card{background:rgba(26,39,68,0.25);border:1px solid var(--line);padding:clamp(24px,3vw,40px);border-radius:2px}
+  .form-card + .form-card{margin-top:20px}
+  .form-card h2{font-family:var(--font-d);font-weight:900;font-size:24px;letter-spacing:0.005em;text-transform:uppercase;margin:0 0 6px;display:flex;align-items:center;gap:14px}
+  .form-card h2 .step{font-size:12px;opacity:0.45;font-weight:800;letter-spacing:0.18em}
+  .form-card p.lede{font-size:13px;opacity:0.6;margin:0 0 24px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field label{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;opacity:0.55}
+  .field input,.field select,.field textarea{
+    background:var(--ink);border:1px solid var(--line);color:var(--cream);
+    padding:14px 16px;font-family:var(--font-b);font-size:14px;border-radius:2px;outline:none;
+    transition:border-color .15s ease;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(232,224,206,0.45)}
+  .field input::placeholder{color:rgba(232,224,206,0.3)}
+  .field textarea{resize:vertical;min-height:80px}
+  .pay-options{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+  .pay-opt{
+    border:1.5px solid var(--line);background:transparent;color:var(--cream);
+    padding:18px 16px;text-align:left;cursor:pointer;border-radius:2px;
+    transition:border-color .15s ease, background .15s ease;
+    display:flex;flex-direction:column;gap:6px;min-height:104px;
+  }
+  .pay-opt:hover{border-color:rgba(232,224,206,0.4)}
+  .pay-opt.active{border-color:var(--red);background:rgba(232,52,26,0.06)}
+  .pay-opt .pay-title{font-family:var(--font-d);font-weight:800;font-size:16px;letter-spacing:0.01em;text-transform:uppercase}
+  .pay-opt .pay-disc{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--green);margin-top:auto}
+  .pay-opt .pay-sub{font-size:11px;opacity:0.55;letter-spacing:0.04em}
+
+  /* SUMMARY */
+  .summary{position:sticky;top:96px;background:rgba(26,39,68,0.35);border:1px solid var(--line);padding:clamp(20px,2.5vw,28px);border-radius:2px}
+  .summary h2{font-family:var(--font-d);font-weight:900;font-size:22px;text-transform:uppercase;letter-spacing:0.01em;margin:0 0 18px}
+  .sum-items{margin:0 0 18px;max-height:280px;overflow-y:auto}
+  .sum-items::-webkit-scrollbar{width:6px}
+  .sum-items::-webkit-scrollbar-thumb{background:rgba(232,224,206,0.15);border-radius:3px}
+  .sum-item{display:grid;grid-template-columns:48px 1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-soft);align-items:center}
+  .sum-item:last-child{border-bottom:0}
+  .sum-thumb{width:48px;height:48px;background:var(--ink);display:grid;place-items:center;border-radius:2px;overflow:hidden}
+  .sum-thumb img{max-width:80%;max-height:80%;object-fit:contain}
+  .sum-meta{min-width:0}
+  .sum-name{font-family:var(--font-d);font-weight:700;font-size:13px;line-height:1.15;text-transform:uppercase;letter-spacing:0.005em}
+  .sum-qty{font-size:11px;opacity:0.55;letter-spacing:0.05em;margin-top:2px}
+  .sum-price{font-family:var(--font-d);font-weight:900;font-size:15px;white-space:nowrap}
+  .sum-empty{padding:32px 0;text-align:center;opacity:0.5;font-size:13px}
+  .sum-rows{padding-top:14px;border-top:1px solid var(--line-soft);display:flex;flex-direction:column;gap:8px}
+  .sum-row{display:flex;justify-content:space-between;font-size:13px;opacity:0.75}
+  .sum-row.mute{opacity:0.45;font-size:12px}
+  .sum-row.total{font-size:14px;opacity:1;padding-top:10px;border-top:1px solid var(--line);margin-top:6px}
+  .sum-row.total .v{font-family:var(--font-d);font-weight:900;font-size:24px;color:var(--cream)}
+  .sum-row.discount .v{color:var(--green);font-weight:600}
+  .sum-place{
+    display:flex;justify-content:center;align-items:center;gap:10px;
+    width:100%;margin-top:18px;padding:18px;
+    background:var(--red);color:#fff;
+    font-family:var(--font-d);font-weight:900;font-size:14px;letter-spacing:0.16em;text-transform:uppercase;
+    border-radius:2px;transition:background .18s ease, transform .15s ease;
+  }
+  .sum-place:hover:not([disabled]){background:var(--red-deep);transform:translateY(-1px)}
+  .sum-place[disabled]{opacity:0.4;cursor:not-allowed}
+  .sum-note{font-size:11px;opacity:0.45;text-align:center;margin-top:12px;letter-spacing:0.04em;line-height:1.5}
+
+  /* DEMO BANNER */
+  .demo-banner{background:rgba(232,52,26,0.08);border:1px solid rgba(232,52,26,0.3);padding:14px 18px;border-radius:2px;margin-bottom:24px;font-size:12px;letter-spacing:0.05em;display:flex;align-items:center;gap:12px}
+  .demo-banner .pill{background:var(--red);color:#fff;padding:4px 10px;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border-radius:2px;flex-shrink:0}
+  .demo-banner span{opacity:0.85}
+
+  /* SUCCESS MODAL */
+  .success{position:fixed;inset:0;background:rgba(13,17,23,0.96);display:none;z-index:100;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .success.open{display:flex;animation:fadeIn .3s ease}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .success-card{max-width:480px;width:100%;background:var(--navy);border:1px solid var(--line);padding:48px 36px;text-align:center;border-radius:2px}
+  .success-icon{width:72px;height:72px;border-radius:999px;background:rgba(74,222,128,0.15);color:var(--green);display:grid;place-items:center;margin:0 auto 20px}
+  .success-card h2{font-family:var(--font-d);font-weight:900;font-size:36px;letter-spacing:-0.005em;text-transform:uppercase;margin:0 0 12px}
+  .success-card p{font-size:14px;opacity:0.7;margin:0 0 28px;line-height:1.55}
+  .success-cta{display:inline-flex;align-items:center;gap:10px;padding:16px 26px;background:var(--cream);color:var(--ink);font-family:var(--font-d);font-weight:800;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;border-radius:2px;transition:transform .15s ease}
+  .success-cta:hover{transform:translateY(-1px)}
+
+  /* RESPONSIVE */
+  @media (max-width:960px){
+    .grid{grid-template-columns:1fr;gap:24px;padding:24px 0 64px}
+    .summary{position:static;top:auto}
+    .pay-options{grid-template-columns:1fr;gap:8px}
+    .pay-opt{min-height:auto;flex-direction:row;align-items:center;justify-content:space-between;padding:14px 16px}
+    .pay-opt .pay-disc{margin-top:0}
+    .row2{grid-template-columns:1fr;gap:10px}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a class="topbar-logo" href="index.html">
+      <img src="assets/logo-morashop.png" alt="Morashop" />
+      <span class="wm">MORASHOP</span>
+    </a>
+    <div class="topbar-step"><span class="ok">●</span> Checkout · Paso 2 de 2</div>
+    <a class="topbar-back" href="index.html">← Seguir comprando</a>
+  </div>
+</header>
+
+<section class="head">
+  <div class="container">
+    <div class="crumb"><a href="index.html">Inicio</a><span class="sep">/</span><span>Checkout</span></div>
+    <h1>Finalizá<br/>tu pedido.</h1>
+    <p>Completá los datos y elegí cómo querés pagar. Te confirmamos por WhatsApp en menos de 1 hora hábil.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="demo-banner">
+      <span class="pill">Demo</span>
+      <span>Este checkout es un placeholder visual. El procesamiento real se integra con Tiendanube cuando publiquemos la tienda.</span>
+    </div>
+
+    <form id="checkoutForm" class="grid" novalidate>
+      <div>
+        <!-- DATOS PERSONALES -->
+        <div class="form-card">
+          <h2><span class="step">01</span> Tus datos</h2>
+          <p class="lede">Para coordinar el envío y enviarte la factura.</p>
+          <div class="row2">
+            <div class="field">
+              <label for="nombre">Nombre y apellido</label>
+              <input id="nombre" name="nombre" type="text" placeholder="Ej. Diego Ramírez" required />
+            </div>
+            <div class="field">
+              <label for="dni">DNI</label>
+              <input id="dni" name="dni" type="text" placeholder="00.000.000" required />
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="vos@ejemplo.com" required />
+            </div>
+            <div class="field">
+              <label for="telefono">WhatsApp / Teléfono</label>
+              <input id="telefono" name="telefono" type="tel" placeholder="11 0000-0000" required />
+            </div>
+          </div>
+        </div>
+
+        <!-- ENVIO -->
+        <div class="form-card">
+          <h2><span class="step">02</span> Entrega</h2>
+          <p class="lede">Elegí cómo querés recibir tu pedido.</p>
+          <div class="pay-options" id="shipOptions" style="grid-template-columns:repeat(3,1fr);margin-bottom:18px">
+            <button type="button" class="pay-opt active" data-ship="local">
+              <div class="pay-title">Retiro<br/>en local</div>
+              <div class="pay-sub">Sin costo · Buenos Aires</div>
+              <div class="pay-disc" style="color:var(--green)">Gratis</div>
+            </button>
+            <button type="button" class="pay-opt" data-ship="punto">
+              <div class="pay-title">Punto<br/>de retiro</div>
+              <div class="pay-sub">OCA / Andreani · 48-72 hs</div>
+              <div class="pay-disc" style="color:var(--cream);opacity:0.55">A coordinar</div>
+            </button>
+            <button type="button" class="pay-opt" data-ship="domicilio">
+              <div class="pay-title">Envío a<br/>domicilio</div>
+              <div class="pay-sub">GBA hoy / Interior 24-72 hs</div>
+              <div class="pay-disc" style="color:var(--cream);opacity:0.55">A coordinar</div>
+            </button>
+          </div>
+
+          <!-- Datos de dirección (solo para Punto y Domicilio) -->
+          <div id="shipFields">
+            <div class="row2">
+              <div class="field">
+                <label for="cp">Código Postal</label>
+                <input id="cp" name="cp" type="text" placeholder="1414" />
+              </div>
+              <div class="field">
+                <label for="provincia">Provincia</label>
+                <select id="provincia" name="provincia">
+                  <option value="">Elegí tu provincia</option>
+                  <option>CABA</option>
+                  <option>Buenos Aires</option>
+                  <option>Córdoba</option>
+                  <option>Santa Fe</option>
+                  <option>Mendoza</option>
+                  <option>Tucumán</option>
+                  <option>Entre Ríos</option>
+                  <option>Salta</option>
+                  <option>Otro</option>
+                </select>
+              </div>
+            </div>
+            <div class="field" style="margin-bottom:12px" id="direccionField">
+              <label for="direccion">Dirección</label>
+              <input id="direccion" name="direccion" type="text" placeholder="Calle, número, piso, depto" />
+            </div>
+            <div class="field" id="puntoField" style="margin-bottom:12px;display:none">
+              <label for="punto">Punto de retiro</label>
+              <input id="punto" name="punto" type="text" placeholder="Sucursal OCA / Andreani más cercana" />
+            </div>
+          </div>
+
+          <!-- Datos del local (solo para Retiro en local) -->
+          <div id="localInfo" style="background:rgba(13,17,23,0.45);border:1px solid var(--line-soft);padding:18px;border-radius:2px;margin-bottom:12px">
+            <div style="font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;opacity:0.5;margin-bottom:8px">Dirección del local</div>
+            <div style="font-family:var(--font-d);font-weight:800;font-size:18px;letter-spacing:0.005em;text-transform:uppercase;margin-bottom:6px">Morashop · Buenos Aires</div>
+            <div style="font-size:13px;opacity:0.7;line-height:1.5">Te confirmamos por WhatsApp el día y horario disponible para que pases a retirar. Sin costo de envío.</div>
+          </div>
+
+          <div class="field">
+            <label for="notas">Notas para el pedido (opcional)</label>
+            <textarea id="notas" name="notas" placeholder="Timbre, referencia, horario preferido…"></textarea>
+          </div>
+        </div>
+
+        <!-- PAGO -->
+        <div class="form-card">
+          <h2><span class="step">03</span> Forma de pago</h2>
+          <p class="lede">Elegí el medio. Aplicamos el descuento automáticamente.</p>
+          <div class="pay-options" id="payOptions">
+            <button type="button" class="pay-opt active" data-pay="efectivo" data-discount="0.15">
+              <div class="pay-title">Efectivo</div>
+              <div class="pay-sub">Pago al recibir</div>
+              <div class="pay-disc">— 15%</div>
+            </button>
+            <button type="button" class="pay-opt" data-pay="transferencia" data-discount="0.05">
+              <div class="pay-title">Transferencia</div>
+              <div class="pay-sub">CBU / Alias</div>
+              <div class="pay-disc">— 5%</div>
+            </button>
+            <button type="button" class="pay-opt" data-pay="tarjeta" data-discount="0">
+              <div class="pay-title">Tarjeta</div>
+              <div class="pay-sub">Hasta 3 cuotas sin interés</div>
+              <div class="pay-disc" style="color:var(--cream);opacity:0.55">3 cuotas s/i</div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUMMARY -->
+      <aside class="summary">
+        <h2>Tu pedido</h2>
+        <div class="sum-items" id="sumItems"></div>
+        <div class="sum-rows" id="sumRows"></div>
+        <button class="sum-place" type="submit" id="placeBtn">Confirmar pedido <span>→</span></button>
+        <div class="sum-note">Al confirmar te contactamos por WhatsApp para coordinar el pago y el envío. No se debita nada todavía.</div>
+      </aside>
+    </form>
+  </div>
+</section>
+
+<!-- SUCCESS -->
+<div class="success" id="success" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+  <div class="success-card">
+    <div class="success-icon" aria-hidden="true">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+    </div>
+    <h2 id="successTitle">¡Pedido recibido!</h2>
+    <p>En menos de 1 hora hábil te escribimos por WhatsApp para confirmar el pago y coordinar la entrega.<br/><br/><strong style="opacity:0.55;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600">Demo · sin procesamiento real</strong></p>
+    <a class="success-cta" href="index.html">Volver al inicio →</a>
+  </div>
+</div>
+
+<script src="assets/cart.js"></script>
+<script>
+  (function () {
+    const formatARS = (window.Cart && window.Cart.formatARS) || (n => '$ ' + Math.round(n).toLocaleString('es-AR'));
+
+    const sumItems = document.getElementById('sumItems');
+    const sumRows = document.getElementById('sumRows');
+    const placeBtn = document.getElementById('placeBtn');
+    const form = document.getElementById('checkoutForm');
+    let activeDiscount = 0.15; // efectivo por defecto
+
+    function render() {
+      const items = (window.Cart && window.Cart.items()) || [];
+      if (!items.length) {
+        sumItems.innerHTML = `<div class="sum-empty">Tu carrito está vacío.<br/><a href="suplementos.html" style="color:var(--red);text-decoration:underline">Ver catálogo →</a></div>`;
+        sumRows.innerHTML = '';
+        placeBtn.disabled = true;
+        return;
+      }
+      placeBtn.disabled = false;
+      sumItems.innerHTML = items.map(it => `
+        <div class="sum-item">
+          <div class="sum-thumb">${it.img ? `<img src="${it.img}" alt="" />` : ''}</div>
+          <div class="sum-meta">
+            <div class="sum-name">${it.name}</div>
+            <div class="sum-qty">${it.qty} × ${formatARS(it.price)}</div>
+          </div>
+          <div class="sum-price">${formatARS(it.price * it.qty)}</div>
+        </div>
+      `).join('');
+
+      const subtotal = items.reduce((s, i) => s + i.qty * i.price, 0);
+      const discount = subtotal * activeDiscount;
+      const total = subtotal - discount;
+      sumRows.innerHTML = `
+        <div class="sum-row"><span>Subtotal</span><span>${formatARS(subtotal)}</span></div>
+        ${activeDiscount > 0 ? `<div class="sum-row discount"><span>Descuento (${Math.round(activeDiscount * 100)}%)</span><span class="v">− ${formatARS(discount)}</span></div>` : ''}
+        <div class="sum-row mute"><span>Envío</span><span>A coordinar</span></div>
+        <div class="sum-row total"><span>Total</span><span class="v">${formatARS(total)}</span></div>
+      `;
+    }
+
+    document.getElementById('payOptions').addEventListener('click', e => {
+      const btn = e.target.closest('.pay-opt');
+      if (!btn) return;
+      document.querySelectorAll('#payOptions .pay-opt').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeDiscount = parseFloat(btn.dataset.discount) || 0;
+      render();
+    });
+
+    // Modo de entrega: muestra/oculta campos según opción
+    const shipFields = document.getElementById('shipFields');
+    const localInfo = document.getElementById('localInfo');
+    const direccionField = document.getElementById('direccionField');
+    const puntoField = document.getElementById('puntoField');
+    const cpInput = document.getElementById('cp');
+    const provInput = document.getElementById('provincia');
+    const dirInput = document.getElementById('direccion');
+    const puntoInput = document.getElementById('punto');
+
+    function applyShipMode(mode) {
+      if (mode === 'local') {
+        shipFields.style.display = 'none';
+        localInfo.style.display = '';
+        [cpInput, provInput, dirInput, puntoInput].forEach(i => i.required = false);
+      } else if (mode === 'punto') {
+        shipFields.style.display = '';
+        localInfo.style.display = 'none';
+        direccionField.style.display = 'none';
+        puntoField.style.display = '';
+        cpInput.required = true; provInput.required = true; puntoInput.required = true;
+        dirInput.required = false;
+      } else { // domicilio
+        shipFields.style.display = '';
+        localInfo.style.display = 'none';
+        direccionField.style.display = '';
+        puntoField.style.display = 'none';
+        cpInput.required = true; provInput.required = true; dirInput.required = true;
+        puntoInput.required = false;
+      }
+    }
+    applyShipMode('local');
+
+    document.getElementById('shipOptions').addEventListener('click', e => {
+      const btn = e.target.closest('.pay-opt');
+      if (!btn) return;
+      document.querySelectorAll('#shipOptions .pay-opt').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyShipMode(btn.dataset.ship);
+    });
+
+    document.addEventListener('cart:change', render);
+    // Esperar que cart.js esté listo
+    if (window.Cart) render();
+    else document.addEventListener('DOMContentLoaded', render);
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      // validación HTML5 nativa
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      // demo: vaciar carrito + mostrar success
+      if (window.Cart) window.Cart.clear();
+      document.getElementById('success').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  })();
+</script>
+</body>
+</html>

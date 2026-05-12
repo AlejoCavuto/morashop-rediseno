@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/cart.css" />
 <style>
   :root {
     --ink:        #0D1117;
@@ -377,9 +378,9 @@
       <button class="icon-btn" id="searchBtn" aria-label="Buscar">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
       </button>
-      <button class="icon-btn" aria-label="Carrito">
+      <button class="icon-btn" id="cartBtn" aria-label="Carrito">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
-        <span class="cart-badge" id="cartCount">2</span>
+        <span class="cart-badge" id="cartCount" style="display:none">0</span>
       </button>
       <a href="suplementos.html" class="btn btn-red btn-sm">Ver catálogo <span class="arr">→</span></a>
       <button class="icon-btn hamb" aria-label="Menú">
@@ -735,6 +736,8 @@
   </div>
 </div>
 
+<script src="assets/cart.js" defer></script>
+
 <!-- FLOATING WHATSAPP -->
 <a class="wa-float" href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.92.5 3.78 1.46 5.43L2 22l4.78-1.55a9.85 9.85 0 0 0 5.26 1.5c5.45 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 17.92c-1.6 0-3.17-.43-4.55-1.24l-.33-.2-3.16 1.02 1.04-3.06-.22-.34a8.05 8.05 0 0 1-1.27-4.31c0-4.5 3.66-8.17 8.17-8.17 4.5 0 8.17 3.66 8.17 8.17.01 4.51-3.66 8.13-8.16 8.13zm4.47-6.13c-.25-.13-1.45-.72-1.68-.8-.22-.08-.39-.13-.55.13-.16.25-.62.79-.76.95-.14.16-.28.18-.52.06-.25-.13-1.04-.38-1.99-1.22-.73-.65-1.23-1.46-1.37-1.71-.14-.25-.02-.39.11-.51.11-.11.25-.28.37-.43.13-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.13-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.41.06-.62.31-.22.25-.83.81-.83 1.98 0 1.17.85 2.29.97 2.45.13.16 1.68 2.56 4.07 3.59.57.25 1.01.39 1.35.5.57.18 1.08.15 1.49.09.45-.07 1.45-.59 1.65-1.16.2-.57.2-1.05.14-1.16-.06-.1-.22-.16-.47-.28z"/></svg>
@@ -921,18 +924,22 @@
   function closeSearch(){ overlay.classList.remove('open'); input.blur(); }
   document.getElementById('searchClose').addEventListener('click', closeSearch);
 
-  // ---------- ADD-TO-CART ----------
-  let cartCount = parseInt(document.getElementById('cartCount').textContent, 10);
+  // ---------- ADD-TO-CART (delega en window.Cart) ----------
   function bindAddButtons(scope){
     scope.querySelectorAll('[data-add]').forEach(b => {
       if (b._bound) return;
       b._bound = true;
       b.addEventListener('click', e => {
         e.preventDefault(); e.stopPropagation();
-        cartCount += 1;
-        const badge = document.getElementById('cartCount');
-        badge.textContent = cartCount;
-        badge.animate([{transform:'scale(1)'},{transform:'scale(1.4)'},{transform:'scale(1)'}], {duration:280, easing:'ease-out'});
+        const card = e.currentTarget.closest('[data-id]');
+        const id = card && card.dataset.id;
+        const product = id ? CATALOG.find(p => p.id === id) : null;
+        if (product && window.Cart) {
+          window.Cart.add({
+            id: product.id, brand: product.brand, name: product.name,
+            price: product.price, img: product.img
+          });
+        }
         const btn = e.currentTarget;
         const original = btn.textContent;
         btn.textContent = 'Agregado ✓';

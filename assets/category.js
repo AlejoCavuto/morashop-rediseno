@@ -4,9 +4,17 @@
   const cartCount = document.getElementById('cartCount');
   if (!grid) return;
 
+  function productId(p) {
+    return (p.brand + '-' + p.name)
+      .toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
+  }
+
   function cardHTML(p) {
     return `
-      <article class="pcard" data-types="${p.types.join(',')}" data-brand="${p.brand}">
+      <article class="pcard" data-id="${productId(p)}" data-types="${p.types.join(',')}" data-brand="${p.brand}">
         <div class="ph">
           ${p.tag ? `<span class="tag ${p.tagType || ''}">${p.tag}</span>` : ''}
           <img src="${p.img}" alt="${p.name}" loading="lazy" />
@@ -33,24 +41,31 @@
 
   function bindAdd() {
     document.querySelectorAll('[data-add]').forEach(b => {
+      if (b._cartBound) return;
+      b._cartBound = true;
       b.addEventListener('click', e => {
-        if (cartCount) {
-          const n = parseInt(cartCount.textContent, 10) + 1;
-          cartCount.textContent = n;
-          cartCount.animate(
-            [{ transform: 'scale(1)' }, { transform: 'scale(1.4)' }, { transform: 'scale(1)' }],
-            { duration: 280, easing: 'ease-out' }
-          );
+        const card = e.currentTarget.closest('[data-id]');
+        const id = card && card.dataset.id;
+        const product = id ? window.PRODUCTS.find(p => productId(p) === id) : null;
+        if (product && window.Cart) {
+          window.Cart.add({
+            id: id,
+            brand: product.brand,
+            name: product.name,
+            price: product.price,
+            img: product.img
+          });
         }
-        e.target.textContent = 'Agregado ✓';
-        e.target.style.background = 'var(--red)';
-        e.target.style.color = '#fff';
-        e.target.style.borderColor = 'var(--red)';
+        const btn = e.currentTarget;
+        btn.textContent = 'Agregado ✓';
+        btn.style.background = 'var(--red)';
+        btn.style.color = '#fff';
+        btn.style.borderColor = 'var(--red)';
         setTimeout(() => {
-          e.target.textContent = 'Agregar';
-          e.target.style.background = '';
-          e.target.style.color = '';
-          e.target.style.borderColor = '';
+          btn.textContent = 'Agregar';
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.style.borderColor = '';
         }, 1400);
       });
     });
