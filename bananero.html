@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>El Bananero · Morashop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<link rel="stylesheet" href="assets/category.css" />
+<link rel="stylesheet" href="assets/cart.css" />
+<style>
+  .ban-wrap{background:var(--ink);min-height:60vh;display:flex;align-items:center;padding:80px 0 100px}
+  .ban-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:64px;align-items:center}
+  .ban-copy h1{font-family:var(--font-d);font-weight:900;font-size:clamp(48px,7vw,104px);line-height:0.92;letter-spacing:-0.01em;color:var(--cream);text-transform:uppercase;margin:18px 0 0}
+  .ban-copy .desc{color:var(--cream);opacity:0.7;font-size:clamp(15px,1.2vw,18px);line-height:1.6;max-width:46ch;margin:24px 0 0}
+  .ban-soon{display:inline-flex;align-items:center;gap:10px;margin-top:36px;padding:13px 22px;border:1px solid rgba(255,255,255,0.18);border-radius:999px;color:var(--cream);font-size:12px;letter-spacing:0.22em;text-transform:uppercase;font-weight:700}
+  .ban-soon .dot{width:8px;height:8px;border-radius:50%;background:#7CFF7C;box-shadow:0 0 0 4px rgba(124,255,124,0.18)}
+  .ban-media{position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);background:#000}
+  .ban-media img{display:block;width:100%;height:auto}
+  @media (max-width:860px){
+    .ban-grid{grid-template-columns:1fr;gap:40px}
+    .ban-media{order:-1}
+  }
+</style>
+</head>
+<body style="background: var(--ink);">
+
+<nav class="nav" data-screen-label="Nav">
+  <div class="container nav-inner">
+    <button class="cart-btn hamb-mobile" aria-label="Menú">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+    </button>
+    <div class="nav-logos">
+      <a href="index.html" aria-label="Morashop"><img src="assets/mora_minorista.png" alt="Morashop" /></a>
+      <a href="mayoristas.html" aria-label="Mayoristas"><img src="assets/mora_mayorista.png" alt="Mayoristas" /></a>
+    </div>
+    <div class="nav-links">
+      <a href="suplementos.html">Suplementos</a>
+      <a href="supermercado.html">Supermercado</a>
+      <a href="electro.html">Electro-Hogar</a>
+      <a href="bananero.html" style="opacity:1;">El Bananero</a>
+      <a href="sobre-nosotros.html">Sobre nosotros</a>
+    </div>
+    <div class="nav-actions">
+      <a href="login.html" class="cart-btn" aria-label="Iniciar sesión">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+      </a>
+      <button class="cart-btn" aria-label="Carrito" id="cartBtn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+        <span class="cart-badge" id="cartCount" style="display:none">0</span>
+      </button>
+      <button class="cart-btn hamb" aria-label="Menú">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE SEARCH BAR -->
+<div class="nav-search">
+  <form role="search" action="index.html" method="get">
+    <button type="submit" aria-label="Buscar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    </button>
+    <input type="search" name="q" placeholder="¿Qué estás buscando?" autocomplete="off" />
+  </form>
+</div>
+
+<section class="ban-wrap" data-screen-label="Bananero">
+  <div class="container ban-grid">
+    <div class="ban-copy">
+      <div class="crumb">
+        <a href="index.html">Inicio</a><span class="sep">/</span><span>El Bananero</span>
+      </div>
+      <div class="cat-overline"></div>
+      <h1>El<br/>Bananero</h1>
+      <p class="desc">La cerveza Japi, papas y salsas picantes. Los productos de El Bananero, directo a tu casa.</p>
+      <div class="ban-soon"><span class="dot"></span> Próximamente</div>
+    </div>
+    <div class="ban-media">
+      <img src="assets/products/bananero.gif" alt="El Bananero — cerveza Japi" />
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="container">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="wordmark"><img src="assets/mora_minorista.png" alt="Morashop" style="height:32px;width:auto" /></div>
+        <p>Suplementación deportiva, supermercado y electro-hogar. Distribuidor autorizado desde 2018.</p>
+      </div>
+      <div class="foot-col"><h5>Tienda</h5><ul>
+        <li><a href="suplementos.html">Suplementos</a></li>
+        <li><a href="supermercado.html">Supermercado</a></li>
+        <li><a href="electro.html">Electro-Hogar</a></li>
+        <li><a href="bananero.html">El Bananero</a></li>
+      </ul></div>
+      <div class="foot-col"><h5>Compañía</h5><ul>
+        <li><a href="sobre-nosotros.html">Sobre nosotros</a></li>
+        <li><a href="mayoristas.html">Mayorista</a></li>
+      </ul></div>
+      <div class="foot-col"><h5>Soporte</h5><ul>
+        <li><a href="#">Envíos y entregas</a></li>
+        <li><a href="https://wa.me/5491100000000">WhatsApp</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-bot">
+      <div>© 2026 Morashop</div>
+      <div>Términos · Privacidad · Cookies</div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/cart.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

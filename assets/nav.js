@@ -6,6 +6,7 @@
     { href: 'suplementos.html', label: 'Suplementos' },
     { href: 'supermercado.html', label: 'Supermercado' },
     { href: 'electro.html', label: 'Electro-Hogar' },
+    { href: 'bananero.html', label: 'El Bananero' },
     { href: 'mayoristas.html', label: 'Mayoristas' },
     { href: 'sobre-nosotros.html', label: 'Sobre nosotros' },
   ];
