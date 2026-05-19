@@ -107,8 +107,7 @@
   .nav-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 32px;
+    gap: 48px;
     height: 76px;
   }
   .nav-logo {
@@ -128,6 +127,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-shrink: 0;
   }
   .nav-logos a {
     display: flex;
@@ -151,7 +151,7 @@
     transition: opacity .15s ease;
   }
   .nav-links a:hover { opacity: 1; }
-  .nav-actions { display: flex; align-items: center; gap: 20px; }
+  .nav-actions { display: flex; align-items: center; gap: 20px; margin-left: auto; flex-shrink: 0; }
   .cart-btn {
     position: relative;
     width: 44px; height: 44px;
@@ -993,8 +993,11 @@
     /* En mobile: hamb a la izquierda, ocultamos la antigua hamb dentro de nav-actions */
     .hamb { display: none; }
     .hamb-mobile { display: grid; place-items: center; }
-    .nav-logos { justify-self: center; gap: 5px; }
+    .nav-logos { margin: 0 auto; gap: 5px; }
     .nav-logos img { height: 20px; }
+    /* En mobile las acciones no deben empujarse solas a la derecha;
+       el margin auto de los logos ya las posiciona */
+    .nav-actions { margin-left: 0; }
     /* Activar barra de búsqueda fija */
     .nav-search { display: block; }
   }
