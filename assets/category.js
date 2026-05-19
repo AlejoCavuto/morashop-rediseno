@@ -107,6 +107,67 @@
 
   document.addEventListener('change', e => { if (e.target.id === 'sort') apply(); });
 
-  if (document.readyState !== 'loading') apply();
-  else document.addEventListener('DOMContentLoaded', apply);
+  // ---------- PANEL DE FILTROS EN MOBILE ----------
+  // Se inyecta automaticamente: boton "Filtros" en el toolbar + backdrop + boton cerrar/aplicar en el panel.
+  // No hay que tocar el HTML de las paginas; usa las mismas .pill ya existentes.
+  function setupFiltersPanel() {
+    const pillBar = document.querySelector('.pill-bar');
+    const toolbar = document.querySelector('.cat-toolbar');
+    if (!pillBar || !toolbar) return;
+
+    // Boton Filtros al inicio del toolbar (antes de results)
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.type = 'button';
+    btn.innerHTML = `
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
+      Filtros <span class="badge" data-count style="display:none">0</span>`;
+    toolbar.insertBefore(btn, toolbar.firstChild);
+
+    // Backdrop + boton cerrar + boton aplicar (hermanos de .pill-bar)
+    const backdrop = document.createElement('div');
+    backdrop.className = 'pill-backdrop';
+    pillBar.parentNode.insertBefore(backdrop, pillBar.nextSibling);
+
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'pill-close';
+    closeBtn.type = 'button';
+    closeBtn.setAttribute('aria-label', 'Cerrar filtros');
+    closeBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>';
+    pillBar.parentNode.insertBefore(closeBtn, backdrop.nextSibling);
+
+    const applyBtn = document.createElement('button');
+    applyBtn.className = 'pill-apply';
+    applyBtn.type = 'button';
+    applyBtn.textContent = 'Ver resultados';
+    pillBar.parentNode.insertBefore(applyBtn, closeBtn.nextSibling);
+
+    function updateCount() {
+      const active = document.querySelectorAll('.pill.active:not([data-value="all"])').length;
+      const badge = btn.querySelector('[data-count]');
+      if (active > 0) { badge.style.display = ''; badge.textContent = active; }
+      else            { badge.style.display = 'none'; }
+    }
+    function open() {
+      pillBar.classList.add('open');
+      backdrop.classList.add('open');
+      document.body.classList.add('filters-open');
+    }
+    function close() {
+      pillBar.classList.remove('open');
+      backdrop.classList.remove('open');
+      document.body.classList.remove('filters-open');
+    }
+    btn.addEventListener('click', open);
+    closeBtn.addEventListener('click', close);
+    backdrop.addEventListener('click', close);
+    applyBtn.addEventListener('click', () => { updateCount(); close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && pillBar.classList.contains('open')) close(); });
+    // Actualizar contador cada vez que se toca una pill
+    document.addEventListener('click', e => { if (e.target.closest('.pill')) updateCount(); });
+    updateCount();
+  }
+
+  if (document.readyState !== 'loading') { apply(); setupFiltersPanel(); }
+  else document.addEventListener('DOMContentLoaded', () => { apply(); setupFiltersPanel(); });
 })();

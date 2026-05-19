@@ -53,8 +53,7 @@
   </form>
 </div>
 
-<section class="cat-hero" data-screen-label="Supermercado Hero">
-  <img class="cat-hero-img" src="assets/products/omega3-innova.png" alt="" />
+<section class="cat-hero hero-supermercado" data-screen-label="Supermercado Hero">
   <div class="container cat-hero-inner">
     <div class="crumb">
       <a href="index.html">Inicio</a><span class="sep">/</span><span>Supermercado</span>
@@ -70,23 +69,21 @@
     <div class="pill-row">
       <span class="pill-label">Tipo</span>
       <button class="pill active" data-group="type" data-value="all">Todo</button>
-      <button class="pill" data-group="type" data-value="snacks-fit">Snacks fit</button>
-      <button class="pill" data-group="type" data-value="bebidas">Bebidas funcionales</button>
-      <button class="pill" data-group="type" data-value="granos">Granos y semillas</button>
-      <button class="pill" data-group="type" data-value="aceites">Aceites</button>
-      <button class="pill" data-group="type" data-value="basicos">Básicos de cocina</button>
+      <button class="pill" data-group="type" data-value="almacen">Almacén</button>
+      <button class="pill" data-group="type" data-value="cuidado-personal">Cuidado personal</button>
+      <button class="pill" data-group="type" data-value="bebidas">Bebidas</button>
     </div>
     <div class="pill-row">
       <span class="pill-label">Marca</span>
       <button class="pill active" data-group="brand" data-value="all">Todas</button>
-      <button class="pill" data-group="brand" data-value="Mantra">Mantra</button>
-      <button class="pill" data-group="brand" data-value="Quaker">Quaker</button>
-      <button class="pill" data-group="brand" data-value="AdeS">AdeS</button>
-      <button class="pill" data-group="brand" data-value="Vital">Vital</button>
-      <button class="pill" data-group="brand" data-value="Tomasito">Tomasito</button>
-      <button class="pill" data-group="brand" data-value="Cocinero">Cocinero</button>
-      <button class="pill" data-group="brand" data-value="Natura">Natura</button>
-      <button class="pill" data-group="brand" data-value="Ledesma">Ledesma</button>
+      <button class="pill" data-group="brand" data-value="SriSri">SriSri</button>
+      <button class="pill" data-group="brand" data-value="Dicomere">Dicomere</button>
+      <button class="pill" data-group="brand" data-value="Entrenuts">Entrenuts</button>
+      <button class="pill" data-group="brand" data-value="Kos">Kos</button>
+      <button class="pill" data-group="brand" data-value="Q-Soft">Q-Soft</button>
+      <button class="pill" data-group="brand" data-value="Main Fusion">Main Fusion</button>
+      <button class="pill" data-group="brand" data-value="Integra">Integra</button>
+      <button class="pill" data-group="brand" data-value="Elegante">Elegante</button>
     </div>
   </div>
 </div>
@@ -137,26 +134,8 @@
   </div>
 </footer>
 
-<script>
-window.PRODUCTS = [
-  { brand:"Mantra",       name:"Barra Proteica Cacao",   meta:"Caja x 12 · 50 g c/u",      price:"$  8.900", tag:"Más vendido", img:"assets/products/whey-star.png",     types:["snacks-fit"] },
-  { brand:"Mantra",       name:"Barrita Avena Choc.",    meta:"Caja x 16 · 35 g c/u",      price:"$  6.500", img:"assets/products/whey-star.png",     types:["snacks-fit"] },
-  { brand:"Quaker",       name:"Granola Crocante",       meta:"Bolsa 350 g",               price:"$  3.490", img:"assets/products/whey-star.png",     types:["snacks-fit","granos"] },
-  { brand:"Mantra",       name:"Chips de Garbanzo",      meta:"100 g · sin TACC",          price:"$  2.450", tag:"Nuevo", tagType:"new", img:"assets/products/whey-star.png", types:["snacks-fit"] },
-  { brand:"Vital",        name:"Agua Saborizada",        meta:"Pack 6 x 1.5 L",            price:"$  5.890", img:"assets/products/omega3-innova.png", types:["bebidas"] },
-  { brand:"AdeS",         name:"Bebida Almendras",       meta:"1 L · sin azúcar",          price:"$  2.190", img:"assets/products/omega3-innova.png", types:["bebidas"] },
-  { brand:"AdeS",         name:"Mate Cocido Detox",      meta:"Caja x 25 saquitos",        price:"$  1.890", img:"assets/products/omega3-innova.png", types:["bebidas"] },
-  { brand:"Vital",        name:"Agua Mineral",           meta:"Pack 6 x 2 L",              price:"$  4.290", img:"assets/products/omega3-innova.png", types:["bebidas"] },
-  { brand:"Tomasito",     name:"Avena Tradicional",      meta:"500 g",                     price:"$  1.690", img:"assets/products/creatina-ena.png",  types:["granos","basicos"] },
-  { brand:"Tomasito",     name:"Quinoa Real",            meta:"500 g · sin TACC",          price:"$  3.900", img:"assets/products/creatina-ena.png",  types:["granos"] },
-  { brand:"Tomasito",     name:"Semillas de Chía",       meta:"500 g · orgánicas",         price:"$  3.200", was:"$  3.800", tag:"-15%", tagType:"sale", img:"assets/products/creatina-ena.png", types:["granos"] },
-  { brand:"Ledesma",      name:"Lentejas",               meta:"500 g · primera",           price:"$  1.490", img:"assets/products/creatina-ena.png",  types:["granos","basicos"] },
-  { brand:"Cocinero",     name:"Aceite de Oliva Extra V.", meta:"500 ml · primera presión", price:"$  4.890", img:"assets/products/omega3-innova.png", types:["aceites","basicos"] },
-  { brand:"Natura",       name:"Aceite de Coco",         meta:"360 ml · virgen",           price:"$  6.500", tag:"Stock", img:"assets/products/omega3-innova.png", types:["aceites"] },
-  { brand:"Cocinero",     name:"Aceite Girasol Alto Oleico", meta:"900 ml",            price:"$  2.890", img:"assets/products/omega3-innova.png", types:["aceites","basicos"] },
-  { brand:"Ledesma",      name:"Azúcar Mascabo",         meta:"500 g · orgánico",          price:"$  2.190", img:"assets/products/creatina-ena.png",  types:["basicos"] }
-];
-</script>
+<script src="assets/catalog-data.js"></script>
+<script>window.PRODUCTS = (window.CATALOG && window.CATALOG.supermercado) || [];</script>
 <script src="assets/category.js"></script>
 <script src="assets/cart.js"></script>
 <script src="assets/nav.js"></script>

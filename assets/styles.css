@@ -993,8 +993,8 @@
     /* En mobile: hamb a la izquierda, ocultamos la antigua hamb dentro de nav-actions */
     .hamb { display: none; }
     .hamb-mobile { display: grid; place-items: center; }
-    .nav-logos { margin: 0 auto; gap: 5px; }
-    .nav-logos img { height: 20px; }
+    .nav-logos { margin: 0 auto; gap: 6px; }
+    .nav-logos img { height: 32px; }
     /* En mobile las acciones no deben empujarse solas a la derecha;
        el margin auto de los logos ya las posiciona */
     .nav-actions { margin-left: 0; }

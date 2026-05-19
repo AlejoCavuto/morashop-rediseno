@@ -53,8 +53,7 @@
   </form>
 </div>
 
-<section class="cat-hero" data-screen-label="Electro Hero">
-  <img class="cat-hero-img" src="assets/products/creatina-ena.png" alt="" />
+<section class="cat-hero hero-electro" data-screen-label="Electro Hero">
   <div class="container cat-hero-inner">
     <div class="crumb">
       <a href="index.html">Inicio</a><span class="sep">/</span><span>Electrodomésticos</span>
@@ -70,23 +69,24 @@
     <div class="pill-row">
       <span class="pill-label">Tipo</span>
       <button class="pill active" data-group="type" data-value="all">Todo</button>
-      <button class="pill" data-group="type" data-value="licuadoras">Licuadoras</button>
-      <button class="pill" data-group="type" data-value="balanzas">Balanzas digitales</button>
-      <button class="pill" data-group="type" data-value="batidoras">Batidoras</button>
+      <button class="pill" data-group="type" data-value="electrodomesticos">Electrodomésticos</button>
+      <button class="pill" data-group="type" data-value="cocina">Cocina</button>
+      <button class="pill" data-group="type" data-value="bano">Baño</button>
+      <button class="pill" data-group="type" data-value="herramientas">Herramientas</button>
       <button class="pill" data-group="type" data-value="otros">Otros equipos</button>
     </div>
     <div class="pill-row">
       <span class="pill-label">Marca</span>
       <button class="pill active" data-group="brand" data-value="all">Todas</button>
-      <button class="pill" data-group="brand" data-value="Oster">Oster</button>
-      <button class="pill" data-group="brand" data-value="Philips">Philips</button>
-      <button class="pill" data-group="brand" data-value="Ninja">Ninja</button>
-      <button class="pill" data-group="brand" data-value="Atma">Atma</button>
-      <button class="pill" data-group="brand" data-value="Xiaomi">Xiaomi</button>
-      <button class="pill" data-group="brand" data-value="Beurer">Beurer</button>
-      <button class="pill" data-group="brand" data-value="KitchenAid">KitchenAid</button>
-      <button class="pill" data-group="brand" data-value="Smeg">Smeg</button>
-      <button class="pill" data-group="brand" data-value="Nespresso">Nespresso</button>
+      <button class="pill" data-group="brand" data-value="Ultracomb">Ultracomb</button>
+      <button class="pill" data-group="brand" data-value="Yelmo">Yelmo</button>
+      <button class="pill" data-group="brand" data-value="Triton">Triton</button>
+      <button class="pill" data-group="brand" data-value="Lusqtoff">Lusqtoff</button>
+      <button class="pill" data-group="brand" data-value="Kanji">Kanji</button>
+      <button class="pill" data-group="brand" data-value="Stor">Stor</button>
+      <button class="pill" data-group="brand" data-value="Einhell">Einhell</button>
+      <button class="pill" data-group="brand" data-value="San-Up">San-Up</button>
+      <button class="pill" data-group="brand" data-value="Qualika">Qualika</button>
     </div>
   </div>
 </div>
@@ -137,22 +137,8 @@
   </div>
 </footer>
 
-<script>
-window.PRODUCTS = [
-  { brand:"Oster",       name:"Licuadora Reversible Pro", meta:"600 W · vaso vidrio 1.25 L",   price:"$ 89.900", was:"$104.900", tag:"-15%", tagType:"sale", img:"assets/products/creatina-ena.png", types:["licuadoras"] },
-  { brand:"Philips",     name:"Licuadora ProBlend 5000",  meta:"1000 W · 2 L",                 price:"$129.900", tag:"Más vendido", img:"assets/products/creatina-ena.png", types:["licuadoras"] },
-  { brand:"Ninja",       name:"Personal Blender BL480",   meta:"900 W · 700 ml · to-go",       price:"$ 79.500", img:"assets/products/creatina-ena.png", types:["licuadoras"] },
-  { brand:"Atma",        name:"Licuadora Compacta",       meta:"500 W · vaso 1.5 L",           price:"$ 38.900", img:"assets/products/creatina-ena.png", types:["licuadoras"] },
-  { brand:"Xiaomi",      name:"Mi Body Composition 2",    meta:"Bluetooth · 13 métricas",      price:"$ 49.900", tag:"Nuevo", tagType:"new", img:"assets/products/whey-star.png", types:["balanzas"] },
-  { brand:"Beurer",      name:"Balanza Digital BG13",     meta:"Vidrio templado · 180 kg",     price:"$ 32.500", img:"assets/products/whey-star.png", types:["balanzas"] },
-  { brand:"Beurer",      name:"Balanza de Cocina Digital",meta:"5 kg · acero inoxidable",      price:"$ 18.900", img:"assets/products/whey-star.png", types:["balanzas"] },
-  { brand:"KitchenAid",  name:"Batidora Artisan 5KSM",    meta:"Planetaria · 4.8 L · 10 vel",  price:"$549.000", tag:"Premium", img:"assets/products/amino-energy.png", types:["batidoras"] },
-  { brand:"Oster",       name:"Batidora de Mano 5 vel.",  meta:"250 W · 5 velocidades",        price:"$ 24.900", img:"assets/products/amino-energy.png", types:["batidoras"] },
-  { brand:"Philips",     name:"Batidora de Mano ProMix",  meta:"650 W · accesorios",           price:"$ 38.500", img:"assets/products/amino-energy.png", types:["batidoras"] },
-  { brand:"Smeg",        name:"Tostadora 2 Rebanadas",    meta:"Estilo retro · 6 niveles",     price:"$229.000", img:"assets/products/omega3-innova.png", types:["otros"] },
-  { brand:"Nespresso",   name:"Essenza Mini",             meta:"Cápsulas · 19 bar",            price:"$179.900", tag:"Stock", img:"assets/products/omega3-innova.png", types:["otros"] }
-];
-</script>
+<script src="assets/catalog-data.js"></script>
+<script>window.PRODUCTS = (window.CATALOG && window.CATALOG.electro) || [];</script>
 <script src="assets/category.js"></script>
 <script src="assets/cart.js"></script>
 <script src="assets/nav.js"></script>

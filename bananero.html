@@ -77,11 +77,40 @@
       <div class="cat-overline"></div>
       <h1>El<br/>Bananero</h1>
       <p class="desc">La cerveza Japi, papas y salsas picantes. Los productos de El Bananero, directo a tu casa.</p>
-      <div class="ban-soon"><span class="dot"></span> Próximamente</div>
     </div>
     <div class="ban-media">
       <img src="assets/products/bananero.gif" alt="El Bananero — cerveza Japi" />
     </div>
+  </div>
+</section>
+
+<div class="pill-bar">
+  <div class="container">
+    <div class="pill-row">
+      <span class="pill-label">Tipo</span>
+      <button class="pill active" data-group="type" data-value="all">Todo</button>
+      <button class="pill" data-group="type" data-value="cerveza">Cerveza Japi</button>
+      <button class="pill" data-group="type" data-value="picantes">Picantes</button>
+      <button class="pill" data-group="type" data-value="otros">Merch</button>
+    </div>
+  </div>
+</div>
+
+<section class="cat-body">
+  <div class="container">
+    <div class="cat-toolbar">
+      <div class="results" id="resultsCount"></div>
+      <div class="sort">
+        <label for="sort">Ordenar</label>
+        <select id="sort">
+          <option value="featured">Destacados</option>
+          <option value="price-asc">Menor precio</option>
+          <option value="price-desc">Mayor precio</option>
+          <option value="name">Alfabético</option>
+        </select>
+      </div>
+    </div>
+    <div class="cat-grid cols-2" id="catGrid"></div>
   </div>
 </section>
 
@@ -114,6 +143,9 @@
   </div>
 </footer>
 
+<script src="assets/catalog-data.js"></script>
+<script>window.PRODUCTS = (window.CATALOG && window.CATALOG.bananero) || [];</script>
+<script src="assets/category.js"></script>
 <script src="assets/cart.js"></script>
 <script src="assets/nav.js"></script>
 </body>
