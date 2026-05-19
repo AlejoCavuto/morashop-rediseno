@@ -151,6 +151,14 @@
   .strip .go{display:inline-flex;align-items:center;gap:14px;font-family:var(--font-d);font-weight:800;font-size:18px;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream);padding-bottom:10px;border-bottom:1.5px solid var(--cream);transition:gap .25s ease}
   .strip .go:hover{gap:22px}
   .strip-img{position:absolute;right:-8%;top:50%;transform:translateY(-50%);height:130%;max-height:900px;width:auto;z-index:1;filter:drop-shadow(0 40px 60px rgba(0,0,0,0.55))}
+  /* El Bananero: GIF con fondo negro propio — se funde a los bordes para que no se vea el rectángulo sobre el fondo del sitio */
+  .strip-bananero .strip-img{
+    filter:none;
+    -webkit-mask-image:linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
+    mask-image:linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
+    -webkit-mask-composite:source-in;
+    mask-composite:intersect;
+  }
 
   /* ---------- ENVÍOS ---------- */
   .ship{background:var(--navy);padding:clamp(80px,10vw,140px) 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
@@ -371,9 +379,13 @@
     .pcard.big{grid-column:span 1;grid-row:span 1}
     .pcard.big .ph{min-height:240px}
     /* Strip: apilar foto + texto en bloque, sin flex (evita superposición) */
-    .strip{min-height:auto;padding:48px var(--pad-x);display:block;align-items:initial}
+    .strip{min-height:auto;padding:32px 0 48px;display:block;align-items:initial}
     .strip-inner{padding:0;text-align:left}
-    .strip-img{position:relative;right:auto;top:auto;left:auto;transform:none;height:auto;width:100%;max-width:340px;margin:0 0 28px;display:block;border-radius:10px;filter:drop-shadow(0 24px 36px rgba(0,0,0,0.55))}
+    .strip-img{position:relative;right:auto;top:auto;left:auto;transform:none;height:auto;width:68%;max-width:260px;margin:0 0 20px;display:block;filter:drop-shadow(0 24px 36px rgba(0,0,0,0.55))}
+    /* El Bananero: GIF apaisado (2100x1150) con fondo propio — banner full-width, no foto de producto */
+    .strip-bananero{padding:0 0 40px}
+    .strip-bananero .strip-img{width:100%;max-width:100%;aspect-ratio:2100/1150;object-fit:cover;margin:0 0 28px;display:block}
+    .strip-bananero .strip-inner{padding:0 var(--pad-x)}
     .strip h3{max-width:100%;font-size:clamp(48px,12vw,72px)}
     .strip .desc{max-width:100%}
     .ship-grid{grid-template-columns:1fr;gap:36px}
@@ -610,8 +622,8 @@
       <span class="go">Ver todo <span class="arr">→</span></span>
     </div>
   </a>
-  <a href="bananero.html" class="strip">
-    <img class="strip-img" src="assets/products/bananero.gif" alt="" />
+  <a href="bananero.html" class="strip strip-bananero">
+    <img class="strip-img" src="assets/products/bananero.gif" alt="El Bananero — cerveza Japi" />
     <div class="container strip-inner">
       <div class="num">— 04 / El Bananero</div>
       <span class="overline"></span>
