@@ -42,15 +42,27 @@ Lo más importante. Cada página de categoría tiene un **hero (banner superior)
 
 ### Especificaciones técnicas (las 4 imágenes)
 
+> ⚠️ **Importante:** las imágenes se usan en **dos lugares**: (1) el sitio rediseñado en Vercel y (2) **Tiendanube** (donde está la tienda activa hoy). Tiendanube tiene límites más estrictos, así que las specs están pensadas para que funcionen en ambos.
+
+**Necesito 2 versiones de cada hero** (8 archivos en total):
+
+| Versión | Resolución | Uso |
+|---|---|---|
+| **Web / rediseño** | **1920 × 900 px** (formato horizontal 16:9) | Sitio Vercel (control total, sin límites de plataforma) |
+| **Tiendanube** | **1024 × 480 px** (misma proporción 16:9) | Tiendanube (la plataforma redimensiona a máx 1024 px de ancho automáticamente) |
+
+**Specs comunes para las 2 versiones:**
+
 | Spec | Valor |
 |---|---|
-| **Resolución desktop** | 2400 × 1200 px (banner ancho) |
-| **Resolución mobile** | 1080 × 1200 px (más cuadrado/vertical) |
-| **Si hacés UNA sola por categoría** | 2400 × 1400 px con el "punto de interés" centrado, recortable a ambos formatos sin perder lo importante |
-| **Formato final** | WebP (preferido) o JPG comprimido |
-| **Peso máximo** | 300 KB cada una (importante para performance mobile) |
-| **Espacio para texto** | El título de la página (45-90px de alto) va **superpuesto** sobre la imagen, en general arriba a la izquierda. **Dejá esa zona más oscura/limpia** para que el texto se lea |
-| **Overlay** | Yo agrego en CSS un overlay oscuro encima de la imagen (gradiente negro al 40-60% en la zona del texto). Vos solo pasame la imagen "limpia" |
+| **Formato final** | **WebP** (preferido) o **JPG** comprimido. Tiendanube acepta también PNG y GIF, pero JPG/WebP son los óptimos para fotos |
+| **Peso máximo** | **300 KB cada archivo** (Tiendanube recomienda ≤ 500 KB, vamos un poco más abajo para mejor performance mobile) |
+| **Espacio para texto** | El título de la página va **superpuesto** sobre la imagen, arriba a la izquierda. **Dejá esa zona más oscura/limpia** para que el texto se lea bien |
+| **Overlay** | Yo agrego en CSS un overlay oscuro encima de la imagen (gradiente negro al 40-60% en la zona del texto). Vos solo pasame la imagen "limpia", sin gradiente quemado |
+| **Punto de interés** | Pensá que el recorte mobile va a ser **el centro** de la imagen 16:9 → no pongas elementos importantes en los extremos laterales, se pierden en mobile |
+
+**Por qué 16:9 (1920×900) y no más alto:**
+Tiendanube renderiza banners en proporción ancha por defecto. Si hacés cuadrado (1024×1024) los temas de Tiendanube lo recortan feo. 16:9 funciona bien en ambos destinos sin recortes raros.
 
 ### Estilo general (las 4 imágenes deben sentirse de la misma familia)
 
@@ -170,22 +182,31 @@ Esto **es a propósito**: el cliente puede alternar entre la tienda minorista y 
 
 ## 4. Entregables
 
-Cuando estén listas las 4 imágenes:
+Cuando esté listo necesito:
 
-1. **Archivos finales:**
-   - `hero-suplementos.webp` (2400×1200 + 1080×1200 si haces 2 versiones)
-   - `hero-supermercado.webp`
-   - `hero-electro.webp`
-   - `hero-bananero.webp`
-   - Cada uno máx 300 KB
+1. **Heroes — 2 versiones por categoría** (8 archivos en total, formato WebP o JPG, máx 300 KB c/u):
+
+   **Versión web (1920 × 900 px):**
+   - `hero-suplementos-web.webp`
+   - `hero-supermercado-web.webp`
+   - `hero-electro-web.webp`
+   - `hero-bananero-web.webp`
+
+   **Versión Tiendanube (1024 × 480 px):**
+   - `hero-suplementos-tn.webp`
+   - `hero-supermercado-tn.webp`
+   - `hero-electro-tn.webp`
+   - `hero-bananero-tn.webp`
+
+   > La versión Tiendanube es la misma imagen reexportada al ancho que pide la plataforma. Si trabajás en 1920×900 desde el inicio, exportar la versión TN es solo redimensionar.
 
 2. **Archivos editables (opcional pero ideal):**
-   - `.psd` o `.ai` por si después hay que retocar algo
+   - `.psd` o `.ai` (uno por categoría) por si después hay que retocar algo
 
 3. **Logos actualizados (si los rehacés):**
-   - `mora_minorista.svg`
+   - `mora_minorista.svg` (vectorial, escala a cualquier tamaño sin pixelarse)
    - `mora_mayorista.svg`
-   - (Si solo PNG, mínimo 200px de alto para que escale)
+   - (Si solo PNG, mínimo 200 px de alto y peso < 30 KB)
 
 **Plazo:** decime vos qué necesitás. Idealmente las 4 imágenes en 1-2 semanas para poder seguir avanzando.
 
