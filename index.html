@@ -417,7 +417,7 @@
   .perks::before,.perks::after{content:"";position:absolute;top:0;bottom:0;width:48px;z-index:2;pointer-events:none}
   .perks::before{left:0;background:linear-gradient(90deg,var(--red),transparent)}
   .perks::after{right:0;background:linear-gradient(270deg,var(--red),transparent)}
-  .perks-track{display:flex;width:max-content;will-change:transform;animation:perks-scroll var(--perks-dur,40s) linear infinite}
+  .perks-track{display:flex;width:max-content;will-change:transform;animation:perks-scroll 22s linear infinite}
   .perks:hover .perks-track{animation-play-state:paused}
   .perks-group{display:flex;align-items:center;flex-shrink:0}
   .perk{display:flex;align-items:center;gap:9px;white-space:nowrap;padding:0 clamp(28px,4.5vw,52px)}
@@ -428,6 +428,7 @@
   @media (max-width:768px){
     .perks{padding:10px 0}
     .perks::before,.perks::after{width:28px}
+    .perks-track{animation-duration:16s}
     .perk{padding:0 22px;gap:8px}
     .perk .pv{font-size:19px}
     .perk .pl{font-size:11px}
@@ -966,18 +967,8 @@
       `<div class="perk"><span class="pv">${p.pv}</span><span class="pl">${p.pl}</span></div><span class="perk-star" aria-hidden="true">✦</span>`
     ).join('');
     const group = `<div class="perks-group">${perkHTML}</div>`;
-    // 4 grupos: asegura que el track sea más ancho que cualquier pantalla, sin cortes
-    perksTrack.innerHTML = group + group + group + group;
-
-    // Velocidad constante en px/seg — fluida, independiente del ancho del texto.
-    function setPerksSpeed(){
-      const SPEED = 70; // px por segundo (medio)
-      const half = perksTrack.scrollWidth / 2; // la animación recorre el 50%
-      const dur = half / SPEED;
-      perksTrack.style.setProperty('--perks-dur', dur.toFixed(1) + 's');
-    }
-    setPerksSpeed();
-    window.addEventListener('resize', setPerksSpeed, {passive:true});
+    // 2 grupos idénticos: la animación mueve -50% (= 1 grupo), loop sin corte.
+    perksTrack.innerHTML = group + group;
   }
 
   // ---------- SEARCH (live dropdown) ----------
