@@ -413,25 +413,28 @@
   }
 
   /* ---------- FRANJA BENEFICIOS (marquee) ---------- */
-  .perks{background:var(--red);color:#fff;overflow:hidden;padding:11px 0;position:relative}
-  .perks-track{display:flex;width:max-content;animation:perks-scroll 18s linear infinite}
+  .perks{background:var(--red);color:#fff;overflow:hidden;padding:12px 0;position:relative}
+  .perks::before,.perks::after{content:"";position:absolute;top:0;bottom:0;width:48px;z-index:2;pointer-events:none}
+  .perks::before{left:0;background:linear-gradient(90deg,var(--red),transparent)}
+  .perks::after{right:0;background:linear-gradient(270deg,var(--red),transparent)}
+  .perks-track{display:flex;width:max-content;will-change:transform;animation:perks-scroll var(--perks-dur,40s) linear infinite}
   .perks:hover .perks-track{animation-play-state:paused}
   .perks-group{display:flex;align-items:center;flex-shrink:0}
-  .perk{display:flex;align-items:baseline;gap:7px;white-space:nowrap;padding:0 clamp(24px,4vw,44px)}
-  .perk .pv{font-family:var(--font-d);font-weight:900;font-size:clamp(19px,2.4vw,24px);line-height:1;letter-spacing:-0.01em}
-  .perk .pl{font-family:var(--font-d);font-weight:700;font-size:clamp(11px,1.3vw,13px);letter-spacing:0.13em;text-transform:uppercase;opacity:0.95}
-  .perk-star{font-size:11px;opacity:0.6;flex-shrink:0}
+  .perk{display:flex;align-items:center;gap:9px;white-space:nowrap;padding:0 clamp(28px,4.5vw,52px)}
+  .perk .pv{font-family:var(--font-d);font-weight:900;font-size:clamp(20px,2.4vw,25px);line-height:1;letter-spacing:-0.005em}
+  .perk .pl{font-family:var(--font-b);font-weight:600;font-size:clamp(11px,1.25vw,12.5px);letter-spacing:0.06em;text-transform:uppercase;opacity:0.95}
+  .perk-star{font-size:10px;opacity:0.55;flex-shrink:0}
   @keyframes perks-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   @media (max-width:768px){
-    .perks{padding:9px 0}
-    .perks-track{animation-duration:14s}
-    .perk{padding:0 18px;gap:6px}
-    .perk .pv{font-size:18px}
-    .perk .pl{font-size:11px;letter-spacing:0.1em}
+    .perks{padding:10px 0}
+    .perks::before,.perks::after{width:28px}
+    .perk{padding:0 22px;gap:8px}
+    .perk .pv{font-size:19px}
+    .perk .pl{font-size:11px}
   }
   @media (prefers-reduced-motion:reduce){
     .perks-track{animation:none;justify-content:center;width:100%}
-    .perks-group:last-child{display:none}
+    .perks-group:nth-child(n+2){display:none}
   }
 </style>
 </head>
@@ -951,11 +954,11 @@
 
   // ---------- FRANJA BENEFICIOS (marquee) ----------
   const PERKS = [
-    {pv:'15%', pl:'Off en efectivo'},
-    {pv:'5%',  pl:'Off por transferencia'},
-    {pv:'3',   pl:'Cuotas sin interés'},
-    {pv:'Envío', pl:'Hoy en CABA y GBA'},
-    {pv:'100%', pl:'Producto original'},
+    {pv:'15%',   pl:'Off pagando en efectivo'},
+    {pv:'5%',    pl:'Off por transferencia'},
+    {pv:'3',     pl:'Cuotas sin interés'},
+    {pv:'Envío hoy', pl:'En CABA y GBA'},
+    {pv:'100%',  pl:'Producto original'},
   ];
   const perksTrack = document.getElementById('perksTrack');
   if (perksTrack) {
@@ -963,7 +966,18 @@
       `<div class="perk"><span class="pv">${p.pv}</span><span class="pl">${p.pl}</span></div><span class="perk-star" aria-hidden="true">✦</span>`
     ).join('');
     const group = `<div class="perks-group">${perkHTML}</div>`;
-    perksTrack.innerHTML = group + group;
+    // 4 grupos: asegura que el track sea más ancho que cualquier pantalla, sin cortes
+    perksTrack.innerHTML = group + group + group + group;
+
+    // Velocidad constante en px/seg — fluida, independiente del ancho del texto.
+    function setPerksSpeed(){
+      const SPEED = 70; // px por segundo (medio)
+      const half = perksTrack.scrollWidth / 2; // la animación recorre el 50%
+      const dur = half / SPEED;
+      perksTrack.style.setProperty('--perks-dur', dur.toFixed(1) + 's');
+    }
+    setPerksSpeed();
+    window.addEventListener('resize', setPerksSpeed, {passive:true});
   }
 
   // ---------- SEARCH (live dropdown) ----------
