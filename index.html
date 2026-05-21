@@ -256,8 +256,15 @@
   .carrusel-arrow[disabled]{opacity:0.3;cursor:not-allowed}
   @media (max-width:768px){
     .carrusel-arrows{display:none}
-    .carrusel-track{padding:0 var(--pad-x) 8px;margin:0 calc(var(--pad-x) * -1)}
-    .carrusel-track .pcard{flex-basis:78vw}
+    .carrusel-track{padding:0 var(--pad-x) 8px;margin:0 calc(var(--pad-x) * -1);gap:10px}
+    /* 2 productos por vista en mobile (antes era 1 = 78vw) */
+    .carrusel-track .pcard{flex-basis:calc((100vw - (var(--pad-x) * 2) - 10px) / 2)}
+    .carrusel-track .pcard{min-height:340px}
+    .carrusel-track .pcard .ph{min-height:150px;padding:16px}
+    .carrusel-track .pcard .info{padding:0 14px 16px}
+    .carrusel-track .pcard .name{font-size:15px}
+    .carrusel-track .pcard .price{font-size:19px}
+    .carrusel-track .pcard .pcard-btn{padding:9px 12px;font-size:10px}
   }
 
   /* ---------- QUIZ ENTRY BLOCK ---------- */
@@ -409,7 +416,7 @@
 <body>
 
 <!-- NAV -->
-<nav class="nav" data-screen-label="Nav">
+<nav class="nav">
   <div class="container nav-inner">
     <button class="icon-btn hamb-mobile" aria-label="Menú">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
@@ -465,7 +472,7 @@
 </div>
 
 <!-- HERO -->
-<section class="hero" id="top" data-screen-label="Hero">
+<section class="hero" id="top">
   <img class="hero-img" src="assets/products/whey-star-choc.png" alt="Star Nutrition Whey Protein Chocolate 2 lb" />
   <div class="container hero-grid">
     <div class="hero-copy">
@@ -482,38 +489,8 @@
   </div>
 </section>
 
-<!-- DIFFERENTIATORS -->
-<section class="diffs" data-screen-label="Diferenciadores">
-  <div class="container">
-    <div class="diffs-head">
-      <span class="overline"></span>
-      <h2>Lo que nos<br/>diferencia.</h2>
-    </div>
-    <div class="diffs-grid">
-      <div class="diff">
-        <div class="n">15<span class="u">%</span></div>
-        <div class="lab">Descuento pagando<br/>en efectivo</div>
-      </div>
-      <div class="diff">
-        <div class="n">5<span class="u">%</span></div>
-        <div class="lab">Descuento por<br/>transferencia</div>
-      </div>
-      <div class="diff">
-        <div class="n">3</div>
-        <div class="lab">Cuotas sin interés<br/>con todas las tarjetas</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TICKER -->
-<section class="ticker" aria-label="Marcas">
-  <div class="lbl">Distribuidores autorizados</div>
-  <div class="ticker-track" id="tickerTrack"></div>
-</section>
-
-<!-- CARRUSEL: MÁS VENDIDOS -->
-<section class="carrusel" data-screen-label="Mas Vendidos" id="masVendidos">
+<!-- CARRUSEL: MÁS VENDIDOS (movido arriba — productos visibles sin scrollear tanto) -->
+<section class="carrusel" id="masVendidos" style="padding-top:clamp(48px,7vw,90px);">
   <div class="container">
     <div class="carrusel-head">
       <div>
@@ -542,8 +519,38 @@
   </div>
 </section>
 
+<!-- DIFFERENTIATORS -->
+<section class="diffs">
+  <div class="container">
+    <div class="diffs-head">
+      <span class="overline"></span>
+      <h2>Lo que nos<br/>diferencia.</h2>
+    </div>
+    <div class="diffs-grid">
+      <div class="diff">
+        <div class="n">15<span class="u">%</span></div>
+        <div class="lab">Descuento pagando<br/>en efectivo</div>
+      </div>
+      <div class="diff">
+        <div class="n">5<span class="u">%</span></div>
+        <div class="lab">Descuento por<br/>transferencia</div>
+      </div>
+      <div class="diff">
+        <div class="n">3</div>
+        <div class="lab">Cuotas sin interés<br/>con todas las tarjetas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<section class="ticker" aria-label="Marcas">
+  <div class="lbl">Distribuidores autorizados</div>
+  <div class="ticker-track" id="tickerTrack"></div>
+</section>
+
 <!-- QUIZ ENTRY -->
-<section class="quiz-entry" data-screen-label="Quiz" aria-labelledby="quizEntryTitle">
+<section class="quiz-entry" aria-labelledby="quizEntryTitle">
   <div class="container">
     <div class="quiz-entry-grid">
       <div>
@@ -561,7 +568,7 @@
 </section>
 
 <!-- CARRUSEL: NOVEDADES -->
-<section class="carrusel" data-screen-label="Novedades" id="novedades" style="padding-top:0;">
+<section class="carrusel" id="novedades" style="padding-top:0;">
   <div class="container">
     <div class="carrusel-head">
       <div>
@@ -591,7 +598,7 @@
 </section>
 
 <!-- STRIPS / CATEGORÍAS -->
-<section class="strips" data-screen-label="Categorias">
+<section class="strips">
   <a href="suplementos.html" class="strip">
     <img class="strip-img" src="assets/products/creatina-ena-doypack.png" alt="" />
     <div class="container strip-inner">
@@ -635,7 +642,7 @@
 </section>
 
 <!-- ENVÍOS -->
-<section class="ship" data-screen-label="Envios">
+<section class="ship">
   <div class="container">
     <div class="ship-grid">
       <div class="ship-col">
@@ -653,7 +660,7 @@
 </section>
 
 <!-- TESTIMONIOS -->
-<section class="testi" data-screen-label="Testimonios">
+<section class="testi">
   <div class="container">
     <div class="testi-head">
       <span class="overline"></span>
@@ -689,7 +696,7 @@
 </section>
 
 <!-- FINAL CTA -->
-<section class="final" data-screen-label="Final">
+<section class="final">
   <div class="container">
     <div class="ov"></div>
     <h2>Tu próxima<br/>compra empieza<br/>acá.</h2>
@@ -1128,7 +1135,7 @@
     if (active) setTimeout(() => active.focus(), 50);
   }
 
-  function renderResults(){
+  function renderQuizResults(){
     const ids = recommend(quizState.answers);
     const products = ids.map(id => CATALOG.find(p => p.id === id)).filter(Boolean);
     qmResultsGrid.className = 'qm-results-grid' + (products.length === 2 ? ' two' : '');
@@ -1182,7 +1189,7 @@
       const n = parseInt(step.dataset.step, 10);
       setTimeout(() => {
         if (n < 3) showStep(n + 1);
-        else { renderResults(); showStep(4); }
+        else { renderQuizResults(); showStep(4); }
       }, 220);
     });
   });

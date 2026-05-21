@@ -261,6 +261,7 @@
 </footer>
 
 <script src="assets/catalog.js"></script>
+<script src="assets/catalog-data.js"></script>
 <script src="assets/cart.js"></script>
 <script src="assets/nav.js"></script>
 <script>
@@ -268,8 +269,56 @@
   const root = document.getElementById('pdpRoot');
   const stickyEl = document.getElementById('pdpSticky');
   const params = new URLSearchParams(window.location.search);
+
+  // Helpers
+  function slug(s) {
+    return String(s).toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+  function parsePrecio(s) {
+    // "$ 13.965" -> 13965
+    return parseInt(String(s).replace(/[^\d]/g, ''), 10) || 0;
+  }
+  // Adaptador: convierte un producto del catalogo REAL (catalog-data.js) al formato
+  // que espera el resto de la PDP (catalog.js demo).
+  function adaptarProductoReal(p, cat) {
+    if (!p) return null;
+    const CAT_LABEL = {
+      suplementos:  'Suplementos',
+      supermercado: 'Supermercado',
+      electro:      'Electro-Hogar',
+      bananero:     'El Bananero',
+    };
+    return {
+      id: slug(p.brand + '-' + p.name),
+      brand: p.brand || 'Morashop',
+      name: p.name,
+      img: p.img,
+      price:    parsePrecio(p.price),
+      oldPrice: p.was ? parsePrecio(p.was) : 0,
+      tag: p.tag || '',
+      tagKind: p.tagType || '',
+      category: CAT_LABEL[cat] || '',
+      desc: 'Producto original. Distribuidor autorizado.',  // descripcion default mientras no haya texto real por producto
+      flavors: [],
+      related: [],
+    };
+  }
+
+  // 1) NUEVO: si llega ?cat=X&pid=Y -> buscar en el catalogo real (los 2116 productos)
+  const cat = params.get('cat');
+  const pid = params.get('pid');
+  // 2) VIEJO: si llega ?id=Y -> buscar en catalog.js (los 8 demo, para retrocompat)
   const id = params.get('id');
-  const product = id ? window.CATALOG_API.get(id) : null;
+
+  let product = null;
+  if (cat && pid && window.CATALOG_BY_CAT && window.CATALOG_BY_CAT[cat]) {
+    const found = window.CATALOG_BY_CAT[cat].find(p => slug(p.brand + '-' + p.name) === pid);
+    product = adaptarProductoReal(found, cat);
+  } else if (id) {
+    product = window.CATALOG_API.get(id);
+  }
 
   if (!product) {
     root.innerHTML = `

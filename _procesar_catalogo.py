@@ -45,7 +45,40 @@ MARCA_CANON = {
 def marca_canon(m):
     if not m: return ''
     n = norm(m)
+    if n == 'array':  # Bug del CSV de Tiendanube: marca literal "Array" no es marca real
+        return ''
     return MARCA_CANON.get(n, m.strip())
+
+# Diccionario de marcas conocidas para inferir desde el nombre cuando la marca venga vacia o "Array"
+MARCAS_CONOCIDAS_PARA_INFERIR = [
+    # Suplementos
+    'Goom Nutrition','Optimum Nutrition','Granger','Labs Nutrition','Star Nutrition',
+    'Body Advance','Gold Nutrition','InnovaNaturals','Natural Whey','Pgn','Vitamin Way',
+    'Hoch Sport','Framingham Pharma','Ena Sport','Ena','Mervick','Nutrilab','Breaking Lab',
+    'Eth Nutrition','Universal Nutrition','Nutrex Research','Muscletech','Cellucor','Bsn',
+    'My Protein','Atlhetica Nutrition','Gentech','Woman Supplements','Protein Project',
+    'Ultimate Nutrition','Main Fusion','Beepure','Garden House','Natural Nutrition',
+    # Supermercado
+    'Entrenuts','Integra','Dicomere','Kos','SriSri','Q-Soft','Comodin','Felfort',
+    'Crudda','Higienol','Ladysoft','Plenitud','Babysec','Huggies','Indas','Elegante',
+    'Cicchitti','Menoyo','Sedal','Pantene','Head & Shoulders','Dove','Rexona','Lebon',
+    'Fuego Blanco','Federico Alvear','La Celia','Zuccardi','Fond de Cave','Margarita',
+    'Mosquita Muerta','Quelat','Wellington Polo Club','Polo','Johnson',
+    # Electro
+    'Ultracomb','Yelmo','Triton','Lusqtoff','Kanji','Stor','Einhell','San-Up',
+    'Qualika','RV Home','Jesper','Athomx','Crown Mustang','Ken Brown','Crudda',
+    # Bananero
+    'Japi',
+]
+
+def inferir_marca_por_nombre(nombre):
+    """Si la marca esta vacia o invalida, intentar inferirla del nombre del producto."""
+    n_lower = nombre.lower()
+    for marca in MARCAS_CONOCIDAS_PARA_INFERIR:
+        # Match case-insensitive como palabra completa
+        if re.search(r'\b' + re.escape(marca.lower()) + r'\b', n_lower):
+            return marca
+    return ''
 
 # ---- Raices ----
 QUEDAN = {'suplementos','energia y potenciadores','supermercado','bodega',
@@ -69,11 +102,15 @@ def cargar():
             k = row[iU].strip()
             if not k or k in seen: continue
             seen.add(k)
+            nombre = row[iN].strip()
+            marca = marca_canon(row[iM].strip())
+            if not marca:
+                marca = inferir_marca_por_nombre(nombre)
             prods.append({
                 'url': k,
-                'nombre': row[iN].strip(),
+                'nombre': nombre,
                 'cat': row[iC].strip(),
-                'marca': marca_canon(row[iM].strip()),
+                'marca': marca,
                 'desc': row[iD].strip(),
             })
     return prods
@@ -309,9 +346,14 @@ def cargar_full():
             k = row[iU].strip()
             if not k or k in seen: continue
             seen.add(k)
+            nombre = row[iN].strip()
+            marca = marca_canon(row[iM].strip())
+            # Si la marca quedo vacia (caso "Array" o marca faltante), inferirla del nombre
+            if not marca:
+                marca = inferir_marca_por_nombre(nombre)
             prods.append({
-                'url': k, 'nombre': row[iN].strip(), 'cat': row[iC].strip(),
-                'marca': marca_canon(row[iM].strip()), 'desc': row[iD].strip(),
+                'url': k, 'nombre': nombre, 'cat': row[iC].strip(),
+                'marca': marca, 'desc': row[iD].strip(),
                 'precio': row[iP] if len(row)>iP else '',
                 'promo': row[iPP] if len(row)>iPP else '',
                 'stock': row[iS] if len(row)>iS else '',

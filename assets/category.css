@@ -225,6 +225,8 @@
   transition: transform .25s ease;
 }
 .pcard:hover { transform: translateY(-4px); }
+.pcard-link { display: block; color: inherit; text-decoration: none; }
+.pcard-link:hover { color: inherit; }
 .pcard .ph {
   aspect-ratio: 1 / 1;
   background: transparent;

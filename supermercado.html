@@ -13,7 +13,7 @@
 </head>
 <body style="background: var(--ink);">
 
-<nav class="nav" data-screen-label="Nav">
+<nav class="nav">
   <div class="container nav-inner">
     <button class="cart-btn hamb-mobile" aria-label="Menú">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
@@ -53,7 +53,7 @@
   </form>
 </div>
 
-<section class="cat-hero hero-supermercado" data-screen-label="Supermercado Hero">
+<section class="cat-hero hero-supermercado">
   <div class="container cat-hero-inner">
     <div class="crumb">
       <a href="index.html">Inicio</a><span class="sep">/</span><span>Supermercado</span>
@@ -119,8 +119,8 @@
         <li><a href="electro.html">Electrodomésticos</a></li>
       </ul></div>
       <div class="foot-col"><h5>Compañía</h5><ul>
-        <li><a href="#">Sobre nosotros</a></li>
-        <li><a href="#">Mayorista</a></li>
+        <li><a href="sobre-nosotros.html">Sobre nosotros</a></li>
+        <li><a href="mayoristas.html">Mayorista</a></li>
       </ul></div>
       <div class="foot-col"><h5>Soporte</h5><ul>
         <li><a href="#">Envíos y entregas</a></li>
@@ -135,7 +135,7 @@
 </footer>
 
 <script src="assets/catalog-data.js"></script>
-<script>window.PRODUCTS = (window.CATALOG && window.CATALOG.supermercado) || [];</script>
+<script>window.PRODUCTS = (window.CATALOG_BY_CAT && window.CATALOG_BY_CAT.supermercado) || [];</script>
 <script src="assets/category.js"></script>
 <script src="assets/cart.js"></script>
 <script src="assets/nav.js"></script>

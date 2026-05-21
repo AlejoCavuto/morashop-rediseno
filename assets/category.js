@@ -4,6 +4,16 @@
   const cartCount = document.getElementById('cartCount');
   if (!grid) return;
 
+  // Detectar la categoria actual desde el nombre del HTML (suplementos.html -> 'suplementos')
+  const CURRENT_CAT = (() => {
+    const path = window.location.pathname.toLowerCase();
+    if (path.includes('suplementos')) return 'suplementos';
+    if (path.includes('supermercado')) return 'supermercado';
+    if (path.includes('electro'))     return 'electro';
+    if (path.includes('bananero'))    return 'bananero';
+    return '';
+  })();
+
   function productId(p) {
     return (p.brand + '-' + p.name)
       .toLowerCase()
@@ -12,22 +22,29 @@
       .replace(/^-|-$/g, '');
   }
 
+  function productHref(p) {
+    return `producto.html?cat=${CURRENT_CAT}&pid=${productId(p)}`;
+  }
+
   function cardHTML(p) {
+    const href = productHref(p);
     return `
       <article class="pcard" data-id="${productId(p)}" data-types="${p.types.join(',')}" data-brand="${p.brand}">
-        <div class="ph">
-          ${p.tag ? `<span class="tag ${p.tagType || ''}">${p.tag}</span>` : ''}
-          <img src="${p.img}" alt="${p.name}" loading="lazy" />
-        </div>
-        <div class="info">
-          <div class="brand">${p.brand}</div>
-          <div class="name">${p.name}</div>
-          <div class="meta">${p.meta}</div>
-          <div class="row">
-            <div class="price">${p.price}${p.was ? `<small>${p.was}</small>` : ''}</div>
-            <button class="pcard-btn" data-add>Agregar</button>
+        <a href="${href}" class="pcard-link" aria-label="Ver ${p.name}">
+          <div class="ph">
+            ${p.tag ? `<span class="tag ${p.tagType || ''}">${p.tag}</span>` : ''}
+            <img src="${p.img}" alt="${p.name}" loading="lazy" />
           </div>
-        </div>
+          <div class="info">
+            <div class="brand">${p.brand}</div>
+            <div class="name">${p.name}</div>
+            <div class="meta">${p.meta}</div>
+            <div class="row">
+              <div class="price">${p.price}${p.was ? `<small>${p.was}</small>` : ''}</div>
+              <button class="pcard-btn" data-add type="button">Agregar</button>
+            </div>
+          </div>
+        </a>
       </article>`;
   }
 
@@ -44,6 +61,9 @@
       if (b._cartBound) return;
       b._cartBound = true;
       b.addEventListener('click', e => {
+        // El boton esta DENTRO del <a> de la card -> evitar la navegacion
+        e.preventDefault();
+        e.stopPropagation();
         const card = e.currentTarget.closest('[data-id]');
         const id = card && card.dataset.id;
         const product = id ? window.PRODUCTS.find(p => productId(p) === id) : null;

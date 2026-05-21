@@ -83,7 +83,8 @@
   }
 
   function attach() {
-    document.querySelectorAll('.hamb').forEach(btn => {
+    // Bindea AMBOS botones: .hamb (desktop, visible >768px) y .hamb-mobile (mobile, visible <=768px)
+    document.querySelectorAll('.hamb, .hamb-mobile').forEach(btn => {
       if (btn._navBound) return;
       btn._navBound = true;
       btn.addEventListener('click', e => {
