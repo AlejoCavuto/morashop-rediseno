@@ -414,7 +414,7 @@
 
   /* ---------- FRANJA BENEFICIOS (marquee) ---------- */
   .perks{background:var(--red);color:#fff;overflow:hidden;padding:11px 0;position:relative}
-  .perks-track{display:flex;width:max-content;animation:perks-scroll 32s linear infinite}
+  .perks-track{display:flex;width:max-content;animation:perks-scroll 18s linear infinite}
   .perks:hover .perks-track{animation-play-state:paused}
   .perks-group{display:flex;align-items:center;flex-shrink:0}
   .perk{display:flex;align-items:baseline;gap:7px;white-space:nowrap;padding:0 clamp(24px,4vw,44px)}
@@ -424,7 +424,7 @@
   @keyframes perks-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   @media (max-width:768px){
     .perks{padding:9px 0}
-    .perks-track{animation-duration:24s}
+    .perks-track{animation-duration:14s}
     .perk{padding:0 18px;gap:6px}
     .perk .pv{font-size:18px}
     .perk .pl{font-size:11px;letter-spacing:0.1em}
