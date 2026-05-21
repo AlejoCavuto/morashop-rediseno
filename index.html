@@ -412,39 +412,21 @@
     .nav-logos img{height:32px}
   }
 
-  /* ---------- FRANJA BENEFICIOS (marquee) ---------- */
-  .perks{background:var(--red);color:#fff;overflow:hidden;padding:12px 0;position:relative}
-  .perks::before,.perks::after{content:"";position:absolute;top:0;bottom:0;width:48px;z-index:2;pointer-events:none}
-  .perks::before{left:0;background:linear-gradient(90deg,var(--red),transparent)}
-  .perks::after{right:0;background:linear-gradient(270deg,var(--red),transparent)}
-  .perks-track{display:flex;width:max-content;will-change:transform;animation:perks-scroll 22s linear infinite}
-  .perks:hover .perks-track{animation-play-state:paused}
-  .perks-group{display:flex;align-items:center;flex-shrink:0}
-  .perk{display:flex;align-items:center;gap:9px;white-space:nowrap;padding:0 clamp(28px,4.5vw,52px)}
-  .perk .pv{font-family:var(--font-d);font-weight:900;font-size:clamp(20px,2.4vw,25px);line-height:1;letter-spacing:-0.005em}
-  .perk .pl{font-family:var(--font-b);font-weight:600;font-size:clamp(11px,1.25vw,12.5px);letter-spacing:0.06em;text-transform:uppercase;opacity:0.95}
-  .perk-star{font-size:10px;opacity:0.55;flex-shrink:0}
-  @keyframes perks-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  /* ---------- HERO PERKS (chips de beneficios) ---------- */
+  .hero-perks{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 36px}
+  .hero-perk{display:flex;align-items:center;gap:10px;padding:11px 16px;border:1px solid var(--line);border-radius:4px;background:rgba(232,224,206,0.03)}
+  .hero-perk .hp-ic{width:18px;height:18px;flex-shrink:0;color:var(--red)}
+  .hero-perk .hp-tx{display:flex;flex-direction:column;line-height:1.1}
+  .hero-perk .hp-v{font-family:var(--font-d);font-weight:900;font-size:15px;letter-spacing:0.01em;color:var(--cream)}
+  .hero-perk .hp-l{font-size:9.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;opacity:0.55;margin-top:2px}
   @media (max-width:768px){
-    .perks{padding:10px 0}
-    .perks::before,.perks::after{width:28px}
-    .perks-track{animation-duration:16s}
-    .perk{padding:0 22px;gap:8px}
-    .perk .pv{font-size:19px}
-    .perk .pl{font-size:11px}
-  }
-  @media (prefers-reduced-motion:reduce){
-    .perks-track{animation:none;justify-content:center;width:100%}
-    .perks-group:nth-child(n+2){display:none}
+    .hero-perks{gap:8px;margin-bottom:28px}
+    .hero-perk{flex:1;min-width:0;padding:10px 11px;gap:8px;justify-content:center}
+    .hero-perk .hp-l{font-size:9px;letter-spacing:0.06em}
   }
 </style>
 </head>
 <body>
-
-<!-- FRANJA BENEFICIOS (marquee infinito) -->
-<div class="perks" aria-label="Beneficios">
-  <div class="perks-track" id="perksTrack"></div>
-</div>
 
 <!-- NAV -->
 <nav class="nav">
@@ -510,9 +492,23 @@
       <span class="overline"></span>
       <h1>El mejor<br/>precio<br/>siempre.</h1>
       <p class="lede">Suplementos originales de las mejores marcas. Distribuidor autorizado en Argentina — supermercado fit y electro-hogar para sostener tu rutina.</p>
+      <div class="hero-perks">
+        <div class="hero-perk">
+          <svg class="hp-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span class="hp-tx"><span class="hp-v">15% OFF</span><span class="hp-l">Pagando en efectivo</span></span>
+        </div>
+        <div class="hero-perk">
+          <svg class="hp-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          <span class="hp-tx"><span class="hp-v">3 cuotas</span><span class="hp-l">Sin interés</span></span>
+        </div>
+        <div class="hero-perk">
+          <svg class="hp-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7M5.5 19a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM18.5 19a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>
+          <span class="hp-tx"><span class="hp-v">Envío hoy</span><span class="hp-l">CABA y GBA</span></span>
+        </div>
+      </div>
       <div class="hero-stats">
         <div class="hero-stat"><div class="n">+500</div><div class="l">Productos en stock</div></div>
-        <div class="hero-stat"><div class="n">Hoy</div><div class="l">Envío GBA / CABA</div></div>
+        <div class="hero-stat"><div class="n">5%</div><div class="l">Off por transferencia</div></div>
         <div class="hero-stat"><div class="n">100%</div><div class="l">Producto original</div></div>
       </div>
     </div>
@@ -953,23 +949,6 @@
   const tickerHTML = BRANDS.map(b => `<span>${b}</span><span class="dot">·</span>`).join('');
   tickerTrack.innerHTML = tickerHTML + tickerHTML;
 
-  // ---------- FRANJA BENEFICIOS (marquee) ----------
-  const PERKS = [
-    {pv:'15%',   pl:'Off pagando en efectivo'},
-    {pv:'5%',    pl:'Off por transferencia'},
-    {pv:'3',     pl:'Cuotas sin interés'},
-    {pv:'Envío hoy', pl:'En CABA y GBA'},
-    {pv:'100%',  pl:'Producto original'},
-  ];
-  const perksTrack = document.getElementById('perksTrack');
-  if (perksTrack) {
-    const perkHTML = PERKS.map(p =>
-      `<div class="perk"><span class="pv">${p.pv}</span><span class="pl">${p.pl}</span></div><span class="perk-star" aria-hidden="true">✦</span>`
-    ).join('');
-    const group = `<div class="perks-group">${perkHTML}</div>`;
-    // 2 grupos idénticos: la animación mueve -50% (= 1 grupo), loop sin corte.
-    perksTrack.innerHTML = group + group;
-  }
 
   // ---------- SEARCH (live dropdown) ----------
   const overlay = document.getElementById('searchOverlay');
