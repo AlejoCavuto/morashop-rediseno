@@ -411,9 +411,35 @@
     .nav-logos{gap:6px}
     .nav-logos img{height:32px}
   }
+
+  /* ---------- FRANJA BENEFICIOS ---------- */
+  .perks{background:var(--red);color:#fff}
+  .perks-inner{display:flex;align-items:center;justify-content:center;gap:clamp(20px,5vw,72px);padding:14px var(--pad-x);flex-wrap:wrap}
+  .perk{display:flex;align-items:baseline;gap:8px;white-space:nowrap}
+  .perk .pv{font-family:var(--font-d);font-weight:900;font-size:clamp(22px,3vw,30px);line-height:1;letter-spacing:-0.01em}
+  .perk .pl{font-family:var(--font-d);font-weight:700;font-size:clamp(11px,1.4vw,13px);letter-spacing:0.14em;text-transform:uppercase;opacity:0.92}
+  .perk-sep{width:5px;height:5px;border-radius:999px;background:rgba(255,255,255,0.55);flex-shrink:0}
+  @media (max-width:768px){
+    .perks-inner{gap:0;justify-content:space-between;padding:11px 16px}
+    .perk{flex-direction:column;align-items:center;gap:3px;flex:1;text-align:center;white-space:normal}
+    .perk .pv{font-size:24px}
+    .perk .pl{font-size:9px;letter-spacing:0.08em;line-height:1.15}
+    .perk-sep{width:1px;height:32px;border-radius:0;background:rgba(255,255,255,0.28)}
+  }
 </style>
 </head>
 <body>
+
+<!-- FRANJA BENEFICIOS -->
+<div class="perks">
+  <div class="perks-inner">
+    <div class="perk"><span class="pv">15%</span><span class="pl">Off en efectivo</span></div>
+    <div class="perk-sep" aria-hidden="true"></div>
+    <div class="perk"><span class="pv">5%</span><span class="pl">Off por transferencia</span></div>
+    <div class="perk-sep" aria-hidden="true"></div>
+    <div class="perk"><span class="pv">3</span><span class="pl">Cuotas sin interés</span></div>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav class="nav">
@@ -514,30 +540,6 @@
         <button class="carrusel-arrow" data-scroll="bestTrack" data-dir="1" aria-label="Siguiente">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
         </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DIFFERENTIATORS -->
-<section class="diffs">
-  <div class="container">
-    <div class="diffs-head">
-      <span class="overline"></span>
-      <h2>Lo que nos<br/>diferencia.</h2>
-    </div>
-    <div class="diffs-grid">
-      <div class="diff">
-        <div class="n">15<span class="u">%</span></div>
-        <div class="lab">Descuento pagando<br/>en efectivo</div>
-      </div>
-      <div class="diff">
-        <div class="n">5<span class="u">%</span></div>
-        <div class="lab">Descuento por<br/>transferencia</div>
-      </div>
-      <div class="diff">
-        <div class="n">3</div>
-        <div class="lab">Cuotas sin interés<br/>con todas las tarjetas</div>
       </div>
     </div>
   </div>
