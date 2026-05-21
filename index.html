@@ -412,33 +412,34 @@
     .nav-logos img{height:32px}
   }
 
-  /* ---------- FRANJA BENEFICIOS ---------- */
-  .perks{background:var(--red);color:#fff}
-  .perks-inner{display:flex;align-items:center;justify-content:center;gap:clamp(20px,5vw,72px);padding:14px var(--pad-x);flex-wrap:wrap}
-  .perk{display:flex;align-items:baseline;gap:8px;white-space:nowrap}
-  .perk .pv{font-family:var(--font-d);font-weight:900;font-size:clamp(22px,3vw,30px);line-height:1;letter-spacing:-0.01em}
-  .perk .pl{font-family:var(--font-d);font-weight:700;font-size:clamp(11px,1.4vw,13px);letter-spacing:0.14em;text-transform:uppercase;opacity:0.92}
-  .perk-sep{width:5px;height:5px;border-radius:999px;background:rgba(255,255,255,0.55);flex-shrink:0}
+  /* ---------- FRANJA BENEFICIOS (marquee) ---------- */
+  .perks{background:var(--red);color:#fff;overflow:hidden;padding:11px 0;position:relative}
+  .perks-track{display:flex;width:max-content;animation:perks-scroll 32s linear infinite}
+  .perks:hover .perks-track{animation-play-state:paused}
+  .perks-group{display:flex;align-items:center;flex-shrink:0}
+  .perk{display:flex;align-items:baseline;gap:7px;white-space:nowrap;padding:0 clamp(24px,4vw,44px)}
+  .perk .pv{font-family:var(--font-d);font-weight:900;font-size:clamp(19px,2.4vw,24px);line-height:1;letter-spacing:-0.01em}
+  .perk .pl{font-family:var(--font-d);font-weight:700;font-size:clamp(11px,1.3vw,13px);letter-spacing:0.13em;text-transform:uppercase;opacity:0.95}
+  .perk-star{font-size:11px;opacity:0.6;flex-shrink:0}
+  @keyframes perks-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   @media (max-width:768px){
-    .perks-inner{gap:0;justify-content:space-between;padding:11px 16px}
-    .perk{flex-direction:column;align-items:center;gap:3px;flex:1;text-align:center;white-space:normal}
-    .perk .pv{font-size:24px}
-    .perk .pl{font-size:9px;letter-spacing:0.08em;line-height:1.15}
-    .perk-sep{width:1px;height:32px;border-radius:0;background:rgba(255,255,255,0.28)}
+    .perks{padding:9px 0}
+    .perks-track{animation-duration:24s}
+    .perk{padding:0 18px;gap:6px}
+    .perk .pv{font-size:18px}
+    .perk .pl{font-size:11px;letter-spacing:0.1em}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .perks-track{animation:none;justify-content:center;width:100%}
+    .perks-group:last-child{display:none}
   }
 </style>
 </head>
 <body>
 
-<!-- FRANJA BENEFICIOS -->
-<div class="perks">
-  <div class="perks-inner">
-    <div class="perk"><span class="pv">15%</span><span class="pl">Off en efectivo</span></div>
-    <div class="perk-sep" aria-hidden="true"></div>
-    <div class="perk"><span class="pv">5%</span><span class="pl">Off por transferencia</span></div>
-    <div class="perk-sep" aria-hidden="true"></div>
-    <div class="perk"><span class="pv">3</span><span class="pl">Cuotas sin interés</span></div>
-  </div>
+<!-- FRANJA BENEFICIOS (marquee infinito) -->
+<div class="perks" aria-label="Beneficios">
+  <div class="perks-track" id="perksTrack"></div>
 </div>
 
 <!-- NAV -->
@@ -947,6 +948,23 @@
   const tickerTrack = document.getElementById('tickerTrack');
   const tickerHTML = BRANDS.map(b => `<span>${b}</span><span class="dot">·</span>`).join('');
   tickerTrack.innerHTML = tickerHTML + tickerHTML;
+
+  // ---------- FRANJA BENEFICIOS (marquee) ----------
+  const PERKS = [
+    {pv:'15%', pl:'Off en efectivo'},
+    {pv:'5%',  pl:'Off por transferencia'},
+    {pv:'3',   pl:'Cuotas sin interés'},
+    {pv:'Envío', pl:'Hoy en CABA y GBA'},
+    {pv:'100%', pl:'Producto original'},
+  ];
+  const perksTrack = document.getElementById('perksTrack');
+  if (perksTrack) {
+    const perkHTML = PERKS.map(p =>
+      `<div class="perk"><span class="pv">${p.pv}</span><span class="pl">${p.pl}</span></div><span class="perk-star" aria-hidden="true">✦</span>`
+    ).join('');
+    const group = `<div class="perks-group">${perkHTML}</div>`;
+    perksTrack.innerHTML = group + group;
+  }
 
   // ---------- SEARCH (live dropdown) ----------
   const overlay = document.getElementById('searchOverlay');
