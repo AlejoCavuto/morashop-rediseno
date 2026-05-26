@@ -26,34 +26,78 @@
     return `producto.html?cat=${CURRENT_CAT}&pid=${productId(p)}`;
   }
 
-  function cardHTML(p) {
-    const href = productHref(p);
-    return `
-      <article class="pcard" data-id="${productId(p)}" data-types="${p.types.join(',')}" data-brand="${p.brand}">
-        <a href="${href}" class="pcard-link" aria-label="Ver ${p.name}">
-          <div class="ph">
-            ${p.tag ? `<span class="tag ${p.tagType || ''}">${p.tag}</span>` : ''}
-            <img src="${p.img}" alt="${p.name}" loading="lazy" />
-          </div>
-          <div class="info">
-            <div class="brand">${p.brand}</div>
-            <div class="name">${p.name}</div>
-            <div class="meta">${p.meta}</div>
-            <div class="row">
-              <div class="price">${p.price}${p.was ? `<small>${p.was}</small>` : ''}</div>
-              <button class="pcard-btn" data-add type="button">Agregar</button>
-            </div>
-          </div>
-        </a>
-      </article>`;
+  // Helpers de precio/descuento (estilo ML)
+  function toNum(s) { return parseInt(String(s || '').replace(/[^\d]/g, ''), 10) || 0; }
+  function fmt(n) { return '$ ' + n.toLocaleString('es-AR'); }
+  function discount(p) {
+    const now = toNum(p.price), was = toNum(p.was);
+    if (was > now && now > 0) return Math.round((1 - now / was) * 100);
+    return 0;
   }
 
+  // CARD estilo ML (grilla) — idéntica a la home
+  function cardHTML(p) {
+    const href = productHref(p);
+    const now = toNum(p.price), was = toNum(p.was), disc = discount(p), cuota = Math.round(now / 3);
+    const offBadge = disc >= 5 ? `<span class="mlcard-off">${disc}% OFF</span>` : '';
+    const wasRow = was > now ? `<div class="mlcard-was">${fmt(was)}</div>` : '';
+    const discTxt = disc >= 5 ? `<span class="mlcard-disc">${disc}% OFF</span>` : '';
+    return `<a class="mlcard" href="${href}" data-id="${productId(p)}" data-types="${p.types.join(',')}" data-brand="${p.brand}">
+      <div class="mlcard-ph">${offBadge}<img src="${p.img}" alt="${p.name}" loading="lazy" /></div>
+      <div class="mlcard-info">
+        <div class="mlcard-brand">${p.brand}</div>
+        <div class="mlcard-name">${p.name}</div>
+        ${wasRow}
+        <div class="mlcard-price-row"><span class="mlcard-price">${fmt(now)}</span>${discTxt}</div>
+        <div class="mlcard-cuotas">3 cuotas sin interés de ${fmt(cuota)}</div>
+        <div class="mlcard-foot"><button class="mlcard-add" type="button" data-add><svg class="cart-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg><span>Agregar</span></button></div>
+      </div>
+    </a>`;
+  }
+
+  // FILA horizontal estilo ML (lista) — idéntica a la home
+  function rowItemHTML(p) {
+    const href = productHref(p);
+    const now = toNum(p.price), was = toNum(p.was), disc = discount(p), cuota = Math.round(now / 3);
+    const wasRow = was > now ? `<div class="mlrow-was">${fmt(was)}</div>` : '';
+    const discTxt = disc >= 5 ? `<span class="mlrow-disc">${disc}% OFF</span>` : '';
+    return `<a class="mlrow-item" href="${href}" data-id="${productId(p)}" data-types="${p.types.join(',')}" data-brand="${p.brand}">
+      <div class="mlrow-ph"><img src="${p.img}" alt="${p.name}" loading="lazy" /></div>
+      <div class="mlrow-body">
+        <div class="mlrow-brand">${p.brand}</div>
+        <div class="mlrow-name">${p.name}</div>
+        ${wasRow}
+        <div class="mlrow-priceline"><span class="mlrow-price">${fmt(now)}</span>${discTxt}</div>
+        <div class="mlrow-cuotas">3 cuotas sin interés de ${fmt(cuota)}</div>
+      </div>
+      <button class="mlrow-add" type="button" data-add>Agregar</button>
+    </a>`;
+  }
+
+  // Cuántos productos mostrar de entrada (resto con "Ver más")
+  let mostrados = 24;
+
   function render(list) {
-    grid.innerHTML = list.length
-      ? list.map(cardHTML).join('')
-      : `<div class="cat-empty" style="grid-column: 1/-1;">No hay productos que coincidan con tus filtros.</div>`;
+    if (!list.length) {
+      grid.innerHTML = `<div class="cat-empty">No hay productos que coincidan con tus filtros.</div>`;
+      if (resultsEl) resultsEl.innerHTML = `<strong>0</strong> productos`;
+      return;
+    }
+    const visible = list.slice(0, mostrados);
+    // Grilla única: todas las cards en una grilla que va bajando (2 columnas en mobile)
+    let html = `<div class="mlgrid">${visible.map(cardHTML).join('')}</div>`;
+    // Botón "Ver más" si quedan productos
+    if (list.length > mostrados) {
+      html += `<div class="cat-more"><button class="cat-more-btn" type="button" data-more>Ver más productos (${list.length - mostrados} restantes)</button></div>`;
+    }
+    grid.innerHTML = html;
     if (resultsEl) resultsEl.innerHTML = `<strong>${list.length}</strong> producto${list.length === 1 ? '' : 's'}`;
     bindAdd();
+    // "Ver más" amplía la cantidad visible
+    const moreBtn = grid.querySelector('[data-more]');
+    if (moreBtn) {
+      moreBtn.addEventListener('click', () => { mostrados += 24; render(list); });
+    }
   }
 
   function bindAdd() {
@@ -73,20 +117,14 @@
             brand: product.brand,
             name: product.name,
             price: product.price,
-            img: product.img
+            img: product.img,
+            cat: CURRENT_CAT
           });
         }
         const btn = e.currentTarget;
+        const original = btn.textContent;
         btn.textContent = 'Agregado ✓';
-        btn.style.background = 'var(--red)';
-        btn.style.color = '#fff';
-        btn.style.borderColor = 'var(--red)';
-        setTimeout(() => {
-          btn.textContent = 'Agregar';
-          btn.style.background = '';
-          btn.style.color = '';
-          btn.style.borderColor = '';
-        }, 1400);
+        setTimeout(() => { btn.textContent = original; }, 1400);
       });
     });
   }
@@ -103,6 +141,7 @@
     if (sort === 'price-asc')  list.sort((a, b) => parseNum(a.price) - parseNum(b.price));
     if (sort === 'price-desc') list.sort((a, b) => parseNum(b.price) - parseNum(a.price));
     if (sort === 'name')       list.sort((a, b) => a.name.localeCompare(b.name));
+    mostrados = 24; // resetear al filtrar/ordenar
     render(list);
   }
 
@@ -126,6 +165,18 @@
   });
 
   document.addEventListener('change', e => { if (e.target.id === 'sort') apply(); });
+
+  // Lee ?tipo=X de la URL y activa el pill correspondiente del grupo "type".
+  // Usado por la catbar y el menú mobile para entrar directo a una subcategoría filtrada.
+  function applyTipoFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const tipo = params.get('tipo');
+    if (!tipo) return;
+    const allBtn = document.querySelector('.pill[data-group="type"][data-value="all"]');
+    if (allBtn) allBtn.classList.remove('active');
+    const targetBtn = document.querySelector(`.pill[data-group="type"][data-value="${tipo}"]`);
+    if (targetBtn) targetBtn.classList.add('active');
+  }
 
   // ---------- PANEL DE FILTROS EN MOBILE ----------
   // Se inyecta automaticamente: boton "Filtros" en el toolbar + backdrop + boton cerrar/aplicar en el panel.
@@ -188,6 +239,6 @@
     updateCount();
   }
 
-  if (document.readyState !== 'loading') { apply(); setupFiltersPanel(); }
-  else document.addEventListener('DOMContentLoaded', () => { apply(); setupFiltersPanel(); });
+  if (document.readyState !== 'loading') { applyTipoFromURL(); apply(); setupFiltersPanel(); }
+  else document.addEventListener('DOMContentLoaded', () => { applyTipoFromURL(); apply(); setupFiltersPanel(); });
 })();

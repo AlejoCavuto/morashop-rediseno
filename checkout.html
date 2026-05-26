@@ -10,16 +10,16 @@
 <link rel="stylesheet" href="assets/cart.css" />
 <style>
   :root {
-    --ink:        #0D1117;
-    --ink-deep:   #080D18;
-    --navy:       #1A2744;
-    --cream:      #E8E0CE;
+    --ink:        #ECEDEF;
+    --ink-deep:   #E3E5E8;
+    --navy:       #FFFFFF;
+    --cream:      #1A2744;
     --red:        #E8341A;
     --red-deep:   #C42710;
-    --green:      #4ADE80;
-    --line:       rgba(232,224,206,0.15);
-    --line-soft:  rgba(232,224,206,0.10);
-    --muted:      rgba(232,224,206,0.55);
+    --green:      #00A650;
+    --line:       rgba(26,39,68,0.14);
+    --line-soft:  rgba(26,39,68,0.08);
+    --muted:      rgba(26,39,68,0.58);
     --font-d: "Barlow Condensed","Arial Narrow",sans-serif;
     --font-b: "Inter",system-ui,sans-serif;
     --pad-x: clamp(20px,5vw,96px);
@@ -33,7 +33,7 @@
   .container{width:100%;max-width:1280px;margin:0 auto;padding:0 var(--pad-x)}
 
   /* TOP BAR */
-  .topbar{position:sticky;top:0;z-index:50;background:rgba(13,17,23,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
   .topbar-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
   .topbar-logo{display:flex;align-items:center;gap:10px}
   .topbar-logo img{height:32px;width:auto}
@@ -68,8 +68,8 @@
     padding:14px 16px;font-family:var(--font-b);font-size:14px;border-radius:2px;outline:none;
     transition:border-color .15s ease;
   }
-  .field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(232,224,206,0.45)}
-  .field input::placeholder{color:rgba(232,224,206,0.3)}
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(26,39,68,0.45)}
+  .field input::placeholder{color:rgba(26,39,68,0.3)}
   .field textarea{resize:vertical;min-height:80px}
   .pay-options{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
   .pay-opt{
@@ -78,7 +78,7 @@
     transition:border-color .15s ease, background .15s ease;
     display:flex;flex-direction:column;gap:6px;min-height:104px;
   }
-  .pay-opt:hover{border-color:rgba(232,224,206,0.4)}
+  .pay-opt:hover{border-color:rgba(26,39,68,0.4)}
   .pay-opt.active{border-color:var(--red);background:rgba(232,52,26,0.06)}
   .pay-opt .pay-title{font-family:var(--font-d);font-weight:800;font-size:16px;letter-spacing:0.01em;text-transform:uppercase}
   .pay-opt .pay-disc{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--green);margin-top:auto}
@@ -89,7 +89,7 @@
   .summary h2{font-family:var(--font-d);font-weight:900;font-size:22px;text-transform:uppercase;letter-spacing:0.01em;margin:0 0 18px}
   .sum-items{margin:0 0 18px;max-height:280px;overflow-y:auto}
   .sum-items::-webkit-scrollbar{width:6px}
-  .sum-items::-webkit-scrollbar-thumb{background:rgba(232,224,206,0.15);border-radius:3px}
+  .sum-items::-webkit-scrollbar-thumb{background:rgba(26,39,68,0.15);border-radius:3px}
   .sum-item{display:grid;grid-template-columns:48px 1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-soft);align-items:center}
   .sum-item:last-child{border-bottom:0}
   .sum-thumb{width:48px;height:48px;background:var(--ink);display:grid;place-items:center;border-radius:2px;overflow:hidden}
@@ -116,13 +116,32 @@
   .sum-place[disabled]{opacity:0.4;cursor:not-allowed}
   .sum-note{font-size:11px;opacity:0.45;text-align:center;margin-top:12px;letter-spacing:0.04em;line-height:1.5}
 
+  /* FIELD ERRORS */
+  .field-err{
+    font-size:11px;font-weight:600;color:var(--red);
+    letter-spacing:0.02em;line-height:1.35;
+    min-height:14px;margin-top:2px;
+    display:none;
+  }
+  .field-err.show{display:block}
+  .field input[aria-invalid="true"],
+  .field select[aria-invalid="true"]{border-color:var(--red)}
+  .field-hint{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;opacity:0.4;margin-top:2px}
+
+  /* CARD LOGOS */
+  .pay-cards{display:flex;align-items:center;gap:6px;margin-top:6px;flex-wrap:wrap}
+  .pay-cards svg{display:block;height:16px;width:auto;border-radius:2px}
+
+  /* COUPON ROW EN SUMMARY */
+  .sum-row.coupon .v{color:var(--green);font-weight:700}
+
   /* DEMO BANNER */
   .demo-banner{background:rgba(232,52,26,0.08);border:1px solid rgba(232,52,26,0.3);padding:14px 18px;border-radius:2px;margin-bottom:24px;font-size:12px;letter-spacing:0.05em;display:flex;align-items:center;gap:12px}
   .demo-banner .pill{background:var(--red);color:#fff;padding:4px 10px;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border-radius:2px;flex-shrink:0}
   .demo-banner span{opacity:0.85}
 
   /* SUCCESS MODAL */
-  .success{position:fixed;inset:0;background:rgba(13,17,23,0.96);display:none;z-index:100;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .success{position:fixed;inset:0;background:rgba(255,255,255,0.95);display:none;z-index:100;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
   .success.open{display:flex;animation:fadeIn .3s ease}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
   .success-card{max-width:480px;width:100%;background:var(--navy);border:1px solid var(--line);padding:48px 36px;text-align:center;border-radius:2px}
@@ -196,7 +215,7 @@
     <a class="topbar-logo" href="index.html">
       <img src="assets/mora_minorista.png" alt="Morashop" style="height:30px" />
     </a>
-    <div class="topbar-step"><span class="ok">●</span> Checkout · Paso 2 de 2</div>
+    <div class="topbar-step"><span class="ok">●</span> Finalizá tu pedido</div>
     <a class="topbar-back" href="index.html">← Seguir comprando</a>
   </div>
 </header>
@@ -225,21 +244,25 @@
           <div class="row2">
             <div class="field">
               <label for="nombre">Nombre y apellido</label>
-              <input id="nombre" name="nombre" type="text" placeholder="Ej. Diego Ramírez" required />
+              <input id="nombre" name="nombre" type="text" placeholder="Ej. Diego Ramírez" autocomplete="name" required aria-describedby="err-nombre" />
+              <small id="err-nombre" class="field-err" data-err-for="nombre"></small>
             </div>
             <div class="field">
-              <label for="dni">DNI</label>
-              <input id="dni" name="dni" type="text" placeholder="00.000.000" required />
+              <label for="dni">DNI <span class="field-hint">opcional · solo factura A</span></label>
+              <input id="dni" name="dni" type="text" placeholder="00.000.000" inputmode="numeric" autocomplete="off" aria-describedby="err-dni" />
+              <small id="err-dni" class="field-err" data-err-for="dni"></small>
             </div>
           </div>
           <div class="row2">
             <div class="field">
               <label for="email">Email</label>
-              <input id="email" name="email" type="email" placeholder="vos@ejemplo.com" required />
+              <input id="email" name="email" type="email" placeholder="vos@ejemplo.com" autocomplete="email" required aria-describedby="err-email" />
+              <small id="err-email" class="field-err" data-err-for="email"></small>
             </div>
             <div class="field">
               <label for="telefono">WhatsApp / Teléfono</label>
-              <input id="telefono" name="telefono" type="tel" placeholder="11 0000-0000" required />
+              <input id="telefono" name="telefono" type="tel" placeholder="11 0000-0000" inputmode="tel" autocomplete="tel" required aria-describedby="err-telefono" />
+              <small id="err-telefono" class="field-err" data-err-for="telefono"></small>
             </div>
           </div>
         </div>
@@ -330,6 +353,16 @@
             <button type="button" class="pay-opt" data-pay="tarjeta" data-discount="0">
               <div class="pay-title">Tarjeta</div>
               <div class="pay-sub">Hasta 3 cuotas sin interés</div>
+              <div class="pay-cards" aria-label="Aceptamos Visa, Mastercard, American Express y Naranja">
+                <!-- Visa -->
+                <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" aria-label="Visa"><rect width="38" height="24" rx="3" fill="#1A1F71"/><text x="19" y="16" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-style="italic" font-size="10" fill="#fff" letter-spacing="0.5">VISA</text></svg>
+                <!-- Mastercard -->
+                <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard"><rect width="38" height="24" rx="3" fill="#fff" stroke="#E5E7EB"/><circle cx="15.5" cy="12" r="6" fill="#EB001B"/><circle cx="22.5" cy="12" r="6" fill="#F79E1B"/><path d="M19 7.6a6 6 0 0 1 0 8.8 6 6 0 0 1 0-8.8z" fill="#FF5F00"/></svg>
+                <!-- Amex -->
+                <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" aria-label="American Express"><rect width="38" height="24" rx="3" fill="#2E77BC"/><text x="19" y="14" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="6" fill="#fff" letter-spacing="0.3">AMERICAN</text><text x="19" y="20" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="6" fill="#fff" letter-spacing="0.3">EXPRESS</text></svg>
+                <!-- Naranja -->
+                <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" aria-label="Naranja"><rect width="38" height="24" rx="3" fill="#FF6600"/><text x="19" y="16" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="8" fill="#fff" letter-spacing="0.3">NARANJA</text></svg>
+              </div>
               <div class="pay-disc" style="color:var(--cream);opacity:0.55">3 cuotas s/i</div>
             </button>
           </div>
@@ -371,6 +404,101 @@
     const form = document.getElementById('checkoutForm');
     let activeDiscount = 0.15; // efectivo por defecto
 
+    // ---------- VALIDACIÓN AMIGABLE ----------
+    const VALIDATORS = {
+      nombre(v) {
+        v = (v || '').trim();
+        if (!v) return 'Decinos tu nombre';
+        if (v.length < 3) return 'Ingresá nombre y apellido';
+        return '';
+      },
+      email(v) {
+        v = (v || '').trim();
+        if (!v) return 'Falta tu email';
+        if (!v.includes('@')) return 'Falta el @';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return 'Revisá el formato del email';
+        return '';
+      },
+      telefono(v) {
+        const digits = (v || '').replace(/\D/g, '');
+        if (!digits) return 'Necesitamos un WhatsApp de contacto';
+        if (digits.length < 10) return 'Faltan números (mínimo 10)';
+        if (digits.length > 13) return 'Demasiados números, revisá';
+        return '';
+      },
+      dni(v) {
+        // opcional: si está vacío, OK
+        v = (v || '').trim();
+        if (!v) return '';
+        const digits = v.replace(/\D/g, '');
+        if (digits.length < 7 || digits.length > 8) return 'El DNI tiene 7 u 8 números';
+        return '';
+      },
+      cp(v) {
+        v = (v || '').trim();
+        if (!v) return 'Falta el código postal';
+        if (v.length < 4) return 'Revisá el código postal';
+        return '';
+      },
+      provincia(v) { return (v && v.trim()) ? '' : 'Elegí tu provincia'; },
+      direccion(v) { return (v && v.trim().length >= 4) ? '' : 'Ingresá calle, número, piso/depto'; },
+      punto(v) { return (v && v.trim().length >= 3) ? '' : 'Ingresá tu sucursal preferida'; }
+    };
+
+    function showErr(id, msg) {
+      const input = document.getElementById(id);
+      const err = document.querySelector(`[data-err-for="${id}"]`);
+      if (!input) return;
+      if (msg) {
+        input.setAttribute('aria-invalid', 'true');
+        if (err) { err.textContent = msg; err.classList.add('show'); }
+      } else {
+        input.setAttribute('aria-invalid', 'false');
+        if (err) { err.textContent = ''; err.classList.remove('show'); }
+      }
+    }
+
+    function validateField(id) {
+      const fn = VALIDATORS[id];
+      if (!fn) return true;
+      const el = document.getElementById(id);
+      if (!el) return true;
+      // No validar campos ocultos / no requeridos
+      if (el.closest('[style*="display: none"]') || el.closest('[style*="display:none"]')) {
+        showErr(id, '');
+        return true;
+      }
+      const msg = fn(el.value);
+      // DNI opcional siempre — pero si tiene contenido inválido se marca
+      showErr(id, msg);
+      return !msg;
+    }
+
+    function hasAnyErrors() {
+      return !!document.querySelector('.field-err.show');
+    }
+    function refreshSubmitState() {
+      placeBtn.disabled = hasAnyErrors() || !((window.Cart && window.Cart.items().length) || 0);
+    }
+
+    // Validación on blur + reset on input
+    ['nombre','dni','email','telefono','cp','provincia','direccion','punto'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('blur', () => { validateField(id); refreshSubmitState(); });
+      el.addEventListener('input', () => {
+        // si ya hay error visible, re-validar mientras tipea
+        const err = document.querySelector(`[data-err-for="${id}"]`);
+        if (err && err.classList.contains('show')) {
+          validateField(id);
+          refreshSubmitState();
+        }
+      });
+      if (el.tagName === 'SELECT') {
+        el.addEventListener('change', () => { validateField(id); refreshSubmitState(); });
+      }
+    });
+
     function render() {
       const items = (window.Cart && window.Cart.items()) || [];
       if (!items.length) {
@@ -379,7 +507,6 @@
         placeBtn.disabled = true;
         return;
       }
-      placeBtn.disabled = false;
       sumItems.innerHTML = items.map(it => `
         <div class="sum-item">
           <div class="sum-thumb">${it.img ? `<img src="${it.img}" alt="" />` : ''}</div>
@@ -392,14 +519,28 @@
       `).join('');
 
       const subtotal = items.reduce((s, i) => s + i.qty * i.price, 0);
-      const discount = subtotal * activeDiscount;
-      const total = subtotal - discount;
+
+      // Cupón activo
+      const coupon = (window.Cart && window.Cart.getActiveCoupon && window.Cart.getActiveCoupon()) || null;
+      const couponDisc = (window.Cart && window.Cart.getDiscount && window.Cart.getDiscount().amount) || 0;
+      // Jueves de Suplemento (si aplica)
+      const jueves = (window.Cart && window.Cart.getJuevesDescuento && window.Cart.getJuevesDescuento()) || { activo: false, ahorro: 0 };
+      const baseAfterCoupon = subtotal - couponDisc;
+      const baseAfterJueves = baseAfterCoupon - (jueves.activo ? jueves.ahorro : 0);
+      const payDiscount = baseAfterJueves * activeDiscount;
+      const envioGratisCupon = coupon && coupon.tipo === 'envio';
+      const total = baseAfterJueves - payDiscount;
+
       sumRows.innerHTML = `
         <div class="sum-row"><span>Subtotal</span><span>${formatARS(subtotal)}</span></div>
-        ${activeDiscount > 0 ? `<div class="sum-row discount"><span>Descuento (${Math.round(activeDiscount * 100)}%)</span><span class="v">− ${formatARS(discount)}</span></div>` : ''}
-        <div class="sum-row mute"><span>Envío</span><span>A coordinar</span></div>
+        ${coupon && couponDisc > 0 ? `<div class="sum-row coupon"><span>Cupón ${coupon.code}</span><span class="v">− ${formatARS(couponDisc)}</span></div>` : ''}
+        ${envioGratisCupon ? `<div class="sum-row coupon"><span>Cupón ${coupon.code}</span><span class="v">Envío gratis</span></div>` : ''}
+        ${jueves.activo ? `<div class="sum-row coupon"><span>Jueves de Suplemento −${Math.round(jueves.porcentaje * 100)}%</span><span class="v">− ${formatARS(jueves.ahorro)}</span></div>` : ''}
+        ${activeDiscount > 0 ? `<div class="sum-row discount"><span>Descuento pago (${Math.round(activeDiscount * 100)}%)</span><span class="v">− ${formatARS(payDiscount)}</span></div>` : ''}
+        <div class="sum-row mute"><span>Envío</span><span>${envioGratisCupon ? 'Gratis' : 'A coordinar'}</span></div>
         <div class="sum-row total"><span>Total</span><span class="v">${formatARS(total)}</span></div>
       `;
+      refreshSubmitState();
     }
 
     document.getElementById('payOptions').addEventListener('click', e => {
@@ -421,11 +562,15 @@
     const dirInput = document.getElementById('direccion');
     const puntoInput = document.getElementById('punto');
 
+    let shipMode = 'local';
+
     function applyShipMode(mode) {
+      shipMode = mode;
       if (mode === 'local') {
         shipFields.style.display = 'none';
         localInfo.style.display = '';
         [cpInput, provInput, dirInput, puntoInput].forEach(i => i.required = false);
+        ['cp','provincia','direccion','punto'].forEach(id => showErr(id, ''));
       } else if (mode === 'punto') {
         shipFields.style.display = '';
         localInfo.style.display = 'none';
@@ -433,6 +578,7 @@
         puntoField.style.display = '';
         cpInput.required = true; provInput.required = true; puntoInput.required = true;
         dirInput.required = false;
+        ['direccion'].forEach(id => showErr(id, ''));
       } else { // domicilio
         shipFields.style.display = '';
         localInfo.style.display = 'none';
@@ -440,7 +586,9 @@
         puntoField.style.display = 'none';
         cpInput.required = true; provInput.required = true; dirInput.required = true;
         puntoInput.required = false;
+        ['punto'].forEach(id => showErr(id, ''));
       }
+      refreshSubmitState();
     }
     applyShipMode('local');
 
@@ -459,8 +607,28 @@
 
     form.addEventListener('submit', e => {
       e.preventDefault();
-      // validación HTML5 nativa
-      if (!form.checkValidity()) { form.reportValidity(); return; }
+      // Validar todos los campos visibles/requeridos
+      const toValidate = ['nombre','dni','email','telefono'];
+      if (shipMode === 'punto') toValidate.push('cp','provincia','punto');
+      else if (shipMode === 'domicilio') toValidate.push('cp','provincia','direccion');
+
+      let allOk = true;
+      let firstBad = null;
+      toValidate.forEach(id => {
+        const ok = validateField(id);
+        if (!ok && !firstBad) firstBad = id;
+        if (!ok) allOk = false;
+      });
+
+      if (!allOk) {
+        refreshSubmitState();
+        if (firstBad) {
+          const el = document.getElementById(firstBad);
+          if (el) { el.focus(); el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+        }
+        return;
+      }
+
       // demo: vaciar carrito + mostrar success
       if (window.Cart) window.Cart.clear();
       document.getElementById('success').classList.add('open');

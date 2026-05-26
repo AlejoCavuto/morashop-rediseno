@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Electrodomésticos · Morashop</title>
+<title>Electro-Hogar · Morashop</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -15,28 +15,26 @@
 
 <nav class="nav">
   <div class="container nav-inner">
-    <button class="cart-btn hamb-mobile" aria-label="Menú">
+    <button class="icon-btn hamb-mobile" aria-label="Menú">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
     </button>
     <div class="nav-logos">
       <a href="index.html" aria-label="Morashop"><img src="assets/mora_minorista.png" alt="Morashop" /></a>
       <a href="mayoristas.html" aria-label="Mayoristas"><img src="assets/mora_mayorista.png" alt="Mayoristas" /></a>
     </div>
-    <div class="nav-links">
-      <a href="suplementos.html">Suplementos</a>
-      <a href="supermercado.html">Supermercado</a>
-      <a href="electro.html" style="opacity:1;">Electrodomésticos</a>
-      <a href="sobre-nosotros.html">Sobre nosotros</a>
-    </div>
+    <a class="nav-searchbar" href="index.html#search" aria-label="Buscar productos, marcas y más">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <span class="nav-searchbar-text">Buscar productos, marcas y más…</span>
+    </a>
     <div class="nav-actions">
-      <a href="login.html" class="cart-btn" aria-label="Iniciar sesión">
+      <a href="login.html" class="icon-btn" aria-label="Iniciar sesión">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
       </a>
-      <button class="cart-btn" aria-label="Carrito" id="cartBtn">
+      <button class="icon-btn" aria-label="Carrito" id="cartBtn">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
         <span class="cart-badge" id="cartCount" style="display:none">0</span>
       </button>
-      <button class="cart-btn hamb" aria-label="Menú">
+      <button class="icon-btn hamb" aria-label="Menú">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
       </button>
     </div>
@@ -56,7 +54,7 @@
 <section class="cat-hero hero-electro">
   <div class="container cat-hero-inner">
     <div class="crumb">
-      <a href="index.html">Inicio</a><span class="sep">/</span><span>Electrodomésticos</span>
+      <a href="index.html">Inicio</a><span class="sep">/</span><span>Electro-Hogar</span>
     </div>
     <div class="cat-overline"></div>
     <h1>Electro-<br/>domésticos</h1>
@@ -69,7 +67,7 @@
     <div class="pill-row">
       <span class="pill-label">Tipo</span>
       <button class="pill active" data-group="type" data-value="all">Todo</button>
-      <button class="pill" data-group="type" data-value="electrodomesticos">Electrodomésticos</button>
+      <button class="pill" data-group="type" data-value="electrodomesticos">Electro-Hogar</button>
       <button class="pill" data-group="type" data-value="cocina">Cocina</button>
       <button class="pill" data-group="type" data-value="bano">Baño</button>
       <button class="pill" data-group="type" data-value="herramientas">Herramientas</button>
@@ -119,7 +117,9 @@
       <div class="foot-col"><h5>Tienda</h5><ul>
         <li><a href="suplementos.html">Suplementos</a></li>
         <li><a href="supermercado.html">Supermercado</a></li>
-        <li><a href="electro.html">Electrodomésticos</a></li>
+        <li><a href="electro.html">Electro-Hogar</a></li>
+        <li><a href="bananero.html">El Bananero</a></li>
+        <li><a href="bodega.html">Bodega</a></li>
       </ul></div>
       <div class="foot-col"><h5>Compañía</h5><ul>
         <li><a href="sobre-nosotros.html">Sobre nosotros</a></li>
@@ -141,6 +141,7 @@
 <script>window.PRODUCTS = (window.CATALOG_BY_CAT && window.CATALOG_BY_CAT.electro) || [];</script>
 <script src="assets/category.js"></script>
 <script src="assets/cart.js"></script>
+<script src="assets/promo-bar.js"></script>
 <script src="assets/nav.js"></script>
 </body>
 </html>

@@ -10,15 +10,15 @@
 <link rel="stylesheet" href="assets/cart.css" />
 <style>
   :root {
-    --ink:        #0D1117;
-    --ink-deep:   #080D18;
-    --navy:       #1A2744;
-    --cream:      #E8E0CE;
+    --ink:        #ECEDEF;
+    --ink-deep:   #E3E5E8;
+    --navy:       #FFFFFF;
+    --cream:      #1A2744;
     --red:        #E8341A;
     --red-deep:   #C42710;
-    --green:      #4ADE80;
-    --line:       rgba(232,224,206,0.15);
-    --line-soft:  rgba(232,224,206,0.10);
+    --green:      #00A650;
+    --line:       rgba(26,39,68,0.14);
+    --line-soft:  rgba(26,39,68,0.08);
     --font-d: "Barlow Condensed","Arial Narrow",sans-serif;
     --font-b: "Inter",system-ui,sans-serif;
     --pad-x: clamp(20px,5vw,96px);
@@ -32,7 +32,7 @@
   .container{width:100%;max-width:1280px;margin:0 auto;padding:0 var(--pad-x)}
 
   /* TOP BAR */
-  .topbar{position:sticky;top:0;z-index:50;background:rgba(13,17,23,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
   .topbar-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
   .topbar-logo{display:flex;align-items:center;gap:8px}
   .topbar-logo img{height:32px;width:auto;display:block}
@@ -70,8 +70,8 @@
   .field{display:flex;flex-direction:column;gap:6px}
   .field label{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;opacity:0.55}
   .field input{background:var(--ink-deep);border:1px solid var(--line);color:var(--cream);padding:14px 16px;font-family:var(--font-b);font-size:14px;border-radius:2px;outline:none;transition:border-color .15s ease}
-  .field input:focus{border-color:rgba(232,224,206,0.45)}
-  .field input::placeholder{color:rgba(232,224,206,0.3)}
+  .field input:focus{border-color:rgba(26,39,68,0.45)}
+  .field input::placeholder{color:rgba(26,39,68,0.3)}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
   .auth-options{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-top:4px}
@@ -88,7 +88,7 @@
 
   .auth-social{display:flex;flex-direction:column;gap:10px}
   .auth-social button{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px;background:transparent;border:1px solid var(--line);color:var(--cream);font-family:var(--font-b);font-weight:600;font-size:13px;border-radius:2px;cursor:pointer;transition:border-color .15s ease, background .15s ease}
-  .auth-social button:hover{border-color:rgba(232,224,206,0.4);background:rgba(232,224,206,0.04)}
+  .auth-social button:hover{border-color:rgba(26,39,68,0.4);background:rgba(26,39,68,0.04)}
 
   .auth-disclaimer{font-size:11px;opacity:0.45;margin-top:18px;line-height:1.6;text-align:center}
   .auth-disclaimer a{text-decoration:underline}

@@ -10,16 +10,16 @@
 <link rel="stylesheet" href="assets/cart.css" />
 <style>
   :root {
-    --ink:        #0D1117;
-    --ink-deep:   #080D18;
-    --navy:       #1A2744;
-    --cream:      #E8E0CE;
+    --ink:        #ECEDEF;
+    --ink-deep:   #E3E5E8;
+    --navy:       #FFFFFF;
+    --cream:      #1A2744;
     --red:        #E8341A;
     --red-deep:   #C42710;
-    --green:      #4ADE80;
-    --line:       rgba(232,224,206,0.15);
-    --line-soft:  rgba(232,224,206,0.10);
-    --muted:      rgba(232,224,206,0.55);
+    --green:      #00A650;
+    --line:       rgba(26,39,68,0.14);
+    --line-soft:  rgba(26,39,68,0.08);
+    --muted:      rgba(26,39,68,0.58);
     --font-d: "Barlow Condensed","Arial Narrow",sans-serif;
     --font-b: "Inter",system-ui,sans-serif;
     --pad-x: clamp(20px,5vw,96px);
@@ -34,7 +34,7 @@
   .overline{width:64px;height:3px;background:var(--red);display:block}
 
   /* ---------- NAV ---------- */
-  .nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+  .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:74px}
   .nav-logos{display:flex;align-items:center;gap:8px}
   .nav-logos a{display:flex;align-items:center;transition:transform .15s ease}
@@ -45,13 +45,13 @@
   .nav-links a:hover{opacity:1}
   .nav-actions{display:flex;align-items:center;gap:12px}
   .icon-btn{width:42px;height:42px;display:grid;place-items:center;border-radius:999px;color:var(--cream);transition:background .15s ease;position:relative;background:transparent;border:0;cursor:pointer}
-  .icon-btn:hover{background:rgba(232,224,206,0.08)}
+  .icon-btn:hover{background:rgba(26,39,68,0.08)}
   .cart-badge{position:absolute;top:6px;right:6px;background:var(--red);color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;padding:0 4px;border-radius:999px;display:grid;place-items:center}
   .hamb,.hamb-mobile{display:none}
-  .nav-search{display:none;position:sticky;top:74px;z-index:49;background:rgba(13,17,23,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft);padding:10px var(--pad-x)}
-  .nav-search form{display:flex;align-items:center;gap:10px;background:rgba(232,224,206,0.06);border:1px solid var(--line);border-radius:999px;padding:10px 16px}
+  .nav-search{display:none;position:sticky;top:74px;z-index:49;background:rgba(255,255,255,0.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft);padding:10px var(--pad-x)}
+  .nav-search form{display:flex;align-items:center;gap:10px;background:rgba(26,39,68,0.06);border:1px solid var(--line);border-radius:999px;padding:10px 16px}
   .nav-search input{flex:1;background:transparent;border:0;outline:none;color:var(--cream);font-family:var(--font-b);font-size:14px;padding:0}
-  .nav-search input::placeholder{color:rgba(232,224,206,0.45)}
+  .nav-search input::placeholder{color:rgba(26,39,68,0.45)}
   .nav-search button{display:grid;place-items:center;background:transparent;border:0;color:var(--cream);opacity:0.7;cursor:pointer;flex-shrink:0}
 
   /* ---------- PDP CRUMB ---------- */
@@ -65,10 +65,10 @@
 
   /* Gallery */
   .pdp-gallery{position:sticky;top:90px}
-  .pdp-photo{aspect-ratio:1/1;background:var(--ink-deep);border:1px solid var(--line-soft);display:grid;place-items:center;padding:48px;position:relative;overflow:hidden}
-  .pdp-photo img{max-width:85%;max-height:85%;object-fit:contain;filter:drop-shadow(0 30px 50px rgba(0,0,0,0.6));transition:transform .35s ease}
+  .pdp-photo{aspect-ratio:1/1;background:#fff;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center;padding:48px;position:relative;overflow:hidden;box-shadow:0 1px 3px rgba(26,39,68,0.08)}
+  .pdp-photo img{max-width:85%;max-height:85%;object-fit:contain;filter:drop-shadow(0 20px 32px rgba(26,39,68,0.16));transition:transform .35s ease}
   .pdp-photo:hover img{transform:scale(1.03)}
-  .pdp-tag{position:absolute;top:18px;left:18px;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;background:var(--cream);color:var(--ink);padding:6px 12px;border-radius:2px}
+  .pdp-tag{position:absolute;top:18px;left:18px;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;background:var(--red);color:#fff;padding:6px 12px;border-radius:4px}
   .pdp-tag.sale{background:var(--red);color:#fff}
 
   /* Info */
@@ -80,8 +80,20 @@
   .pdp-discount{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:var(--red);color:#fff;padding:6px 10px;border-radius:2px}
 
   /* Payment hint */
-  .pdp-hint{font-size:13px;line-height:1.5;opacity:0.7;padding:14px 16px;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.25);border-radius:2px;margin-bottom:28px}
-  .pdp-hint strong{color:var(--green);font-weight:600}
+  .pdp-hint{font-size:13px;line-height:1.5;opacity:1;padding:14px 16px;background:rgba(232,52,26,0.07);border:1px solid rgba(232,52,26,0.25);border-radius:6px;margin-bottom:18px;color:var(--cream)}
+  .pdp-hint strong{color:var(--red);font-weight:700}
+
+  /* Social proof + stock (entre hint y cantidad) */
+  .pdp-social{display:flex;flex-direction:column;gap:6px;margin-bottom:24px;padding:12px 14px;background:rgba(26,39,68,0.035);border-radius:6px}
+  .pdp-social-line{font-size:13px;color:var(--muted);line-height:1.35;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+  .pdp-social-line .dot{opacity:0.45}
+  .pdp-social-line .star{color:#f5b400}
+  .pdp-social-line .rating-num{color:var(--cream);font-weight:700}
+  .pdp-stock{font-size:13.5px;color:var(--cream);font-weight:600;line-height:1.35;display:flex;align-items:center;gap:8px}
+  .pdp-stock .dot{width:7px;height:7px;border-radius:999px;background:var(--green);flex-shrink:0}
+  .pdp-stock.low{color:var(--red);font-weight:700}
+  .pdp-stock.low .dot{background:var(--red);animation:stockPulse 1.4s ease-in-out infinite}
+  @keyframes stockPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:0.7}}
 
   /* Selectors */
   .pdp-section{margin-bottom:24px}
@@ -89,19 +101,18 @@
   .pdp-section-label .picked{color:var(--cream);opacity:1}
   .pdp-flavors{display:flex;gap:8px;flex-wrap:wrap}
   .flavor-btn{padding:11px 18px;border:1.5px solid var(--line);background:transparent;color:var(--cream);font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border-radius:999px;cursor:pointer;transition:border-color .15s ease, background .15s ease;font-family:var(--font-b)}
-  .flavor-btn:hover{border-color:rgba(232,224,206,0.5)}
+  .flavor-btn:hover{border-color:rgba(26,39,68,0.5)}
   .flavor-btn.active{background:var(--cream);color:var(--ink);border-color:var(--cream)}
 
   /* Qty + add */
   .pdp-buy{display:flex;gap:12px;align-items:stretch;margin-bottom:24px}
   .qty-stepper{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:2px;overflow:hidden}
   .qty-stepper button{width:46px;height:54px;display:grid;place-items:center;background:transparent;color:var(--cream);cursor:pointer;font-size:18px;font-weight:700;transition:background .15s ease}
-  .qty-stepper button:hover{background:rgba(232,224,206,0.08)}
+  .qty-stepper button:hover{background:rgba(26,39,68,0.08)}
   .qty-stepper span{min-width:48px;text-align:center;font-family:var(--font-d);font-weight:900;font-size:18px;border-left:1px solid var(--line);border-right:1px solid var(--line);height:54px;display:grid;place-items:center}
-  .add-btn{flex:1;background:var(--red);color:#fff;border:0;padding:18px 24px;font-family:var(--font-d);font-weight:900;font-size:14px;letter-spacing:0.18em;text-transform:uppercase;border-radius:2px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;transition:background .18s ease, transform .15s ease}
-  .add-btn:hover{background:var(--red-deep);transform:translateY(-1px)}
-  .add-btn .arr{transition:transform .2s ease}
-  .add-btn:hover .arr{transform:translateX(4px)}
+  .add-btn{flex:1;background:var(--cream);color:#fff;border:0;padding:18px 24px;font-family:var(--font-d);font-weight:900;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:background .18s ease, transform .15s ease}
+  .add-btn:hover{background:#0F1729;transform:translateY(-1px)}
+  .cart-ic{width:18px;height:18px;flex-shrink:0}
 
   .pdp-perks{display:flex;flex-direction:column;gap:10px;padding-top:18px;border-top:1px solid var(--line-soft)}
   .pdp-perk{display:flex;align-items:center;gap:12px;font-size:13px;opacity:0.78}
@@ -126,28 +137,38 @@
   .nutri-table td:first-child{opacity:0.65}
   .nutri-table td:last-child{text-align:right;font-family:var(--font-d);font-weight:800;font-size:16px;letter-spacing:0.005em}
 
-  /* ---------- RELATED ---------- */
+  /* ---------- RELATED (ML-style cards) ---------- */
   .related{padding:64px 0 48px;border-top:1px solid var(--line-soft);background:var(--ink)}
-  .related-head{margin-bottom:32px}
-  .related-head h2{font-family:var(--font-d);font-weight:900;font-size:clamp(36px,5vw,72px);line-height:0.9;letter-spacing:-0.015em;text-transform:uppercase;margin:18px 0 0;color:var(--cream)}
-  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .rcard{background:transparent;border-top:1px solid var(--line);padding-top:24px;display:flex;flex-direction:column;cursor:pointer;transition:transform .25s ease}
-  .rcard:hover{transform:translateY(-4px)}
-  .rcard .ph{aspect-ratio:1/1;display:grid;place-items:center;padding:20px;margin-bottom:14px}
-  .rcard .ph img{max-width:78%;max-height:78%;object-fit:contain;filter:drop-shadow(0 20px 30px rgba(0,0,0,0.5));transition:transform .25s ease}
-  .rcard:hover .ph img{transform:scale(1.04)}
-  .rcard .brand{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;opacity:0.55}
-  .rcard .name{font-family:var(--font-d);font-weight:800;font-size:18px;line-height:1.05;text-transform:uppercase;margin:6px 0 10px}
-  .rcard .price{font-family:var(--font-d);font-weight:900;font-size:22px}
+  .related-head{margin-bottom:28px}
+  .related-head h2{font-family:var(--font-d);font-weight:900;font-size:clamp(32px,4.5vw,60px);line-height:0.95;letter-spacing:-0.015em;text-transform:uppercase;margin:14px 0 0;color:var(--cream)}
+  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  /* ML card (replicada de index.html para mantener consistencia visual) */
+  .mlcard{background:#fff;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:transform .2s ease, box-shadow .2s ease;cursor:pointer;box-shadow:0 1px 3px rgba(26,39,68,0.08);text-decoration:none;color:inherit}
+  .mlcard:hover{transform:translateY(-3px);box-shadow:0 12px 28px -8px rgba(26,39,68,0.22)}
+  .mlcard-ph{position:relative;background:#fff;aspect-ratio:1/1;display:grid;place-items:center;padding:18px}
+  .mlcard-ph img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+  .mlcard-off{position:absolute;top:10px;left:10px;background:var(--red);color:#fff;font-family:var(--font-b);font-weight:800;font-size:11px;letter-spacing:0.02em;padding:5px 9px;border-radius:4px;z-index:2}
+  .mlcard-info{padding:12px 14px 16px;display:flex;flex-direction:column;flex:1}
+  .mlcard-brand{font-family:var(--font-b);font-size:10px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:#8a8f98;margin-bottom:4px}
+  .mlcard-name{font-family:var(--font-b);font-size:13.5px;font-weight:400;line-height:1.32;color:#2d3138;margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.64em}
+  .mlcard-was{font-family:var(--font-b);font-size:12px;color:#9aa0a8;text-decoration:line-through;line-height:1;margin-bottom:3px}
+  .mlcard-price-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .mlcard-price{font-family:var(--font-b);font-weight:600;font-size:21px;line-height:1;color:#1a1d22;letter-spacing:-0.01em}
+  .mlcard-disc{font-family:var(--font-b);font-weight:700;font-size:12.5px;color:var(--red);line-height:1}
+  .mlcard-cuotas{font-family:var(--font-b);font-size:12px;color:var(--red);font-weight:600;line-height:1.3;margin-top:6px}
+  .mlcard-foot{margin-top:auto;padding-top:12px}
+  .mlcard-add{width:100%;background:var(--cream);color:#fff;border-radius:5px;padding:11px;font-family:var(--font-b);font-weight:700;font-size:12px;letter-spacing:0.05em;text-transform:uppercase;transition:background .15s ease;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;border:0}
+  .mlcard-add:hover{background:#0F1729}
 
   /* ---------- STICKY BUY (mobile) ---------- */
-  .pdp-sticky{display:none;position:fixed;left:0;right:0;bottom:0;z-index:80;background:rgba(13,17,23,0.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:12px var(--pad-x);box-shadow:0 -10px 30px -10px rgba(0,0,0,0.5)}
+  .pdp-sticky{display:none;position:fixed;left:0;right:0;bottom:0;z-index:80;background:rgba(255,255,255,0.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:12px var(--pad-x);box-shadow:0 -10px 30px -10px rgba(0,0,0,0.5)}
   .pdp-sticky-row{display:flex;align-items:center;gap:12px;max-width:1280px;margin:0 auto}
   .pdp-sticky-info{flex:1;min-width:0}
   .pdp-sticky-name{font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--cream);opacity:0.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
   .pdp-sticky-price{font-family:var(--font-d);font-weight:900;font-size:22px;color:var(--cream)}
-  .pdp-sticky button{background:var(--red);color:#fff;border:0;padding:14px 22px;font-family:var(--font-d);font-weight:900;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;border-radius:2px;cursor:pointer;flex-shrink:0;display:inline-flex;align-items:center;gap:8px;transition:background .18s ease}
-  .pdp-sticky button:hover{background:var(--red-deep)}
+  .pdp-sticky button{background:var(--cream);color:#fff;border:0;padding:14px 20px;font-family:var(--font-d);font-weight:900;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;border-radius:6px;cursor:pointer;flex-shrink:0;display:inline-flex;align-items:center;gap:8px;transition:background .18s ease}
+  .pdp-sticky button:hover{background:#0F1729}
+  .pdp-sticky button .sticky-qty-badge{background:rgba(255,255,255,0.22);border-radius:999px;padding:2px 8px;font-size:12px;font-weight:800;letter-spacing:0.04em;min-width:22px;text-align:center}
 
   /* ---------- ERROR (id no encontrado) ---------- */
   .pdp-error{padding:120px 0;text-align:center}
@@ -179,20 +200,36 @@
     .nav-logos{justify-self:center;gap:6px}
     .nav-logos img{height:32px}
     .nav-search{display:block}
-    .pdp{padding:16px 0 48px}
+    .pdp{padding:16px 0 90px}
     .pdp-name{font-size:clamp(28px,8vw,40px);margin-bottom:18px}
     .pdp-price{font-size:36px}
-    /* En mobile, el botón "Agregar" del PDP se reemplaza por el sticky inferior */
+    /* Mobile: el botón del cuerpo se oculta, queda el sticky de abajo */
     .pdp-buy .add-btn{display:none}
+    .qty-stepper{flex:1}
     .pdp-sticky{display:block}
+    .pdp-sticky button{padding:13px 14px;font-size:12px;letter-spacing:0.08em}
+    .pdp-sticky button .sticky-qty-badge{padding:2px 7px;font-size:11.5px}
     .pdp-perks{padding-top:14px}
+    .pdp-social{padding:10px 12px;margin-bottom:20px}
+    .pdp-social-line{font-size:12px}
+    .pdp-stock{font-size:12.5px}
     .pdp-tabs{padding:32px 0 24px;margin-top:32px}
     .tab-nav{gap:18px;margin-bottom:24px}
     .related{padding:48px 0 32px}
-    .related-grid{grid-template-columns:1fr;gap:12px}
+    .related-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+    .mlcard-info{padding:10px 11px 13px}
+    .mlcard-name{font-size:12.5px}
+    .mlcard-price{font-size:18px}
     .wa-float{right:16px;bottom:84px;width:44px;height:44px}
     .wa-float svg{width:22px;height:22px}
   }
+
+  /* Buscador grande en desktop (estilo ML) */
+  .nav-searchbar{flex:1;max-width:640px;min-width:0;display:flex;align-items:center;gap:12px;height:44px;padding:0 18px;border:1.5px solid var(--line);border-radius:999px;background:#fff;color:var(--cream);font-family:var(--font-b);font-size:14px;cursor:pointer;text-decoration:none;transition:border-color .15s ease, box-shadow .15s ease}
+  .nav-searchbar:hover{border-color:var(--red)}
+  .nav-searchbar svg{flex-shrink:0;opacity:0.55}
+  .nav-searchbar-text{opacity:0.55;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  @media (max-width:768px){.nav-searchbar{display:none}}
 </style>
 </head>
 <body>
@@ -207,13 +244,11 @@
       <a href="index.html" aria-label="Morashop"><img src="assets/mora_minorista.png" alt="Morashop" /></a>
       <a href="mayoristas.html" aria-label="Mayoristas"><img src="assets/mora_mayorista.png" alt="Mayoristas" /></a>
     </div>
-    <div class="nav-links">
-      <a href="suplementos.html">Suplementos</a>
-      <a href="supermercado.html">Supermercado</a>
-      <a href="electro.html">Electro-Hogar</a>
-      <a href="sobre-nosotros.html">Sobre nosotros</a>
-    </div>
-    <div class="nav-actions">
+    <a class="nav-searchbar" href="index.html#search" aria-label="Buscar productos, marcas y más">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <span class="nav-searchbar-text">Buscar productos, marcas y más…</span>
+    </a>
+<div class="nav-actions">
       <a href="login.html" class="icon-btn" aria-label="Iniciar sesión">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
       </a>
@@ -249,7 +284,7 @@
       <div class="pdp-sticky-name" id="stickyName"></div>
       <div class="pdp-sticky-price" id="stickyPrice"></div>
     </div>
-    <button id="stickyAddBtn">Agregar <span>→</span></button>
+    <button id="stickyAddBtn"><svg class="cart-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg> <span class="sticky-add-label">Agregar</span> <span class="sticky-qty-badge" id="stickyQty">1</span></button>
   </div>
 </div>
 
@@ -260,9 +295,10 @@
   </div>
 </footer>
 
-<script src="assets/catalog.js"></script>
 <script src="assets/catalog-data.js"></script>
+<script src="assets/catalog.js"></script>
 <script src="assets/cart.js"></script>
+<script src="assets/promo-bar.js"></script>
 <script src="assets/nav.js"></script>
 <script>
 (function () {
@@ -306,18 +342,14 @@
     };
   }
 
-  // 1) NUEVO: si llega ?cat=X&pid=Y -> buscar en el catalogo real (los 2116 productos)
+  // Todos los links del sitio entran con ?cat=X&pid=Y -> buscamos en el catalogo real.
   const cat = params.get('cat');
   const pid = params.get('pid');
-  // 2) VIEJO: si llega ?id=Y -> buscar en catalog.js (los 8 demo, para retrocompat)
-  const id = params.get('id');
 
   let product = null;
   if (cat && pid && window.CATALOG_BY_CAT && window.CATALOG_BY_CAT[cat]) {
     const found = window.CATALOG_BY_CAT[cat].find(p => slug(p.brand + '-' + p.name) === pid);
     product = adaptarProductoReal(found, cat);
-  } else if (id) {
-    product = window.CATALOG_API.get(id);
   }
 
   if (!product) {
@@ -338,6 +370,20 @@
   const fmt = window.CATALOG_API.formatARS;
   const hasFlavors = Array.isArray(product.flavors) && product.flavors.length > 1;
   const discount = product.oldPrice ? Math.round((1 - product.price / product.oldPrice) * 100) : 0;
+
+  // ----- Datos fake seedeados (mismos para el mismo producto) -----
+  function seedFromProduct(p) {
+    const s = (p.brand || '') + '|' + (p.name || '');
+    let h = 0;
+    for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+    return Math.abs(h);
+  }
+  const seed       = seedFromProduct(product);
+  const vendidos   = 20 + (seed % 480);                          // 20–500
+  const rating     = (4.3 + ((seed >> 4) % 7) / 10).toFixed(1);  // 4.3–4.9
+  const opiniones  = 5 + (seed % 90);                            // 5–95
+  const stock      = 2 + (seed % 30);                            // 2–32
+  const stockLow   = stock <= 5;
   const catParts = (product.category || '').split('>').map(s => s.trim());
   const catLink = catParts[0] && catParts[0].toLowerCase().startsWith('suplem') ? 'suplementos.html'
     : catParts[0] && catParts[0].toLowerCase().startsWith('super') ? 'supermercado.html'
@@ -379,6 +425,22 @@
               Pagando en efectivo: <strong>${fmt(product.price * 0.85)}</strong> · 15% off &nbsp;·&nbsp; o hasta 3 cuotas sin interés
             </div>
 
+            <div class="pdp-social" aria-label="Información de stock y reseñas">
+              <div class="pdp-social-line">
+                <span>+${vendidos} vendidos</span>
+                <span class="dot">·</span>
+                <span class="star">★</span>
+                <span class="rating-num">${rating}</span>
+                <span>(${opiniones} opiniones)</span>
+              </div>
+              <div class="pdp-stock ${stockLow ? 'low' : ''}">
+                <span class="dot" aria-hidden="true"></span>
+                ${stockLow
+                  ? `¡Pocas unidades! · Quedan ${stock}`
+                  : `Stock disponible · ${stock} unidades`}
+              </div>
+            </div>
+
             ${hasFlavors ? `
               <div class="pdp-section">
                 <div class="pdp-section-label">Sabor: <span class="picked" id="flavorPicked">${product.flavors[0]}</span></div>
@@ -397,7 +459,8 @@
                   <button type="button" id="qtyPlus" aria-label="Sumar">+</button>
                 </div>
                 <button class="add-btn" id="pdpAddBtn" type="button">
-                  Agregar al carrito <span class="arr">→</span>
+                  <svg class="cart-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+                  Agregar
                 </button>
               </div>
             </div>
@@ -437,31 +500,34 @@
       </div>
     </section>
 
-    <!-- RELATED -->
-    ${(product.related || []).length ? `
-      <section class="related">
-        <div class="container">
-          <div class="related-head">
-            <span class="overline"></span>
-            <h2>También te puede<br/>interesar.</h2>
-          </div>
-          <div class="related-grid" id="relatedGrid"></div>
+    <!-- RELATED (siempre se renderiza; el JS llena la grilla con productos del mismo type/brand) -->
+    <section class="related" id="relatedSection" style="display:none">
+      <div class="container">
+        <div class="related-head">
+          <span class="overline"></span>
+          <h2>Productos<br/>relacionados.</h2>
         </div>
-      </section>
-    ` : ''}
+        <div class="related-grid" id="relatedGrid"></div>
+      </div>
+    </section>
   `;
 
   // ----- State -----
   let qty = 1;
   let chosenFlavor = hasFlavors ? product.flavors[0] : null;
 
-  // Qty stepper
-  const qtyVal = document.getElementById('qtyVal');
+  // Qty stepper (sincroniza con sticky)
+  const qtyVal     = document.getElementById('qtyVal');
+  const stickyQty  = document.getElementById('stickyQty');
+  function syncQty() {
+    qtyVal.textContent = qty;
+    if (stickyQty) stickyQty.textContent = qty;
+  }
   document.getElementById('qtyMinus').addEventListener('click', () => {
-    if (qty > 1) { qty--; qtyVal.textContent = qty; }
+    if (qty > 1) { qty--; syncQty(); }
   });
   document.getElementById('qtyPlus').addEventListener('click', () => {
-    qty++; qtyVal.textContent = qty;
+    qty++; syncQty();
   });
 
   // Flavors
@@ -497,28 +563,125 @@
       name: displayName,
       price: product.price,
       img: product.img,
+      cat: cat || ''
     }, qty);
   }
-  document.getElementById('pdpAddBtn').addEventListener('click', addToCart);
+  document.getElementById('pdpAddBtn').addEventListener('click', () => {
+    addToCart();
+    const b = document.getElementById('pdpAddBtn');
+    const orig = b.innerHTML;
+    b.innerHTML = 'Agregado ✓';
+    setTimeout(() => { b.innerHTML = orig; }, 1400);
+  });
 
   // Sticky mobile
   document.getElementById('stickyName').textContent = product.name;
   document.getElementById('stickyPrice').textContent = fmt(product.price);
-  document.getElementById('stickyAddBtn').addEventListener('click', addToCart);
+  // Sticky mobile = "Agregar (N)" — usa qty actual del stepper (closure)
+  document.getElementById('stickyAddBtn').addEventListener('click', () => {
+    addToCart();
+    const b = document.getElementById('stickyAddBtn');
+    const orig = b.innerHTML;
+    b.innerHTML = 'Agregado ✓';
+    setTimeout(() => { b.innerHTML = orig; }, 1400);
+  });
 
-  // Related products
-  if ((product.related || []).length) {
-    const relatedGrid = document.getElementById('relatedGrid');
-    const items = product.related.map(rid => window.CATALOG_API.get(rid)).filter(Boolean);
-    relatedGrid.innerHTML = items.map(p => `
-      <a class="rcard" href="producto.html?id=${p.id}">
-        <div class="ph"><img src="${p.img}" alt="${p.name}" /></div>
-        <div class="brand">${p.brand}</div>
-        <div class="name">${p.name}</div>
-        <div class="price">${fmt(p.price)}</div>
-      </a>
-    `).join('');
-  }
+  // ----- Related products (cross-sell real) -----
+  // Filtra el catálogo real por mismo type[0] (preferido) o misma brand (fallback).
+  // Excluye el producto actual. Ordena por descuento. Toma hasta 6.
+  (function renderRelated() {
+    if (!cat || !window.CATALOG_BY_CAT || !window.CATALOG_BY_CAT[cat]) return;
+    const pool = window.CATALOG_BY_CAT[cat];
+
+    // Buscamos el "raw" del catálogo para tener types[0] real
+    const rawCurrent = pool.find(p => slug((p.brand || '') + '-' + (p.name || '')) === pid);
+    if (!rawCurrent) return;
+    const myType  = (rawCurrent.types && rawCurrent.types[0]) || '';
+    const myBrand = rawCurrent.brand || '';
+    const myKey   = slug((rawCurrent.brand || '') + '-' + (rawCurrent.name || ''));
+
+    function discPct(p) {
+      const now = parsePrecio(p.price), was = parsePrecio(p.was);
+      return (was > now && now > 0) ? (1 - now / was) : 0;
+    }
+
+    // 1) Mismo type, distinto producto
+    let sameType = pool.filter(p => {
+      if (!p || !p.types || !p.types[0]) return false;
+      if (slug((p.brand || '') + '-' + (p.name || '')) === myKey) return false;
+      return p.types[0] === myType;
+    });
+    sameType.sort((a, b) => discPct(b) - discPct(a));
+
+    let picks = sameType.slice(0, 6);
+
+    // 2) Si quedan <3, completar con misma brand (sin duplicar)
+    if (picks.length < 3 && myBrand) {
+      const picked = new Set(picks.map(p => slug((p.brand || '') + '-' + (p.name || ''))));
+      const sameBrand = pool.filter(p => {
+        if (!p || !p.brand) return false;
+        const k = slug(p.brand + '-' + (p.name || ''));
+        if (k === myKey || picked.has(k)) return false;
+        return p.brand === myBrand;
+      });
+      sameBrand.sort((a, b) => discPct(b) - discPct(a));
+      picks = picks.concat(sameBrand).slice(0, 6);
+    }
+
+    if (!picks.length) return;
+
+    const grid = document.getElementById('relatedGrid');
+    const section = document.getElementById('relatedSection');
+    if (!grid || !section) return;
+
+    grid.innerHTML = picks.map(p => {
+      const now  = parsePrecio(p.price);
+      const was  = parsePrecio(p.was);
+      const disc = (was > now && now > 0) ? Math.round((1 - now / was) * 100) : 0;
+      const cuota = Math.round(now / 3);
+      const pidx = slug((p.brand || '') + '-' + (p.name || ''));
+      const offBadge = disc >= 5 ? `<span class="mlcard-off">${disc}% OFF</span>` : '';
+      const wasRow   = was > now ? `<div class="mlcard-was">${fmt(was)}</div>` : '';
+      const discTxt  = disc >= 5 ? `<span class="mlcard-disc">${disc}% OFF</span>` : '';
+      return `<a class="mlcard" href="producto.html?cat=${encodeURIComponent(cat)}&pid=${encodeURIComponent(pidx)}" data-pid="${encodeURIComponent(pidx)}">
+        <div class="mlcard-ph">${offBadge}<img src="${p.img}" alt="${(p.name || '').replace(/"/g,'&quot;')}" loading="lazy" /></div>
+        <div class="mlcard-info">
+          <div class="mlcard-brand">${p.brand || ''}</div>
+          <div class="mlcard-name">${p.name || ''}</div>
+          ${wasRow}
+          <div class="mlcard-price-row"><span class="mlcard-price">${fmt(now)}</span>${discTxt}</div>
+          <div class="mlcard-cuotas">3 cuotas sin interés de ${fmt(cuota)}</div>
+          <div class="mlcard-foot"><button class="mlcard-add" type="button" data-mladd><svg class="cart-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg><span>Agregar</span></button></div>
+        </div>
+      </a>`;
+    }).join('');
+
+    section.style.display = '';
+
+    // Handler "Agregar al carrito" sin abrir la PDP
+    grid.querySelectorAll('[data-mladd]').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        const card = e.currentTarget.closest('.mlcard');
+        if (!card) return;
+        const pidCard = decodeURIComponent(card.dataset.pid || '');
+        const prod = pool.find(p => slug((p.brand || '') + '-' + (p.name || '')) === pidCard);
+        if (prod && window.Cart) {
+          window.Cart.add({
+            id: pidCard,
+            brand: prod.brand,
+            name: prod.name,
+            price: parsePrecio(prod.price),
+            img: prod.img,
+            cat: cat || ''
+          });
+        }
+        const orig = e.currentTarget.innerHTML;
+        e.currentTarget.innerHTML = '<span>Agregado ✓</span>';
+        setTimeout(() => { e.currentTarget.innerHTML = orig; }, 1400);
+      });
+    });
+  })();
 })();
 </script>
 </body>

@@ -10,15 +10,15 @@
 <link rel="stylesheet" href="assets/cart.css" />
 <style>
   :root {
-    --ink:        #0D1117;
-    --ink-deep:   #080D18;
-    --navy:       #1A2744;
-    --cream:      #E8E0CE;
+    --ink:        #ECEDEF;
+    --ink-deep:   #E3E5E8;
+    --navy:       #FFFFFF;
+    --cream:      #1A2744;
     --red:        #E8341A;
     --red-deep:   #C42710;
-    --green:      #4ADE80;
-    --line:       rgba(232,224,206,0.15);
-    --line-soft:  rgba(232,224,206,0.10);
+    --green:      #00A650;
+    --line:       rgba(26,39,68,0.14);
+    --line-soft:  rgba(26,39,68,0.08);
     --font-d: "Barlow Condensed","Arial Narrow",sans-serif;
     --font-b: "Inter",system-ui,sans-serif;
     --pad-x: clamp(20px,5vw,96px);
@@ -33,7 +33,7 @@
   .overline{width:64px;height:3px;background:var(--red);display:block}
 
   /* NAV */
-  .nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+  .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;height:74px}
   .nav-logos{display:flex;align-items:center;gap:8px}
   .nav-logos a{display:flex;align-items:center;transition:transform .15s ease,opacity .15s ease}
@@ -44,15 +44,15 @@
   .nav-links a:hover{opacity:1}
   .nav-actions{display:flex;align-items:center;gap:12px}
   .icon-btn{width:42px;height:42px;display:grid;place-items:center;border-radius:999px;color:var(--cream);transition:background .15s ease;position:relative}
-  .icon-btn:hover{background:rgba(232,224,206,0.08)}
+  .icon-btn:hover{background:rgba(26,39,68,0.08)}
   .cart-badge{position:absolute;top:6px;right:6px;background:var(--red);color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;padding:0 4px;border-radius:999px;display:grid;place-items:center}
   .hamb{display:none}
   .hamb-mobile{display:none}
-  .nav-search{display:none;position:sticky;top:74px;z-index:49;background:rgba(13,17,23,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft);padding:10px var(--pad-x)}
-  .nav-search form{display:flex;align-items:center;gap:10px;background:rgba(232,224,206,0.06);border:1px solid var(--line);border-radius:999px;padding:10px 16px;transition:border-color .15s ease, background .15s ease}
-  .nav-search form:focus-within{border-color:rgba(232,224,206,0.4);background:rgba(232,224,206,0.10)}
+  .nav-search{display:none;position:sticky;top:74px;z-index:49;background:rgba(255,255,255,0.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft);padding:10px var(--pad-x)}
+  .nav-search form{display:flex;align-items:center;gap:10px;background:rgba(26,39,68,0.06);border:1px solid var(--line);border-radius:999px;padding:10px 16px;transition:border-color .15s ease, background .15s ease}
+  .nav-search form:focus-within{border-color:rgba(26,39,68,0.4);background:rgba(26,39,68,0.10)}
   .nav-search input{flex:1;background:transparent;border:0;outline:none;color:var(--cream);font-family:var(--font-b);font-size:14px;font-weight:500;padding:0}
-  .nav-search input::placeholder{color:rgba(232,224,206,0.45)}
+  .nav-search input::placeholder{color:rgba(26,39,68,0.45)}
   .nav-search button{display:grid;place-items:center;background:transparent;border:0;color:var(--cream);opacity:0.7;cursor:pointer;flex-shrink:0}
   .nav-search button:hover{opacity:1}
 
@@ -76,7 +76,7 @@
   /* INFO */
   .info{background:var(--navy);padding:clamp(60px,8vw,110px) 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
   .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .info-card{background:rgba(13,17,23,0.4);border:1px solid var(--line);padding:36px 28px;display:flex;flex-direction:column;gap:12px}
+  .info-card{background:rgba(255,255,255,0.6);border:1px solid var(--line);padding:36px 28px;display:flex;flex-direction:column;gap:12px}
   .info-card .n{font-family:var(--font-d);font-weight:900;font-size:13px;letter-spacing:0.2em;opacity:0.45}
   .info-card h3{font-family:var(--font-d);font-weight:900;font-size:clamp(26px,3vw,36px);line-height:1;letter-spacing:-0.005em;text-transform:uppercase;margin:0}
   .info-card p{font-size:14px;line-height:1.55;opacity:0.7;margin:0}
@@ -112,6 +112,13 @@
     .wa-float{width:48px;height:48px}
     .wa-float svg{width:24px;height:24px}
   }
+
+  /* Buscador grande en desktop (estilo ML) */
+  .nav-searchbar{flex:1;max-width:640px;min-width:0;display:flex;align-items:center;gap:12px;height:44px;padding:0 18px;border:1.5px solid var(--line);border-radius:999px;background:#fff;color:var(--cream);font-family:var(--font-b);font-size:14px;cursor:pointer;text-decoration:none;transition:border-color .15s ease, box-shadow .15s ease}
+  .nav-searchbar:hover{border-color:var(--red)}
+  .nav-searchbar svg{flex-shrink:0;opacity:0.55}
+  .nav-searchbar-text{opacity:0.55;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  @media (max-width:768px){.nav-searchbar{display:none}}
 </style>
 </head>
 <body>
@@ -126,13 +133,11 @@
       <a href="index.html" aria-label="Morashop"><img src="assets/mora_minorista.png" alt="Morashop" /></a>
       <a href="mayoristas.html" aria-label="Mayoristas"><img src="assets/mora_mayorista.png" alt="Mayoristas" /></a>
     </div>
-    <div class="nav-links">
-      <a href="suplementos.html">Suplementos</a>
-      <a href="supermercado.html">Supermercado</a>
-      <a href="electro.html">Electro-Hogar</a>
-      <a href="sobre-nosotros.html">Sobre nosotros</a>
-    </div>
-    <div class="nav-actions">
+    <a class="nav-searchbar" href="index.html#search" aria-label="Buscar productos, marcas y más">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <span class="nav-searchbar-text">Buscar productos, marcas y más…</span>
+    </a>
+<div class="nav-actions">
       <a href="login.html" class="icon-btn" aria-label="Iniciar sesión">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
       </a>
@@ -217,6 +222,7 @@
 </footer>
 
 <script src="assets/cart.js"></script>
+<script src="assets/promo-bar.js"></script>
 <script src="assets/nav.js"></script>
 </body>
 </html>

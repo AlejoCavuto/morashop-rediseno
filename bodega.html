@@ -3,13 +3,43 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Supermercado · Morashop</title>
+<title>Bodega · Morashop</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/styles.css" />
 <link rel="stylesheet" href="assets/category.css" />
 <link rel="stylesheet" href="assets/cart.css" />
+<style>
+  /* Placeholder "Próximamente" — centro de la página */
+  .bodega-soon-wrap{background:var(--ink);padding:clamp(48px,7vw,96px) 0 clamp(72px,10vw,140px)}
+  .bodega-soon{
+    background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:clamp(40px,6vw,80px) clamp(28px,5vw,72px);
+    max-width:720px;margin:0 auto;text-align:center;
+    box-shadow:0 4px 20px -10px rgba(26,39,68,0.15);
+  }
+  .bodega-soon-ic{font-size:64px;line-height:1;margin-bottom:18px;filter:drop-shadow(0 6px 18px rgba(108,30,40,0.25))}
+  .bodega-soon h2{
+    font-family:var(--font-d);font-weight:900;font-size:clamp(28px,3.5vw,44px);
+    line-height:1;letter-spacing:-0.01em;text-transform:uppercase;color:var(--cream);
+    margin:0 0 14px;
+  }
+  .bodega-soon p{
+    font-family:var(--font-b);font-size:clamp(15px,1.3vw,17px);line-height:1.5;
+    color:var(--cream);opacity:0.72;margin:0 0 28px;
+  }
+  .bodega-soon-cta{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--red);color:#fff;
+    padding:14px 28px;border-radius:6px;
+    font-family:var(--font-b);font-weight:700;font-size:13px;
+    letter-spacing:0.08em;text-transform:uppercase;
+    transition:background .15s ease, transform .15s ease;cursor:pointer;
+  }
+  .bodega-soon-cta:hover{background:var(--red-deep);transform:translateY(-1px)}
+  .bodega-soon-cta svg{width:18px;height:18px;flex-shrink:0}
+</style>
 </head>
 <body style="background: var(--ink);">
 
@@ -51,56 +81,28 @@
   </form>
 </div>
 
-<section class="cat-hero hero-supermercado">
+<section class="cat-hero hero-bodega-cat">
   <div class="container cat-hero-inner">
     <div class="crumb">
-      <a href="index.html">Inicio</a><span class="sep">/</span><span>Supermercado</span>
+      <a href="index.html">Inicio</a><span class="sep">/</span><span>Bodega</span>
     </div>
     <div class="cat-overline"></div>
-    <h1>Super-<br/>mercado</h1>
-    <p class="desc">Snacks fit, bebidas funcionales, granos, aceites y básicos para tu cocina. Lo que te sostiene fuera del gym.</p>
+    <h1>Bodega</h1>
+    <p class="desc">Vinos, cervezas artesanales y bebidas premium. Próximamente.</p>
   </div>
 </section>
 
-<div class="pill-bar">
+<section class="bodega-soon-wrap">
   <div class="container">
-    <div class="pill-row">
-      <span class="pill-label">Tipo</span>
-      <button class="pill active" data-group="type" data-value="all">Todo</button>
-      <button class="pill" data-group="type" data-value="almacen">Almacén</button>
-      <button class="pill" data-group="type" data-value="cuidado-personal">Cuidado personal</button>
-      <button class="pill" data-group="type" data-value="bebidas">Bebidas</button>
+    <div class="bodega-soon">
+      <div class="bodega-soon-ic" aria-hidden="true">🍷</div>
+      <h2>Estamos eligiendo<br/>las mejores etiquetas</h2>
+      <p>Vinos, cervezas artesanales y espirituosas para vos. Dejanos tu WhatsApp y te avisamos en cuanto abramos la bodega.</p>
+      <a class="bodega-soon-cta" href="https://wa.me/5491100000000?text=Hola%20Morashop%2C%20quiero%20que%20me%20avisen%20cuando%20abra%20la%20Bodega%20%F0%9F%8D%B7" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.92.5 3.78 1.46 5.43L2 22l4.78-1.55a9.85 9.85 0 0 0 5.26 1.5c5.45 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 17.92c-1.6 0-3.17-.43-4.55-1.24l-.33-.2-3.16 1.02 1.04-3.06-.22-.34a8.05 8.05 0 0 1-1.27-4.31c0-4.5 3.66-8.17 8.17-8.17 4.5 0 8.17 3.66 8.17 8.17.01 4.51-3.66 8.13-8.16 8.13z"/></svg>
+        Avisame cuando esté disponible
+      </a>
     </div>
-    <div class="pill-row">
-      <span class="pill-label">Marca</span>
-      <button class="pill active" data-group="brand" data-value="all">Todas</button>
-      <button class="pill" data-group="brand" data-value="SriSri">SriSri</button>
-      <button class="pill" data-group="brand" data-value="Dicomere">Dicomere</button>
-      <button class="pill" data-group="brand" data-value="Entrenuts">Entrenuts</button>
-      <button class="pill" data-group="brand" data-value="Kos">Kos</button>
-      <button class="pill" data-group="brand" data-value="Q-Soft">Q-Soft</button>
-      <button class="pill" data-group="brand" data-value="Main Fusion">Main Fusion</button>
-      <button class="pill" data-group="brand" data-value="Integra">Integra</button>
-      <button class="pill" data-group="brand" data-value="Elegante">Elegante</button>
-    </div>
-  </div>
-</div>
-
-<section class="cat-body">
-  <div class="container">
-    <div class="cat-toolbar">
-      <div class="results" id="resultsCount"></div>
-      <div class="sort">
-        <label for="sort">Ordenar</label>
-        <select id="sort">
-          <option value="featured">Destacados</option>
-          <option value="price-asc">Menor precio</option>
-          <option value="price-desc">Mayor precio</option>
-          <option value="name">Alfabético</option>
-        </select>
-      </div>
-    </div>
-    <div class="cat-grid cols-3" id="catGrid"></div>
   </div>
 </section>
 
@@ -109,7 +111,7 @@
     <div class="foot-top">
       <div class="foot-brand">
         <div class="wordmark"><img src="assets/mora_minorista.png" alt="Morashop" style="height:32px;width:auto" /></div>
-        <p>Suplementación deportiva, supermercado y electrodomésticos. Distribuidor autorizado desde 2018.</p>
+        <p>Suplementación deportiva, supermercado y electro-hogar. Distribuidor autorizado desde 2018.</p>
       </div>
       <div class="foot-col"><h5>Tienda</h5><ul>
         <li><a href="suplementos.html">Suplementos</a></li>
@@ -134,9 +136,6 @@
   </div>
 </footer>
 
-<script src="assets/catalog-data.js"></script>
-<script>window.PRODUCTS = (window.CATALOG_BY_CAT && window.CATALOG_BY_CAT.supermercado) || [];</script>
-<script src="assets/category.js"></script>
 <script src="assets/cart.js"></script>
 <script src="assets/promo-bar.js"></script>
 <script src="assets/nav.js"></script>
