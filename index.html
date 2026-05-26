@@ -89,14 +89,15 @@
   .search-row .close:hover{opacity:1}
 
   /* ---------- HERO ESTÁTICO "EL MEJOR PRECIO SIEMPRE" ---------- */
-  .hero{background:var(--ink);padding:clamp(48px,7vw,96px) 0;border-bottom:1px solid var(--line-soft)}
-  .hero-grid{display:grid;gap:32px;align-items:center}
-  .hero-overline{width:64px;height:3px;background:var(--red);display:block;margin-bottom:20px}
-  .hero h1{font-family:var(--font-d);font-weight:900;font-size:clamp(48px,9vw,120px);line-height:0.88;letter-spacing:-0.02em;text-transform:uppercase;margin:0 0 24px;color:var(--cream)}
-  .hero .lede{font-family:var(--font-b);font-size:clamp(15px,1.8vw,18px);line-height:1.5;color:var(--cream);opacity:0.7;max-width:480px;margin:0 0 32px}
+  .hero{background:var(--ink);padding:32px 0;border-bottom:1px solid var(--line-soft);min-height:380px;display:flex;align-items:center}
+  .hero > .container{width:100%}
+  .hero-grid{display:grid;gap:20px;align-items:center}
+  .hero-overline{width:48px;height:3px;background:var(--red);display:block;margin-bottom:14px}
+  .hero h1{font-family:var(--font-d);font-weight:900;font-size:clamp(32px,4.5vw,56px);line-height:0.95;letter-spacing:-0.015em;text-transform:uppercase;margin:0 0 14px;color:var(--cream)}
+  .hero .lede{font-family:var(--font-b);font-size:clamp(13px,1.2vw,15px);line-height:1.45;color:var(--cream);opacity:0.7;max-width:420px;margin:0}
   .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
   .hero-media{display:grid;place-items:center}
-  .hero-media img{width:clamp(220px,50%,380px);height:auto;filter:drop-shadow(0 30px 50px rgba(26,39,68,0.22))}
+  .hero-media img{width:clamp(140px,30%,240px);height:auto;filter:drop-shadow(0 24px 40px rgba(26,39,68,0.22))}
   @media (min-width:768px){
     .hero-grid{grid-template-columns:1.1fr 0.9fr}
   }
@@ -401,14 +402,13 @@
     .nav-logos{justify-self:center}
     /* Activar la barra de búsqueda fija debajo del nav */
     .nav-search{display:block}
-    /* Hero estático mobile: compacto, sin foto, sin lede, padding chico */
-    .hero{padding:24px 0 28px}
-    .hero-grid{gap:14px}
-    .hero h1{font-size:clamp(34px,9vw,52px);margin:0 0 14px}
-    .hero .lede{display:none}              /* mobile: sin texto largo */
-    .hero-media{display:none}              /* mobile: sin foto del whey (no aporta) */
-    .hero-actions .btn{width:100%;justify-content:center}
-    .hero-overline{margin-bottom:14px}
+    /* Hero mobile: altura fija 180px, sin foto, sin lede */
+    .hero{padding:20px 0;min-height:180px}
+    .hero-grid{gap:6px;grid-template-columns:1fr}
+    .hero h1{font-size:clamp(28px,7.5vw,36px);margin:0;line-height:0.95}
+    .hero .lede{display:none}
+    .hero-media{display:none}
+    .hero-overline{width:36px;height:2px;margin-bottom:10px}
     /* Promo grid 2×2 mobile: se mantiene la grilla 2×2 (estilo ML), cards más compactas */
     .promo-grid{padding:16px 0}
     .pg-grid{gap:10px}
