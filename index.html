@@ -89,15 +89,26 @@
   .search-row .close:hover{opacity:1}
 
   /* ---------- HERO ESTÁTICO "EL MEJOR PRECIO SIEMPRE" ---------- */
-  .hero{background:var(--ink);padding:32px 0;border-bottom:1px solid var(--line-soft);min-height:380px;display:flex;align-items:center}
-  .hero > .container{width:100%}
-  .hero-grid{display:grid;gap:20px;align-items:center}
+  /* HERO: imagen full-width 1920×768 desktop / 750×1000 mobile vertical (medidas Tiendanube) */
+  .hero{background:var(--ink);border-bottom:1px solid var(--line-soft);overflow:hidden}
+  .hero-link{display:block;line-height:0;outline:0;text-decoration:none;color:inherit}
+  .hero-link:focus-visible{outline:2px solid var(--red);outline-offset:-4px}
+  .hero picture,.hero > .hero-link > picture > img{display:block;width:100%;height:auto;max-height:640px;object-fit:cover}
+  /* Placeholder mientras llega imagen final del diseñador */
+  .hero-placeholder{position:relative;display:flex;align-items:center;justify-content:space-between;gap:24px;max-width:1400px;margin:0 auto;padding:48px var(--pad-x);min-height:380px;background:var(--ink);line-height:normal}
+  .hero-placeholder-inner{flex:1;max-width:560px}
   .hero-overline{width:48px;height:3px;background:var(--red);display:block;margin-bottom:14px}
-  .hero h1{font-family:var(--font-d);font-weight:900;font-size:clamp(32px,4.5vw,56px);line-height:0.95;letter-spacing:-0.015em;text-transform:uppercase;margin:0 0 14px;color:var(--cream)}
-  .hero .lede{font-family:var(--font-b);font-size:clamp(13px,1.2vw,15px);line-height:1.45;color:var(--cream);opacity:0.7;max-width:420px;margin:0}
-  .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-  .hero-media{display:grid;place-items:center}
-  .hero-media img{width:clamp(140px,30%,240px);height:auto;filter:drop-shadow(0 24px 40px rgba(26,39,68,0.22))}
+  .hero-placeholder h1{font-family:var(--font-d);font-weight:900;font-size:clamp(38px,5.5vw,68px);line-height:0.92;letter-spacing:-0.015em;text-transform:uppercase;margin:0 0 14px;color:var(--cream)}
+  .hero-placeholder .lede{font-family:var(--font-b);font-size:13px;color:var(--muted);margin:0;font-style:italic}
+  .hero-placeholder .lede code{background:rgba(232,52,26,0.1);color:var(--red);padding:2px 6px;border-radius:4px;font-family:monospace;font-size:12px}
+  .hero-placeholder-img{width:clamp(160px,28%,260px);height:auto;filter:drop-shadow(0 24px 40px rgba(26,39,68,0.22))}
+  @media (max-width:768px){
+    .hero picture,.hero > .hero-link > picture > img{max-height:none}  /* mobile vertical 750×1000 — sin cap */
+    .hero-placeholder{padding:24px var(--pad-x);min-height:200px;gap:12px}
+    .hero-placeholder-inner{max-width:100%}
+    .hero-placeholder h1{font-size:clamp(28px,7.5vw,40px)}
+    .hero-placeholder-img{display:none}
+  }
   @media (min-width:768px){
     .hero-grid{grid-template-columns:1.1fr 0.9fr}
   }
@@ -402,13 +413,7 @@
     .nav-logos{justify-self:center}
     /* Activar la barra de búsqueda fija debajo del nav */
     .nav-search{display:block}
-    /* Hero mobile: altura fija 180px, sin foto, sin lede */
-    .hero{padding:20px 0;min-height:180px}
-    .hero-grid{gap:6px;grid-template-columns:1fr}
-    .hero h1{font-size:clamp(28px,7.5vw,36px);margin:0;line-height:0.95}
-    .hero .lede{display:none}
-    .hero-media{display:none}
-    .hero-overline{width:36px;height:2px;margin-bottom:10px}
+    /* Hero mobile: imagen full-width responsive (sin overrides — usa el <source media="(max-width:768px)"> del <picture>) */
     /* Promo grid 2×2 mobile: se mantiene la grilla 2×2 (estilo ML), cards más compactas */
     .promo-grid{padding:16px 0}
     .pg-grid{gap:10px}
@@ -722,18 +727,30 @@
   </div>
 </div>
 
-<!-- HERO ESTÁTICO "EL MEJOR PRECIO SIEMPRE" -->
-<section class="hero" id="top" aria-label="Inicio">
-  <div class="container hero-grid">
-    <div class="hero-copy">
-      <span class="hero-overline" aria-hidden="true"></span>
-      <h1>El mejor<br/>precio<br/>siempre.</h1>
-      <p class="lede">Suplementos originales de las mejores marcas. Distribuidor autorizado en Argentina — supermercado fit y electro-hogar para sostener tu rutina.</p>
+<!-- HERO: imagen full-width diseñada por diseñador (medidas oficiales Tiendanube).
+     CUANDO LLEGUEN LOS ARCHIVOS: crear carpeta assets/banners/ y poner:
+       hero-desktop.jpg (1920×768, max 350KB)
+       hero-mobile.jpg  (750×1000 VERTICAL, max 200KB)
+     Tiendanube re-encodea WebP → usar JPG directo. Solo PNG si necesita transparencia.
+     Después descomentar el <picture> de abajo y borrar el placeholder. -->
+<section class="hero" id="top" aria-label="Promoción Morashop">
+  <a class="hero-link" href="suplementos.html">
+    <!-- PLACEHOLDER mientras llega imagen del diseñador (texto + producto en CSS) -->
+    <div class="hero-placeholder">
+      <div class="hero-placeholder-inner">
+        <span class="hero-overline" aria-hidden="true"></span>
+        <h1>El mejor<br/>precio<br/>siempre.</h1>
+        <p class="lede">Imagen del diseñador pendiente — colocar en <code>assets/banners/</code></p>
+      </div>
+      <img class="hero-placeholder-img" src="assets/products/whey-star-choc.png" alt="" aria-hidden="true" />
     </div>
-    <div class="hero-media" aria-hidden="true">
-      <img src="assets/products/whey-star-choc.png" alt="Whey Protein Star Nutrition" loading="eager" />
-    </div>
-  </div>
+    <!-- IMAGEN REAL (descomentar cuando llegue):
+    <picture>
+      <source media="(max-width: 768px)" srcset="assets/banners/hero-mobile.jpg">
+      <img src="assets/banners/hero-desktop.jpg" alt="Morashop · Distribuidor oficial de suplementos" loading="eager" fetchpriority="high" width="1920" height="768">
+    </picture>
+    -->
+  </a>
 </section>
 
 <!-- BENEFICIOS (6 cards informativas, justo después del hero — ML style) -->
@@ -927,10 +944,10 @@
   // ---------- PROMO CAROUSEL (slides) — antes era el hero, ahora va entre bloques ----------
   const PROMO_SLIDES = [
     {
-      eyebrow: 'Liquidación de suplementos',
-      title: 'Hasta 45% OFF',
-      subtitle: 'En proteínas, creatinas y pre-entrenos seleccionados.',
-      cta: 'Ver ofertas',
+      eyebrow: 'Jueves de Suplemento',
+      title: 'Hasta 30% OFF',
+      subtitle: '5% base + 15% efectivo + 10% llevando 3 suplementos. Solo los jueves.',
+      cta: 'Aprovechar',
       link: 'suplementos.html',
       bg: '#FFD400',
       fg: '#1A2744',
@@ -939,7 +956,7 @@
     {
       eyebrow: 'Envío en el día',
       title: 'Llegá hoy mismo',
-      subtitle: 'Pedidos antes de las 10hs en CABA y GBA. Sin costo extra.',
+      subtitle: 'Pedidos antes de las 10hs en CABA y GBA. Envío gratis desde $70.000.',
       cta: 'Ver más',
       link: '#',
       bg: '#1A2744',
@@ -957,9 +974,9 @@
       img: 'assets/products/omega3-innova-max.png',
     },
     {
-      eyebrow: 'Distribuidor autorizado',
-      title: '+2.000 productos originales',
-      subtitle: 'Star Nutrition, ENA, Gold, Optimum y más. Lo que necesitás para entrenar.',
+      eyebrow: 'Distribuidor oficial',
+      title: 'Las mejores marcas',
+      subtitle: 'Star Nutrition, ENA, Gold Nutrition, Optimum y más. 100% originales.',
       cta: 'Ver catálogo',
       link: 'suplementos.html',
       bg: '#ECEDEF',
