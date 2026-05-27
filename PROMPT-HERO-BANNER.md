@@ -1,284 +1,207 @@
-# PROMPT — Banner Hero Morashop
+# PROMPT — Banner Hero Morashop (para IA o diseñador)
 
-> Prompt detallado para diseñar el banner principal del home de morashop.com.ar. Para usar con: Midjourney, DALL-E, Stable Diffusion, Adobe Firefly, ChatGPT/Claude con visión, o briefing a diseñador humano.
+> Objetivo: generar un **mockup visual completo** del hero del sitio (no banner aislado).
+> El diseñador ve cómo queda en contexto, no una imagen suelta.
 
 ---
 
-## PROMPT COMPLETO (copiar y pegar)
+## 🎯 PROMPT PRINCIPAL (para IA generativa con visión: ChatGPT, Claude, Gemini, Midjourney)
 
 ```
-Diseñá un banner web tipo hero para el home de un e-commerce argentino llamado MORASHOP.
+Diseñá un MOCKUP de la sección hero (parte superior) del home de un sitio
+web e-commerce argentino llamado MORASHOP. El mockup tiene que mostrar el
+sitio web COMPLETO en pantalla, no solo el banner aislado.
 
 ═══════════════════════════════════════════════
-CONTEXTO DE LA MARCA
+QUÉ TIENE QUE VERSE EN EL MOCKUP (de arriba a abajo)
 ═══════════════════════════════════════════════
 
-Morashop es un e-commerce argentino, distribuidor oficial de suplementos
-deportivos (proteínas, creatinas, pre-entrenos), supermercado fit y
-electro-hogar. Distribuye marcas como Star Nutrition, ENA, Gold Nutrition,
-Optimum, PGN.
+1) BARRA DE PROMOCIÓN ARRIBA DE TODO (24px alto)
+   - Fondo gradiente rojo (#E8341A → #C42710)
+   - Texto blanco centrado: "🔥 Todos los jueves: llevá 3 suplementos y te
+     ahorrás 10%"
+   - Botón pill negro translúcido a la derecha: "APROVECHAR"
+   - Icono X de cerrar a la derecha del todo
 
-El tono de la marca es ARGENTINO DIRECTO, tipo Mercado Libre o Coto online.
-NO es fitness gringo aspiracional tipo Gymshark o MyProtein.
+2) NAV HEADER (80px alto, fondo blanco)
+   - Izquierda: logo "Morashop" en pill azul + "Mayoristas" en pill rojo
+   - Centro: barra de búsqueda gris claro "Buscar productos, marcas y más..."
+   - Derecha: ícono usuario + ícono carrito con badge rojo "3"
 
-Público: 75% mobile, gente normal que entrena y busca buen precio + entrega
-rápida. NO público hardcore gym, NO premium.
+3) CATBAR (60px alto, fondo blanco, borde inferior)
+   - Links centrados: SUPLEMENTOS · SUPERMERCADO · ELECTRO-HOGAR · EL
+     BANANERO · BODEGA
+   - Derecha: "OFERTAS" en rojo
 
-═══════════════════════════════════════════════
-OBJETIVO DEL BANNER
-═══════════════════════════════════════════════
-
-Este banner NO vende una promo concreta. Este banner vende a MORASHOP como
-MARCA. Lo que tiene que comunicar en menos de 2 segundos:
-
-1) Somos Morashop, distribuidor oficial
-2) Vendemos suplementos originales (eje principal)
-3) También tenemos supermercado fit + electro-hogar
-4) Somos confianza, no somos una web trucha
-
-NO incluye promos de descuentos (ej "30% OFF"), porque esas viven en otras
-secciones de la web. Este banner es BRANDING puro.
-
-═══════════════════════════════════════════════
-DIMENSIONES (3 versiones)
-═══════════════════════════════════════════════
-
-- DESKTOP: 1920 × 768 px (apaisado horizontal)
-- MOBILE:  750 × 1000 px (VERTICAL — atención: vertical, no horizontal)
-- TABLET:  1280 × 720 px (opcional)
-
-Cada versión rediseñada con composición propia. No escalar uno solo.
-
-═══════════════════════════════════════════════
-ESTRUCTURA VISUAL OBLIGATORIA
-═══════════════════════════════════════════════
-
-DESKTOP (1920×768 horizontal, asimétrico):
-- Lado izquierdo (55%): título grande + subtítulo + logo
-- Lado derecho (45%): composición de productos (whey + creatina + pre-entreno
-  juntos) con drop-shadow suave
-- Composición asimétrica, NO centrada
-
-MOBILE (750×1000 vertical):
-- Arriba (60%): título + subtítulo + logo Morashop
-- Abajo (40%): productos en composición horizontal compacta
+4) HERO BANNER FULL-WIDTH (1920×768 px, este es el FOCO)
+   - Fondo azul oscuro #1A2744 (color principal Morashop)
+   - Lado izquierdo (55% ancho):
+     * Logo Morashop arriba (wordmark blanco + acento rojo)
+     * Título gigante en Barlow Condensed Black 900, UPPERCASE, color blanco
+       (con 1 palabra en rojo o amarillo destacada):
+       "EL MEJOR
+        PRECIO SIEMPRE."
+     * Subtítulo en Inter 500, blanco con 70% opacidad:
+       "Suplementos originales, supermercado fit y electro-hogar.
+        Distribuidor autorizado en Argentina."
+     * Fila inferior con sello "DISTRIBUIDOR OFICIAL · PRODUCTOS 100%
+       ORIGINALES" + íconos de marcas en blanco al 60% opacity
+       (Star Nutrition · ENA · Gold · Optimum · PGN)
+   - Lado derecho (45% ancho):
+     * Composición asimétrica de 4-5 productos juntos con drop-shadow:
+       - Whey Protein Star Nutrition (doypack negro, grande, atrás)
+       - Creatina ENA (pote negro)
+       - Pre-entreno Gold Nutrition (pote dorado)
+       - Omega 3 Innova (frasco blanco)
+       - BCAA pote (azul/negro)
+     * Productos con tamaños distintos para dar profundidad
+     * Iluminación lateral suave, naturalista
+     * NO fondo de productos, recortados sobre el azul del banner
 
 ═══════════════════════════════════════════════
-TIPOGRAFÍAS (Google Fonts gratuitas)
+ESTILO VISUAL DEL MOCKUP
 ═══════════════════════════════════════════════
 
-- TÍTULO PRINCIPAL: "Barlow Condensed" peso 900 (Black), TODO MAYÚSCULA,
-  line-height 0.92, letter-spacing -0.02em
-  → desktop: 80-100 px
-  → mobile: 56-72 px
-
-- SUBTÍTULO: "Inter" peso 500-600, sentence case, line-height 1.4
-  → desktop: 18-22 px
-  → mobile: 16-18 px
-
-- LOGOS DE MARCAS (opcional, fila inferior): "Inter" peso 700, 12-14 px,
-  letter-spacing 0.1em, UPPERCASE
+- Vista DESKTOP completa, 1920×1080 px de pantalla
+- Browser chrome arriba (Chrome o Brave, mostrá la URL: morashop.com.ar)
+- Fondo del sitio en gris claro #ECEDEF
+- Composición editorial argentina, similar a Mercado Libre / Coto Digital /
+  Ecomodico
+- Profesional, limpio, NO recargado, NO aspiracional gringo
 
 ═══════════════════════════════════════════════
-PALETA DE COLORES (estricta, no inventar)
+PALETA EXACTA (no inventar)
 ═══════════════════════════════════════════════
 
-- #1A2744 → azul oscuro (color principal Morashop)
-- #E8341A → rojo Morashop (acento fuerte)
-- #FFD400 → amarillo (acentos puntuales, highlight de palabras clave)
-- #ECEDEF → gris claro
-- #FFFFFF → blanco
-
-COMBINACIÓN RECOMENDADA (la más Morashop):
-- Fondo: azul oscuro #1A2744
-- Texto principal: blanco #FFFFFF
-- Acento en 1 palabra clave: rojo #E8341A o amarillo #FFD400
-- Productos: sin tratamiento de color, naturales con drop-shadow
-
-ALTERNATIVA aceptable:
-- Fondo claro: #ECEDEF
-- Texto: azul #1A2744
-- Acento: rojo #E8341A
+- #1A2744 azul oscuro Morashop (fondo principal del banner)
+- #E8341A rojo Morashop (acentos, palabras destacadas, botones)
+- #FFD400 amarillo (highlight de palabras clave en banner)
+- #FFFFFF blanco (textos sobre azul)
+- #ECEDEF gris claro (fondo del sitio fuera del banner)
 
 ═══════════════════════════════════════════════
-TEXTOS SUGERIDOS (elegir uno)
+TIPOGRAFÍAS (mostrarlas en el mockup)
 ═══════════════════════════════════════════════
 
-OPCIÓN A (recomendada):
-  Título: "EL MEJOR PRECIO SIEMPRE."
-  Subtítulo: "Suplementos originales, supermercado fit y electro-hogar.
-              Distribuidor autorizado en Argentina."
-
-OPCIÓN B:
-  Título: "TODO LO QUE NECESITÁS PARA ENTRENAR."
-  Subtítulo: "Suplementos, alimentos fit y más. Distribuidor oficial."
-
-OPCIÓN C:
-  Título: "DISTRIBUIDOR OFICIAL DE LAS MEJORES MARCAS."
-  Subtítulo: "Star Nutrition, ENA, Gold Nutrition, Optimum, PGN."
+- Título principal: Barlow Condensed Black 900, UPPERCASE, ~90px
+- Subtítulo: Inter Medium 500, sentence case, 18-20px
+- Logos de marcas: Inter Bold 700, UPPERCASE, 12-14px, letter-spacing 0.1em
+- Nav y links: Barlow Condensed Bold 800, UPPERCASE, 13px
 
 ═══════════════════════════════════════════════
-PRODUCTOS A INCLUIR EN LA COMPOSICIÓN
+REGLAS DURAS
 ═══════════════════════════════════════════════
 
-Composición visual con 3-5 productos juntos (no uno solo). Mostrar surtido.
-Sugeridos:
-
-- Whey Protein Star Nutrition (pote/doypack)
-- Creatina ENA (monohidratada)
-- Pre-entreno Gold Nutrition o C4
-- Omega 3 Innova
-- (opcional) vitamina o BCAA
-
-Todos los productos:
-- PNG transparente, fondo recortado
-- Drop-shadow suave abajo: 0px 30px 50px rgba(0,0,0,0.22)
-- Tamaños ligeramente distintos para dar profundidad (uno más grande adelante)
-- Composición orgánica, no alineados en grilla perfecta
-
-═══════════════════════════════════════════════
-LOGOS DE MARCAS (opcional, fila inferior)
-═══════════════════════════════════════════════
-
-Mostrar logos en escala de grises o monocromos (en blanco si fondo oscuro,
-azul si fondo claro). Línea inferior tipo "trust strip":
-
-  STAR NUTRITION · ENA · GOLD NUTRITION · OPTIMUM · PGN
-
-Esto refuerza el "distribuidor oficial". Opcional pero recomendado.
-
-═══════════════════════════════════════════════
-SAFE AREA (zona segura)
-═══════════════════════════════════════════════
-
-- Desktop: 80 px de margen interior de cada borde
-- Mobile: 40 px de margen interior
-- Nada de texto pegado a los bordes
-- Logo Morashop visible siempre (esquina o integrado al título)
-
-═══════════════════════════════════════════════
-ESTILO VISUAL
-═══════════════════════════════════════════════
-
-- Fotografía de producto real, NO renders 3D extremos
-- Iluminación natural pero con un punto de luz lateral
-- Sin filtros vintage, sin instagram aesthetic
-- Composición editorial pero accesible, no premium-aspiracional
-- Sensación: "esta tienda es seria, vende productos reales, confío"
-
-REFERENCIAS visuales para tomar inspiración:
-- mercadolibre.com.ar (banner principal del home, no las promos)
-- ecomodico.com (competencia directa argentina)
-- cotodigital.com.ar (banner promo de supermercado)
-- amazon.com.ar (home banner)
-
-NO inspirarse en: gymshark.com, myprotein.com, optimumnutrition.com
-(estética fitness gringa aspiracional — no aplica al público argentino).
-
-═══════════════════════════════════════════════
-FORMATO DE EXPORT
-═══════════════════════════════════════════════
-
-- JPG calidad 82-85% para todas las versiones
-- PNG transparente solo para productos recortados (entregar aparte)
-- NO usar WebP (Tiendanube re-encodea y se pierde la ventaja)
-- Color profile: sRGB
-- DPI: 72
-
-PESO MÁXIMO:
-- desktop.jpg ≤ 350 KB
-- mobile.jpg  ≤ 200 KB
-- tablet.jpg  ≤ 280 KB
-
-═══════════════════════════════════════════════
-REGLAS DURAS (NO violar)
-═══════════════════════════════════════════════
-
-❌ NO fotos stock de modelos haciendo gimnasio
-❌ NO inventes promociones (este banner es branding, NO promo)
-❌ NO uses gradientes con más de 2 colores
-❌ NO uses tipografías fuera de Barlow Condensed + Inter
-❌ NO botones CTA gigantes (esto no vende, posiciona)
-❌ NO fotos pixeladas o bajadas de Google
-❌ NO animaciones (es estático)
-❌ NO uses WebP (Tiendanube lo rompe)
+❌ NO fotos stock de modelos haciendo gym
+❌ NO inventes promos en el banner (este banner es BRANDING, no promo)
+❌ NO uses estética Gymshark / MyProtein / Optimum USA
+❌ NO botones CTA gigantes en el banner (es branding, no venta directa)
+❌ NO gradientes raros con muchos colores
 ❌ NO centres todo (composición asimétrica vende más)
-❌ NO uses lila, rosa flúo, verde lima, naranja (fuera de paleta)
-❌ NO copies literal a Gymshark/MyProtein
+❌ NO uses fondo blanco en el hero (queda débil, mejor azul oscuro)
 
-✅ SÍ: composición editorial argentina
-✅ SÍ: drop-shadow suave en productos
-✅ SÍ: contraste WCAG AA mínimo (ratio 4.5:1)
-✅ SÍ: surtido de productos (varios juntos, no uno solo)
-✅ SÍ: aire alrededor del título (no apretado)
-✅ SÍ: una palabra del título destacada en color acento
-
-═══════════════════════════════════════════════
-ENTREGABLES
-═══════════════════════════════════════════════
-
-1) Archivo editable (Figma preferido, o PSD con capas separadas)
-2) hero-desktop.jpg (1920×768, ≤350 KB)
-3) hero-mobile.jpg  (750×1000, ≤200 KB, VERTICAL)
-4) hero-tablet.jpg  (1280×720, ≤280 KB) — opcional
-5) PNG transparente de cada producto recortado (por separado, para reutilizar)
-6) Versión sin texto del fondo (por si necesitamos editar copy después)
+✅ SÍ composición asimétrica
+✅ SÍ varios productos juntos (3-5, no uno solo)
+✅ SÍ logos de marcas distribuidas visible (confianza)
+✅ SÍ una palabra del título en color acento (rojo o amarillo)
+✅ SÍ drop-shadow suave en productos
+✅ SÍ aire entre elementos, no apretado
 
 ═══════════════════════════════════════════════
-ACCESIBILIDAD
+REFERENCIAS DE ESTILO (similar a estas webs)
 ═══════════════════════════════════════════════
 
-- Contraste mínimo WCAG AA: ratio 4.5:1 para texto normal,
-  3:1 para texto grande (>24px)
-- Validar en webaim.org/resources/contrastchecker antes de entregar
-- Texto legible incluso con brillo bajo de pantalla
+- mercadolibre.com.ar (banner hero del home)
+- ecomodico.com (competencia directa argentina, mismo rubro)
+- cotodigital.com.ar
+- amazon.com.ar
+- temu.com (para densidad visual de productos)
+
+NO: gymshark.com, myprotein.com, optimumnutrition.com (estética gringa
+fitness aspiracional, no aplica al público argentino).
 
 ═══════════════════════════════════════════════
-CRITERIO DE ÉXITO
+OUTPUT ESPERADO
 ═══════════════════════════════════════════════
 
-El banner cumple si un usuario que NO conoce Morashop, al verlo 2 segundos,
-puede responder:
+Un mockup PNG/JPG horizontal de 1920×1080 px o más, mostrando el sitio web
+COMPLETO renderizado: barra promo + nav + catbar + hero banner + un asomo
+de los beneficios debajo (tira fina con iconos: envío en el día · cuotas
+sin interés · 15% OFF efectivo).
 
-1) "¿Qué venden acá?" → Suplementos (+ supermercado/electro)
-2) "¿Es seguro comprarles?" → Sí, son distribuidor oficial
-3) "¿Qué marcas tienen?" → Las mejores (Star, ENA, Gold, etc)
-
-Si responde las 3, el banner cumplió su función.
+Resultado: una pantalla de computadora mostrando como se vería morashop.com.ar
+en producción, con el hero banner DOMINANDO la composición.
 ```
 
 ---
 
-## VARIANTES PARA IA GENERATIVA
-
-Si vas a usarlo en Midjourney / DALL-E, recortá el prompt a esta versión corta:
+## 🎨 PROMPT CORTO (Midjourney / DALL-E)
 
 ```
-Wide horizontal hero banner 1920x768px for argentinian e-commerce "MORASHOP",
-official distributor of sports supplements (Star Nutrition, ENA, Gold).
-Layout: left 55% has bold uppercase title "EL MEJOR PRECIO SIEMPRE" in
-Barlow Condensed Black, white text on dark navy background #1A2744, with red
-accent color #E8341A on one keyword. Right 45% shows asymmetric composition
-of 3-4 supplement products (whey protein pouch, creatine tub, pre-workout
-container) with soft drop shadows, naturally lit, no studio render look.
-Bottom row: small uppercase logos "STAR NUTRITION · ENA · GOLD · OPTIMUM"
-in white at 60% opacity. Editorial but accessible style, similar to Mercado
-Libre or Coto online banners. NOT gym/fitness gringo aesthetic. Sharp,
-high-quality, professional e-commerce banner. Argentinian market.
+Wide horizontal e-commerce website hero mockup, 1920x1080, argentinian
+brand "MORASHOP", sports supplements distributor. Full website screenshot
+showing: red promo bar at top with "Jueves de Suplemento 10% OFF" text,
+white nav bar with logo and search, category nav, then large dark navy
+#1A2744 hero banner taking center stage. Hero banner has bold uppercase
+Barlow Condensed title "EL MEJOR PRECIO SIEMPRE" in white with one word in
+red #E8341A, white Inter subtitle, brand logos row at bottom (Star
+Nutrition, ENA, Gold, Optimum), and right side asymmetric composition of
+4-5 supplement products: whey protein pouch, creatine tub, pre-workout
+container, omega 3 bottle, all with soft drop shadows. Editorial argentinian
+e-commerce style similar to Mercado Libre or Coto Digital. Professional,
+clean, high-quality web design mockup. Browser chrome visible at top with
+URL morashop.com.ar.
 
-Negative: gym models, stock photos, gradients, gymshark style, neon colors,
-3d render extreme, pink, purple, instagram aesthetic.
+Negative: gym models, stock photos, gymshark style, neon colors, instagram
+aesthetic, centered composition, 3d render extreme, pink, purple, lila,
+naranja flúo, sin gradientes raros.
 ```
 
 ---
 
-## NOTAS PARA EL DISEÑADOR HUMANO
+## 📝 PROMPT PARA CLAUDE/CHATGPT CON VISIÓN (refinar iteración)
 
-- Bajá las fuentes gratis: https://fonts.google.com/specimen/Barlow+Condensed + https://fonts.google.com/specimen/Inter
-- Fotos de productos reales del catálogo Morashop (pedírselas a Alejo)
-- Si tenés dudas sobre composición, preguntá antes de empezar — mejor 5
-  preguntas que rehacer todo
-- 2 revisiones incluidas. Después se cobran aparte
+Después de la primera generación, pegale esto + screenshot anterior:
+
+```
+Mirá el mockup que generaste. Comparalo con este screenshot real del sitio
+[adjuntar foto del sitio actual con placeholder].
+
+Necesito que iteres:
+1) El banner está demasiado horizontal — Tiendanube usa ratio 1920×768, no
+   1920×480
+2) Los productos están muy chicos, hacelos más grandes y dominantes en el
+   lado derecho
+3) Agregá la fila de logos de marcas distribuidas abajo del título
+   (STAR NUTRITION · ENA · GOLD · OPTIMUM · PGN) en blanco al 60% opacity
+4) Una palabra del título destacada en rojo #E8341A o amarillo #FFD400
+5) Mantené el resto del sitio (nav, catbar, beneficios abajo) tal cual
+6) NO inventes "30% OFF" ni promos — este banner es branding puro
+```
+
+---
+
+## 📋 INSTRUCCIONES DE USO
+
+1. **Para mockup conceptual con IA** → usá "Prompt principal" en ChatGPT-4o con DALL-E, o Gemini con Imagen
+2. **Para Midjourney / Stable Diffusion** → usá "Prompt corto" con negative prompt
+3. **Para iterar después del primer resultado** → usá "Prompt con visión" pegando screenshot
+4. **Para diseñador humano** → mostrarle el mockup IA + el archivo `BRIEF-WHATSAPP.txt`
+
+---
+
+## ⚙️ ESPECIFICACIONES TÉCNICAS DEL BANNER FINAL (no del mockup)
+
+Una vez que tengas el mockup aprobado, el diseñador debe entregar el banner real con estas medidas:
+
+| Versión | Tamaño | Uso |
+|---|---|---|
+| Desktop | **1920 × 768 px** | PC y notebooks (Tiendanube standard) |
+| Mobile | **750 × 1000 px** (VERTICAL) | Celulares |
+| Tablet | 1280 × 720 px | Opcional |
+
+Formato: **JPG calidad 82-85%**, sRGB, 72 DPI. NO WebP (Tiendanube lo rompe).
+Peso máx: desktop 350KB / mobile 200KB / tablet 280KB.
 
 ---
 

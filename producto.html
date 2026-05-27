@@ -54,10 +54,12 @@
   .nav-search input::placeholder{color:rgba(26,39,68,0.45)}
   .nav-search button{display:grid;place-items:center;background:transparent;border:0;color:var(--cream);opacity:0.7;cursor:pointer;flex-shrink:0}
 
-  /* ---------- PDP CRUMB ---------- */
-  .pdp-crumb{padding:18px 0 0;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;opacity:0.55;font-weight:600}
-  .pdp-crumb .sep{margin:0 10px;opacity:0.4}
-  .pdp-crumb a:hover{opacity:1}
+  /* ---------- PDP CRUMB (clickeable, estilo ML) ---------- */
+  .pdp-crumb{padding:14px 0 4px;font-size:12px;font-weight:500;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+  .pdp-crumb a{color:var(--red);text-decoration:none;transition:opacity .15s ease;cursor:pointer}
+  .pdp-crumb a:hover{opacity:0.7;text-decoration:underline}
+  .pdp-crumb .sep{margin:0 6px;color:var(--muted)}
+  .pdp-crumb > span:last-child{color:var(--muted);opacity:0.75;max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
   /* ---------- PDP MAIN ---------- */
   .pdp{padding:24px 0 64px}
@@ -73,7 +75,7 @@
 
   /* Info */
   .pdp-brand{font-size:11px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;opacity:0.55;margin-bottom:14px}
-  .pdp-name{font-family:var(--font-d);font-weight:900;font-size:clamp(36px,5.5vw,68px);line-height:0.9;letter-spacing:-0.01em;text-transform:uppercase;margin:0 0 24px;color:var(--cream)}
+  .pdp-name{font-family:var(--font-b);font-weight:600;font-size:clamp(20px,2.4vw,28px);line-height:1.25;letter-spacing:0;text-transform:none;margin:0 0 18px;color:var(--cream)}
   .pdp-price-row{display:flex;align-items:baseline;gap:14px;margin-bottom:28px;flex-wrap:wrap}
   .pdp-price{font-family:var(--font-d);font-weight:900;font-size:clamp(36px,4.5vw,56px);line-height:1;color:var(--cream)}
   .pdp-oldprice{font-family:var(--font-b);font-size:18px;font-weight:600;opacity:0.4;text-decoration:line-through}
@@ -82,6 +84,18 @@
   /* Payment hint */
   .pdp-hint{font-size:13px;line-height:1.5;opacity:1;padding:14px 16px;background:rgba(232,52,26,0.07);border:1px solid rgba(232,52,26,0.25);border-radius:6px;margin-bottom:18px;color:var(--cream)}
   .pdp-hint strong{color:var(--red);font-weight:700}
+
+  /* Cuotas (1 línea chica gris/rojo) */
+  .pdp-cuotas{font-family:var(--font-b);font-size:13.5px;color:var(--red);font-weight:500;line-height:1.3;margin:0 0 10px}
+  .pdp-cuotas strong{font-weight:700;color:var(--red)}
+
+  /* Efectivo: línea verde con tag + tooltip "?" en lugar de nota larga */
+  .pdp-efectivo{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:0 0 22px;font-family:var(--font-b)}
+  .pdp-efectivo-main{font-size:14px;color:#00a650;font-weight:500;line-height:1.3}
+  .pdp-efectivo-main strong{font-size:16px;font-weight:700}
+  .pdp-efectivo-tag{font-size:11px;font-weight:700;letter-spacing:0.04em;background:#00a650;color:#fff;padding:3px 8px;border-radius:4px;line-height:1}
+  .pdp-efectivo-info{width:18px;height:18px;border-radius:999px;background:rgba(0,166,80,0.12);color:#00a650;border:0;font-size:11px;font-weight:700;cursor:help;display:grid;place-items:center;line-height:1;padding:0}
+  .pdp-efectivo-info:hover{background:rgba(0,166,80,0.22)}
 
   /* Social proof + stock (entre hint y cantidad) */
   .pdp-social{display:flex;flex-direction:column;gap:6px;margin-bottom:24px;padding:12px 14px;background:rgba(26,39,68,0.035);border-radius:6px}
@@ -161,14 +175,11 @@
   .mlcard-add:hover{background:#0F1729}
 
   /* ---------- STICKY BUY (mobile) ---------- */
-  .pdp-sticky{display:none;position:fixed;left:0;right:0;bottom:0;z-index:80;background:rgba(255,255,255,0.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:12px var(--pad-x);box-shadow:0 -10px 30px -10px rgba(0,0,0,0.5)}
-  .pdp-sticky-row{display:flex;align-items:center;gap:12px;max-width:1280px;margin:0 auto}
-  .pdp-sticky-info{flex:1;min-width:0}
-  .pdp-sticky-name{font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--cream);opacity:0.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
-  .pdp-sticky-price{font-family:var(--font-d);font-weight:900;font-size:22px;color:var(--cream)}
-  .pdp-sticky button{background:var(--cream);color:#fff;border:0;padding:14px 20px;font-family:var(--font-d);font-weight:900;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;border-radius:6px;cursor:pointer;flex-shrink:0;display:inline-flex;align-items:center;gap:8px;transition:background .18s ease}
+  .pdp-sticky{display:none;position:fixed;left:0;right:0;bottom:0;z-index:80;background:rgba(255,255,255,0.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:10px var(--pad-x) calc(10px + env(safe-area-inset-bottom));box-shadow:0 -10px 30px -10px rgba(0,0,0,0.18)}
+  .pdp-sticky button{width:100%;background:var(--cream);color:#fff;border:0;padding:15px 18px;font-family:var(--font-d);font-weight:900;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:background .18s ease;position:relative}
   .pdp-sticky button:hover{background:#0F1729}
-  .pdp-sticky button .sticky-qty-badge{background:rgba(255,255,255,0.22);border-radius:999px;padding:2px 8px;font-size:12px;font-weight:800;letter-spacing:0.04em;min-width:22px;text-align:center}
+  .pdp-sticky button .cart-ic{width:18px;height:18px;flex-shrink:0}
+  .pdp-sticky button .sticky-qty-badge{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.22);border-radius:999px;padding:3px 9px;font-size:11px;font-weight:800;letter-spacing:0.04em;min-width:22px;text-align:center}
 
   /* ---------- ERROR (id no encontrado) ---------- */
   .pdp-error{padding:120px 0;text-align:center}
@@ -188,7 +199,7 @@
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:960px){
-    .pdp-grid{grid-template-columns:1fr;gap:28px}
+    .pdp-grid{grid-template-columns:1fr;gap:20px}
     .pdp-gallery{position:relative;top:auto}
     .pdp-photo{padding:24px;aspect-ratio:1/1.05}
     .related-grid{grid-template-columns:repeat(2,1fr);gap:14px}
@@ -200,19 +211,35 @@
     .nav-logos{justify-self:center;gap:6px}
     .nav-logos img{height:32px}
     .nav-search{display:block}
-    .pdp{padding:16px 0 90px}
-    .pdp-name{font-size:clamp(28px,8vw,40px);margin-bottom:18px}
-    .pdp-price{font-size:36px}
+    .pdp{padding:8px 0 100px}
+    /* Foto MÁS CHICA en mobile: altura fija sin aspect-ratio (evita conflictos de centrado) */
+    .pdp-gallery{margin-bottom:0;width:100%;max-width:280px;margin-left:auto;margin-right:auto}
+    .pdp-photo{padding:18px;aspect-ratio:auto;height:240px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+    .pdp-photo img{max-width:90%;max-height:100%;display:block;margin:0 auto}
+    .pdp-tag{top:10px;left:10px;font-size:9px;padding:4px 8px}
+    .pdp-name{font-size:clamp(18px,5vw,22px);margin-bottom:12px}
+    .pdp-brand{margin-bottom:8px;font-size:10px}
+    .pdp-price{font-size:32px}
+    .pdp-price-row{margin-bottom:8px;gap:10px;align-items:center}
+    .pdp-discount{font-size:10.5px;padding:5px 9px}
+    .pdp-cuotas{margin-bottom:8px;font-size:13px}
+    .pdp-efectivo{margin-bottom:18px;gap:8px;align-items:center}
+    .pdp-efectivo-info{width:20px;height:20px;font-size:12px}
+    .pdp-crumb{padding:8px 0 4px;font-size:11px}
+    .pdp-crumb > span:last-child{max-width:160px}
     /* Mobile: el botón del cuerpo se oculta, queda el sticky de abajo */
     .pdp-buy .add-btn{display:none}
-    .qty-stepper{flex:1}
+    .pdp-buy{justify-content:flex-start;margin-bottom:18px}
+    .qty-stepper{flex:0 0 auto}
+    .qty-stepper button{width:42px;height:46px;font-size:16px}
+    .qty-stepper span{min-width:50px;height:46px;font-size:16px}
     .pdp-sticky{display:block}
     .pdp-sticky button{padding:13px 14px;font-size:12px;letter-spacing:0.08em}
     .pdp-sticky button .sticky-qty-badge{padding:2px 7px;font-size:11.5px}
     .pdp-perks{padding-top:14px}
-    .pdp-social{padding:10px 12px;margin-bottom:20px}
-    .pdp-social-line{font-size:12px}
-    .pdp-stock{font-size:12.5px}
+    .pdp-social{padding:12px 14px;margin-bottom:20px;gap:10px}
+    .pdp-social-line{font-size:12.5px}
+    .pdp-stock{font-size:13px}
     .pdp-tabs{padding:32px 0 24px;margin-top:32px}
     .tab-nav{gap:18px;margin-bottom:24px}
     .related{padding:48px 0 32px}
@@ -277,15 +304,13 @@
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.92.5 3.78 1.46 5.43L2 22l4.78-1.55a9.85 9.85 0 0 0 5.26 1.5c5.45 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2z"/></svg>
 </a>
 
-<!-- STICKY BUY (mobile) -->
+<!-- STICKY BUY (mobile) — botón ancho "Agregar al carrito" + badge cantidad -->
 <div class="pdp-sticky" id="pdpSticky">
-  <div class="pdp-sticky-row">
-    <div class="pdp-sticky-info">
-      <div class="pdp-sticky-name" id="stickyName"></div>
-      <div class="pdp-sticky-price" id="stickyPrice"></div>
-    </div>
-    <button id="stickyAddBtn"><svg class="cart-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg> <span class="sticky-add-label">Agregar</span> <span class="sticky-qty-badge" id="stickyQty">1</span></button>
-  </div>
+  <button id="stickyAddBtn">
+    <svg class="cart-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+    <span class="sticky-add-label">Agregar al carrito</span>
+    <span class="sticky-qty-badge" id="stickyQty">1</span>
+  </button>
 </div>
 
 <footer>
@@ -416,13 +441,17 @@
             <h1 class="pdp-name">${product.name}</h1>
 
             <div class="pdp-price-row">
+              ${product.oldPrice && discount >= 10 ? `<div class="pdp-oldprice">${fmt(product.oldPrice)}</div>` : ''}
               <div class="pdp-price" id="pdpPrice">${fmt(product.price)}</div>
-              ${product.oldPrice ? `<div class="pdp-oldprice">${fmt(product.oldPrice)}</div>` : ''}
-              ${discount > 0 ? `<div class="pdp-discount">−${discount}%</div>` : ''}
+              ${discount >= 5 ? `<div class="pdp-discount">${discount}% OFF</div>` : ''}
             </div>
 
-            <div class="pdp-hint">
-              Pagando en efectivo: <strong>${fmt(product.price * 0.85)}</strong> · 15% off &nbsp;·&nbsp; o hasta 3 cuotas sin interés
+            <div class="pdp-cuotas">3 cuotas sin interés de <strong>${fmt(Math.round(product.price/3))}</strong></div>
+
+            <div class="pdp-efectivo">
+              <span class="pdp-efectivo-main"><strong>${fmt(product.price * 0.85)}</strong> en efectivo</span>
+              <span class="pdp-efectivo-tag">15% OFF</span>
+              <button class="pdp-efectivo-info" type="button" aria-label="Más info" title="Contraentrega en CABA/GBA o transferencia">?</button>
             </div>
 
             <div class="pdp-social" aria-label="Información de stock y reseñas">
@@ -574,9 +603,7 @@
     setTimeout(() => { b.innerHTML = orig; }, 1400);
   });
 
-  // Sticky mobile
-  document.getElementById('stickyName').textContent = product.name;
-  document.getElementById('stickyPrice').textContent = fmt(product.price);
+  // Sticky mobile: solo botón "Agregar al carrito" + badge cantidad (sin precio)
   // Sticky mobile = "Agregar (N)" — usa qty actual del stepper (closure)
   document.getElementById('stickyAddBtn').addEventListener('click', () => {
     addToCart();

@@ -13,7 +13,7 @@
 
   const CUPONES = {
     'MORA10':       { tipo: 'porcentaje', valor: 10, label: '10% OFF' },
-    'BIENVENIDO':   { tipo: 'porcentaje', valor: 15, label: '15% OFF (primera compra)' },
+    'BIENVENIDO':   { tipo: 'porcentaje', valor: 10, label: '10% OFF (primera compra)' },
     'ENVIOGRATIS':  { tipo: 'envio',      valor: 0,  label: 'Envío gratis' }
   };
 
@@ -135,22 +135,27 @@
       mensaje: `¡${JUEVES_DE_SUPLEMENTO.label}! −${Math.round(JUEVES_DE_SUPLEMENTO.descuento * 100)}% por llevar ${JUEVES_DE_SUPLEMENTO.minItems} o más suplementos`
     };
   }
-  // Empuje cuando falta 1 (o más) para que aplique
+  // Empuje cuando falta 1 (o más) para que aplique — jueves o pre-jueves (mié ≥18hs)
   function getJuevesProgreso() {
-    const esJueves = _esJueves();
-    if (!esJueves) return { mostrar: false };
+    const now = new Date();
+    const day = now.getDay();
+    const hour = now.getHours();
+    const esJueves = day === JUEVES_DE_SUPLEMENTO.dia;
+    const esPreJueves = day === 3 && hour >= 18;
+    if (!esJueves && !esPreJueves) return { mostrar: false };
     const unidades = _unidadesSuplementos();
     const faltan = JUEVES_DE_SUPLEMENTO.minItems - unidades;
     if (unidades === 0 || faltan <= 0) return { mostrar: false };
-    // estimación de ahorro: usamos el precio promedio de los suplementos del carrito
     const sub = _subtotalSuplementos();
     const promedio = sub / Math.max(1, unidades);
     const ahorroEstimado = (sub + promedio * faltan) * JUEVES_DE_SUPLEMENTO.descuento;
+    const prefix = esJueves ? '⚡ Hoy es Jueves de Suplemento' : '🔥 Mañana es Jueves de Suplemento';
     return {
       mostrar: true,
       faltan,
       ahorroEstimado,
-      mensaje: `💡 Sumá ${faltan} producto${faltan === 1 ? '' : 's'} más y ahorrás ~${formatARS(ahorroEstimado)} con Jueves de Suplemento`
+      esPreJueves,
+      mensaje: `${prefix} — Sumá ${faltan} producto${faltan === 1 ? '' : 's'} más y ahorrás ~${formatARS(ahorroEstimado)}`
     };
   }
 

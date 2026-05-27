@@ -11,17 +11,76 @@
 <link rel="stylesheet" href="assets/category.css" />
 <link rel="stylesheet" href="assets/cart.css" />
 <style>
-  .ban-wrap{background:var(--ink);min-height:60vh;display:flex;align-items:center;padding:80px 0 100px}
-  .ban-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:64px;align-items:center}
-  .ban-copy h1{font-family:var(--font-d);font-weight:900;font-size:clamp(48px,7vw,104px);line-height:0.92;letter-spacing:-0.01em;color:var(--cream);text-transform:uppercase;margin:18px 0 0}
-  .ban-copy .desc{color:var(--cream);opacity:0.7;font-size:clamp(15px,1.2vw,18px);line-height:1.6;max-width:46ch;margin:24px 0 0}
-  .ban-soon{display:inline-flex;align-items:center;gap:10px;margin-top:36px;padding:13px 22px;border:1px solid rgba(255,255,255,0.18);border-radius:999px;color:var(--cream);font-size:12px;letter-spacing:0.22em;text-transform:uppercase;font-weight:700}
-  .ban-soon .dot{width:8px;height:8px;border-radius:50%;background:#7CFF7C;box-shadow:0 0 0 4px rgba(124,255,124,0.18)}
-  .ban-media{position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);background:#000}
-  .ban-media img{display:block;width:100%;height:auto}
+  /* ============ HERO FULL-WIDTH El Bananero ============ */
+  .ban-hero{position:relative;width:100%;height:clamp(380px,62vh,640px);overflow:hidden;background:#0a0a0a}
+  .ban-hero-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+  /* Overlay oscuro para legibilidad del texto */
+  .ban-hero::after{
+    content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(90deg,rgba(0,0,0,0.78) 0%,rgba(0,0,0,0.45) 55%,rgba(0,0,0,0.15) 100%);
+  }
+  .ban-hero-inner{
+    position:absolute;inset:0;z-index:2;display:flex;align-items:center;
+    padding:0 clamp(20px,5vw,80px);max-width:1400px;margin:0 auto;
+  }
+  .ban-hero-content{max-width:600px;color:#fff}
+  .ban-hero-crumb{font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+  .ban-hero-crumb a{color:#fff;opacity:0.7;text-decoration:none;transition:opacity .15s ease}
+  .ban-hero-crumb a:hover{opacity:1;text-decoration:underline}
+  .ban-hero-overline{width:48px;height:3px;background:#FFD400;display:block;margin-bottom:14px}
+  .ban-hero-content h1{
+    font-family:var(--font-d);font-weight:900;
+    font-size:clamp(48px,8vw,120px);line-height:0.88;letter-spacing:-0.015em;
+    text-transform:uppercase;margin:0 0 18px;color:#fff;
+    text-shadow:0 4px 24px rgba(0,0,0,0.5);
+  }
+  .ban-hero-content h1 .accent{color:#FFD400}
+  .ban-hero-content .desc{
+    font-family:var(--font-b);font-size:clamp(15px,1.4vw,18px);line-height:1.55;
+    color:rgba(255,255,255,0.92);max-width:48ch;margin:0;font-weight:500;
+    text-shadow:0 2px 12px rgba(0,0,0,0.5);
+  }
+  .ban-hero-cta{
+    display:inline-flex;align-items:center;gap:10px;margin-top:28px;
+    padding:14px 28px;background:#FFD400;color:#0a0a0a;
+    font-family:var(--font-d);font-weight:900;font-size:14px;letter-spacing:0.08em;
+    text-transform:uppercase;border-radius:6px;text-decoration:none;
+    transition:transform .15s ease,box-shadow .2s ease;
+  }
+  .ban-hero-cta:hover{transform:translateY(-2px);box-shadow:0 10px 28px -8px rgba(255,212,0,0.55)}
+
+  /* ============ Sección "Sobre El Bananero" ============ */
+  .ban-about{background:#fff;padding:clamp(48px,6vw,88px) 0;color:var(--cream)}
+  .ban-about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px);align-items:center}
+  .ban-about-eyebrow{font-size:12px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+  .ban-about h2{font-family:var(--font-d);font-weight:900;font-size:clamp(34px,4.5vw,56px);line-height:0.95;letter-spacing:-0.01em;text-transform:uppercase;margin:0 0 22px;color:var(--cream)}
+  .ban-about p{font-size:clamp(14px,1.1vw,16px);line-height:1.65;color:var(--cream);opacity:0.85;margin:0 0 14px}
+  .ban-about p strong{color:var(--red);font-weight:700}
+  .ban-about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
+  .ban-stat{background:#f5f6f8;padding:18px 16px;border-radius:8px;text-align:center}
+  .ban-stat-num{font-family:var(--font-d);font-weight:900;font-size:clamp(26px,3vw,38px);line-height:1;color:var(--red);display:block}
+  .ban-stat-lbl{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--cream);opacity:0.7;margin-top:6px;display:block}
+  .ban-about-media{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/5;background:#0a0a0a;box-shadow:0 24px 48px -16px rgba(0,0,0,0.35)}
+  .ban-about-media img{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* ============ Sección "Productos" header ============ */
+  .ban-products-head{background:#fff;padding:32px 0 0;text-align:center}
+  .ban-products-head h2{font-family:var(--font-d);font-weight:900;font-size:clamp(28px,3.5vw,44px);text-transform:uppercase;margin:0;color:var(--cream)}
+  .ban-products-head p{font-size:14px;color:var(--cream);opacity:0.7;margin:8px 0 0}
+
   @media (max-width:860px){
-    .ban-grid{grid-template-columns:1fr;gap:40px}
-    .ban-media{order:-1}
+    .ban-hero{height:auto;min-height:320px;max-height:420px;aspect-ratio:9/12}
+    .ban-hero::after{background:linear-gradient(180deg,rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.55) 50%,rgba(0,0,0,0.85) 100%)}
+    .ban-hero-inner{padding:0 20px;align-items:flex-end;padding-bottom:24px}
+    .ban-hero-content h1{font-size:clamp(36px,10vw,52px);margin-bottom:10px}
+    .ban-hero-content .desc{font-size:13px;line-height:1.45}
+    .ban-hero-crumb{margin-bottom:10px;font-size:10px}
+    .ban-hero-overline{width:36px;height:2px;margin-bottom:8px}
+    .ban-hero-cta{margin-top:18px;padding:12px 22px;font-size:12px}
+  }
+  @media (max-width:480px){
+    .ban-hero{min-height:280px;max-height:360px}
+    .ban-hero-content h1{font-size:34px;line-height:0.9}
   }
 </style>
 </head>
@@ -65,21 +124,22 @@
   </form>
 </div>
 
-<section class="ban-wrap">
-  <div class="container ban-grid">
-    <div class="ban-copy">
-      <div class="crumb">
-        <a href="index.html">Inicio</a><span class="sep">/</span><span>El Bananero</span>
-      </div>
-      <div class="cat-overline"></div>
-      <h1>El<br/>Bananero</h1>
-      <p class="desc">La cerveza Japi, papas y salsas picantes. Los productos de El Bananero, directo a tu casa.</p>
-    </div>
-    <div class="ban-media">
-      <img src="assets/products/bananero.gif" alt="El Bananero — cerveza Japi" />
+<!-- HERO FULL-WIDTH: GIF de fondo + overlay + texto encima -->
+<section class="ban-hero" aria-label="El Bananero">
+  <img class="ban-hero-media" src="assets/products/bananero.gif" alt="El Bananero" />
+  <div class="ban-hero-inner">
+    <div class="ban-hero-content">
+      <nav class="ban-hero-crumb" aria-label="Breadcrumb">
+        <a href="index.html">Inicio</a><span>/</span><span>El Bananero</span>
+      </nav>
+      <span class="ban-hero-overline"></span>
+      <h1>El <span class="accent">Bananero</span></h1>
+      <p class="desc">La cerveza Japi, las papas Japi y las salsas más picantes de Argentina. Lo más fuerte de El Bananero, ahora en Morashop.</p>
+      <a href="#productos" class="ban-hero-cta">Ver productos →</a>
     </div>
   </div>
 </section>
+
 
 <div class="pill-bar">
   <div class="container">
@@ -115,7 +175,8 @@
   <div class="container">
     <div class="foot-top">
       <div class="foot-brand">
-        <div class="wordmark"><img src="assets/mora_minorista.png" alt="Morashop" style="height:32px;width:auto" /></div>
+        <div class="wordmark"><img src="assets/logo-morashop.png" alt="Morashop" style="height:32px;width:auto" /></div>
+        <p class="foot-tagline">Comprar suplementos es <strong>Morashop</strong>.</p>
         <p>Suplementación deportiva, supermercado y electro-hogar. Distribuidor autorizado desde 2018.</p>
       </div>
       <div class="foot-col"><h5>Tienda</h5><ul>

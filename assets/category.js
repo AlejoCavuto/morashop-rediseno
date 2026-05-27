@@ -35,20 +35,56 @@
     return 0;
   }
 
-  // CARD estilo ML (grilla) — idéntica a la home
+  /* Hash determinístico fake-data */
+  function seedFromProduct(p){
+    const str = ((p.brand||'') + (p.name||'')).toLowerCase();
+    let h = 0;
+    for (let i = 0; i < str.length; i++) { h = ((h << 5) - h) + str.charCodeAt(i); h = h & h; }
+    return Math.abs(h);
+  }
+  function fakeStock(p){ return (seedFromProduct(p) % 30) + 3; }
+  function fakeVendidos(p){ return (seedFromProduct(p) % 1500) + 50; }
+  function vendidosEscalon(p){
+    const n = fakeVendidos(p);
+    if (n >= 10000) return '+10mil';
+    if (n >= 5000)  return '+5mil';
+    if (n >= 1000)  return '+1000';
+    if (n >= 500)   return '+500';
+    if (n >= 100)   return '+100';
+    if (n >= 5)     return '+5';
+    return '';
+  }
+  function precioEfectivo(now){ return Math.round(now * 0.85); }
+  function precioCuota(now){ return Math.round(now / 3); }
+  function stockHTML(p, type){
+    const st = fakeStock(p);
+    const cls = type === 'row' ? 'mlrow-stock' : 'mlcard-stock';
+    return st < 10
+      ? `<div class="${cls} urgente">⚡ Solo quedan ${st}</div>`
+      : '';
+  }
+  function vendidosHTML(p, type){
+    const v = vendidosEscalon(p);
+    if (!v) return '';
+    const cls = type === 'row' ? 'mlrow-vendidos' : 'mlcard-vendidos';
+    return `<div class="${cls}">${v} vendidos</div>`;
+  }
+
+  // CARD estilo ML (grilla) — limpio
   function cardHTML(p) {
     const href = productHref(p);
-    const now = toNum(p.price), was = toNum(p.was), disc = discount(p), cuota = Math.round(now / 3);
+    const now = toNum(p.price), disc = discount(p);
+    const efectivo = precioEfectivo(now), cuota = precioCuota(now);
     const offBadge = disc >= 5 ? `<span class="mlcard-off">${disc}% OFF</span>` : '';
-    const wasRow = was > now ? `<div class="mlcard-was">${fmt(was)}</div>` : '';
     const discTxt = disc >= 5 ? `<span class="mlcard-disc">${disc}% OFF</span>` : '';
     return `<a class="mlcard" href="${href}" data-id="${productId(p)}" data-types="${p.types.join(',')}" data-brand="${p.brand}">
       <div class="mlcard-ph">${offBadge}<img src="${p.img}" alt="${p.name}" loading="lazy" /></div>
       <div class="mlcard-info">
         <div class="mlcard-brand">${p.brand}</div>
         <div class="mlcard-name">${p.name}</div>
-        ${wasRow}
+        ${vendidosHTML(p, 'card')}
         <div class="mlcard-price-row"><span class="mlcard-price">${fmt(now)}</span>${discTxt}</div>
+        <div class="mlcard-efectivo"><strong>${fmt(efectivo)}</strong> en efectivo</div>
         <div class="mlcard-cuotas">3 cuotas sin interés de ${fmt(cuota)}</div>
         <div class="mlcard-foot"><button class="mlcard-add" type="button" data-add><svg class="cart-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg><span>Agregar</span></button></div>
       </div>
@@ -58,7 +94,8 @@
   // FILA horizontal estilo ML (lista) — idéntica a la home
   function rowItemHTML(p) {
     const href = productHref(p);
-    const now = toNum(p.price), was = toNum(p.was), disc = discount(p), cuota = Math.round(now / 3);
+    const now = toNum(p.price), was = toNum(p.was), disc = discount(p);
+    const efectivo = precioEfectivo(now), cuota = precioCuota(now);
     const wasRow = was > now ? `<div class="mlrow-was">${fmt(was)}</div>` : '';
     const discTxt = disc >= 5 ? `<span class="mlrow-disc">${disc}% OFF</span>` : '';
     return `<a class="mlrow-item" href="${href}" data-id="${productId(p)}" data-types="${p.types.join(',')}" data-brand="${p.brand}">
@@ -66,8 +103,10 @@
       <div class="mlrow-body">
         <div class="mlrow-brand">${p.brand}</div>
         <div class="mlrow-name">${p.name}</div>
+        ${vendidosHTML(p, 'row')}
         ${wasRow}
         <div class="mlrow-priceline"><span class="mlrow-price">${fmt(now)}</span>${discTxt}</div>
+        <div class="mlrow-efectivo"><strong>${fmt(efectivo)}</strong> en efectivo</div>
         <div class="mlrow-cuotas">3 cuotas sin interés de ${fmt(cuota)}</div>
       </div>
       <button class="mlrow-add" type="button" data-add>Agregar</button>
