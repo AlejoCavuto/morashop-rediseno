@@ -205,6 +205,25 @@
 
   document.addEventListener('change', e => { if (e.target.id === 'sort') apply(); });
 
+  // Click en .type-card (cards grandes arriba) → activa pill del mismo tipo + scroll a productos
+  document.addEventListener('click', e => {
+    const card = e.target.closest('.type-card[data-filter-type]');
+    if (!card) return;
+    const tipo = card.dataset.filterType;
+    // toggle card visual
+    document.querySelectorAll('.type-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+    // desactivar "all" + activar el pill correspondiente
+    document.querySelector('.pill[data-group="type"][data-value="all"]')?.classList.remove('active');
+    document.querySelectorAll('.pill[data-group="type"]').forEach(p => p.classList.remove('active'));
+    const pill = document.querySelector(`.pill[data-group="type"][data-value="${tipo}"]`);
+    if (pill) pill.classList.add('active');
+    apply();
+    // scroll suave hasta los productos
+    const target = document.querySelector('.cat-body') || document.getElementById('catGrid');
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
   // Lee ?tipo=X de la URL y activa el pill correspondiente del grupo "type".
   // Usado por la catbar y el menú mobile para entrar directo a una subcategoría filtrada.
   function applyTipoFromURL() {

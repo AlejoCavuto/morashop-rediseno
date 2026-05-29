@@ -520,3 +520,23 @@
 #catGrid.cat-grid{gap:0}
 
 .cart-ic{width:16px;height:16px;flex-shrink:0}
+
+/* ============ CARDS POR TIPO (grid clickeable, activan filtro) ============ */
+.type-cards{background:var(--ink);padding:clamp(24px,3vw,40px) 0 clamp(8px,1.5vw,16px)}
+.type-cards-title{font-family:var(--font-display);font-weight:900;font-size:clamp(22px,2.8vw,32px);line-height:1;letter-spacing:-0.01em;text-transform:uppercase;color:var(--cream);margin:0 0 18px}
+.type-cards-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:10px}
+.type-cards-grid.type-cards-grid-3{grid-template-columns:repeat(3,1fr)}
+.type-cards-grid.type-cards-grid-5{grid-template-columns:repeat(5,1fr)}
+.type-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 10px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease;font-family:var(--font-body);color:var(--cream)}
+.type-card:hover{transform:translateY(-3px);box-shadow:0 12px 24px -10px rgba(26,39,68,0.18);border-color:var(--red)}
+.type-card.active{background:var(--red);border-color:var(--red);color:#fff}
+.type-card-ic{font-size:28px;line-height:1;display:block}
+.type-card-name{font-family:var(--font-display);font-weight:800;font-size:12.5px;letter-spacing:0.06em;text-transform:uppercase;text-align:center;line-height:1.2}
+@media (max-width:1024px){.type-cards-grid{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:640px){
+  .type-cards{padding:20px 0 8px}
+  .type-cards-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+  .type-card{padding:14px 8px 12px;gap:6px}
+  .type-card-ic{font-size:24px}
+  .type-card-name{font-size:11px}
+}
