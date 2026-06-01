@@ -1,112 +1,84 @@
-hola capo todo bien? te paso lo q necesito para el banner principal de la web de morashop 🙌
+Hola capo, te paso el brief del hero banner para *Morashop* (tienda de suplementos en Tiendanube). Está toda la data abajo:
 
-el banner es lo PRIMERO q se ve al entrar a la web, va arriba de todo. una imagen UNICA q ocupa todo el ancho de la pantalla. mira ecomodico.com / mercadolibre.com.ar para entender el tipo
+---
 
-vos diseñas TODO lo q va adentro: fondo, texto, fotos de productos, lo q vos quieras
+*QUE ES MORASHOP*
+Suplementos deportivos en Argentina. Cliente argento, directo, 75% compra desde el celu. Tono *Mercado Libre / Coto Digital / Ecomodico* — confianza, precio, cercanía. NO aspiracional gringo (nada Gymshark ni MyProtein).
 
-*IMPORTANTE - LEER PRIMERO*
+Tagline: *"Comprar suplementos es Morashop"*
 
-este banner NO vende una promo. este banner vende MORASHOP como marca. lo q tiene q transmitir es:
+---
 
-- somos Morashop, distribuidor oficial de las mejores marcas
-- vendemos suplementos originales (esto es lo principal)
-- tambien tenemos supermercado fit + electro-hogar
-- somos confianza, no somos cualquier web
+*OBJETIVO*
+*BRANDING / POSICIONAMIENTO*, NO promo concreta. Abajo en la home ya hay 4 cards con promos puntuales y una banda de "Jueves" animada, así que el hero NO grita descuentos.
 
-por que asi? porque despues abajo en la web hay 4 cards con las promos especificas (Jueves de Suplemento, Envio en el dia, Cuotas, Marcas). si el banner repite las promos, queda todo redundante. por eso el banner es BRANDING, no promo
+---
 
-*DIMENSIONES (medidas oficiales de Tiendanube)*
+*MEDIDAS EXACTAS (theme Trend de Tiendanube)*
 
-vamos a publicar la web en Tiendanube, asi q necesito q diseñes con las medidas q ellos piden, sino al subirlo queda con barras vacias:
+- *Desktop:* 1920 x 900 px (ratio 32:15, panorámico)
+- *Mobile:* 820 x 1000 px (vertical casi cuadrado, ratio ~0.82:1)
+- *OJO:* el theme Trend NO tiene versión tablet — usa el desktop redimensionado. Diseñá solo esas 2 piezas.
+- *Formatos:* JPG, PNG o WEBP
+- *Peso máx:* 1 MB (límite Tiendanube). *Recomendado:* desktop ≤400 KB, mobile ≤250 KB.
 
-- desktop: 1920 x 768 px (apaisado horizontal)
-- mobile: 750 x 1000 px (atencion, esta es VERTICAL, no horizontal)
-- tablet: 1280 x 720 px (opcional, lo escala desde desktop)
+---
 
-por que mobile vertical? porque tiendanube en celular muestra el banner ocupando casi toda la pantalla inicial. la composicion mobile no es la misma q desktop, ojo
+*PLANTILLA REUSABLE*
+No te pido 4 diseños distintos. Te pido *UNA plantilla maestra* a la que después le intercambiamos copy/elementos para 4 variantes:
 
-NO escales una sola version, cada tamaño tiene q estar rediseñado con composicion propia
+1. *Marcas + tagline* (branding puro) ← *EMPEZÁ POR ESTA*
+2. Jueves
+3. Envío
+4. Cuotas
 
-*FORMATO Y PESO*
+Las 3 últimas ya están cubiertas en cards. La 1 es la cara de la marca.
 
-- formato JPG (para fondo) + PNG transparente (solo para productos recortados q me pases por separado)
-- NO uses WebP, tiendanube lo reencodea internamente y se pierde la ventaja
-- calidad export 82-85%
-- peso maximo desktop: 350 KB
-- peso maximo mobile: 200 KB
-- color sRGB, 72 DPI
+---
 
-si pesa mas comprimi en squoosh.app o tinypng.com
+*QUE TIENE QUE MOSTRAR (variante Marcas)*
 
-*QUE TIENE QUE TENER LA IMAGEN*
+- Logo *Morashop*
+- Frase de posicionamiento corta
+- *Bodegón de 3 a 5 productos* juntos (whey + creatina + pre-entreno + omega, por ejemplo)
+- *Logos de marcas distribuidas:* Star, ENA, Gold Nutrition, Optimum, PGN
 
-1) logo de Morashop bien visible (o el wordmark grande tipo titulo)
-2) frase corta de posicionamiento. ejemplos para elegir:
-   - "EL MEJOR PRECIO SIEMPRE"
-   - "TODO LO QUE NECESITAS PARA ENTRENAR"
-   - "SUPLEMENTOS ORIGINALES + SUPERMERCADO FIT"
-   - "DISTRIBUIDOR OFICIAL DE LAS MEJORES MARCAS"
-3) UN subtitulo corto explicando q vendemos
-4) (opcional) logos o nombres de las marcas q distribuimos (Star Nutrition, ENA, Gold, Optimum, PGN)
-5) composicion de productos al costado o de fondo (NO uno solo, varios productos juntos para mostrar surtido). pueden ser whey + creatina + pre-entreno + omega 3 juntos
-6) NO uses boton CTA gigante, esto es branding no es venta directa
+---
 
-*TIPOGRAFIAS (gratis Google Fonts)*
+*PALETA (a rajatabla)*
 
-- Barlow Condensed peso 900 para el titulo grande (todo mayuscula)
-- Inter peso 500-700 para subtitulos
+- Navy *#1A2744* (base)
+- Rojo *#E8341A* (acento fuerte)
+- Amarillo *#FFD400* (acento energía)
+- Gris *#ECEDEF* (fondo claro)
+- Blanco *#FFFFFF*
 
-*COLORES OFICIALES, no inventes otros*
+*Tipos:* Display *Barlow Condensed 900* MAYÚSCULAS · Body *Inter* 500-700.
 
-#1A2744 azul oscuro (color principal Morashop)
-#E8341A rojo Morashop (acento)
-#FFD400 amarillo (acentos puntuales)
-#ECEDEF gris claro
-#FFFFFF blanco
+---
 
-la combinacion mas Morashop es: fondo azul oscuro #1A2744 + texto blanco + acento rojo. pero podes proponer otra si la justificas (ej fondo claro con texto azul)
+*NO HACER*
 
-*SAFE AREA (zona segura)*
+- NO meter "30% OFF" ni promos concretas
+- NO CTAs catedral tipo "COMPRAR YA"
+- NO modelos de gym de banco de imágenes
+- NO poner "el mejor precio siempre" en la imagen (ya está por código)
+- NO estética Gymshark / MyProtein / Optimum USA
 
-- desktop: 80px de margen interior de cada borde
-- mobile: 40px de margen interior
-- nada de texto pegado a los bordes
-- ojo: el banner mobile es VERTICAL (750x1000), asi q el texto va arriba y los productos abajo, o al reves
+---
 
-*REGLAS Q NO PODES ROMPER*
+*INSPIRACIÓN*
+ecomodico.com · mercadolibre.com.ar · cotodigital.com.ar
+*NO* Gymshark ni MyProtein.
 
-❌ nada de fotos stock de modelos haciendo gym
-❌ no inventes promo si no la pediste vos (esto es branding)
-❌ nada de gradientes con muchos colores
-❌ solo Barlow Condensed + Inter
-❌ nada de fotos pixeladas
-❌ nada de animaciones (es estatica)
-❌ no centres todo, queda aburrido. composicion asimetrica mejor
-❌ NO uses WebP (tiendanube lo rompe)
+---
 
-*INSPIRACION*
+*ENTREGABLES*
 
-mirate los heros (banner principal) de:
-- mercadolibre.com.ar (no las promos de abajo, el banner de arriba)
-- coto digital
-- amazon argentina (home banner)
-- cualquier supermercado online grande
+- Editable *PSD o Figma* (plantilla maestra)
+- Exportes *.jpg + .webp + .png*
+- *2 viewports:* 1920×900 desktop · 820×1000 mobile
 
-basicamente lo q vende es "somos esta marca, sentite seguro de comprarnos"
+*FECHA:* __________  ·  *PRESUPUESTO:* __________
 
-NO te inspires en gymshark / myprotein eh, eso es estetica gringa fitness no va
-
-*Q TE TENES Q ENTREGAR*
-
-- archivo editable (figma o psd) con capas separadas
-- desktop.jpg (1920×768, max 350KB)
-- mobile.jpg (750×1000, max 200KB) — vertical eh, ojo
-- tablet.jpg (1280×720, max 280KB) — opcional
-- los png transparentes de los productos por separado (por si los reuso despues)
-
-fecha entrega: [ponele fecha]
-precio: [pone precio]
-
-cualquier duda escribime tranqui, prefiero contestar 10 veces y q salga bien q recibir algo q no sirve
-
-gracias capo 🙏
+Cualquier duda me escribís. Gracias capo!

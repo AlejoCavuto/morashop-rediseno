@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Marcas · Morashop</title>
+<meta name="description" content="Distribuidor oficial de Star Nutrition, ENA, Gold Nutrition, Optimum, PGN y más. Suplementos deportivos originales en Argentina." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<link rel="stylesheet" href="assets/category.css" />
+<link rel="stylesheet" href="assets/cart.css" />
+<style>
+  .brands-hero{background:var(--cream);color:#fff;padding:clamp(48px,6vw,80px) 0 clamp(36px,5vw,56px)}
+  .brands-hero .crumb{color:rgba(255,255,255,0.7);margin-bottom:18px;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;font-weight:600}
+  .brands-hero .crumb a{color:#fff;opacity:0.85;text-decoration:none}
+  .brands-hero .crumb a:hover{opacity:1;text-decoration:underline}
+  .brands-hero .crumb .sep{margin:0 8px;opacity:0.5}
+  .brands-hero .overline{width:48px;height:3px;background:var(--red);display:block;margin-bottom:18px}
+  .brands-hero h1{font-family:var(--font-display);font-weight:900;font-size:clamp(40px,6vw,72px);line-height:0.95;letter-spacing:-0.015em;text-transform:uppercase;margin:0 0 14px;color:#fff}
+  .brands-hero .desc{font-family:var(--font-body);font-size:clamp(14px,1.2vw,17px);line-height:1.5;color:rgba(255,255,255,0.82);margin:0;max-width:640px}
+
+  .brands-body{background:var(--ink);padding:clamp(40px,5vw,72px) 0}
+  .brands-grid-page{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .brand-card{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:36px 22px 28px;text-align:center;
+    display:flex;flex-direction:column;align-items:center;gap:14px;
+    text-decoration:none;color:var(--cream);
+    transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+    cursor:pointer;
+  }
+  .brand-card:hover{transform:translateY(-4px);box-shadow:0 16px 36px -14px rgba(26,39,68,0.22);border-color:var(--red)}
+  .brand-card-name{font-family:var(--font-display);font-weight:900;font-size:clamp(20px,2.2vw,28px);line-height:1;letter-spacing:0.02em;text-transform:uppercase;margin:0}
+  .brand-card-count{font-family:var(--font-body);font-size:12.5px;color:var(--muted);font-weight:500}
+  .brand-card-cta{font-family:var(--font-body);font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-top:4px;display:inline-flex;align-items:center;gap:6px}
+  .brand-card-cta .arr{transition:transform .2s ease}
+  .brand-card:hover .brand-card-cta .arr{transform:translateX(4px)}
+  @media (max-width:1024px){.brands-grid-page{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:640px){
+    .brands-grid-page{grid-template-columns:repeat(2,1fr);gap:10px}
+    .brand-card{padding:24px 14px 20px;gap:10px}
+    .brand-card-name{font-size:18px}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <button class="icon-btn hamb-mobile" aria-label="Menú">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+    </button>
+    <div class="nav-logos">
+      <a href="index.html" aria-label="Morashop"><img src="assets/mora_minorista.png" alt="Morashop" /></a>
+      <a href="mayoristas.html" aria-label="Mayoristas"><img src="assets/mora_mayorista.png" alt="Mayoristas" /></a>
+    </div>
+    <a class="nav-searchbar" href="index.html#search" aria-label="Buscar productos, marcas y más">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <span class="nav-searchbar-text">Buscar productos, marcas y más…</span>
+    </a>
+    <div class="nav-actions">
+      <a href="login.html" class="icon-btn" aria-label="Iniciar sesión">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+      </a>
+      <button class="icon-btn" aria-label="Carrito" id="cartBtn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+        <span class="cart-badge" id="cartCount" style="display:none">0</span>
+      </button>
+      <button class="icon-btn hamb" aria-label="Menú">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="nav-search">
+  <form role="search" action="index.html" method="get">
+    <button type="submit" aria-label="Buscar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    </button>
+    <input type="search" name="q" placeholder="¿Qué estás buscando?" autocomplete="off" />
+  </form>
+</div>
+
+<section class="brands-hero">
+  <div class="container">
+    <div class="crumb"><a href="index.html">Inicio</a><span class="sep">/</span><span>Marcas</span></div>
+    <span class="overline"></span>
+    <h1>Las marcas con las que trabajamos</h1>
+    <p class="desc">Somos distribuidor oficial de las principales marcas de suplementación deportiva. Productos 100% originales, importadores autorizados en Argentina.</p>
+  </div>
+</section>
+
+<section class="brands-body">
+  <div class="container">
+    <div class="brands-grid-page" id="brandsGrid">
+      <!-- JS renderea desde catalog-data.js -->
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="wordmark"><img src="assets/logo-morashop.png" alt="Morashop" style="height:32px;width:auto" /></div>
+        <p class="foot-tagline">Comprar suplementos es <strong>Morashop</strong>.</p>
+        <p>Suplementación deportiva, supermercado y electro-hogar. Distribuidor autorizado desde 2018.</p>
+      </div>
+      <div class="foot-col"><h5>Tienda</h5><ul>
+        <li><a href="suplementos.html">Suplementos</a></li>
+        <li><a href="supermercado.html">Supermercado</a></li>
+        <li><a href="electro.html">Electro-Hogar</a></li>
+        <li><a href="bananero.html">El Bananero</a></li>
+        <li><a href="bodega.html">Bodega</a></li>
+        <li><a href="marcas.html">Marcas</a></li>
+      </ul></div>
+      <div class="foot-col"><h5>Compañía</h5><ul>
+        <li><a href="sobre-nosotros.html">Sobre nosotros</a></li>
+        <li><a href="mayoristas.html">Mayorista</a></li>
+      </ul></div>
+      <div class="foot-col"><h5>Soporte</h5><ul>
+        <li><a href="#">Envíos y entregas</a></li>
+        <li><a href="https://wa.me/5491100000000">WhatsApp</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-bot">
+      <div>© 2026 Morashop</div>
+      <div>Términos · Privacidad · Cookies</div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/catalog-data.js"></script>
+<script src="assets/cart.js"></script>
+<script src="assets/promo-bar.js"></script>
+<script src="assets/nav.js"></script>
+<script>
+(function(){
+  // Render grid de marcas desde catalog-data.js
+  const grid = document.getElementById('brandsGrid');
+  const data = (window.CATALOG_BY_CAT && window.CATALOG_BY_CAT.suplementos) || [];
+  if (!grid) return;
+
+  // Contar productos por marca
+  const counts = {};
+  data.forEach(p => {
+    const brand = (p.brand || '').trim();
+    if (!brand) return;
+    counts[brand] = (counts[brand] || 0) + 1;
+  });
+
+  // Ordenar por cantidad descendente
+  const sorted = Object.entries(counts).sort((a,b) => b[1] - a[1]);
+
+  // Slug para link de filtro
+  function slug(s){
+    return String(s).toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g,'')
+      .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  }
+
+  grid.innerHTML = sorted.map(([brand, count]) => `
+    <a class="brand-card" href="suplementos.html?marca=${encodeURIComponent(brand)}">
+      <span class="brand-card-name">${brand}</span>
+      <span class="brand-card-count">${count} ${count === 1 ? 'producto' : 'productos'}</span>
+      <span class="brand-card-cta">Ver productos <span class="arr">→</span></span>
+    </a>
+  `).join('');
+
+  if (!sorted.length) {
+    grid.innerHTML = '<p style="text-align:center;color:var(--muted);grid-column:1/-1;padding:40px 0">No hay marcas cargadas.</p>';
+  }
+})();
+</script>
+
+</body>
+</html>

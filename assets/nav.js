@@ -44,6 +44,11 @@
       subs: [],
     },
     {
+      href: 'marcas.html', label: 'Marcas',
+      icon: '<path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/>',
+      subs: [],
+    },
+    {
       href: 'sobre-nosotros.html', label: 'Sobre nosotros',
       icon: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
       subs: [],

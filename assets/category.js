@@ -44,6 +44,7 @@
   }
   function fakeStock(p){ return (seedFromProduct(p) % 30) + 3; }
   function fakeVendidos(p){ return (seedFromProduct(p) % 1500) + 50; }
+  function fakeRating(p){ return 4 + ((seedFromProduct(p) % 100) / 100); }
   function vendidosEscalon(p){
     const n = fakeVendidos(p);
     if (n >= 10000) return '+10mil';
@@ -170,6 +171,26 @@
 
   function parseNum(s) { return parseFloat(String(s).replace(/[^\d.,]/g, '').replace(/\./g, '').replace(',', '.')) || 0; }
 
+  function countByValue(group, value) {
+    const list = window.PRODUCTS || [];
+    if (value === 'all') return list.length;
+    if (group === 'brand') return list.filter(p => p.brand === value).length;
+    if (group === 'type')  return list.filter(p => Array.isArray(p.types) && p.types.includes(value)).length;
+    return 0;
+  }
+
+  function decoratePillCounts() {
+    document.querySelectorAll('.pill[data-group][data-value]').forEach(pill => {
+      if (pill.dataset.countDone) return;
+      const group = pill.dataset.group;
+      const value = pill.dataset.value;
+      const n = countByValue(group, value);
+      const baseLabel = pill.textContent.trim();
+      pill.textContent = `${baseLabel} (${n})`;
+      pill.dataset.countDone = '1';
+    });
+  }
+
   function apply() {
     let list = window.PRODUCTS.slice();
     const typePills = [...document.querySelectorAll('.pill[data-group="type"].active')].map(p => p.dataset.value);
@@ -177,9 +198,11 @@
     if (typePills.length && !typePills.includes('all')) list = list.filter(p => p.types.some(t => typePills.includes(t)));
     if (brandPills.length && !brandPills.includes('all')) list = list.filter(p => brandPills.includes(p.brand));
     const sort = document.getElementById('sort')?.value;
-    if (sort === 'price-asc')  list.sort((a, b) => parseNum(a.price) - parseNum(b.price));
-    if (sort === 'price-desc') list.sort((a, b) => parseNum(b.price) - parseNum(a.price));
-    if (sort === 'name')       list.sort((a, b) => a.name.localeCompare(b.name));
+    if (sort === 'price-asc')   list.sort((a, b) => parseNum(a.price) - parseNum(b.price));
+    if (sort === 'price-desc')  list.sort((a, b) => parseNum(b.price) - parseNum(a.price));
+    if (sort === 'name')        list.sort((a, b) => a.name.localeCompare(b.name));
+    if (sort === 'bestsellers') list.sort((a, b) => fakeVendidos(b) - fakeVendidos(a));
+    if (sort === 'rating')      list.sort((a, b) => fakeRating(b) - fakeRating(a));
     mostrados = 24; // resetear al filtrar/ordenar
     render(list);
   }
@@ -224,16 +247,29 @@
     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
-  // Lee ?tipo=X de la URL y activa el pill correspondiente del grupo "type".
-  // Usado por la catbar y el menú mobile para entrar directo a una subcategoría filtrada.
+  // Lee ?tipo=X y ?marca=Y de la URL y activa los pills correspondientes.
+  // Usado por catbar, menú mobile y marcas.html para entrar directo a un filtro.
   function applyTipoFromURL() {
     const params = new URLSearchParams(window.location.search);
     const tipo = params.get('tipo');
-    if (!tipo) return;
-    const allBtn = document.querySelector('.pill[data-group="type"][data-value="all"]');
-    if (allBtn) allBtn.classList.remove('active');
-    const targetBtn = document.querySelector(`.pill[data-group="type"][data-value="${tipo}"]`);
-    if (targetBtn) targetBtn.classList.add('active');
+    if (tipo) {
+      const allTypeBtn = document.querySelector('.pill[data-group="type"][data-value="all"]');
+      if (allTypeBtn) allTypeBtn.classList.remove('active');
+      const targetBtn = document.querySelector(`.pill[data-group="type"][data-value="${tipo}"]`);
+      if (targetBtn) targetBtn.classList.add('active');
+    }
+    const marca = params.get('marca');
+    if (marca) {
+      const allBrandBtn = document.querySelector('.pill[data-group="brand"][data-value="all"]');
+      if (allBrandBtn) allBrandBtn.classList.remove('active');
+      // Busca pill por marca exacta o lowercase
+      const pills = document.querySelectorAll('.pill[data-group="brand"]');
+      pills.forEach(p => {
+        if ((p.dataset.value || '').toLowerCase() === marca.toLowerCase()) {
+          p.classList.add('active');
+        }
+      });
+    }
   }
 
   // ---------- PANEL DE FILTROS EN MOBILE ----------
@@ -297,6 +333,6 @@
     updateCount();
   }
 
-  if (document.readyState !== 'loading') { applyTipoFromURL(); apply(); setupFiltersPanel(); }
-  else document.addEventListener('DOMContentLoaded', () => { applyTipoFromURL(); apply(); setupFiltersPanel(); });
+  if (document.readyState !== 'loading') { applyTipoFromURL(); decoratePillCounts(); apply(); setupFiltersPanel(); }
+  else document.addEventListener('DOMContentLoaded', () => { applyTipoFromURL(); decoratePillCounts(); apply(); setupFiltersPanel(); });
 })();
