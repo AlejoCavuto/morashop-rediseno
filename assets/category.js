@@ -198,13 +198,34 @@
       pill.textContent = `${baseLabel} (${n})`;
       pill.dataset.countDone = '1';
     });
+    // Type-cards: agregar conteo "(N)" debajo del nombre
+    document.querySelectorAll('.type-card[data-filter-type]').forEach(card => {
+      if (card.dataset.countDone) return;
+      const tipo = card.dataset.filterType;
+      const n = countByValue('type', tipo);
+      const nameEl = card.querySelector('.type-card-name');
+      if (nameEl && !card.querySelector('.type-card-count')) {
+        const countEl = document.createElement('span');
+        countEl.className = 'type-card-count';
+        countEl.textContent = `${n} productos`;
+        nameEl.insertAdjacentElement('afterend', countEl);
+      }
+      card.dataset.countDone = '1';
+    });
   }
 
   function apply() {
     let list = window.PRODUCTS.slice();
-    const typePills = [...document.querySelectorAll('.pill[data-group="type"].active')].map(p => p.dataset.value);
+    // Tipo: prioridad a type-cards si existen, sino fallback a pills (bananero)
+    let typeValues;
+    const cards = document.querySelectorAll('.type-card[data-filter-type]');
+    if (cards.length) {
+      typeValues = [...document.querySelectorAll('.type-card.active')].map(c => c.dataset.filterType);
+    } else {
+      typeValues = [...document.querySelectorAll('.pill[data-group="type"].active')].map(p => p.dataset.value);
+    }
     const brandPills = [...document.querySelectorAll('.pill[data-group="brand"].active')].map(p => p.dataset.value);
-    if (typePills.length && !typePills.includes('all')) list = list.filter(p => p.types.some(t => typePills.includes(t)));
+    if (typeValues.length && !typeValues.includes('all')) list = list.filter(p => p.types.some(t => typeValues.includes(t)));
     if (brandPills.length && !brandPills.includes('all')) list = list.filter(p => brandPills.includes(p.brand));
     const sort = document.getElementById('sort')?.value;
     if (sort === 'price-asc')   list.sort((a, b) => parseNum(a.price) - parseNum(b.price));
@@ -237,21 +258,14 @@
 
   document.addEventListener('change', e => { if (e.target.id === 'sort') apply(); });
 
-  // Click en .type-card (cards grandes arriba) → activa pill del mismo tipo + scroll a productos
+  // Click en .type-card → toggle activa/desactiva, filtra productos, scroll a grilla
   document.addEventListener('click', e => {
     const card = e.target.closest('.type-card[data-filter-type]');
     if (!card) return;
-    const tipo = card.dataset.filterType;
-    // toggle card visual
+    const wasActive = card.classList.contains('active');
     document.querySelectorAll('.type-card').forEach(c => c.classList.remove('active'));
-    card.classList.add('active');
-    // desactivar "all" + activar el pill correspondiente
-    document.querySelector('.pill[data-group="type"][data-value="all"]')?.classList.remove('active');
-    document.querySelectorAll('.pill[data-group="type"]').forEach(p => p.classList.remove('active'));
-    const pill = document.querySelector(`.pill[data-group="type"][data-value="${tipo}"]`);
-    if (pill) pill.classList.add('active');
+    if (!wasActive) card.classList.add('active'); // click en la misma = mostrar todos
     apply();
-    // scroll suave hasta los productos
     const target = document.querySelector('.cat-body') || document.getElementById('catGrid');
     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
@@ -262,10 +276,17 @@
     const params = new URLSearchParams(window.location.search);
     const tipo = params.get('tipo');
     if (tipo) {
-      const allTypeBtn = document.querySelector('.pill[data-group="type"][data-value="all"]');
-      if (allTypeBtn) allTypeBtn.classList.remove('active');
-      const targetBtn = document.querySelector(`.pill[data-group="type"][data-value="${tipo}"]`);
-      if (targetBtn) targetBtn.classList.add('active');
+      // Type-cards: si existen, marcar la card. Sino, fallback a pills.
+      const card = document.querySelector(`.type-card[data-filter-type="${tipo}"]`);
+      if (card) {
+        document.querySelectorAll('.type-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+      } else {
+        const allTypeBtn = document.querySelector('.pill[data-group="type"][data-value="all"]');
+        if (allTypeBtn) allTypeBtn.classList.remove('active');
+        const targetBtn = document.querySelector(`.pill[data-group="type"][data-value="${tipo}"]`);
+        if (targetBtn) targetBtn.classList.add('active');
+      }
     }
     const marca = params.get('marca');
     if (marca) {
