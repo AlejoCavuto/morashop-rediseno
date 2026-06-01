@@ -397,19 +397,20 @@
   const hasFlavors = Array.isArray(product.flavors) && product.flavors.length > 1;
   const discount = product.oldPrice ? Math.round((1 - product.price / product.oldPrice) * 100) : 0;
 
-  // ----- Datos fake seedeados (mismos para el mismo producto) -----
+  // ----- Datos fake seedeados (UNIFICADO con cards: ((brand+name).toLowerCase()) -----
   function seedFromProduct(p) {
-    const s = (p.brand || '') + '|' + (p.name || '');
+    const s = ((p.brand || '') + (p.name || '')).toLowerCase();
     let h = 0;
-    for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+    for (let i = 0; i < s.length; i++) { h = ((h << 5) - h) + s.charCodeAt(i); h = h & h; }
     return Math.abs(h);
   }
   const seed       = seedFromProduct(product);
-  const vendidos   = 20 + (seed % 480);                          // 20–500
-  const rating     = (4.3 + ((seed >> 4) % 7) / 10).toFixed(1);  // 4.3–4.9
-  const opiniones  = 5 + (seed % 90);                            // 5–95
-  const stock      = 2 + (seed % 30);                            // 2–32
-  const stockLow   = stock <= 5;
+  const vendidosNum = (seed % 1500) + 50;                         // 50–1549 (igual que cards)
+  const vendidos    = vendidosNum;                                // alias para compat
+  const rating      = (4 + (seed % 100) / 100).toFixed(1);        // 4.00–4.99 (igual que cards)
+  const opiniones   = Math.max(3, Math.floor(vendidosNum * 0.15));// 15% de vendidos (igual que cards)
+  const stock       = (seed % 30) + 3;                            // 3–32 (igual que cards)
+  const stockLow    = stock <= 5;
   const catParts = (product.category || '').split('>').map(s => s.trim());
   const catLink = catParts[0] && catParts[0].toLowerCase().startsWith('suplem') ? 'suplementos.html'
     : catParts[0] && catParts[0].toLowerCase().startsWith('super') ? 'supermercado.html'

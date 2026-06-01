@@ -70,6 +70,13 @@
     const cls = type === 'row' ? 'mlrow-vendidos' : 'mlcard-vendidos';
     return `<div class="${cls}">${v} vendidos</div>`;
   }
+  function fakeReviews(p){ return Math.max(3, Math.floor(fakeVendidos(p) * 0.15)); }
+  function ratingHTML(p, type){
+    const r = fakeRating(p).toFixed(1);
+    const rev = fakeReviews(p);
+    const cls = type === 'row' ? 'mlrow-rating' : 'mlcard-rating';
+    return `<div class="${cls}"><span class="star">★</span>${r}<span class="rev">(${rev})</span></div>`;
+  }
 
   // CARD estilo ML (grilla) — limpio
   function cardHTML(p) {
@@ -83,6 +90,7 @@
       <div class="mlcard-info">
         <div class="mlcard-brand">${p.brand}</div>
         <div class="mlcard-name">${p.name}</div>
+        ${ratingHTML(p, 'card')}
         ${vendidosHTML(p, 'card')}
         <div class="mlcard-price-row"><span class="mlcard-price">${fmt(now)}</span>${discTxt}</div>
         <div class="mlcard-efectivo"><strong>${fmt(efectivo)}</strong> en efectivo</div>
@@ -104,6 +112,7 @@
       <div class="mlrow-body">
         <div class="mlrow-brand">${p.brand}</div>
         <div class="mlrow-name">${p.name}</div>
+        ${ratingHTML(p, 'row')}
         ${vendidosHTML(p, 'row')}
         ${wasRow}
         <div class="mlrow-priceline"><span class="mlrow-price">${fmt(now)}</span>${discTxt}</div>
