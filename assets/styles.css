@@ -950,17 +950,17 @@
   .hamb { display: none; }
   .hamb-mobile { display: none; }
 
-  /* Mobile search bar (solo aparece en mobile) */
+  /* Mobile search bar (solo aparece en mobile) — compacta para minimizar chrome fijo */
   .nav-search {
     display: none;
     position: sticky;
-    top: 76px;
+    top: 56px; /* coincide con .nav-inner height mobile (56px) para evitar gap */
     z-index: 49;
     background: rgba(255,255,255,0.95);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--line);
-    padding: 10px var(--container-pad, 24px);
+    padding: 6px var(--container-pad, 24px);
   }
   .nav-search form {
     display: flex;
@@ -969,7 +969,7 @@
     background: rgba(26,39,68,0.06);
     border: 1px solid var(--line);
     border-radius: 999px;
-    padding: 10px 16px;
+    padding: 7px 14px;
     transition: border-color .15s ease, background .15s ease;
   }
   .nav-search form:focus-within {
@@ -1015,16 +1015,17 @@
     /* En mobile: hamb a la izquierda, ocultamos la antigua hamb dentro de nav-actions */
     .hamb { display: none; }
     .hamb-mobile { display: grid; place-items: center; }
+    .nav-inner { height: 56px; } /* compactar chrome fijo mobile (antes 76px) */
     .nav-logos { margin: 0 auto; gap: 6px; }
-    .nav-logos img { height: 32px; }
+    .nav-logos img { height: 28px; }
     /* En mobile las acciones no deben empujarse solas a la derecha;
        el margin auto de los logos ya las posiciona */
-    .nav-actions { margin-left: 0; }
+    .nav-actions { margin-left: 0; gap: 8px; }
     /* Activar barra de búsqueda fija */
     .nav-search { display: block; }
   }
   @media (max-width: 640px) {
-    .nav-inner { height: 64px; }
+    .nav-inner { height: 56px; }
     .hero h1 { font-size: 64px; }
     .cats-grid { grid-template-columns: 1fr; }
     .cat-card.primary { grid-column: auto; min-height: 320px; }

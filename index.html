@@ -1816,14 +1816,9 @@
       </div>`;
     }
 
-    /* ---- BLOQUES POR TIPO ---- 4 bloques densos arriba del fold (impacto MeLi-style).
-       Cada uno linkea a suplementos.html?tipo=X (la pill se activa solo). */
-    const BLOCKS = [
-      { t: 'Proteínas',  type: 'proteinas',  url: 'suplementos.html?tipo=proteinas'  },
-      { t: 'Creatinas',  type: 'creatinas',  url: 'suplementos.html?tipo=creatinas'  },
-      { t: 'Vitaminas',  type: 'vitaminas',  url: 'suplementos.html?tipo=vitaminas'  },
-      { t: 'Quemadores', type: 'quemadores', url: 'suplementos.html?tipo=quemadores' },
-    ];
+    /* ---- BLOQUES POR TIPO ---- VACIADO: home solo tiene "Seguí viendo / Lo más buscado".
+       Los bloques por tipo (Creatinas, Proteínas, etc.) viven solo en suplementos.html. */
+    const BLOCKS = [];
 
     /* ====================================================================
        PRODUCTOS PATROCINADOS — espacio que las marcas PAGAN
@@ -1859,19 +1854,17 @@
     }
 
     /* ---- BLOQUES FIJOS (alternan grilla 2x2 / lista vertical, banner cada 3) ---- */
-    const usadosPids = new Set(masBuscado.map(pidOf));
     let bloquesRenderizados = 0;
     let slotsIntercalados = 0; // cuenta slots (carrusel o banners) que ya inyectamos
     BLOCKS.forEach((b) => {
       const items = REAL
-        .filter(p => (p.types||[]).includes(b.type) && !usadosPids.has(pidOf(p)))
+        .filter(p => (p.types||[]).includes(b.type))
         .sort((a,c) => discount(c) - discount(a))
         .slice(0, 8);
       if (items.length < 4) return;
-      items.forEach(p => usadosPids.add(pidOf(p)));
       // par = grilla 2x2, impar = lista vertical
       const layout = (bloquesRenderizados % 2 === 0) ? 'grid' : 'list';
-      html += blockHTML(b.t, items, layout, b.url || 'suplementos.html');
+      html += blockHTML(b.t, items, layout, 'suplementos.html');
       bloquesRenderizados++;
       // slot intercalado cada 3 bloques de productos
       // el PRIMER slot lleva el CARRUSEL DE PROMOS (movido desde el hero).
