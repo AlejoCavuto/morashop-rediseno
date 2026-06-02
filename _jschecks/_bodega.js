@@ -1,0 +1,1 @@
+window.PRODUCTS = (window.CATALOG_BY_CAT && window.CATALOG_BY_CAT.bodega) || [];

@@ -78,7 +78,7 @@
   .pdp-name{font-family:var(--font-b);font-weight:600;font-size:clamp(20px,2.4vw,28px);line-height:1.25;letter-spacing:0;text-transform:none;margin:0 0 18px;color:var(--cream)}
   .pdp-price-row{display:flex;align-items:baseline;gap:14px;margin-bottom:28px;flex-wrap:wrap}
   .pdp-price{font-family:var(--font-d);font-weight:900;font-size:clamp(36px,4.5vw,56px);line-height:1;color:var(--cream)}
-  .pdp-oldprice{font-family:var(--font-b);font-size:18px;font-weight:600;opacity:0.4;text-decoration:line-through}
+  .pdp-oldprice{font-family:var(--font-b);font-size:16px;font-weight:500;color:#9aa0a8;text-decoration:line-through;line-height:1.1;width:100%;margin-bottom:-4px}
   .pdp-discount{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:var(--red);color:#fff;padding:6px 10px;border-radius:2px}
   .pdp-savings{font-size:14px;color:#E8341A;font-weight:700;margin-top:6px;margin-bottom:18px}
 
@@ -87,8 +87,8 @@
   .pdp-hint strong{color:var(--red);font-weight:700}
 
   /* Cuotas (1 línea chica gris/rojo) */
-  .pdp-cuotas{font-family:var(--font-b);font-size:13.5px;color:var(--red);font-weight:500;line-height:1.3;margin:0 0 10px}
-  .pdp-cuotas strong{font-weight:700;color:var(--red)}
+  .pdp-cuotas{font-family:var(--font-b);font-size:13.5px;color:#00a650;font-weight:500;line-height:1.3;margin:0 0 10px}
+  .pdp-cuotas strong{font-weight:700;color:#00a650}
 
   /* Efectivo: línea verde con tag + tooltip "?" en lugar de nota larga */
   .pdp-efectivo{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:0 0 22px;font-family:var(--font-b)}
@@ -443,18 +443,17 @@
             <h1 class="pdp-name">${product.name}</h1>
 
             <div class="pdp-price-row">
-              ${product.oldPrice && discount >= 10 ? `<div class="pdp-oldprice">${fmt(product.oldPrice)}</div>` : ''}
+              ${product.oldPrice && product.oldPrice > product.price ? `<div class="pdp-oldprice">${fmt(product.oldPrice)}</div>` : ''}
               <div class="pdp-price" id="pdpPrice">${fmt(product.price)}</div>
               ${discount >= 5 ? `<div class="pdp-discount">${discount}% OFF</div>` : ''}
             </div>
-            ${product.oldPrice && (product.oldPrice - product.price) > 0 ? `<div class="pdp-savings">Ahorrás ${fmt(product.oldPrice - product.price)}</div>` : ''}
 
             <div class="pdp-cuotas">3 cuotas sin interés de <strong>${fmt(Math.round(product.price/3))}</strong></div>
 
             <div class="pdp-efectivo">
               <span class="pdp-efectivo-main"><strong>${fmt(product.price * 0.85)}</strong> en efectivo</span>
               <span class="pdp-efectivo-tag">15% OFF</span>
-              <button class="pdp-efectivo-info" type="button" aria-label="Más info" title="Contraentrega en CABA/GBA o transferencia">?</button>
+              <button class="pdp-efectivo-info" type="button" aria-label="Más info" title="Contraentrega CABA/GBA (15% OFF) o transferencia (5% OFF)">?</button>
             </div>
 
             <div class="pdp-social" aria-label="Información de stock y reseñas">
@@ -465,11 +464,9 @@
                 <span class="rating-num">${rating}</span>
                 <span>(${opiniones} opiniones)</span>
               </div>
-              <div class="pdp-stock ${stockLow ? 'low' : ''}">
+              <div class="pdp-stock">
                 <span class="dot" aria-hidden="true"></span>
-                ${stockLow
-                  ? `¡Pocas unidades! · Quedan ${stock}`
-                  : `Stock disponible · ${stock} unidades`}
+                Stock disponible
               </div>
             </div>
 
@@ -526,7 +523,7 @@
           <div class="tab-panel" data-panel="ship">
             <p><strong>Envío en el día:</strong> pedidos confirmados antes de las 10 hs en GBA y CABA salen el mismo día.</p>
             <p><strong>Resto del país:</strong> OCA y Andreani, 24–72 hs hábiles según destino.</p>
-            <p><strong>Devoluciones:</strong> 7 días corridos desde la recepción para productos sin abrir. Coordinamos por WhatsApp.</p>
+            <p><strong>Cambios y devoluciones:</strong> 30 días de garantía para productos sin abrir y con embalaje original. <a href="devoluciones.html" style="color:var(--red);font-weight:600">Ver política completa →</a></p>
           </div>
         </div>
       </div>

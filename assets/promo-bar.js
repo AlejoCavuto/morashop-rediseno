@@ -122,7 +122,7 @@
       }
       @media (max-width: 640px){
         .mora-promobar{font-size:12px}
-        .mora-promobar-inner{padding:6px 38px 6px 14px;gap:6px;min-height:40px}
+        .mora-promobar-inner{padding:6px 38px 6px 14px;gap:6px;min-height:40px;flex-wrap:wrap}
         .mora-promobar-hl{font-size:13px}
         .mora-promobar-emoji{font-size:14px}
         .mora-promobar-countdown{padding:3px 7px;font-size:11.5px}

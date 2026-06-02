@@ -41,6 +41,81 @@
   </div>
 </nav>
 
+<!-- BARRA DE CATEGORÍAS (fija, con dropdown de subcategorías) -->
+<div class="catbar">
+  <div class="container">
+    <div class="catbar-inner">
+      <div class="catbar-item">
+        <a class="catbar-link is-active" href="suplementos.html">Suplementos
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="suplementos.html?tipo=vitaminas-salud">Vitaminas y Salud</a>
+          <a href="suplementos.html?tipo=proteinas">Proteínas</a>
+          <a href="suplementos.html?tipo=creatinas">Creatinas</a>
+          <a href="suplementos.html?tipo=bcaa-aminos">BCAA y aminoácidos</a>
+          <a href="suplementos.html?tipo=quemadores">Quemadores</a>
+          <a href="suplementos.html?tipo=pre-entrenos">Pre-entrenos</a>
+          <a href="suplementos.html?tipo=snacks-proteicos">Snacks proteicos</a>
+          <a href="suplementos.html?tipo=combos">Combos</a>
+          <a href="suplementos.html?tipo=ganadores">Ganadores de peso</a>
+          <a href="suplementos.html?tipo=cafeina-energia">Cafeína y energía</a>
+          <a href="suplementos.html?tipo=carbo-isotonicos">Carbohidratos · Isotónicos</a>
+        </div>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="supermercado.html">Supermercado
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="supermercado.html?tipo=aceites-vinagres">Aceites y vinagres</a>
+          <a href="supermercado.html?tipo=panales-absorbentes">Pañales y absorbentes</a>
+          <a href="supermercado.html?tipo=salsas-jarabes">Salsas y jarabes</a>
+          <a href="supermercado.html?tipo=pasta-mani">Pasta de maní</a>
+          <a href="supermercado.html?tipo=almacen-fit">Almacén fit</a>
+          <a href="supermercado.html?tipo=miel-endulzantes">Miel y endulzantes</a>
+          <a href="supermercado.html?tipo=yerba-mate">Yerba mate</a>
+        </div>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="electro.html">Electro-Hogar
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="electro.html?tipo=cocina-electrica">Cocina eléctrica</a>
+          <a href="electro.html?tipo=bano-espejos">Baño y espejos</a>
+          <a href="electro.html?tipo=salud-medicion">Salud y medición</a>
+          <a href="electro.html?tipo=cuidado-personal">Cuidado personal</a>
+          <a href="electro.html?tipo=grandes-electro">Grandes electro</a>
+          <a href="electro.html?tipo=limpieza">Limpieza</a>
+          <a href="electro.html?tipo=herramientas">Herramientas</a>
+          <a href="electro.html?tipo=climatizacion">Climatización</a>
+        </div>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="bananero.html">El Bananero</a>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="bodega.html">Bodega
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="bodega.html?tipo=vinos-tintos">Vinos tintos</a>
+          <a href="bodega.html?tipo=vinos-blancos">Vinos blancos</a>
+          <a href="bodega.html?tipo=destilados">Destilados</a>
+          <a href="bodega.html?tipo=espumantes">Espumantes</a>
+        </div>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="marcas.html">Marcas</a>
+      </div>
+      <div class="catbar-scroll">
+        <a class="catbar-link" href="#" style="color:var(--red);opacity:1;">Ofertas</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- MOBILE SEARCH BAR -->
 <div class="nav-search">
   <form role="search" action="index.html" method="get">
@@ -62,11 +137,15 @@
   </div>
 </section>
 
-<!-- CARDS POR TIPO (clickeables, activan filtro pill) -->
+<!-- CARDS POR TIPO (clickeables, activan filtro). 11 sub-categorías derivadas del catálogo real. -->
 <section class="type-cards" aria-label="Categorías de suplementos">
   <div class="container">
     <h2 class="type-cards-title">Comprar por categoría</h2>
     <div class="type-cards-grid">
+      <button class="type-card" data-filter-type="vitaminas-salud">
+        <span class="type-card-ic" aria-hidden="true">💊</span>
+        <span class="type-card-name">Vitaminas y Salud</span>
+      </button>
       <button class="type-card" data-filter-type="proteinas">
         <span class="type-card-ic" aria-hidden="true">🥤</span>
         <span class="type-card-name">Proteínas</span>
@@ -75,11 +154,7 @@
         <span class="type-card-ic" aria-hidden="true">💪</span>
         <span class="type-card-name">Creatinas</span>
       </button>
-      <button class="type-card" data-filter-type="pre-entrenos">
-        <span class="type-card-ic" aria-hidden="true">⚡</span>
-        <span class="type-card-name">Pre-entrenos</span>
-      </button>
-      <button class="type-card" data-filter-type="bcaa">
+      <button class="type-card" data-filter-type="bcaa-aminos">
         <span class="type-card-ic" aria-hidden="true">🔬</span>
         <span class="type-card-name">BCAA · Aminos</span>
       </button>
@@ -87,17 +162,29 @@
         <span class="type-card-ic" aria-hidden="true">🔥</span>
         <span class="type-card-name">Quemadores</span>
       </button>
-      <button class="type-card" data-filter-type="vitaminas">
-        <span class="type-card-ic" aria-hidden="true">💊</span>
-        <span class="type-card-name">Vitaminas</span>
+      <button class="type-card" data-filter-type="pre-entrenos">
+        <span class="type-card-ic" aria-hidden="true">⚡</span>
+        <span class="type-card-name">Pre-entrenos</span>
       </button>
-      <button class="type-card" data-filter-type="barras">
+      <button class="type-card" data-filter-type="snacks-proteicos">
         <span class="type-card-ic" aria-hidden="true">🍫</span>
-        <span class="type-card-name">Barras y geles</span>
+        <span class="type-card-name">Snacks proteicos</span>
       </button>
       <button class="type-card" data-filter-type="combos">
         <span class="type-card-ic" aria-hidden="true">📦</span>
         <span class="type-card-name">Combos</span>
+      </button>
+      <button class="type-card" data-filter-type="ganadores">
+        <span class="type-card-ic" aria-hidden="true">🏋️</span>
+        <span class="type-card-name">Ganadores de peso</span>
+      </button>
+      <button class="type-card" data-filter-type="cafeina-energia">
+        <span class="type-card-ic" aria-hidden="true">☕</span>
+        <span class="type-card-name">Cafeína y energía</span>
+      </button>
+      <button class="type-card" data-filter-type="carbo-isotonicos">
+        <span class="type-card-ic" aria-hidden="true">🥤</span>
+        <span class="type-card-name">Carbohidratos · Isotónicos</span>
       </button>
     </div>
   </div>
@@ -112,14 +199,17 @@
       <button class="pill" data-group="brand" data-value="Ena">Ena</button>
       <button class="pill" data-group="brand" data-value="Pgn">PGN</button>
       <button class="pill" data-group="brand" data-value="Natural Whey">Natural Whey</button>
-      <button class="pill" data-group="brand" data-value="Gold Nutrition">Gold Nutrition</button>
-      <button class="pill" data-group="brand" data-value="InnovaNaturals">InnovaNaturals</button>
-      <button class="pill" data-group="brand" data-value="Body Advance">Body Advance</button>
       <button class="pill" data-group="brand" data-value="Labs Nutrition">Labs Nutrition</button>
+      <button class="pill" data-group="brand" data-value="Body Advance">Body Advance</button>
+      <button class="pill" data-group="brand" data-value="Gold Nutrition">Gold Nutrition</button>
       <button class="pill" data-group="brand" data-value="Vitamin Way">Vitamin Way</button>
-      <button class="pill" data-group="brand" data-value="Leguilab">Leguilab</button>
-      <button class="pill" data-group="brand" data-value="Hoch Sport">Hoch Sport</button>
+      <button class="pill" data-group="brand" data-value="Innovanaturals">Innovanaturals</button>
       <button class="pill" data-group="brand" data-value="Framingham Pharma">Framingham Pharma</button>
+      <button class="pill" data-group="brand" data-value="Nutrilab">Nutrilab</button>
+      <button class="pill" data-group="brand" data-value="Leguilab">Leguilab</button>
+      <button class="pill" data-group="brand" data-value="Every Day Nature">Every Day Nature</button>
+      <button class="pill" data-group="brand" data-value="Hoch Sport">Hoch Sport</button>
+      <button class="pill" data-group="brand" data-value="Garden House">Garden House</button>
     </div>
   </div>
 </div>

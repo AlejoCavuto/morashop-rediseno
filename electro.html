@@ -41,6 +41,81 @@
   </div>
 </nav>
 
+<!-- BARRA DE CATEGORÍAS (fija, con dropdown de subcategorías) -->
+<div class="catbar">
+  <div class="container">
+    <div class="catbar-inner">
+      <div class="catbar-item">
+        <a class="catbar-link" href="suplementos.html">Suplementos
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="suplementos.html?tipo=vitaminas-salud">Vitaminas y Salud</a>
+          <a href="suplementos.html?tipo=proteinas">Proteínas</a>
+          <a href="suplementos.html?tipo=creatinas">Creatinas</a>
+          <a href="suplementos.html?tipo=bcaa-aminos">BCAA y aminoácidos</a>
+          <a href="suplementos.html?tipo=quemadores">Quemadores</a>
+          <a href="suplementos.html?tipo=pre-entrenos">Pre-entrenos</a>
+          <a href="suplementos.html?tipo=snacks-proteicos">Snacks proteicos</a>
+          <a href="suplementos.html?tipo=combos">Combos</a>
+          <a href="suplementos.html?tipo=ganadores">Ganadores de peso</a>
+          <a href="suplementos.html?tipo=cafeina-energia">Cafeína y energía</a>
+          <a href="suplementos.html?tipo=carbo-isotonicos">Carbohidratos · Isotónicos</a>
+        </div>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="supermercado.html">Supermercado
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="supermercado.html?tipo=aceites-vinagres">Aceites y vinagres</a>
+          <a href="supermercado.html?tipo=panales-absorbentes">Pañales y absorbentes</a>
+          <a href="supermercado.html?tipo=salsas-jarabes">Salsas y jarabes</a>
+          <a href="supermercado.html?tipo=pasta-mani">Pasta de maní</a>
+          <a href="supermercado.html?tipo=almacen-fit">Almacén fit</a>
+          <a href="supermercado.html?tipo=miel-endulzantes">Miel y endulzantes</a>
+          <a href="supermercado.html?tipo=yerba-mate">Yerba mate</a>
+        </div>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link is-active" href="electro.html">Electro-Hogar
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="electro.html?tipo=cocina-electrica">Cocina eléctrica</a>
+          <a href="electro.html?tipo=bano-espejos">Baño y espejos</a>
+          <a href="electro.html?tipo=salud-medicion">Salud y medición</a>
+          <a href="electro.html?tipo=cuidado-personal">Cuidado personal</a>
+          <a href="electro.html?tipo=grandes-electro">Grandes electro</a>
+          <a href="electro.html?tipo=limpieza">Limpieza</a>
+          <a href="electro.html?tipo=herramientas">Herramientas</a>
+          <a href="electro.html?tipo=climatizacion">Climatización</a>
+        </div>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="bananero.html">El Bananero</a>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="bodega.html">Bodega
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="bodega.html?tipo=vinos-tintos">Vinos tintos</a>
+          <a href="bodega.html?tipo=vinos-blancos">Vinos blancos</a>
+          <a href="bodega.html?tipo=destilados">Destilados</a>
+          <a href="bodega.html?tipo=espumantes">Espumantes</a>
+        </div>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="marcas.html">Marcas</a>
+      </div>
+      <div class="catbar-scroll">
+        <a class="catbar-link" href="#" style="color:var(--red);opacity:1;">Ofertas</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- MOBILE SEARCH BAR -->
 <div class="nav-search">
   <form role="search" action="index.html" method="get">
@@ -62,30 +137,38 @@
   </div>
 </section>
 
-<!-- CARDS POR TIPO -->
+<!-- CARDS POR TIPO — 7 sub-cats reales del catálogo Tiendanube -->
 <section class="type-cards" aria-label="Categorías de electro-hogar">
   <div class="container">
     <h2 class="type-cards-title">Comprar por categoría</h2>
-    <div class="type-cards-grid type-cards-grid-5">
-      <button class="type-card" data-filter-type="electrodomesticos">
-        <span class="type-card-ic" aria-hidden="true">⚡</span>
-        <span class="type-card-name">Electrodomésticos</span>
-      </button>
-      <button class="type-card" data-filter-type="cocina">
+    <div class="type-cards-grid">
+      <button class="type-card" data-filter-type="cocina-electrica">
         <span class="type-card-ic" aria-hidden="true">🍳</span>
-        <span class="type-card-name">Cocina</span>
+        <span class="type-card-name">Cocina eléctrica</span>
       </button>
-      <button class="type-card" data-filter-type="bano">
+      <button class="type-card" data-filter-type="bano-espejos">
         <span class="type-card-ic" aria-hidden="true">🚿</span>
-        <span class="type-card-name">Baño</span>
+        <span class="type-card-name">Baño y espejos</span>
+      </button>
+      <button class="type-card" data-filter-type="salud-medicion">
+        <span class="type-card-ic" aria-hidden="true">🩺</span>
+        <span class="type-card-name">Salud y medición</span>
+      </button>
+      <button class="type-card" data-filter-type="cuidado-personal">
+        <span class="type-card-ic" aria-hidden="true">💇</span>
+        <span class="type-card-name">Cuidado personal</span>
+      </button>
+      <button class="type-card" data-filter-type="grandes-electro">
+        <span class="type-card-ic" aria-hidden="true">🏠</span>
+        <span class="type-card-name">Grandes electro</span>
+      </button>
+      <button class="type-card" data-filter-type="limpieza">
+        <span class="type-card-ic" aria-hidden="true">🧹</span>
+        <span class="type-card-name">Limpieza</span>
       </button>
       <button class="type-card" data-filter-type="herramientas">
         <span class="type-card-ic" aria-hidden="true">🔧</span>
         <span class="type-card-name">Herramientas</span>
-      </button>
-      <button class="type-card" data-filter-type="otros">
-        <span class="type-card-ic" aria-hidden="true">📦</span>
-        <span class="type-card-name">Otros equipos</span>
       </button>
     </div>
   </div>
@@ -101,10 +184,9 @@
       <button class="pill" data-group="brand" data-value="Triton">Triton</button>
       <button class="pill" data-group="brand" data-value="Lusqtoff">Lusqtoff</button>
       <button class="pill" data-group="brand" data-value="Kanji">Kanji</button>
-      <button class="pill" data-group="brand" data-value="Stor">Stor</button>
+      <button class="pill" data-group="brand" data-value="Qualika">Qualika</button>
       <button class="pill" data-group="brand" data-value="Einhell">Einhell</button>
       <button class="pill" data-group="brand" data-value="San-Up">San-Up</button>
-      <button class="pill" data-group="brand" data-value="Qualika">Qualika</button>
     </div>
   </div>
 </div>

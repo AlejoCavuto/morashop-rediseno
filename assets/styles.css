@@ -1046,3 +1046,22 @@
   @media (max-width:768px){
     .nav-searchbar{display:none}
   }
+
+  /* ---------- BARRA DE CATEGORÍAS (fija, con dropdown) ---------- */
+  .catbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:76px;z-index:45}
+  .catbar-inner{display:flex;align-items:stretch;gap:2px;height:46px}
+  .catbar-item{position:relative;display:flex;align-items:center}
+  .catbar-link{display:flex;align-items:center;gap:7px;padding:0 18px;height:100%;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--cream);opacity:0.78;transition:opacity .15s ease, background .15s ease, color .15s ease;white-space:nowrap}
+  .catbar-link:hover{opacity:1;background:rgba(26,39,68,0.05)}
+  .catbar-link.is-active{opacity:1;color:var(--red);box-shadow:inset 0 -3px 0 var(--red)}
+  .catbar-link .chev{width:11px;height:11px;opacity:0.6;transition:transform .2s ease}
+  .catbar-item:hover .chev{transform:rotate(180deg)}
+  .catbar-drop{position:absolute;top:100%;left:0;min-width:230px;background:#fff;border:1px solid var(--line);border-top:0;padding:8px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .16s ease, transform .16s ease, visibility .16s;box-shadow:0 24px 40px -16px rgba(26,39,68,0.25);z-index:46}
+  .catbar-item:hover .catbar-drop{opacity:1;visibility:visible;transform:translateY(0)}
+  .catbar-drop a{display:block;padding:9px 12px;font-family:var(--font-body);font-size:13px;font-weight:500;color:var(--cream);opacity:0.7;border-radius:3px;transition:background .12s ease, opacity .12s ease;letter-spacing:0.01em;text-transform:none}
+  .catbar-drop a:hover{background:rgba(26,39,68,0.07);opacity:1}
+  .catbar-scroll{margin-left:auto;display:flex;align-items:center}
+  @media (max-width:768px){
+    /* Mobile: catbar oculta — la hamburguesa ya cubre la navegación por categoría */
+    .catbar{display:none}
+  }

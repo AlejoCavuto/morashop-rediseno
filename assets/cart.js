@@ -7,7 +7,7 @@
   const STORAGE_KEY  = 'morashop_cart_v1';
   const COUPON_KEY   = 'morashop_coupon';
   const ENVIO_GRATIS_DESDE = 70000;   // ARS — umbral para envío gratis
-  const DESC_EFECTIVO       = 0.15;   // 15% efectivo
+  const DESC_EFECTIVO       = 0.15;   // 15% efectivo (contraentrega CABA/GBA)
   const DESC_TRANSFERENCIA  = 0.05;   // 5% transferencia
   const CUOTAS_TARJETA      = 3;      // cuotas s/i
 

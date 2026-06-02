@@ -41,6 +41,81 @@
   </div>
 </nav>
 
+<!-- BARRA DE CATEGORÍAS (fija, con dropdown de subcategorías) -->
+<div class="catbar">
+  <div class="container">
+    <div class="catbar-inner">
+      <div class="catbar-item">
+        <a class="catbar-link" href="suplementos.html">Suplementos
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="suplementos.html?tipo=vitaminas-salud">Vitaminas y Salud</a>
+          <a href="suplementos.html?tipo=proteinas">Proteínas</a>
+          <a href="suplementos.html?tipo=creatinas">Creatinas</a>
+          <a href="suplementos.html?tipo=bcaa-aminos">BCAA y aminoácidos</a>
+          <a href="suplementos.html?tipo=quemadores">Quemadores</a>
+          <a href="suplementos.html?tipo=pre-entrenos">Pre-entrenos</a>
+          <a href="suplementos.html?tipo=snacks-proteicos">Snacks proteicos</a>
+          <a href="suplementos.html?tipo=combos">Combos</a>
+          <a href="suplementos.html?tipo=ganadores">Ganadores de peso</a>
+          <a href="suplementos.html?tipo=cafeina-energia">Cafeína y energía</a>
+          <a href="suplementos.html?tipo=carbo-isotonicos">Carbohidratos · Isotónicos</a>
+        </div>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link is-active" href="supermercado.html">Supermercado
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="supermercado.html?tipo=aceites-vinagres">Aceites y vinagres</a>
+          <a href="supermercado.html?tipo=panales-absorbentes">Pañales y absorbentes</a>
+          <a href="supermercado.html?tipo=salsas-jarabes">Salsas y jarabes</a>
+          <a href="supermercado.html?tipo=pasta-mani">Pasta de maní</a>
+          <a href="supermercado.html?tipo=almacen-fit">Almacén fit</a>
+          <a href="supermercado.html?tipo=miel-endulzantes">Miel y endulzantes</a>
+          <a href="supermercado.html?tipo=yerba-mate">Yerba mate</a>
+        </div>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="electro.html">Electro-Hogar
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="electro.html?tipo=cocina-electrica">Cocina eléctrica</a>
+          <a href="electro.html?tipo=bano-espejos">Baño y espejos</a>
+          <a href="electro.html?tipo=salud-medicion">Salud y medición</a>
+          <a href="electro.html?tipo=cuidado-personal">Cuidado personal</a>
+          <a href="electro.html?tipo=grandes-electro">Grandes electro</a>
+          <a href="electro.html?tipo=limpieza">Limpieza</a>
+          <a href="electro.html?tipo=herramientas">Herramientas</a>
+          <a href="electro.html?tipo=climatizacion">Climatización</a>
+        </div>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="bananero.html">El Bananero</a>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="bodega.html">Bodega
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="bodega.html?tipo=vinos-tintos">Vinos tintos</a>
+          <a href="bodega.html?tipo=vinos-blancos">Vinos blancos</a>
+          <a href="bodega.html?tipo=destilados">Destilados</a>
+          <a href="bodega.html?tipo=espumantes">Espumantes</a>
+        </div>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="marcas.html">Marcas</a>
+      </div>
+      <div class="catbar-scroll">
+        <a class="catbar-link" href="#" style="color:var(--red);opacity:1;">Ofertas</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- MOBILE SEARCH BAR -->
 <div class="nav-search">
   <form role="search" action="index.html" method="get">
@@ -57,27 +132,43 @@
       <a href="index.html">Inicio</a><span class="sep">/</span><span>Supermercado</span>
     </div>
     <div class="cat-overline"></div>
-    <h1>Super-<br/>mercado</h1>
+    <h1>Supermercado</h1>
     <p class="desc">Snacks fit, bebidas funcionales, granos, aceites y básicos para tu cocina. Lo que te sostiene fuera del gym.</p>
   </div>
 </section>
 
-<!-- CARDS POR TIPO -->
+<!-- CARDS POR TIPO — 7 sub-cats reales del catálogo Tiendanube -->
 <section class="type-cards" aria-label="Categorías de supermercado">
   <div class="container">
     <h2 class="type-cards-title">Comprar por categoría</h2>
-    <div class="type-cards-grid type-cards-grid-3">
-      <button class="type-card" data-filter-type="almacen">
-        <span class="type-card-ic" aria-hidden="true">🥫</span>
-        <span class="type-card-name">Almacén</span>
+    <div class="type-cards-grid">
+      <button class="type-card" data-filter-type="aceites-vinagres">
+        <span class="type-card-ic" aria-hidden="true">🫒</span>
+        <span class="type-card-name">Aceites y vinagres</span>
       </button>
-      <button class="type-card" data-filter-type="bebidas">
-        <span class="type-card-ic" aria-hidden="true">🥤</span>
-        <span class="type-card-name">Bebidas</span>
+      <button class="type-card" data-filter-type="panales-absorbentes">
+        <span class="type-card-ic" aria-hidden="true">🍼</span>
+        <span class="type-card-name">Pañales y absorbentes</span>
       </button>
-      <button class="type-card" data-filter-type="cuidado-personal">
-        <span class="type-card-ic" aria-hidden="true">🧴</span>
-        <span class="type-card-name">Cuidado personal</span>
+      <button class="type-card" data-filter-type="salsas-jarabes">
+        <span class="type-card-ic" aria-hidden="true">🍯</span>
+        <span class="type-card-name">Salsas y jarabes</span>
+      </button>
+      <button class="type-card" data-filter-type="pasta-mani">
+        <span class="type-card-ic" aria-hidden="true">🥜</span>
+        <span class="type-card-name">Pasta de maní</span>
+      </button>
+      <button class="type-card" data-filter-type="almacen-fit">
+        <span class="type-card-ic" aria-hidden="true">🥗</span>
+        <span class="type-card-name">Almacén fit</span>
+      </button>
+      <button class="type-card" data-filter-type="miel-endulzantes">
+        <span class="type-card-ic" aria-hidden="true">🍯</span>
+        <span class="type-card-name">Miel y endulzantes</span>
+      </button>
+      <button class="type-card" data-filter-type="yerba-mate">
+        <span class="type-card-ic" aria-hidden="true">🧉</span>
+        <span class="type-card-name">Yerba mate</span>
       </button>
     </div>
   </div>
@@ -88,14 +179,17 @@
     <div class="pill-row">
       <span class="pill-label">Marca</span>
       <button class="pill active" data-group="brand" data-value="all">Todas</button>
-      <button class="pill" data-group="brand" data-value="SriSri">SriSri</button>
-      <button class="pill" data-group="brand" data-value="Dicomere">Dicomere</button>
       <button class="pill" data-group="brand" data-value="Entrenuts">Entrenuts</button>
-      <button class="pill" data-group="brand" data-value="Kos">Kos</button>
-      <button class="pill" data-group="brand" data-value="Q-Soft">Q-Soft</button>
+      <button class="pill" data-group="brand" data-value="Babysec">Babysec</button>
       <button class="pill" data-group="brand" data-value="Main Fusion">Main Fusion</button>
-      <button class="pill" data-group="brand" data-value="Integra">Integra</button>
-      <button class="pill" data-group="brand" data-value="Elegante">Elegante</button>
+      <button class="pill" data-group="brand" data-value="Laur">Laur</button>
+      <button class="pill" data-group="brand" data-value="Nonisec">Nonisec</button>
+      <button class="pill" data-group="brand" data-value="Crudda">Crudda</button>
+      <button class="pill" data-group="brand" data-value="Zuelo">Zuelo</button>
+      <button class="pill" data-group="brand" data-value="Zuccardi">Zuccardi</button>
+      <button class="pill" data-group="brand" data-value="Ladysoft">Ladysoft</button>
+      <button class="pill" data-group="brand" data-value="Ambos">Ambos</button>
+      <button class="pill" data-group="brand" data-value="Baldo">Baldo</button>
     </div>
   </div>
 </div>

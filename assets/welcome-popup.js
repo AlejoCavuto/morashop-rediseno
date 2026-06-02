@@ -1,5 +1,5 @@
 /* ==========================================================================
-   WELCOME POPUP — captura email primera visita, activa cupón BIENVENIDO 15%
+   WELCOME POPUP — captura email primera visita, activa cupón BIENVENIDO 10%
    --------------------------------------------------------------------------
    Aparece 6s después de la primera visita. Cerrable. Cookie de 30 días si
    se cierra sin claim, indefinido si se claimea.

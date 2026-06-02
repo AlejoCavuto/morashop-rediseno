@@ -81,10 +81,10 @@
   // CARD estilo ML (grilla) — limpio
   function cardHTML(p) {
     const href = productHref(p);
-    const now = toNum(p.price), disc = discount(p);
+    const now = toNum(p.price), was = toNum(p.was), disc = discount(p);
     const efectivo = precioEfectivo(now), cuota = precioCuota(now);
     const offBadge = disc >= 5 ? `<span class="mlcard-off">${disc}% OFF</span>` : '';
-    const discTxt = disc >= 5 ? `<span class="mlcard-disc">${disc}% OFF</span>` : '';
+    const savingsHTML = was > now ? `<div class="mlcard-savings">Ahorrás ${fmt(was - now)}</div>` : '';
     return `<a class="mlcard" href="${href}" data-id="${productId(p)}" data-types="${p.types.join(',')}" data-brand="${p.brand}">
       <div class="mlcard-ph">${offBadge}<img src="${p.img}" alt="${p.name}" loading="lazy" /></div>
       <div class="mlcard-info">
@@ -92,7 +92,8 @@
         <div class="mlcard-name">${p.name}</div>
         ${ratingHTML(p, 'card')}
         ${vendidosHTML(p, 'card')}
-        <div class="mlcard-price-row"><span class="mlcard-price">${fmt(now)}</span>${discTxt}</div>
+        <div class="mlcard-price-row"><span class="mlcard-price">${fmt(now)}</span></div>
+        ${savingsHTML}
         <div class="mlcard-efectivo"><strong>${fmt(efectivo)}</strong> en efectivo</div>
         <div class="mlcard-cuotas">3 cuotas sin interés de ${fmt(cuota)}</div>
         <div class="mlcard-foot"><button class="mlcard-add" type="button" data-add><svg class="cart-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg><span>Agregar</span></button></div>
@@ -125,6 +126,35 @@
 
   // Cuántos productos mostrar de entrada (resto con "Ver más")
   let mostrados = 24;
+
+  function renderEmptyState() {
+    const toolbar = document.querySelector('.cat-toolbar');
+    if (toolbar) toolbar.style.display = 'none';
+    const cardsSection = document.querySelector('.type-cards');
+    if (cardsSection) cardsSection.style.display = '';
+    const labels = {
+      suplementos: 'los suplementos',
+      supermercado: 'los productos del super',
+      electro: 'los electrodomésticos',
+      bananero: 'los vinos y destilados'
+    };
+    const label = labels[CURRENT_CAT] || 'los productos';
+    grid.innerHTML = `<div class="cat-empty-cta">
+      <h3>Elegí una categoría arriba para empezar</h3>
+      <p>Hacé click en una de las cards para ver los productos de esa categoría.</p>
+      <button class="cat-show-all-btn" type="button" data-show-all>Ver todos ${label} (${window.PRODUCTS.length}) →</button>
+    </div>`;
+    if (resultsEl) resultsEl.innerHTML = '';
+    const btn = grid.querySelector('[data-show-all]');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        document.body.dataset.showAll = '1';
+        apply();
+        const target = document.querySelector('.cat-body');
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  }
 
   function render(list) {
     if (!list.length) {
@@ -207,7 +237,7 @@
       if (nameEl && !card.querySelector('.type-card-count')) {
         const countEl = document.createElement('span');
         countEl.className = 'type-card-count';
-        countEl.textContent = `${n} productos`;
+        countEl.textContent = `${n} ${n === 1 ? 'producto' : 'productos'}`;
         nameEl.insertAdjacentElement('afterend', countEl);
       }
       card.dataset.countDone = '1';
@@ -219,12 +249,30 @@
     // Tipo: prioridad a type-cards si existen, sino fallback a pills (bananero)
     let typeValues;
     const cards = document.querySelectorAll('.type-card[data-filter-type]');
-    if (cards.length) {
+    const hasCards = cards.length > 0;
+    if (hasCards) {
       typeValues = [...document.querySelectorAll('.type-card.active')].map(c => c.dataset.filterType);
     } else {
       typeValues = [...document.querySelectorAll('.pill[data-group="type"].active')].map(p => p.dataset.value);
     }
     const brandPills = [...document.querySelectorAll('.pill[data-group="brand"].active')].map(p => p.dataset.value);
+
+    // EMPTY STATE: en pages con cards + sin filtro de tipo + sin filtro de marca (o solo "all") + sin showAll → solo CTA
+    const noTypeFilter = !typeValues.length || typeValues.includes('all');
+    const noBrandFilter = !brandPills.length || brandPills.every(v => v === 'all');
+    const showAll = document.body.dataset.showAll === '1';
+    if (hasCards && noTypeFilter && noBrandFilter && !showAll) {
+      renderEmptyState();
+      return;
+    }
+    // Mostrar toolbar (puede haber estado oculta por empty state)
+    const toolbar = document.querySelector('.cat-toolbar');
+    if (toolbar) toolbar.style.display = '';
+    // Cards de categoría: ocultar cuando showAll (usuario eligió ver todo, ya filtra con pills/sort)
+    // Mantener visibles cuando una card está activa (para que pueda cambiar de tipo)
+    const cardsSection = document.querySelector('.type-cards');
+    if (cardsSection) cardsSection.style.display = showAll ? 'none' : '';
+
     if (typeValues.length && !typeValues.includes('all')) list = list.filter(p => p.types.some(t => typeValues.includes(t)));
     if (brandPills.length && !brandPills.includes('all')) list = list.filter(p => brandPills.includes(p.brand));
     const sort = document.getElementById('sort')?.value;

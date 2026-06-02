@@ -73,10 +73,10 @@
   .hamb{display:none}
   .hamb-mobile{display:none}
   /* Mobile search bar (solo aparece en mobile, debajo del nav) */
-  .nav-search{display:none;position:sticky;top:74px;z-index:49;background:rgba(255,255,255,0.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft);padding:10px var(--pad-x)}
+  .nav-search{display:none;position:sticky;top:74px;z-index:48;background:rgba(255,255,255,0.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft);padding:10px var(--pad-x)}
   .nav-search form{display:flex;align-items:center;gap:10px;background:rgba(26,39,68,0.06);border:1px solid var(--line);border-radius:999px;padding:10px 16px;transition:border-color .15s ease, background .15s ease}
   .nav-search form:focus-within{border-color:rgba(26,39,68,0.4);background:rgba(26,39,68,0.10)}
-  .nav-search input{flex:1;background:transparent;border:0;outline:none;color:var(--cream);font-family:var(--font-b);font-size:14px;font-weight:500;padding:0}
+  .nav-search input{flex:1;background:transparent;border:0;outline:none;color:var(--cream);font-family:var(--font-b);font-size:16px;font-weight:500;padding:0}
   .nav-search input::placeholder{color:rgba(26,39,68,0.45)}
   .nav-search button{display:grid;place-items:center;background:transparent;border:0;color:var(--cream);opacity:0.7;cursor:pointer;flex-shrink:0}
   .nav-search button:hover{opacity:1}
@@ -257,9 +257,10 @@
   @keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(74,222,128,0.22)}50%{box-shadow:0 0 0 8px rgba(74,222,128,0)}}
 
   /* ---------- FLOATING WHATSAPP ---------- */
-  .wa-float{position:fixed;right:24px;bottom:24px;width:56px;height:56px;border-radius:999px;background:#25D366;color:#fff;display:grid;place-items:center;z-index:80;box-shadow:0 10px 24px -6px rgba(0,0,0,0.45),0 4px 10px rgba(0,0,0,0.25);transition:transform .2s ease, box-shadow .2s ease}
+  .wa-float{position:fixed;right:24px;bottom:24px;width:56px;height:56px;border-radius:999px;background:#25D366;color:#fff;display:grid;place-items:center;z-index:80;box-shadow:0 10px 24px -6px rgba(0,0,0,0.45),0 4px 10px rgba(0,0,0,0.25);transition:transform .2s ease, box-shadow .2s ease, opacity .25s ease}
   .wa-float:hover{transform:scale(1.08);box-shadow:0 14px 28px -6px rgba(0,0,0,0.5),0 6px 12px rgba(0,0,0,0.3)}
   .wa-float svg{width:30px;height:30px;display:block}
+  .wa-float.is-dimmed{opacity:0.25;transform:scale(0.85);pointer-events:none}
   @media (max-width:768px){.wa-float{right:16px;bottom:16px}}
 
   /* ---------- FOOTER ---------- */
@@ -294,84 +295,6 @@
   .sr-seeall{display:block;text-align:center;font-family:var(--font-b);font-weight:700;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--cream);padding:18px 0;margin-top:6px;border-top:1px solid var(--line-soft);opacity:0.75;transition:opacity .15s ease, color .15s ease}
   .sr-seeall:hover{opacity:1;color:var(--red)}
 
-  /* ---------- QUIZ ENTRY BLOCK ---------- */
-  .quiz-entry{background:var(--navy);padding:clamp(60px,8vw,110px) 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);position:relative;overflow:hidden}
-  .quiz-entry-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center;position:relative;z-index:2}
-  .quiz-entry .eyebrow{font-size:11px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--cream);opacity:0.55;margin-bottom:18px;display:block}
-  .quiz-entry h2{font-family:var(--font-d);font-weight:900;font-size:clamp(40px,5.5vw,80px);line-height:0.9;letter-spacing:-0.015em;text-transform:uppercase;color:var(--cream);margin:0 0 18px}
-  .quiz-entry p.sub{font-size:16px;line-height:1.55;color:var(--cream);opacity:0.7;max-width:480px;margin:0 0 32px}
-  .quiz-entry .qbtn{padding:18px 28px;font-family:var(--font-d);font-weight:800;font-size:14px;letter-spacing:0.16em;text-transform:uppercase;border:1.5px solid var(--cream);color:var(--cream);background:transparent;border-radius:2px;display:inline-flex;align-items:center;gap:12px;transition:background .18s ease, color .18s ease, transform .18s ease}
-  .quiz-entry .qbtn:hover{background:var(--cream);color:var(--ink);transform:translateY(-1px)}
-  .quiz-entry .qbtn .arr{transition:transform .2s ease}
-  .quiz-entry .qbtn:hover .arr{transform:translateX(4px)}
-  .quiz-entry-deco{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center;opacity:0.5}
-  .quiz-entry-deco::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg, transparent 0%, var(--navy) 92%);pointer-events:none}
-  .quiz-entry-deco .qpic{aspect-ratio:1/1;background:#fff;border:1px solid var(--line-soft);display:grid;place-items:center;padding:18px}
-  .quiz-entry-deco .qpic img{max-width:75%;max-height:75%;object-fit:contain;filter:drop-shadow(0 14px 22px rgba(0,0,0,0.5))}
-  .quiz-entry-deco .qpic:nth-child(2){transform:translateY(24px)}
-
-  /* ---------- QUIZ MODAL ---------- */
-  .quiz-modal{position:fixed;inset:0;z-index:100;background:rgba(255,255,255,0.98);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;overflow-y:auto}
-  .quiz-modal.open{display:block;animation:qm-in .35s cubic-bezier(.2,.7,.2,1)}
-  @keyframes qm-in{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
-  body.quiz-locked{overflow:hidden}
-  .qm-progress{position:sticky;top:0;left:0;right:0;height:3px;background:rgba(26,39,68,0.08);z-index:2}
-  .qm-progress-bar{height:100%;background:var(--red);width:33%;transition:width .35s ease}
-  .qm-bar{display:flex;align-items:center;justify-content:space-between;padding:22px var(--pad-x);max-width:1440px;margin:0 auto;width:100%;position:sticky;top:3px;background:rgba(255,255,255,0.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:2}
-  .qm-back{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--cream);opacity:0.55;transition:opacity .15s ease;font-family:var(--font-b);visibility:hidden;background:transparent;border:0;cursor:pointer}
-  .qm-back.show{visibility:visible}
-  .qm-back:hover{opacity:1}
-  .qm-step-label{font-size:11px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--cream);opacity:0.4}
-  .qm-close{width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--line);border-radius:999px;color:var(--cream);background:transparent;transition:border-color .15s ease, background .15s ease;cursor:pointer}
-  .qm-close:hover{border-color:var(--cream);background:rgba(26,39,68,0.06)}
-  .qm-stage{max-width:1100px;margin:0 auto;padding:clamp(40px,8vw,80px) var(--pad-x) 80px}
-  .qm-step{display:none}
-  .qm-step.active{display:block;animation:qm-step-in .3s ease}
-  @keyframes qm-step-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-  .qm-step h2{font-family:var(--font-d);font-weight:900;font-size:clamp(36px,6vw,84px);line-height:0.9;letter-spacing:-0.015em;text-transform:uppercase;color:var(--cream);margin:0 0 12px;max-width:18ch}
-  .qm-step .qm-sub{font-size:15px;color:var(--cream);opacity:0.6;margin:0 0 48px;max-width:480px}
-  .qm-options{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-  .qm-options.three{grid-template-columns:repeat(3,1fr)}
-  .qm-opt{background:rgba(26,39,68,0.25);border:1.5px solid rgba(26,39,68,0.2);padding:clamp(28px,4vw,44px) clamp(22px,3vw,32px);min-height:160px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;text-align:left;cursor:pointer;transition:border-color .2s ease, background .2s ease, transform .15s ease;font-family:var(--font-d);font-weight:800;font-size:clamp(22px,2.4vw,30px);line-height:1.05;letter-spacing:0.005em;text-transform:uppercase;color:var(--cream);border-radius:2px}
-  .qm-opt:hover{border-color:rgba(26,39,68,0.5);background:rgba(26,39,68,0.45);transform:translateY(-2px)}
-  .qm-opt.selected{border-color:var(--red);background:rgba(232,52,26,0.08)}
-  .qm-opt .qm-opt-num{font-family:var(--font-d);font-weight:900;font-size:13px;letter-spacing:0.2em;opacity:0.45;font-weight:700}
-  .qm-opt .qm-opt-arrow{align-self:flex-end;opacity:0.5;transition:opacity .2s ease, transform .2s ease}
-  .qm-opt:hover .qm-opt-arrow{opacity:1;transform:translateX(4px)}
-
-  /* RESULTS STEP */
-  .qm-results-head{margin-bottom:48px}
-  .qm-results-head h2{margin-bottom:14px}
-  .qm-results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
-  .qm-results-grid.two{grid-template-columns:repeat(2,1fr);max-width:760px}
-  .qm-rcard{background:var(--ink);border:1px solid var(--line-soft);display:flex;flex-direction:column;overflow:hidden;transition:border-color .2s ease, transform .25s ease}
-  .qm-rcard:hover{border-color:var(--line);transform:translateY(-3px)}
-  .qm-rcard .ph{flex:1;display:grid;place-items:center;padding:24px;min-height:220px;background:var(--ink)}
-  .qm-rcard .ph img{max-width:75%;max-height:75%;object-fit:contain;filter:drop-shadow(0 24px 36px rgba(0,0,0,0.55))}
-  .qm-rcard .info{padding:0 22px 22px;display:flex;flex-direction:column;gap:6px}
-  .qm-rcard .brand{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;opacity:0.55}
-  .qm-rcard .name{font-family:var(--font-d);font-weight:800;font-size:20px;line-height:1.1;text-transform:uppercase;margin:4px 0 14px}
-  .qm-rcard .row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto}
-  .qm-rcard .price{font-family:var(--font-d);font-weight:900;font-size:24px;line-height:1}
-  .qm-rcard .add{background:var(--red);color:#fff;padding:11px 16px;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;border:0;border-radius:2px;font-family:var(--font-b);cursor:pointer;transition:background .15s ease}
-  .qm-rcard .add:hover{background:var(--red-deep)}
-  .qm-disclaimer{font-size:13px;color:var(--cream);opacity:0.45;max-width:640px;margin:0 0 36px;line-height:1.55}
-  .qm-results-cta{display:flex;gap:12px;flex-wrap:wrap}
-  .qm-results-cta .btn-outline{border:1.5px solid var(--cream);color:var(--cream);padding:16px 26px;font-family:var(--font-d);font-weight:800;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;border-radius:2px;transition:background .18s ease, color .18s ease;display:inline-flex;align-items:center;gap:10px;cursor:pointer;background:transparent}
-  .qm-results-cta .btn-outline:hover{background:var(--cream);color:var(--ink)}
-
-  @media (max-width:1024px){
-    .quiz-entry-grid{grid-template-columns:1fr;gap:32px}
-    .quiz-entry-deco{display:none}
-  }
-  @media (max-width:768px){
-    .qm-stage{padding:24px var(--pad-x) 64px}
-    .qm-bar{padding:16px var(--pad-x)}
-    .qm-options,.qm-options.three{grid-template-columns:1fr;gap:10px}
-    .qm-opt{min-height:auto;padding:24px 22px}
-    .qm-results-grid,.qm-results-grid.two{grid-template-columns:1fr;gap:12px}
-    .quiz-entry .qbtn{width:100%;justify-content:center}
-  }
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:1024px){
@@ -455,13 +378,8 @@
   .catbar-drop a:hover{background:rgba(26,39,68,0.07);opacity:1}
   .catbar-scroll{margin-left:auto;display:flex;align-items:center}
   @media (max-width:768px){
-    /* En mobile la catbar pasa a scroll horizontal sin dropdowns */
-    .catbar{top:auto;position:static}
-    .catbar-inner{height:44px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
-    .catbar-inner::-webkit-scrollbar{display:none}
-    .catbar-link{padding:0 14px;font-size:11px}
-    .catbar-link .chev{display:none}
-    .catbar-drop{display:none}
+    /* Mobile: catbar oculta — la hamburguesa ya cubre la navegación por categoría */
+    .catbar{display:none}
   }
 
   /* ---------- BLOQUES ML (grilla 2x4 de productos) ---------- */
@@ -545,20 +463,22 @@
   }
 
   /* Card estilo ML */
-  .mlcard{background:#fff;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:transform .2s ease, box-shadow .2s ease;cursor:pointer;box-shadow:0 1px 3px rgba(26,39,68,0.08)}
-  .mlcard:hover{transform:translateY(-3px);box-shadow:0 12px 28px -8px rgba(26,39,68,0.22)}
+  .mlcard{background:#fff;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:transform .2s ease, box-shadow .2s ease;cursor:pointer;box-shadow:0 1px 3px rgba(26,39,68,0.08);min-width:0}
+  @media (hover:hover) and (pointer:fine){
+    .mlcard:hover{transform:translateY(-3px);box-shadow:0 12px 28px -8px rgba(26,39,68,0.22)}
+  }
   .mlcard-ph{position:relative;background:#fff;aspect-ratio:1/1;display:grid;place-items:center;padding:18px}
   .mlcard-ph img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
   .mlcard-off{position:absolute;top:10px;left:10px;background:var(--red);color:#fff;font-family:var(--font-b);font-weight:800;font-size:11px;letter-spacing:0.02em;padding:5px 9px;border-radius:4px;z-index:2}
-  .mlcard-info{padding:12px 14px 16px;display:flex;flex-direction:column;flex:1}
+  .mlcard-info{padding:12px 14px 16px;display:flex;flex-direction:column;flex:1;min-width:0}
   .mlcard-brand{font-family:var(--font-b);font-size:10px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:#8a8f98;margin-bottom:4px}
-  .mlcard-name{font-family:var(--font-b);font-size:13.5px;font-weight:400;line-height:1.32;color:#2d3138;margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.64em}
+  .mlcard-name{font-family:var(--font-b);font-size:13.5px;font-weight:400;line-height:1.32;color:#2d3138;margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;min-height:2.64em;max-height:2.64em}
   .mlcard-was{font-family:var(--font-b);font-size:12px;color:#9aa0a8;text-decoration:line-through;line-height:1;margin-bottom:3px}
   .mlcard-price-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
   .mlcard-price{font-family:var(--font-b);font-weight:600;font-size:21px;line-height:1;color:#1a1d22;letter-spacing:-0.01em;white-space:nowrap}
   .mlcard-disc{font-family:var(--font-b);font-weight:700;font-size:12.5px;color:#00a650;line-height:1}
-  .mlcard-cuotas{font-family:var(--font-b);font-size:12px;color:var(--red);font-weight:600;line-height:1.3;margin-top:4px}
-  .mlcard-savings{font-family:var(--font-b);font-size:12px;font-weight:600;color:var(--red);line-height:1.2;margin-top:4px}
+  .mlcard-cuotas{font-family:var(--font-b);font-size:12px;color:#00a650;font-weight:600;line-height:1.3;margin-top:4px}
+  .mlcard-savings{font-family:var(--font-b);font-size:12px;font-weight:700;color:#00a650;line-height:1.2;margin-top:4px}
   .mlcard-stock{font-family:var(--font-b);font-size:11.5px;font-weight:600;color:#00a650;line-height:1.2;margin-top:6px}
   .mlcard-stock.urgente{color:var(--red);font-weight:700}
   .mlcard-vendidos{font-family:var(--font-b);font-size:11px;color:#8a8f98;font-weight:500;letter-spacing:0.01em;margin:2px 0 6px}
@@ -584,20 +504,22 @@
   /* Variante LISTA VERTICAL — rediseñada: cards individuales con sombra, foto grande, layout 3 col */
   .mllist{display:flex;flex-direction:column;gap:12px;background:transparent;box-shadow:none}
   .mlrow-item{display:grid;grid-template-columns:140px 1fr auto;align-items:center;gap:20px;padding:18px 22px;background:#fff;border-radius:10px;border:1px solid var(--line-soft);box-shadow:0 1px 3px rgba(26,39,68,0.06);text-decoration:none;transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;cursor:pointer;position:relative}
-  .mlrow-item:hover{transform:translateY(-2px);box-shadow:0 12px 24px -8px rgba(26,39,68,0.18);border-color:var(--line)}
+  @media (hover:hover) and (pointer:fine){
+    .mlrow-item:hover{transform:translateY(-2px);box-shadow:0 12px 24px -8px rgba(26,39,68,0.18);border-color:var(--line)}
+  }
   .mlrow-ph{width:140px;height:140px;background:#F4F5F7;border-radius:8px;display:grid;place-items:center;padding:14px;position:relative;overflow:hidden}
   .mlrow-ph img{max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(26,39,68,0.10))}
   .mlrow-off{position:absolute;top:8px;left:8px;background:var(--red);color:#fff;font-family:var(--font-b);font-weight:800;font-size:10.5px;letter-spacing:0.02em;padding:4px 7px;border-radius:4px;line-height:1;z-index:2}
   .mlrow-body{min-width:0;display:flex;flex-direction:column;gap:4px}
   .mlrow-brand{font-family:var(--font-b);font-size:10.5px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8a8f98;margin-bottom:2px}
-  .mlrow-name{font-family:var(--font-b);font-size:15px;font-weight:500;line-height:1.32;color:#1a1d22;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:6px}
+  .mlrow-name{font-family:var(--font-b);font-size:15px;font-weight:500;line-height:1.32;color:#1a1d22;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;max-height:2.64em;margin-bottom:6px}
   .mlrow-was{font-family:var(--font-b);font-size:12px;color:#9aa0a8;text-decoration:line-through;line-height:1}
   .mlrow-priceline{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:2px}
   .mlrow-price{font-family:var(--font-b);font-weight:700;font-size:22px;color:#1a1d22;line-height:1.1;letter-spacing:-0.01em;white-space:nowrap}
   .mlrow-disc{font-family:var(--font-b);font-weight:700;font-size:12px;color:#00a650}
   .mlrow-disc{font-family:var(--font-b);font-weight:700;font-size:13px;color:#00a650;line-height:1}
-  .mlrow-cuotas{font-family:var(--font-b);font-size:12.5px;color:var(--red);font-weight:600;line-height:1.3;margin-top:4px}
-  .mlrow-savings{font-family:var(--font-b);font-size:12.5px;font-weight:700;color:var(--red);line-height:1.2;margin-top:4px}
+  .mlrow-cuotas{font-family:var(--font-b);font-size:12.5px;color:#00a650;font-weight:600;line-height:1.3;margin-top:4px}
+  .mlrow-savings{font-family:var(--font-b);font-size:12.5px;font-weight:700;color:#00a650;line-height:1.2;margin-top:4px}
   /* Columna derecha: acciones */
   .mlrow-actions{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
   .mlrow-add{background:var(--cream);color:#fff;border:0;border-radius:6px;padding:11px 16px;font-family:var(--font-b);font-weight:700;font-size:11.5px;letter-spacing:0.06em;text-transform:uppercase;transition:background .15s ease, transform .15s ease;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:7px;min-width:140px;justify-content:center}
@@ -611,16 +533,35 @@
     .mlblock{padding:clamp(28px,6vw,40px) 0}
     .mlgrid{grid-template-columns:repeat(2,1fr);gap:10px}
     .mlcard-info{padding:10px 11px 13px}
-    .mlcard-name{font-size:12.5px}
-    .mlcard-price{font-size:18px}
+    .mlcard-name{font-size:12.5px;margin-bottom:6px;min-height:2.4em}
+    /* Precio mobile: más grande, más bold, ML-style */
+    .mlcard-price{font-size:22px;font-weight:700;letter-spacing:-0.02em;line-height:1}
+    .mlcard-price-row{margin-top:2px}
     .mlblock-head h2{font-size:24px}
+    /* Mobile: cards minimalistas — solo precio + badge OFF. Efectivo/cuotas detalle en PDP y checkout. */
+    .mlcard-vendidos,.mlrow-vendidos{display:none}
+    .mlcard-savings,.mlrow-savings{display:none}
+    .mlcard-efectivo,.mlrow-efectivo{display:none}
+    .mlcard-efectivo-note{display:none}
+    .mlcard-cuotas,.mlrow-cuotas{display:none}
     /* Lista vertical en mobile: 2 columnas (foto + info), botón abajo full-width */
     .mlrow-item{grid-template-columns:96px 1fr;gap:12px;padding:14px}
     .mlrow-ph{width:96px;height:96px;padding:8px;border-radius:6px}
     .mlrow-name{font-size:13.5px}
-    .mlrow-price{font-size:18px}
-    .mlrow-actions{grid-column:1 / -1;flex-direction:row;align-items:center;justify-content:space-between;margin-top:6px;padding-top:10px;border-top:1px solid var(--line-soft)}
-    .mlrow-add{padding:12px 16px;font-size:11px;min-width:auto;flex:1}
+    .mlrow-price{font-size:22px;font-weight:700;letter-spacing:-0.02em}
+    .mlrow-actions{grid-column:1 / -1;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;margin-top:6px;padding-top:10px;border-top:1px solid var(--line-soft)}
+    .mlrow-was{display:none}
+    .mlrow-priceline{margin-top:0}
+    .mlrow-add{padding:12px 18px;font-size:11px;min-width:auto;flex:initial}
+  }
+  @media (max-width:480px){
+    .mlcard-info{padding:8px 9px 11px}
+    .mlcard-add{padding:10px 12px;font-size:11px;letter-spacing:0.03em}
+    .mlcard-cuotas,.mlcard-efectivo{font-size:11px}
+    .mlcard-rating{font-size:10.5px}
+  }
+  @media (max-width:380px){
+    .mlcard-rating{display:none}
   }
 
   /* ---------- (Hero perks viejos reemplazados por .trust-strip arriba) ---------- */
@@ -713,14 +654,17 @@
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         </a>
         <div class="catbar-drop">
+          <a href="suplementos.html?tipo=vitaminas-salud">Vitaminas y Salud</a>
           <a href="suplementos.html?tipo=proteinas">Proteínas</a>
           <a href="suplementos.html?tipo=creatinas">Creatinas</a>
-          <a href="suplementos.html?tipo=pre-entrenos">Pre-entrenos</a>
-          <a href="suplementos.html?tipo=bcaa">BCAA y aminoácidos</a>
+          <a href="suplementos.html?tipo=bcaa-aminos">BCAA y aminoácidos</a>
           <a href="suplementos.html?tipo=quemadores">Quemadores</a>
-          <a href="suplementos.html?tipo=barras">Barras y geles</a>
-          <a href="suplementos.html?tipo=vitaminas">Vitaminas</a>
+          <a href="suplementos.html?tipo=pre-entrenos">Pre-entrenos</a>
+          <a href="suplementos.html?tipo=snacks-proteicos">Snacks proteicos</a>
           <a href="suplementos.html?tipo=combos">Combos</a>
+          <a href="suplementos.html?tipo=ganadores">Ganadores de peso</a>
+          <a href="suplementos.html?tipo=cafeina-energia">Cafeína y energía</a>
+          <a href="suplementos.html?tipo=carbo-isotonicos">Carbohidratos · Isotónicos</a>
         </div>
       </div>
       <div class="catbar-item">
@@ -728,9 +672,13 @@
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         </a>
         <div class="catbar-drop">
-          <a href="supermercado.html?tipo=almacen">Almacén</a>
-          <a href="supermercado.html?tipo=bebidas">Bebidas</a>
-          <a href="supermercado.html?tipo=cuidado-personal">Cuidado personal</a>
+          <a href="supermercado.html?tipo=aceites-vinagres">Aceites y vinagres</a>
+          <a href="supermercado.html?tipo=panales-absorbentes">Pañales y absorbentes</a>
+          <a href="supermercado.html?tipo=salsas-jarabes">Salsas y jarabes</a>
+          <a href="supermercado.html?tipo=pasta-mani">Pasta de maní</a>
+          <a href="supermercado.html?tipo=almacen-fit">Almacén fit</a>
+          <a href="supermercado.html?tipo=miel-endulzantes">Miel y endulzantes</a>
+          <a href="supermercado.html?tipo=yerba-mate">Yerba mate</a>
         </div>
       </div>
       <div class="catbar-item">
@@ -738,21 +686,35 @@
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         </a>
         <div class="catbar-drop">
-          <a href="electro.html?tipo=cocina">Electro de cocina</a>
-          <a href="electro.html?tipo=hogar">Hogar y bazar</a>
+          <a href="electro.html?tipo=cocina-electrica">Cocina eléctrica</a>
+          <a href="electro.html?tipo=bano-espejos">Baño y espejos</a>
+          <a href="electro.html?tipo=salud-medicion">Salud y medición</a>
+          <a href="electro.html?tipo=cuidado-personal">Cuidado personal</a>
+          <a href="electro.html?tipo=grandes-electro">Grandes electro</a>
+          <a href="electro.html?tipo=limpieza">Limpieza</a>
+          <a href="electro.html?tipo=herramientas">Herramientas</a>
+          <a href="electro.html?tipo=climatizacion">Climatización</a>
         </div>
       </div>
       <div class="catbar-item">
         <a class="catbar-link" href="bananero.html">El Bananero</a>
       </div>
       <div class="catbar-item">
-        <a class="catbar-link" href="bodega.html">Bodega</a>
+        <a class="catbar-link" href="bodega.html">Bodega
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="bodega.html?tipo=vinos-tintos">Vinos tintos</a>
+          <a href="bodega.html?tipo=vinos-blancos">Vinos blancos</a>
+          <a href="bodega.html?tipo=destilados">Destilados</a>
+          <a href="bodega.html?tipo=espumantes">Espumantes</a>
+        </div>
       </div>
       <div class="catbar-item">
         <a class="catbar-link" href="marcas.html">Marcas</a>
       </div>
       <div class="catbar-scroll">
-        <a class="catbar-link" href="#" style="color:var(--red);opacity:1;">Ofertas</a>
+        <a class="catbar-link" href="suplementos.html" style="color:var(--red);opacity:1;">Ofertas</a>
       </div>
     </div>
   </div>
@@ -764,7 +726,7 @@
     <button type="button" aria-label="Buscar" id="navSearchBtn">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
     </button>
-    <input type="search" id="navSearchInput" placeholder="¿Qué estás buscando?" autocomplete="off" />
+    <input type="search" id="navSearchInput" placeholder="¿Qué estás buscando?" autocomplete="off" inputmode="search" readonly />
   </form>
 </div>
 
@@ -794,131 +756,6 @@
 <!-- BLOQUES ML (grilla 2x4 de productos reales — se rellenan por JS) -->
 <div id="mlBlocks"></div>
 
-<!-- QUIZ ENTRY -->
-<section class="quiz-entry" aria-labelledby="quizEntryTitle">
-  <div class="container">
-    <div class="quiz-entry-grid">
-      <div>
-        <span class="eyebrow">Para el que empieza</span>
-        <h2 id="quizEntryTitle">¿No sabés<br/>por dónde<br/>empezar?</h2>
-        <p class="sub">Respondé 3 preguntas y te recomendamos qué llevar. Una guía inicial — no reemplaza el consejo de un profesional.</p>
-        <button class="qbtn" id="quizOpenBtn" type="button">Encontrá tu suplemento <span class="arr">→</span></button>
-      </div>
-      <div class="quiz-entry-deco" aria-hidden="true">
-        <div class="qpic"><img src="assets/products/whey-star-choc.png" alt="" /></div>
-        <div class="qpic"><img src="assets/products/creatina-ena-doypack.png" alt="" /></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- QUIZ MODAL -->
-<div class="quiz-modal" id="quizModal" role="dialog" aria-modal="true" aria-labelledby="quizModalTitle" aria-hidden="true">
-  <div class="qm-progress" aria-hidden="true"><div class="qm-progress-bar" id="qmProgressBar"></div></div>
-  <div class="qm-bar">
-    <button class="qm-back" id="qmBack" type="button" aria-label="Volver">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      Volver
-    </button>
-    <div class="qm-step-label" id="qmStepLabel">Pregunta 1 de 3</div>
-    <button class="qm-close" id="qmClose" type="button" aria-label="Cerrar quiz">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-    </button>
-  </div>
-  <div class="qm-stage">
-    <!-- Q1: Objetivo -->
-    <div class="qm-step active" data-step="1" data-q="goal">
-      <span class="overline" style="margin-bottom:18px;display:block"></span>
-      <h2 id="quizModalTitle">¿Qué querés<br/>lograr?</h2>
-      <p class="qm-sub">Tu objetivo principal hoy. Después podés ajustar.</p>
-      <div class="qm-options">
-        <button class="qm-opt" data-value="weight-loss" type="button">
-          <span class="qm-opt-num">— 01</span>
-          <span>Bajar<br/>de peso</span>
-          <span class="qm-opt-arrow">→</span>
-        </button>
-        <button class="qm-opt" data-value="muscle" type="button">
-          <span class="qm-opt-num">— 02</span>
-          <span>Ganar<br/>músculo</span>
-          <span class="qm-opt-arrow">→</span>
-        </button>
-        <button class="qm-opt" data-value="performance" type="button">
-          <span class="qm-opt-num">— 03</span>
-          <span>Mejorar mi<br/>rendimiento</span>
-          <span class="qm-opt-arrow">→</span>
-        </button>
-        <button class="qm-opt" data-value="health" type="button">
-          <span class="qm-opt-num">— 04</span>
-          <span>Cuidar<br/>mi salud</span>
-          <span class="qm-opt-arrow">→</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Q2: Nivel -->
-    <div class="qm-step" data-step="2" data-q="level">
-      <span class="overline" style="margin-bottom:18px;display:block"></span>
-      <h2>¿Hace cuánto<br/>entrenás?</h2>
-      <p class="qm-sub">Para calibrar la recomendación según tu nivel.</p>
-      <div class="qm-options three">
-        <button class="qm-opt" data-value="new" type="button">
-          <span class="qm-opt-num">— 01</span>
-          <span>Soy<br/>nuevo</span>
-          <span class="qm-opt-arrow">→</span>
-        </button>
-        <button class="qm-opt" data-value="some" type="button">
-          <span class="qm-opt-num">— 02</span>
-          <span>Tengo algo<br/>de experiencia</span>
-          <span class="qm-opt-arrow">→</span>
-        </button>
-        <button class="qm-opt" data-value="experienced" type="button">
-          <span class="qm-opt-num">— 03</span>
-          <span>Entreno<br/>hace tiempo</span>
-          <span class="qm-opt-arrow">→</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Q3: Restricción -->
-    <div class="qm-step" data-step="3" data-q="restriction">
-      <span class="overline" style="margin-bottom:18px;display:block"></span>
-      <h2>¿Tenés alguna<br/>restricción?</h2>
-      <p class="qm-sub">Filtramos los productos que aplican a tu caso.</p>
-      <div class="qm-options three">
-        <button class="qm-opt" data-value="none" type="button">
-          <span class="qm-opt-num">— 01</span>
-          <span>Ninguna</span>
-          <span class="qm-opt-arrow">→</span>
-        </button>
-        <button class="qm-opt" data-value="gluten-free" type="button">
-          <span class="qm-opt-num">— 02</span>
-          <span>Sin<br/>TACC</span>
-          <span class="qm-opt-arrow">→</span>
-        </button>
-        <button class="qm-opt" data-value="vegan" type="button">
-          <span class="qm-opt-num">— 03</span>
-          <span>Vegano</span>
-          <span class="qm-opt-arrow">→</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Resultados -->
-    <div class="qm-step" data-step="4">
-      <div class="qm-results-head">
-        <span class="overline" style="margin-bottom:18px;display:block"></span>
-        <h2>Esto es lo que<br/>te recomendamos.</h2>
-        <p class="qm-sub" id="qmResultsSub">Combinación armada en base a tus respuestas.</p>
-      </div>
-      <div class="qm-results-grid" id="qmResultsGrid"></div>
-      <p class="qm-disclaimer">Esta es una sugerencia general. Para una recomendación personalizada consultá con un profesional de la salud o nutrición deportiva.</p>
-      <div class="qm-results-cta">
-        <button class="btn-outline" id="qmRestart" type="button">Volver a empezar <span class="arr">↺</span></button>
-        <a class="btn-outline" href="suplementos.html">Ver todo el catálogo <span class="arr">→</span></a>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script src="assets/cart.js" defer></script>
 <script>
@@ -932,7 +769,25 @@
     const btn = e.target.querySelector('button');
     btn.textContent = '¡Suscripto ✓!';
     btn.disabled = true;
-    setTimeout(() => { e.target.reset(); btn.textContent = 'Quiero mi cupón'; btn.disabled = false; }, 3500);
+    setTimeout(() => { e.target.reset(); btn.textContent = 'Suscribirme'; btn.disabled = false; }, 3500);
+  });
+
+  // WhatsApp flotante: atenuarse cuando la prefoot o el footer entran en viewport
+  // para no solaparse con el botón "Suscribirme" / links del footer en mobile.
+  document.addEventListener('DOMContentLoaded', () => {
+    const wa = document.querySelector('.wa-float');
+    if (!wa || !('IntersectionObserver' in window)) return;
+    const targets = [document.querySelector('.prefoot'), document.querySelector('footer')].filter(Boolean);
+    if (!targets.length) return;
+    const visible = new WeakSet();
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) visible.add(en.target);
+        else visible.delete(en.target);
+      });
+      wa.classList.toggle('is-dimmed', targets.some(t => visible.has(t)));
+    }, { threshold: 0.05 });
+    targets.forEach(t => io.observe(t));
   });
 </script>
 <script src="assets/promo-bar.js" defer></script>
@@ -941,7 +796,7 @@
 
 
 <!-- FLOATING WHATSAPP -->
-<a class="wa-float" href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">
+<a class="wa-float" href="https://wa.me/5491100000000" target="_blank" rel="noopener" aria-label="WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.92.5 3.78 1.46 5.43L2 22l4.78-1.55a9.85 9.85 0 0 0 5.26 1.5c5.45 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 17.92c-1.6 0-3.17-.43-4.55-1.24l-.33-.2-3.16 1.02 1.04-3.06-.22-.34a8.05 8.05 0 0 1-1.27-4.31c0-4.5 3.66-8.17 8.17-8.17 4.5 0 8.17 3.66 8.17 8.17.01 4.51-3.66 8.13-8.16 8.13zm4.47-6.13c-.25-.13-1.45-.72-1.68-.8-.22-.08-.39-.13-.55.13-.16.25-.62.79-.76.95-.14.16-.28.18-.52.06-.25-.13-1.04-.38-1.99-1.22-.73-.65-1.23-1.46-1.37-1.71-.14-.25-.02-.39.11-.51.11-.11.25-.28.37-.43.13-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.13-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.41.06-.62.31-.22.25-.83.81-.83 1.98 0 1.17.85 2.29.97 2.45.13.16 1.68 2.56 4.07 3.59.57.25 1.01.39 1.35.5.57.18 1.08.15 1.49.09.45-.07 1.45-.59 1.65-1.16.2-.57.2-1.05.14-1.16-.06-.1-.22-.16-.47-.28z"/></svg>
 </a>
 
@@ -971,11 +826,11 @@
       </div>
     </div>
     <div class="prefoot-newsletter">
-      <h3>Ganá 10% OFF en tu primera compra</h3>
-      <p>Dejanos tu email y te mandamos el cupón al toque. Promos exclusivas, sin spam.</p>
+      <h3>Sumate al newsletter</h3>
+      <p>Avisos de drops, restocks y lanzamientos antes que nadie.</p>
       <form class="prefoot-form" id="prefootNewsletter">
         <input type="email" name="email" placeholder="tu@email.com" required autocomplete="email" />
-        <button type="submit">Quiero mi cupón</button>
+        <button type="submit">Suscribirme</button>
       </form>
       <p class="prefoot-fine">Sin spam. Te podés desuscribir cuando quieras.</p>
     </div>
@@ -990,10 +845,6 @@
         <div class="wm"><img src="assets/logo-morashop.png" alt="Morashop" style="height:32px;width:auto" /></div>
         <p class="foot-tagline">Comprar suplementos es <strong>Morashop</strong>.</p>
         <p>Suplementación deportiva, supermercado y electro-hogar. Distribuidor autorizado en Argentina desde 2018.</p>
-        <div class="mora-mini">
-          <img src="assets/mora.png" alt="" />
-          <span>Mora, nuestra socia mayoritaria</span>
-        </div>
       </div>
       <div class="foot-col"><h5>Tienda</h5><ul>
         <li><a href="suplementos.html">Suplementos</a></li>
@@ -1002,22 +853,21 @@
         <li><a href="bananero.html">El Bananero</a></li>
         <li><a href="bodega.html">Bodega</a></li>
         <li><a href="marcas.html">Marcas</a></li>
-        <li><a href="#">Ofertas</a></li>
+        <li><a href="suplementos.html">Ofertas</a></li>
       </ul></div>
       <div class="foot-col"><h5>Información</h5><ul>
         <li><a href="sobre-nosotros.html">Sobre Morashop</a></li>
-        <li><a href="#">Mayorista</a></li>
+        <li><a href="mayoristas.html">Mayorista</a></li>
       </ul></div>
       <div class="foot-col"><h5>Soporte</h5><ul>
-        <li><a href="#">Envíos y entregas</a></li>
-        <li><a href="#">Devoluciones</a></li>
-        <li><a href="https://wa.me/">WhatsApp</a></li>
-        <li><a href="#">Centro de ayuda</a></li>
+        <li><a href="sobre-nosotros.html#envios">Envíos y entregas</a></li>
+        <li><a href="devoluciones.html">Cambios y devoluciones</a></li>
+        <li><a href="https://wa.me/5491100000000" target="_blank" rel="noopener">WhatsApp</a></li>
       </ul></div>
     </div>
     <div class="foot-bot">
       <div>© 2026 Morashop · Suplementación deportiva en Argentina</div>
-      <div>Términos · Privacidad · Cookies</div>
+      <div><a href="terminos.html">Términos</a> · <a href="privacidad.html">Privacidad</a> · <a href="cookies.html">Cookies</a></div>
     </div>
   </div>
 </footer>
@@ -1025,9 +875,8 @@
 <script src="assets/catalog-data.js"></script>
 <script src="assets/catalog.js"></script>
 <script>
-  // CATALOG (los 8 productos demo) lo usamos solo para el quiz y para resolver
-  // los `[data-add]` que se renderizan en la home. POOLS / SORTERS / renderTrack /
-  // los handlers del carrusel viejo se eliminaron junto con su sección visual.
+  // CATALOG (los 8 productos demo) — usado para resolver los `[data-add]`
+  // que se renderizan en la home y para el autocomplete del buscador.
   const CATALOG = window.CATALOG;
   const formatARS = n => '$ ' + n.toLocaleString('es-AR');
 
@@ -1443,165 +1292,10 @@
     });
   }
   bindAddButtons(document);
-
-  // ---------- QUIZ ----------
-  const quizModal = document.getElementById('quizModal');
-  const quizOpenBtn = document.getElementById('quizOpenBtn');
-  const qmClose = document.getElementById('qmClose');
-  const qmBack = document.getElementById('qmBack');
-  const qmBar = document.getElementById('qmProgressBar');
-  const qmStepLabel = document.getElementById('qmStepLabel');
-  const qmRestart = document.getElementById('qmRestart');
-  const qmResultsGrid = document.getElementById('qmResultsGrid');
-  const qmResultsSub = document.getElementById('qmResultsSub');
-  const qmSteps = Array.from(quizModal.querySelectorAll('.qm-step'));
-
-  const quizState = { step: 1, answers: { goal: null, level: null, restriction: null } };
-  let quizLastTrigger = null;
-
-  // Recommendation rules — returns array of product IDs from CATALOG
-  function recommend({ goal, level, restriction }){
-    let picks = [];
-    if (goal === 'muscle' && level === 'new') {
-      picks = ['whey-star-choc','creatina-ena'];
-    } else if (goal === 'muscle') {
-      picks = ['whey-star-choc','creatina-ena','amino-energy-spk'];
-    } else if (goal === 'performance') {
-      picks = ['amino-energy-spk','creatina-ena'];
-    } else if (goal === 'weight-loss') {
-      picks = ['omega-innova','amino-energy-spk'];
-    } else if (goal === 'health') {
-      picks = ['omega-innova','amino-energy-spk'];
-    } else {
-      picks = ['whey-star-choc','omega-innova'];
-    }
-    // Restricción: priorizar InnovaNaturals + Amino Energy si vegano/sin TACC
-    if (restriction === 'vegan' || restriction === 'gluten-free') {
-      const priority = ['omega-innova','amino-energy-spk','omega-innova-std'];
-      const filtered = picks.filter(id => priority.includes(id));
-      picks = filtered.length ? filtered : priority.slice(0, 2);
-    }
-    return picks;
-  }
-
-  function resultsSubtext({ goal, level, restriction }){
-    const goalMap = {
-      'weight-loss':'bajar de peso',
-      'muscle':'ganar músculo',
-      'performance':'mejorar tu rendimiento',
-      'health':'cuidar tu salud',
-    };
-    const levelMap = {
-      'new':'arrancando',
-      'some':'con algo de experiencia',
-      'experienced':'entrenando hace tiempo',
-    };
-    const restrMap = {
-      'none':'',
-      'gluten-free':' · sin TACC',
-      'vegan':' · vegano',
-    };
-    return `Objetivo: ${goalMap[goal]||'—'} · ${levelMap[level]||'—'}${restrMap[restriction]||''}`;
-  }
-
-  function resultCard(p){
-    return `<a class="qm-rcard" href="producto.html?id=${p.id}" data-id="${p.id}">
-      <div class="ph"><img src="${p.img}" alt="${p.name}" loading="lazy" /></div>
-      <div class="info">
-        <div class="brand">${p.brand}</div>
-        <div class="name">${p.name}</div>
-        <div class="row">
-          <div class="price">${formatARS(p.price)}</div>
-          <button class="add" data-add type="button">Agregar</button>
-        </div>
-      </div>
-    </a>`;
-  }
-
-  function showStep(n){
-    quizState.step = n;
-    qmSteps.forEach(s => s.classList.toggle('active', parseInt(s.dataset.step, 10) === n));
-    const pct = n === 4 ? 100 : Math.round((n / 3) * 100);
-    qmBar.style.width = pct + '%';
-    if (n <= 3) qmStepLabel.textContent = `Pregunta ${n} de 3`;
-    else qmStepLabel.textContent = 'Resultados';
-    qmBack.classList.toggle('show', n === 2 || n === 3);
-    // focus primer opción para teclado
-    const active = quizModal.querySelector('.qm-step.active .qm-opt');
-    if (active) setTimeout(() => active.focus(), 50);
-  }
-
-  function renderQuizResults(){
-    const ids = recommend(quizState.answers);
-    const products = ids.map(id => CATALOG.find(p => p.id === id)).filter(Boolean);
-    qmResultsGrid.className = 'qm-results-grid' + (products.length === 2 ? ' two' : '');
-    qmResultsGrid.innerHTML = products.map(resultCard).join('');
-    qmResultsSub.textContent = resultsSubtext(quizState.answers);
-    bindAddButtons(qmResultsGrid);
-  }
-
-  function openQuiz(trigger){
-    quizLastTrigger = trigger || null;
-    quizModal.classList.add('open');
-    quizModal.setAttribute('aria-hidden','false');
-    document.body.classList.add('quiz-locked');
-    quizState.answers = { goal:null, level:null, restriction:null };
-    qmSteps.forEach(s => {
-      s.querySelectorAll('.qm-opt.selected').forEach(o => o.classList.remove('selected'));
-    });
-    showStep(1);
-  }
-  function closeQuiz(){
-    quizModal.classList.remove('open');
-    quizModal.setAttribute('aria-hidden','true');
-    document.body.classList.remove('quiz-locked');
-    if (quizLastTrigger && typeof quizLastTrigger.focus === 'function') quizLastTrigger.focus();
-  }
-
-  quizOpenBtn.addEventListener('click', e => openQuiz(e.currentTarget));
-  qmClose.addEventListener('click', closeQuiz);
-  qmRestart.addEventListener('click', () => {
-    quizState.answers = { goal:null, level:null, restriction:null };
-    qmSteps.forEach(s => {
-      s.querySelectorAll('.qm-opt.selected').forEach(o => o.classList.remove('selected'));
-    });
-    showStep(1);
+  // Escape global cierra el buscador
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && overlay.classList.contains("open")) closeSearch();
   });
-
-  qmBack.addEventListener('click', () => {
-    if (quizState.step > 1) showStep(quizState.step - 1);
-  });
-
-  // Click en opciones — avance automático
-  qmSteps.forEach(step => {
-    const qKey = step.dataset.q;
-    if (!qKey) return;
-    step.addEventListener('click', e => {
-      const btn = e.target.closest('.qm-opt');
-      if (!btn) return;
-      step.querySelectorAll('.qm-opt').forEach(o => o.classList.remove('selected'));
-      btn.classList.add('selected');
-      quizState.answers[qKey] = btn.dataset.value;
-      const n = parseInt(step.dataset.step, 10);
-      setTimeout(() => {
-        if (n < 3) showStep(n + 1);
-        else { renderQuizResults(); showStep(4); }
-      }, 220);
-    });
-  });
-
-  // Click en fondo cierra el modal (solo si clickeás el container, no en una opción)
-  quizModal.addEventListener('click', e => {
-    if (e.target === quizModal) closeQuiz();
-  });
-
-  // Escape global: prioriza quiz > buscador
-  document.addEventListener('keydown', e => {
-    if (e.key !== 'Escape') return;
-    if (quizModal.classList.contains('open')) { closeQuiz(); return; }
-    if (overlay.classList.contains('open')) { closeSearch(); }
-  });
-
   /* ==================== BLOQUES ML (productos reales) ==================== */
   (function(){
     const REAL = (window.CATALOG_BY_CAT && window.CATALOG_BY_CAT.suplementos) || [];
@@ -1611,6 +1305,9 @@
     const toNum = s => parseInt(String(s||'').replace(/[^\d]/g,''),10) || 0;
     const fmt   = n => '$ ' + n.toLocaleString('es-AR');
     const pidOf = p => (p.brand||'') + '|' + (p.name||'');
+    const escHTML = s => String(s == null ? '' : s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 
     // slug idéntico al de producto.html — para armar el link a la PDP
     function slug(s){
@@ -1657,7 +1354,7 @@
       if (n >= 5)     return '+5';
       return '';
     }
-    /* Precio en efectivo con 15% OFF (contraentrega CABA/GBA) */
+    /* Precio en efectivo con 15% OFF (contraentrega CABA/GBA). Transferencia: 5% OFF */
     function precioEfectivo(now){ return Math.round(now * 0.85); }
     function precioCuota(now){ return Math.round(now / 3); }
 
@@ -1673,23 +1370,21 @@
       const now=toNum(p.price), was=toNum(p.was), disc=discount(p);
       const efectivo = precioEfectivo(now), cuota = precioCuota(now);
       const offBadge = disc>=5 ? `<span class="mlcard-off">${disc}% OFF</span>` : '';
-      const discTxt  = disc>=5 ? `<span class="mlcard-disc">${disc}% OFF</span>` : '';
       const vendidos = vendidosEscalon(p);
       const vendidosHTML = vendidos ? `<div class="mlcard-vendidos">${vendidos} vendidos</div>` : '';
       const savingsHTML = was>now ? `<div class="mlcard-savings">Ahorrás ${fmt(was - now)}</div>` : '';
       const pid = encodeURIComponent(pidOf(p));
       return `<a class="mlcard" href="${productoURL(p)}" data-pid="${pid}">
-        <div class="mlcard-ph">${offBadge}<img src="${p.img}" alt="${p.name}" loading="lazy" /></div>
+        <div class="mlcard-ph">${offBadge}<img src="${escHTML(p.img)}" alt="${escHTML((p.name||'').slice(0,120))}" loading="lazy" /></div>
         <div class="mlcard-info">
-          <div class="mlcard-brand">${p.brand||''}</div>
-          <div class="mlcard-name">${p.name||''}</div>
+          <div class="mlcard-brand">${escHTML(p.brand||'')}</div>
+          <div class="mlcard-name">${escHTML(p.name||'')}</div>
           ${ratingHTML(p, 'card')}
           ${vendidosHTML}
-          <div class="mlcard-price-row"><span class="mlcard-price">${fmt(now)}</span>${discTxt}</div>
+          <div class="mlcard-price-row"><span class="mlcard-price">${fmt(now)}</span></div>
           ${savingsHTML}
           <div class="mlcard-efectivo"><strong>${fmt(efectivo)}</strong> en efectivo</div>
           <div class="mlcard-cuotas">3 cuotas sin interés de ${fmt(cuota)}</div>
-          ${(() => { const st = fakeStock(p); return st < 10 ? `<div class="mlcard-stock urgente">⚡ Solo quedan ${st}</div>` : ''; })()}
           <div class="mlcard-foot"><button class="mlcard-add" type="button" data-mladd><svg class="cart-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg><span>Agregar</span></button></div>
         </div>
       </a>`;
@@ -1705,15 +1400,14 @@
       const vendidosHTML = vendidos ? `<div class="mlrow-vendidos">${vendidos} vendidos</div>` : '';
       const pid = encodeURIComponent(pidOf(p));
       return `<a class="mlrow-item" href="${productoURL(p)}" data-pid="${pid}">
-        <div class="mlrow-ph">${offBadge}<img src="${p.img}" alt="${p.name}" loading="lazy" /></div>
+        <div class="mlrow-ph">${offBadge}<img src="${escHTML(p.img)}" alt="${escHTML((p.name||'').slice(0,120))}" loading="lazy" /></div>
         <div class="mlrow-body">
-          <div class="mlrow-brand">${p.brand||''}</div>
-          <div class="mlrow-name">${p.name||''}</div>
+          <div class="mlrow-brand">${escHTML(p.brand||'')}</div>
+          <div class="mlrow-name">${escHTML(p.name||'')}</div>
           ${ratingHTML(p, 'row')}
           ${vendidosHTML}
           <div class="mlrow-efectivo"><strong>${fmt(efectivo)}</strong> en efectivo</div>
           <div class="mlrow-cuotas">3 cuotas sin interés de ${fmt(cuota)}</div>
-          ${(() => { const st = fakeStock(p); return st < 10 ? `<div class="mlrow-stock urgente">⚡ Solo quedan ${st}</div>` : ''; })()}
         </div>
         <div class="mlrow-actions">
           ${wasRow}
@@ -1792,10 +1486,10 @@
         box:      '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/>',
       };
       const CARDS = [
-        { icon:'truck',    title:'Envío en el día',         sub:'CABA y GBA antes de las 10hs',   link:'#envios' },
-        { icon:'card',     title:'3 cuotas sin interés',    sub:'Con todas las tarjetas',          link:'#pagos' },
-        { icon:'cash',     title:'15% OFF en efectivo',     sub:'Contraentrega CABA/GBA o transferencia',  link:'#pagos' },
-        { icon:'whatsapp', title:'Atención por WhatsApp',   sub:'Bot rápido + asesor humano',      link:'https://wa.me/' },
+        { icon:'truck',    title:'Envío en el día',         sub:'CABA y GBA antes de las 10hs',   link:'sobre-nosotros.html#envios' },
+        { icon:'card',     title:'3 cuotas sin interés',    sub:'Con todas las tarjetas',          link:'sobre-nosotros.html#pagos' },
+        { icon:'cash',     title:'15% OFF en efectivo',     sub:'Contraentrega CABA/GBA · 5% en transferencia',  link:'sobre-nosotros.html#pagos' },
+        { icon:'whatsapp', title:'Atención por WhatsApp',   sub:'Bot rápido + asesor humano',      link:'https://wa.me/5491100000000' },
         { icon:'shield',   title:'Distribuidor oficial',    sub:'Star, ENA, Gold, Optimum, PGN',   link:'sobre-nosotros.html' },
       ];
       const renderItem = c => `

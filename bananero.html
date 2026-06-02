@@ -29,44 +29,25 @@
   .ban-hero-crumb a:hover{opacity:1;text-decoration:underline}
   .ban-hero-overline{width:48px;height:3px;background:#FFD400;display:block;margin-bottom:14px}
   .ban-hero-content h1{
-    font-family:var(--font-d);font-weight:900;
+    font-family:var(--font-display);font-weight:900;
     font-size:clamp(48px,8vw,120px);line-height:0.88;letter-spacing:-0.015em;
     text-transform:uppercase;margin:0 0 18px;color:#fff;
     text-shadow:0 4px 24px rgba(0,0,0,0.5);
   }
   .ban-hero-content h1 .accent{color:#FFD400}
   .ban-hero-content .desc{
-    font-family:var(--font-b);font-size:clamp(15px,1.4vw,18px);line-height:1.55;
+    font-family:var(--font-body);font-size:clamp(15px,1.4vw,18px);line-height:1.55;
     color:rgba(255,255,255,0.92);max-width:48ch;margin:0;font-weight:500;
     text-shadow:0 2px 12px rgba(0,0,0,0.5);
   }
   .ban-hero-cta{
     display:inline-flex;align-items:center;gap:10px;margin-top:28px;
     padding:14px 28px;background:#FFD400;color:#0a0a0a;
-    font-family:var(--font-d);font-weight:900;font-size:14px;letter-spacing:0.08em;
+    font-family:var(--font-display);font-weight:900;font-size:14px;letter-spacing:0.08em;
     text-transform:uppercase;border-radius:6px;text-decoration:none;
     transition:transform .15s ease,box-shadow .2s ease;
   }
   .ban-hero-cta:hover{transform:translateY(-2px);box-shadow:0 10px 28px -8px rgba(255,212,0,0.55)}
-
-  /* ============ Sección "Sobre El Bananero" ============ */
-  .ban-about{background:#fff;padding:clamp(48px,6vw,88px) 0;color:var(--cream)}
-  .ban-about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px);align-items:center}
-  .ban-about-eyebrow{font-size:12px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
-  .ban-about h2{font-family:var(--font-d);font-weight:900;font-size:clamp(34px,4.5vw,56px);line-height:0.95;letter-spacing:-0.01em;text-transform:uppercase;margin:0 0 22px;color:var(--cream)}
-  .ban-about p{font-size:clamp(14px,1.1vw,16px);line-height:1.65;color:var(--cream);opacity:0.85;margin:0 0 14px}
-  .ban-about p strong{color:var(--red);font-weight:700}
-  .ban-about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
-  .ban-stat{background:#f5f6f8;padding:18px 16px;border-radius:8px;text-align:center}
-  .ban-stat-num{font-family:var(--font-d);font-weight:900;font-size:clamp(26px,3vw,38px);line-height:1;color:var(--red);display:block}
-  .ban-stat-lbl{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--cream);opacity:0.7;margin-top:6px;display:block}
-  .ban-about-media{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/5;background:#0a0a0a;box-shadow:0 24px 48px -16px rgba(0,0,0,0.35)}
-  .ban-about-media img{width:100%;height:100%;object-fit:cover;display:block}
-
-  /* ============ Sección "Productos" header ============ */
-  .ban-products-head{background:#fff;padding:32px 0 0;text-align:center}
-  .ban-products-head h2{font-family:var(--font-d);font-weight:900;font-size:clamp(28px,3.5vw,44px);text-transform:uppercase;margin:0;color:var(--cream)}
-  .ban-products-head p{font-size:14px;color:var(--cream);opacity:0.7;margin:8px 0 0}
 
   @media (max-width:860px){
     .ban-hero{height:auto;min-height:320px;max-height:420px;aspect-ratio:9/12}
@@ -114,6 +95,81 @@
   </div>
 </nav>
 
+<!-- BARRA DE CATEGORÍAS (fija, con dropdown de subcategorías) -->
+<div class="catbar">
+  <div class="container">
+    <div class="catbar-inner">
+      <div class="catbar-item">
+        <a class="catbar-link" href="suplementos.html">Suplementos
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="suplementos.html?tipo=vitaminas-salud">Vitaminas y Salud</a>
+          <a href="suplementos.html?tipo=proteinas">Proteínas</a>
+          <a href="suplementos.html?tipo=creatinas">Creatinas</a>
+          <a href="suplementos.html?tipo=bcaa-aminos">BCAA y aminoácidos</a>
+          <a href="suplementos.html?tipo=quemadores">Quemadores</a>
+          <a href="suplementos.html?tipo=pre-entrenos">Pre-entrenos</a>
+          <a href="suplementos.html?tipo=snacks-proteicos">Snacks proteicos</a>
+          <a href="suplementos.html?tipo=combos">Combos</a>
+          <a href="suplementos.html?tipo=ganadores">Ganadores de peso</a>
+          <a href="suplementos.html?tipo=cafeina-energia">Cafeína y energía</a>
+          <a href="suplementos.html?tipo=carbo-isotonicos">Carbohidratos · Isotónicos</a>
+        </div>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="supermercado.html">Supermercado
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="supermercado.html?tipo=aceites-vinagres">Aceites y vinagres</a>
+          <a href="supermercado.html?tipo=panales-absorbentes">Pañales y absorbentes</a>
+          <a href="supermercado.html?tipo=salsas-jarabes">Salsas y jarabes</a>
+          <a href="supermercado.html?tipo=pasta-mani">Pasta de maní</a>
+          <a href="supermercado.html?tipo=almacen-fit">Almacén fit</a>
+          <a href="supermercado.html?tipo=miel-endulzantes">Miel y endulzantes</a>
+          <a href="supermercado.html?tipo=yerba-mate">Yerba mate</a>
+        </div>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="electro.html">Electro-Hogar
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="electro.html?tipo=cocina-electrica">Cocina eléctrica</a>
+          <a href="electro.html?tipo=bano-espejos">Baño y espejos</a>
+          <a href="electro.html?tipo=salud-medicion">Salud y medición</a>
+          <a href="electro.html?tipo=cuidado-personal">Cuidado personal</a>
+          <a href="electro.html?tipo=grandes-electro">Grandes electro</a>
+          <a href="electro.html?tipo=limpieza">Limpieza</a>
+          <a href="electro.html?tipo=herramientas">Herramientas</a>
+          <a href="electro.html?tipo=climatizacion">Climatización</a>
+        </div>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link is-active" href="bananero.html">El Bananero</a>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="bodega.html">Bodega
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="catbar-drop">
+          <a href="bodega.html?tipo=vinos-tintos">Vinos tintos</a>
+          <a href="bodega.html?tipo=vinos-blancos">Vinos blancos</a>
+          <a href="bodega.html?tipo=destilados">Destilados</a>
+          <a href="bodega.html?tipo=espumantes">Espumantes</a>
+        </div>
+      </div>
+      <div class="catbar-item">
+        <a class="catbar-link" href="marcas.html">Marcas</a>
+      </div>
+      <div class="catbar-scroll">
+        <a class="catbar-link" href="#" style="color:var(--red);opacity:1;">Ofertas</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- MOBILE SEARCH BAR -->
 <div class="nav-search">
   <form role="search" action="index.html" method="get">
@@ -141,19 +197,7 @@
 </section>
 
 
-<div class="pill-bar">
-  <div class="container">
-    <div class="pill-row">
-      <span class="pill-label">Tipo</span>
-      <button class="pill active" data-group="type" data-value="all">Todo</button>
-      <button class="pill" data-group="type" data-value="cerveza">Cerveza Japi</button>
-      <button class="pill" data-group="type" data-value="picantes">Picantes</button>
-      <button class="pill" data-group="type" data-value="otros">Merch</button>
-    </div>
-  </div>
-</div>
-
-<section class="cat-body">
+<section class="cat-body" id="productos">
   <div class="container">
     <div class="cat-toolbar">
       <div class="results" id="resultsCount"></div>

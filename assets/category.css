@@ -114,6 +114,7 @@
   border-bottom: 1px solid var(--line);
   padding: 18px 0;
 }
+@media (max-width: 1023px) { .pill-bar { top: 56px; } }
 .pill-row {
   display: flex;
   flex-wrap: wrap;
@@ -454,21 +455,24 @@
 
 /* ============== CARDS ESTILO ML (grilla + lista) ============== */
 .mlgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
-.mllist{display:flex;flex-direction:column;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(26,39,68,0.08);margin-bottom:14px}
+@media (min-width:1400px){.mlgrid{grid-template-columns:repeat(5,1fr)}}
+.mllist{display:flex;flex-direction:column;gap:12px;background:transparent;box-shadow:none;margin-bottom:14px}
 /* Card vertical */
-.mlcard{background:#fff;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:transform .2s ease,box-shadow .2s ease;cursor:pointer;box-shadow:0 1px 3px rgba(26,39,68,0.08);text-decoration:none}
-.mlcard:hover{transform:translateY(-3px);box-shadow:0 12px 28px -8px rgba(26,39,68,0.22)}
+.mlcard{background:#fff;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:transform .2s ease,box-shadow .2s ease;cursor:pointer;box-shadow:0 1px 3px rgba(26,39,68,0.08);text-decoration:none;min-width:0}
+@media (hover:hover) and (pointer:fine){
+  .mlcard:hover{transform:translateY(-3px);box-shadow:0 12px 28px -8px rgba(26,39,68,0.22)}
+}
 .mlcard-ph{position:relative;background:#fff;aspect-ratio:1/1;display:grid;place-items:center;padding:18px}
 .mlcard-ph img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
 .mlcard-off{position:absolute;top:10px;left:10px;background:var(--red);color:#fff;font-family:var(--font-body);font-weight:800;font-size:11px;letter-spacing:0.02em;padding:5px 9px;border-radius:4px;z-index:2}
-.mlcard-info{padding:12px 14px 16px;display:flex;flex-direction:column;flex:1}
+.mlcard-info{padding:12px 14px 16px;display:flex;flex-direction:column;flex:1;min-width:0}
 .mlcard-brand{font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:#8a8f98;margin-bottom:4px}
-.mlcard-name{font-family:var(--font-body);font-size:13.5px;font-weight:400;line-height:1.32;color:#2d3138;margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.64em}
+.mlcard-name{font-family:var(--font-body);font-size:13.5px;font-weight:400;line-height:1.32;color:#2d3138;margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;min-height:2.64em;max-height:2.64em}
 .mlcard-was{font-family:var(--font-body);font-size:12px;color:#9aa0a8;text-decoration:line-through;line-height:1;margin-bottom:3px}
 .mlcard-price-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 .mlcard-price{font-family:var(--font-body);font-weight:600;font-size:21px;line-height:1;color:#1a1d22;letter-spacing:-0.01em;white-space:nowrap}
 .mlcard-disc{font-family:var(--font-body);font-weight:700;font-size:12.5px;color:#00a650;line-height:1}
-.mlcard-cuotas{font-family:var(--font-body);font-size:12px;color:var(--red);font-weight:600;line-height:1.3;margin-top:4px}
+.mlcard-cuotas{font-family:var(--font-body);font-size:12px;color:#00a650;font-weight:600;line-height:1.3;margin-top:4px}
 .mlcard-stock{font-family:var(--font-body);font-size:11.5px;font-weight:600;color:#00a650;line-height:1.2;margin-top:6px}
 .mlcard-stock.urgente{color:var(--red);font-weight:700}
 .mlcard-vendidos{font-family:var(--font-body);font-size:11px;color:#8a8f98;font-weight:500;margin:2px 0 6px}
@@ -486,38 +490,62 @@
 .mlrow-vendidos{font-family:var(--font-body);font-size:11px;color:#8a8f98;font-weight:500;margin:2px 0 3px}
 .mlrow-efectivo{font-family:var(--font-body);font-size:12px;color:#00a650;font-weight:600;line-height:1.2;margin-top:2px}
 .mlrow-efectivo strong{font-weight:700}
-.mlcard-savings{font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--red);line-height:1.2;margin-top:4px}
+.mlcard-savings{font-family:var(--font-body);font-size:12px;font-weight:700;color:#00a650;line-height:1.2;margin-top:4px}
 .mlcard-foot{margin-top:auto;padding-top:12px}
 .mlcard-add{width:100%;background:var(--cream);color:#fff;border-radius:5px;padding:13px;font-family:var(--font-body);font-weight:700;font-size:12px;letter-spacing:0.05em;text-transform:uppercase;transition:background .15s ease;cursor:pointer;border:0;display:flex;align-items:center;justify-content:center;gap:8px}
 .mlcard-add:hover{background:#0F1729}
-/* Fila lista */
-.mlrow-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid #ededed;text-decoration:none;transition:background .14s ease;cursor:pointer}
-.mlrow-item:last-child{border-bottom:0}
-.mlrow-item:hover{background:#fafafa}
-.mlrow-ph{width:92px;height:92px;flex-shrink:0;background:#fff;display:grid;place-items:center}
-.mlrow-ph img{max-width:100%;max-height:100%;object-fit:contain}
-.mlrow-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
-.mlrow-brand{font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#8a8f98}
-.mlrow-name{font-family:var(--font-body);font-size:13.5px;font-weight:400;line-height:1.32;color:#2d3138;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.mlrow-was{font-family:var(--font-body);font-size:11.5px;color:#9aa0a8;text-decoration:line-through;line-height:1;margin-top:3px}
-.mlrow-priceline{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;margin-top:1px}
-.mlrow-price{font-family:var(--font-body);font-weight:600;font-size:18px;color:#1a1d22;line-height:1.1;white-space:nowrap}
-.mlrow-disc{font-family:var(--font-body);font-weight:700;font-size:12px;color:#00a650}
-.mlrow-cuotas{font-family:var(--font-body);font-size:11.5px;color:var(--red);font-weight:600;line-height:1.2;margin-top:2px}
-.mlrow-savings{font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--red);line-height:1.2;margin-top:3px}
-.mlrow-add{flex-shrink:0;background:var(--cream);color:#fff;border-radius:5px;padding:12px 16px;font-family:var(--font-body);font-weight:700;font-size:11px;letter-spacing:0.05em;text-transform:uppercase;transition:background .15s ease;cursor:pointer;white-space:nowrap;border:0}
-.mlrow-add:hover{background:#0F1729}
+/* Fila lista — cards individuales con sombra, foto grande, layout 3 col (unificado con home) */
+.mlrow-item{display:grid;grid-template-columns:140px 1fr auto;align-items:center;gap:20px;padding:18px 22px;background:#fff;border-radius:10px;border:1px solid var(--line-soft);box-shadow:0 1px 3px rgba(26,39,68,0.06);text-decoration:none;transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;cursor:pointer;position:relative}
+@media (hover:hover) and (pointer:fine){
+  .mlrow-item:hover{transform:translateY(-2px);box-shadow:0 12px 24px -8px rgba(26,39,68,0.18);border-color:var(--line)}
+}
+.mlrow-ph{width:140px;height:140px;background:#F4F5F7;border-radius:8px;display:grid;place-items:center;padding:14px;position:relative;overflow:hidden}
+.mlrow-ph img{max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(26,39,68,0.10))}
+.mlrow-off{position:absolute;top:8px;left:8px;background:var(--red);color:#fff;font-family:var(--font-body);font-weight:800;font-size:10.5px;letter-spacing:0.02em;padding:4px 7px;border-radius:4px;line-height:1;z-index:2}
+.mlrow-body{min-width:0;display:flex;flex-direction:column;gap:4px}
+.mlrow-brand{font-family:var(--font-body);font-size:10.5px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#8a8f98;margin-bottom:2px}
+.mlrow-name{font-family:var(--font-body);font-size:15px;font-weight:500;line-height:1.32;color:#1a1d22;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;max-height:2.64em;margin-bottom:6px}
+.mlrow-was{font-family:var(--font-body);font-size:12px;color:#9aa0a8;text-decoration:line-through;line-height:1}
+.mlrow-priceline{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:2px}
+.mlrow-price{font-family:var(--font-body);font-weight:700;font-size:22px;color:#1a1d22;line-height:1.1;letter-spacing:-0.01em;white-space:nowrap}
+.mlrow-disc{font-family:var(--font-body);font-weight:700;font-size:13px;color:#00a650;line-height:1}
+.mlrow-cuotas{font-family:var(--font-body);font-size:12.5px;color:#00a650;font-weight:600;line-height:1.3;margin-top:4px}
+.mlrow-savings{font-family:var(--font-body);font-size:12.5px;font-weight:700;color:#00a650;line-height:1.2;margin-top:4px}
+.mlrow-actions{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
+.mlrow-add{background:var(--cream);color:#fff;border:0;border-radius:6px;padding:11px 16px;font-family:var(--font-body);font-weight:700;font-size:11.5px;letter-spacing:0.06em;text-transform:uppercase;transition:background .15s ease, transform .15s ease;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:7px;min-width:140px;justify-content:center}
+.mlrow-add:hover{background:#0F1729;transform:translateY(-1px)}
+.mlrow-add .cart-ic{width:14px;height:14px}
 /* Ver más */
 .cat-more{display:flex;justify-content:center;margin-top:28px}
 .cat-more-btn{display:inline-flex;align-items:center;padding:14px 36px;border:1.5px solid var(--cream);border-radius:6px;font-family:var(--font-body);font-size:12.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--cream);background:transparent;cursor:pointer;transition:background .16s ease,color .16s ease}
 .cat-more-btn:hover{background:var(--cream);color:#fff}
 .cat-empty{padding:60px 20px;text-align:center;color:var(--muted);font-size:14px}
+.cat-empty-cta{padding:48px 20px 60px;text-align:center;max-width:560px;margin:0 auto}
+.cat-empty-cta h3{font-family:var(--font-display);font-weight:800;font-size:clamp(20px,2.6vw,28px);line-height:1.15;letter-spacing:-0.005em;color:var(--cream);margin:0 0 10px}
+.cat-empty-cta p{font-family:var(--font-body);font-size:14px;color:#5f6470;line-height:1.45;margin:0 0 24px}
+.cat-show-all-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--red);color:#fff;border:0;border-radius:8px;font-family:var(--font-display);font-weight:800;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:transform .15s ease, box-shadow .15s ease, background .15s ease}
+.cat-show-all-btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px -8px rgba(232,52,26,0.35);background:#c42710}
 @media (max-width:1024px){.mlgrid{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:768px){
   .mlgrid{grid-template-columns:repeat(2,1fr);gap:10px}
-  .mlcard-info{padding:10px 11px 13px}.mlcard-name{font-size:12.5px}.mlcard-price{font-size:18px}
-  .mlrow-item{padding:12px;gap:11px;align-items:flex-start}.mlrow-ph{width:76px;height:76px}
-  .mlrow-name{font-size:12.5px}.mlrow-price{font-size:16px}.mlrow-add{padding:9px 11px;font-size:10px}
+  .mlcard-info{padding:10px 11px 13px}
+  .mlcard-name{font-size:12.5px;margin-bottom:6px}
+  /* Precio mobile: más grande, más bold */
+  .mlcard-price{font-size:22px;font-weight:700;letter-spacing:-0.02em;line-height:1}
+  /* Mobile: cards minimalistas — solo precio + badge OFF. Efectivo/cuotas detalle en PDP y checkout. */
+  .mlcard-vendidos,.mlrow-vendidos{display:none}
+  .mlcard-savings,.mlrow-savings{display:none}
+  .mlcard-efectivo,.mlrow-efectivo{display:none}
+  .mlcard-cuotas,.mlrow-cuotas{display:none}
+  /* Lista vertical en mobile: 2 columnas (foto + info), acciones abajo full-width */
+  .mlrow-item{grid-template-columns:96px 1fr;gap:12px;padding:14px}
+  .mlrow-ph{width:96px;height:96px;padding:8px;border-radius:6px}
+  .mlrow-name{font-size:13.5px}
+  .mlrow-price{font-size:22px;font-weight:700;letter-spacing:-0.02em}
+  .mlrow-actions{grid-column:1 / -1;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;margin-top:6px;padding-top:10px;border-top:1px solid var(--line-soft)}
+  .mlrow-was{display:none}
+  .mlrow-priceline{margin-top:0}
+  .mlrow-add{padding:12px 18px;font-size:11px;min-width:auto;flex:initial}
   .cat-more-btn{width:100%;justify-content:center}
 }
 
@@ -530,7 +558,7 @@
 /* ============ CARDS POR TIPO (grid clickeable, activan filtro) ============ */
 .type-cards{background:var(--ink);padding:clamp(24px,3vw,40px) 0 clamp(8px,1.5vw,16px)}
 .type-cards-title{font-family:var(--font-display);font-weight:900;font-size:clamp(22px,2.8vw,32px);line-height:1;letter-spacing:-0.01em;text-transform:uppercase;color:var(--cream);margin:0 0 18px}
-.type-cards-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:10px}
+.type-cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .type-cards-grid.type-cards-grid-3{grid-template-columns:repeat(3,1fr)}
 .type-cards-grid.type-cards-grid-5{grid-template-columns:repeat(5,1fr)}
 .type-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 10px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease;font-family:var(--font-body);color:var(--cream)}
