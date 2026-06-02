@@ -1,0 +1,12 @@
+{
+  "name": "morashop-rediseno",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Morashop prototype + Vercel Functions (welcome-coupon, search)",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@vercel/kv": "^2.0.0"
+  }
+}

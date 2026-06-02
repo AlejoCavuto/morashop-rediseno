@@ -1,0 +1,129 @@
+primary
+	name = Destacados
+	description = Los productos aparecen destacados en la página de inicio (hasta 40 productos).
+new
+	name = Novedades
+	description = Los productos aparecen como nuevos en la página de inicio (hasta 40 productos).
+sale
+	name = Ofertas
+	description = Los productos aparecen en oferta en la página de inicio (hasta 40 productos).
+promotion
+	name = Promociones
+	description = Los productos aparecen en promoción en la página de inicio (hasta 40 productos).
+best_seller
+	name = Más vendidos
+	description = Los productos aparecen como más vendidos en la página de inicio (hasta 40 productos).
+featured
+	name = Principal
+	description = El producto principal aparece en la página de inicio (1 producto).
+electropeques
+	name = Pequeños electrodomésticos
+	description =
+electrograndes
+	name = Grandes electrodomésticos
+	description =
+herramientas
+	name = Herramientas
+	description =
+aspiradoras
+	name = Aspiradoras
+	description =
+inodoros
+	name = Inodoros 
+	description = 
+lavatorio
+	name = Lavatorio
+	description = 
+bachascocina
+	name = Bachas de cocina
+	description =
+starnutrition
+	name = Star Nutrition
+	description =
+ena
+	name = Ena
+	description =
+saludybienestar
+	name = Salud y Bienestar
+	description =
+importados
+	name = Importados
+	description =
+dicomere
+	name = Dicomere
+	description =
+aceites
+	name = Aceites
+	description =
+panales
+	name = Pañales para bebés
+	description =
+dietetica
+	name = Dietetica
+	description =
+entrenuts
+	name = Entrenuts
+	description =
+srisri
+	name = Sri Sri
+	description =
+japi-cervezas
+	name = Cervezas de Japi
+	description =
+japi-combos
+	name = Combos de cervezas japi
+	description =
+japi-indumentaria
+	name = Indumentaria Japi
+	description =
+funkos
+	name = Funkos
+	description =
+comic
+	name = Comic
+	description =
+figuras
+	name = Figuras
+	description =
+llaveros
+	name = Llaveros
+	description =
+accesorios
+	name = Accesorios de bebés
+	description =
+munecas
+	name = Muñecas
+	description =
+robots
+	name = Robots
+	description =
+combos
+	name = Combos
+	description =
+ofertacerveza
+	name = Oferta de Cervezas
+	description =
+combofunkos
+	name = Combo de Funkos
+	description =
+vinos
+	name = Vinos
+	description =
+gintonic
+	name = Gin Tonic
+	description =
+cervezas
+	name = Cervezas
+	description =
+aceite-de-oliva
+	name = Aceites de oliva
+	description =
+pgn
+	name = PGN individuales
+	description =
+pgn-combos
+	name = PGN combos
+	description =
+productos-granger
+	name = Productos de granger
+	description =

@@ -1,0 +1,486 @@
+CLASIFICACION HUERFANOS SUPLEMENTOS
+Total clasificados: 298
+Sub-categorias usadas: 11
+
+Resumen por sub-cat:
+   122 | Vitaminas y Salud
+    47 | NO-SUPLEMENTO
+    33 | Proteínas
+    29 | Creatinas
+    20 | Quemadores
+    11 | Snacks proteicos
+    11 | Pre-entrenos
+     8 | BCAA · Aminos
+     7 | Cafeína y energía
+     6 | Ganadores de peso
+     4 | Carbohidratos · Isotónicos
+
+================================================================================
+
+
+>>> Vitaminas y Salud (122 productos)
+
+  --- Array (1) ---
+    Hipertiroidal Labs Nutrition - Tiroides Saludables (60 Caps) Sin Sabor | hipertiroidal-labs-nutrition-tiroides-saludables-60-caps-sin-sabor-16u1h
+
+  --- Body Advance (7) ---
+    Colágeno Hidrolizado Bebible 300gr Body Advance Zinc Vit Sabor Frutilla + Vaso Legend Nutrition | colageno-hidrolizado-bebible-300gr-body-advance-zinc-vit-sabor-frutilla-vaso-legend-nutrition
+    Niacina 60 Comp Body Advance Acido Nicotinico | niacina-60-comp-body-advance-acido-nicotinico // niacina es vitamina B3
+    Suplemento En Polvo Body Advance Vitamina C + Vitamina D + Zinc X2 240gr Sabor Naranja | suplemento-en-polvo-body-advance-vitamina-c-vitamina-d-zinc-x2-240gr-sabor-naranja
+    Testo Pro Max 240 Gr Body Advance Magnesio Vitamina B6 Zinc Sabor Wild Grapes | testo-pro-max-240-gr-body-advance-magnesio-vitamina-b6-zinc-sabor-wild-grapes [media] // ZMA-like booster; magnesio+B6+zinc -> Vitaminas y Salud
+    Zma 90 Comp Body Advance Magnesio Zinc Vitamina B6 Pack X2 Sin Sabor | zma-90-comp-body-advance-magnesio-zinc-vitamina-b6-pack-x2-sin-sabor
+    Zma 90 Comp Body Advance Magnesio Zinc Vitamina B6 Pack X3 Sin Sabor | zma-90-comp-body-advance-magnesio-zinc-vitamina-b6-pack-x3-sin-sabor
+    Zma 90 Comp Body Advance Magnesio Zinc Vitamina B6 Sabor Sin Sabor + Pastillero Legend | zma-90-comp-body-advance-magnesio-zinc-vitamina-b6-sabor-sin-sabor-pastillero-legend
+
+  --- Breaking Lab (10) ---
+    Breaking Lab Curcuma + Pimienta Negra + Vitamina C X 50 Capsulas Pack X2 | breaking-lab-curcuma-pimienta-negra-vitamina-c-x-50-capsulas-pack-x2
+    Breaking Lab Curcuma + Pimienta Negra + Vitamina C X 50 Capsulas Pack X3 | breaking-lab-curcuma-pimienta-negra-vitamina-c-x-50-capsulas-pack-x3
+    Cloruro De Magnesio Importado X 1 Kilo | cloruro-de-magnesio-importado-x-1-kilo
+    Lecitina De Soja Pura En Polvo 100 Gramos - Calidad Premium | lecitina-de-soja-pura-en-polvo-100-gramos-calidad-premium [media] // lecitina de soja suplemento dietario; alternativa Almacen fit
+    Sales De Epsom Sulfato De Magnesio Puro 99.9% 1 Kilo Usp | sales-de-epsom-sulfato-de-magnesio-puro-99-9-1-kilo-usp1 [media] // sales de epsom uso externo/banos pero sulfato de magnesio; alternativa Cuidado personal
+    Suplemento Antioxidante Breaking Lab Vitamina C Pura 100% 60 Capsulas Pack X2 | suplemento-antioxidante-breaking-lab-vitamina-c-pura-100-60-capsulas-pack-x2
+    Suplemento Antioxidante Breaking Lab Vitamina C Pura 100% 60 Capsulas Pack X3 | suplemento-antioxidante-breaking-lab-vitamina-c-pura-100-60-capsulas-pack-x31
+    Suplemento Magnesio En Capsulas X 60 Unidades. Sabor Sin Sabor | suplemento-magnesio-en-capsulas-x-60-unidades-sabor-sin-sabor
+    Suplemento Magnesio En Capsulas X 60 Unidades. Sabor Sin Sabor - Pack x2 | suplemento-magnesio-en-capsulas-x-60-unidades-sabor-sin-sabor-pack-x2
+    Suplemento Magnesio En Capsulas X 60 Unidades. Sabor Sin Sabor - Pack x3 | suplemento-magnesio-en-capsulas-x-60-unidades-sabor-sin-sabor-pack-x3
+
+  --- Diabla (1) ---
+    Diabla Supergreens Polvo Antiinflamatorio Sabor Limon Limón | diabla-supergreens-polvo-antiinflamatorio-sabor-limon-limon-v5oud // supergreens
+
+  --- Ena (13) ---
+    Citrato De Magnesio Cápsulas Ena Sport - 2 X 60 Caps Sin Sabor | citrato-de-magnesio-capsulas-ena-sport-2-x-60-caps-sin-sabor
+    Citrato De Magnesio Cápsulas Ena Sport - 3 X 60 Caps Sin Sabor | citrato-de-magnesio-capsulas-ena-sport-3-x-60-caps-sin-sabor
+    Citrato De Magnesio Cápsulas Ena Sport - 4 X 60 Caps Sin Sabor | citrato-de-magnesio-capsulas-ena-sport-4-x-60-caps-sin-sabor
+    Citrato De Magnesio Cápsulas Ena Sport 60 Caps Sin Sabor + Pastillero Legend | citrato-de-magnesio-capsulas-ena-sport-60-caps-sin-sabor-pastillero-legend
+    Citrato De Magnesio Cápsulas Ena Sport 60 Caps Sin Sabor X2 + Pastillero Legend | citrato-de-magnesio-capsulas-ena-sport-60-caps-sin-sabor-x2-pastillero-legend
+    Multivitamin Ena Sport Sabor Neutro Con Vitaminas, Minerales Y Cafeína X2 + Pastillero Legend | multivitamin-ena-sport-sabor-neutro-con-vitaminas-minerales-y-cafeina-x2-pastillero-legend
+    Suplemento En Polvo Colágeno Sport + Acido Hialuronico Ena Sport 413g Fruit Punch X2 | suplemento-en-polvo-colageno-sport-acido-hialuronico-ena-sport-413g-fruit-punch-x2
+    Suplemento En Polvo Colágeno Sport + Acido Hialuronico Ena Sport 413g Fruit Punch X2 + Vaso Shaker Legend 600ml | suplemento-en-polvo-colageno-sport-acido-hialuronico-ena-sport-413g-fruit-punch-x2-vaso-shaker-legend-600ml
+    Suplemento En Polvo Colágeno Sport Con Acido Hialuronico Ena Sport 413g Fruit Punch + Vaso Shaker Legend 600ml | suplemento-en-polvo-colageno-sport-con-acido-hialuronico-ena-sport-413g-fruit-punch-vaso-shaker-legend-600ml
+    Suplemento En Polvo Sport Vitalgen 15 Un Sabor Neutro | suplemento-en-polvo-sport-vitalgen-15-un-sabor-neutro [media] // Vitalgen es suplemento multivitamínico/energético Ena, sin keyword clara
+    Suplemento Enacción Enaccion Colágeno Complex Sabor Limonada De 270g 2 Packs - Polvo | suplemento-enaccion-enaccion-colageno-complex-sabor-limonada-de-270g-2-packs-polvo
+    Zma 300 Mg (60 Cápsulas) Ena Sport Sin Sabor + Pastillero Legend | zma-300-mg-60-capsulas-ena-sport-sin-sabor-pastillero-legend
+    Zma 300 Mg (60 Cápsulas) X2 Ena Sport Sin Sabor + Pastillero Legend | zma-300-mg-60-capsulas-x2-ena-sport-sin-sabor-pastillero-legend
+
+  --- Ena Sport (15) ---
+    Citrato De Magnesio Cápsulas Ena Sport - 2 X 60 Caps Sin Sabor | citrato-de-magnesio-capsulas-ena-sport-2-x-60-caps-sin-sabor
+    Citrato De Magnesio Cápsulas Ena Sport - 3 X 60 Caps Sin Sabor | citrato-de-magnesio-capsulas-ena-sport-3-x-60-caps-sin-sabor
+    Citrato De Magnesio Cápsulas Ena Sport - 4 X 60 Caps Sin Sabor | citrato-de-magnesio-capsulas-ena-sport-4-x-60-caps-sin-sabor
+    Citrato De Magnesio Cápsulas Ena Sport 60 Caps Sin Sabor + Pastillero Legend | citrato-de-magnesio-capsulas-ena-sport-60-caps-sin-sabor-pastillero-legend
+    Citrato De Magnesio Cápsulas Ena Sport 60 Caps Sin Sabor X2 + Pastillero Legend | citrato-de-magnesio-capsulas-ena-sport-60-caps-sin-sabor-x2-pastillero-legend
+    Multivitamin Ena Sport Sabor Neutro Con Vitaminas, Minerales Y Cafeína X2 + Pastillero Legend | multivitamin-ena-sport-sabor-neutro-con-vitaminas-minerales-y-cafeina-x2-pastillero-legend
+    Suplemento Dietario X30cmp Multivitaminico Plus Enaccion Sin Sabor | suplemento-dietario-x30cmp-multivitaminico-plus-enaccion-sin-sabor-q9x2w
+    Suplemento Dietario X30cmp Multivitaminico Plus Enaccion Sin Sabor | suplemento-dietario-x30cmp-multivitaminico-plus-enaccion-sin-sabor-q9x2w
+    Suplemento En Polvo Colágeno Sport + Acido Hialuronico Ena Sport 413g Fruit Punch X2 | suplemento-en-polvo-colageno-sport-acido-hialuronico-ena-sport-413g-fruit-punch-x2
+    Suplemento En Polvo Colágeno Sport + Acido Hialuronico Ena Sport 413g Fruit Punch X2 + Vaso Shaker Legend 600ml | suplemento-en-polvo-colageno-sport-acido-hialuronico-ena-sport-413g-fruit-punch-x2-vaso-shaker-legend-600ml
+    Suplemento En Polvo Colágeno Sport Con Acido Hialuronico Ena Sport 413g Fruit Punch + Vaso Shaker Legend 600ml | suplemento-en-polvo-colageno-sport-con-acido-hialuronico-ena-sport-413g-fruit-punch-vaso-shaker-legend-600ml
+    Suplemento En Polvo Sport Vitalgen 15 Un Sabor Neutro | suplemento-en-polvo-sport-vitalgen-15-un-sabor-neutro [media] // vitalgen es multivitaminico en sobres
+    Suplemento Enacción Enaccion Colágeno Complex Sabor Limonada De 270g 2 Packs - Polvo | suplemento-enaccion-enaccion-colageno-complex-sabor-limonada-de-270g-2-packs-polvo
+    Zma 300 Mg (60 Cápsulas) Ena Sport Sin Sabor + Pastillero Legend | zma-300-mg-60-capsulas-ena-sport-sin-sabor-pastillero-legend
+    Zma 300 Mg (60 Cápsulas) X2 Ena Sport Sin Sabor + Pastillero Legend | zma-300-mg-60-capsulas-x2-ena-sport-sin-sabor-pastillero-legend
+
+  --- Eth Nutrition (14) ---
+    Cúrcuma Concentrada Eth Nutrition 60 Capsulas Antiinflamatorio Natural | curcuma-concentrada-eth-nutrition-60-capsulas-antiinflamatorio-natural
+    Eth Nad + Resveratrol 1500 Con K2 Y D3 Premium 2 Potes X 30 Cápsulas | eth-nad-resveratrol-1500-con-k2-y-d3-premium-2-potes-x-30-capsulas
+    Eth Nad 1000 + Resveratrol Suplemento 2 Potes X 30 Cápsulas | eth-nad-1000-resveratrol-suplemento-2-potes-x-30-capsulas
+    Eth Nad 1000 + Resveratrol Suplemento 3 Potes X 30 Cápsulas | eth-nad-1000-resveratrol-suplemento-3-potes-x-30-capsulas
+    Eth Nad 1000 + Resveratrol Suplemento En Cápsulas X 30 | eth-nad-1000-resveratrol-suplemento-en-capsulas-x-30
+    Eth Nutrition Magnesium Óxido De Magnesio 2 Unidades X 60 Cápsulas | eth-nutrition-magnesium-oxido-de-magnesio-2-unidades-x-60-capsulas
+    Eth Nutrition Magnesium Óxido De Magnesio 3 Unidades X 60 Cápsulas | eth-nutrition-magnesium-oxido-de-magnesio-3-unidades-x-60-capsulas
+    Eth Nutrition Vitamina C Concentrada 2 Potes X 30 Cápsulas | eth-nutrition-vitamina-c-concentrada-2-potes-x-30-capsulas
+    Eth Nutrition Vitamina C Concentrada 3 Potes X 30 Cápsulas | eth-nutrition-vitamina-c-concentrada-3-potes-x-30-capsulas
+    Extracto De Resveratrol Eth Nutrition Antioxidante 30 Capsulas | extracto-de-resveratrol-eth-nutrition-antioxidante-30-capsulas
+    Nad Nicotinamida Eth Energía Celular Y Longevidad 30caps | nad-nicotinamida-eth-energia-celular-y-longevidad-30caps
+    Pastillas Para La Caída Del Cábelo Innerx Grow Eth Nutrition 2 Potes X 30 Unidades | pastillas-para-la-caida-del-cabelo-innerx-grow-eth-nutrition-2-potes-x-30-unidades [media] // capilar con biotina; alternativa Cuidado personal
+    Pastillas Para La Caída Del Cábelo Innerx Grow Eth Nutrition 3 Potes X 30 Unidades | pastillas-para-la-caida-del-cabelo-innerx-grow-eth-nutrition-3-potes-x-30-unidades [media] // capilar con biotina; alternativa Cuidado personal
+    Pastillas Para La Caída Del Cábelo Innerx Grow Eth Sabor Sin Sabor | pastillas-para-la-caida-del-cabelo-innerx-grow-eth-sabor-sin-sabor [media] // capilar con biotina; alternativa Cuidado personal
+
+  --- Every Day Nature (15) ---
+    Citrato De Potasio 1 Kg Puro Xebell Usp Calidad Premium Sabor Característico | citrato-de-potasio-1-kg-puro-xebell-usp-calidad-premium-sabor-caracteristico [media] // Citrato de potasio puede ir como mineral; alt: Carbohidratos · Isotónicos por electrolito
+    Sulfato De Magnesio Sales De Epsom Every Day Nature 1kg 100% Pureza Edn Nutrition | sulfato-de-magnesio-sales-de-epsom-every-day-nature-1kg-100-pureza-edn-nutrition [media] // Sales de Epsom suelen usarse externo, pero el rubro magnesio aplica como Vit y Salud
+    Suplemento En Polvo Citrato De Potasio Every Day Nature 1kg | suplemento-en-polvo-citrato-de-potasio-every-day-nature-1kg
+    Suplemento En Polvo Cloruro De Magnesio Every Day Nature 1kg | suplemento-en-polvo-cloruro-de-magnesio-every-day-nature-1kg
+    Suplemento En Polvo Every Day Nature Citrato De Magnesio En Doypack De 1kg x 2 unidades | suplemento-en-polvo-every-day-nature-citrato-de-magnesio-en-doypack-de-1kg-x-2-unidades
+    Suplemento En Polvo Every Day Nature Citrato De Potasio 1kg Pack X2 | suplemento-en-polvo-every-day-nature-citrato-de-potasio-1kg-pack-x2
+    Suplemento En Polvo Every Day Nature Vitamina C Sabor Cítrico De 1kg Vaso Legend 600ml | suplemento-en-polvo-every-day-nature-vitamina-c-sabor-citrico-de-1kg-vaso-legend-600ml
+    Suplemento En Polvo Every Day Nature Vitamina C Sabor Cítrico En Doypack De 1kg | suplemento-en-polvo-every-day-nature-vitamina-c-sabor-citrico-en-doypack-de-1kg
+    Suplemento Every Day Nature 1kg Citrato De Magnesio Vitamina C En Polvo | suplemento-every-day-nature-1kg-citrato-de-magnesio-vitamina-c-en-polvo
+    Suplemento Every Day Nature 1kg Citrato De Potasio 1kg Vitamina C En Polvo | suplemento-every-day-nature-1kg-citrato-de-potasio-1kg-vitamina-c-en-polvo
+    Suplemento Every Day Nature 1kg Citrato De Potasio Citrato De Magnesio En Polvo | suplemento-every-day-nature-1kg-citrato-de-potasio-citrato-de-magnesio-en-polvo
+    Suplemento Every Day Nature 1kg Vitamina C 1kg Colágeno Hidrolizado 1kg En Polvo | suplemento-every-day-nature-1kg-vitamina-c-1kg-colageno-hidrolizado-1kg-en-polvo
+    Suplemento Every Day Nature 2 Vitaminas C Sabor Cítrico De 1kg Polvo | suplemento-every-day-nature-2-vitaminas-c-sabor-citrico-de-1kg-polvo
+    Suplemento Every Day Nature Citrato De Magnesio 1kg Vaso Legend 600ml | suplemento-every-day-nature-citrato-de-magnesio-1kg-vaso-legend-600ml
+    Suplemento Every Day Nature Citrato De Potasio 1kg Vaso Legend 600ml | suplemento-every-day-nature-citrato-de-potasio-1kg-vaso-legend-600ml
+
+  --- Framingham Pharma (19) ---
+    Cados Vitamina K2 Natural X 30 Comprimidos | cados-vitamina-k2-natural-x-30-comprimidos
+    Digecaps Enzimas Digestivas X 30 Cápsulas Vegetales | digecaps-enzimas-digestivas-x-30-capsulas-vegetales [media] // Enzimas digestivas, salud general
+    Framingham Pharma Proteínas Y Minerales Ampk 60 Unidades Pack X3 | framingham-pharma-proteinas-y-minerales-ampk-60-unidades-pack-x3 [media] // AMPK suplemento metabolico; no es whey protein
+    Metasitol Mujer 60 Capsulas Sabor Neutro Pack X3 | metasitol-mujer-60-capsulas-sabor-neutro-pack-x3
+    Metasitol Mujer X 60 Capsulas Sabor Neutro | metasitol-mujer-x-60-capsulas-sabor-neutro
+    Quelat Zinc Forte X 30 Comprimidos Suplemento Dietario | quelat-zinc-forte-x-30-comprimidos-suplemento-dietario
+    Sele200 Orgánico Antioxidante Por 30 Comprimidos | sele200-organico-antioxidante-por-30-comprimidos
+    Serrapep Enzima Serrapeptasa Capsulas Vegetales X 30 Caps Sabor Sin Sabor | serrapep-enzima-serrapeptasa-capsulas-vegetales-x-30-caps-sabor-sin-sabor [media] // Enzima antiinflamatoria
+    Suplemento En Cápsulas Blandas Framingham Pharma Capskrill Omega 3 Sabor Unflavor En Caja 40 Un Pack X 6 U | suplemento-en-capsulas-blandas-framingham-pharma-capskrill-omega-3-sabor-unflavor-en-caja-40-un-pack-x-6-u
+    Suplemento En Cápsulas Capskrill Omega 3 60g 120 Un | suplemento-en-capsulas-capskrill-omega-3-60g-120-un
+    Suplemento En Comprimidos Complex Quelat Minerales 30U | suplemento-en-comprimidos-complex-quelat-minerales-30u
+    Suplemento En Comprimidos Framingham Pharma Ampk Proteínas/minerales En Caja 60 Un | suplemento-en-comprimidos-framingham-pharma-ampk-proteinas-minerales-en-caja-60-un [media] // AMPK suplemento metabólico/minerales en cápsulas
+    Suplemento En Comprimidos Framingham Pharma Complex Quelat Minerales En Caja 30 Un Pack X 4 U | suplemento-en-comprimidos-framingham-pharma-complex-quelat-minerales-en-caja-30-un-pack-x-4-u
+    Suplemento En Comprimidos Quelat Magnesio 180g 30 Un | suplemento-en-comprimidos-quelat-magnesio-180g-30-un
+    Suplemento En Líquido Framingham Pharma Goodskin Goodskin Proteínas Sabor Frutal En Caja De 375ml | suplemento-en-liquido-framingham-pharma-goodskin-goodskin-proteinas-sabor-frutal-en-caja-de-375ml [media] // Goodskin = colágeno bebible para piel, no whey protein deportiva
+    Suplemento En Líquido Framingham Pharma Goodskin Goodskin Proteínas Sabor Frutal En Caja De 375ml Pack X 12 U | suplemento-en-liquido-framingham-pharma-goodskin-goodskin-proteinas-sabor-frutal-en-caja-de-375ml-pack-x-12-u [media] // Colágeno bebible para piel
+    Suplemento En Líquido Framingham Pharma Goodskin Goodskin Proteínas Sabor Frutal En Caja De 375ml Pack X 6 U | suplemento-en-liquido-framingham-pharma-goodskin-goodskin-proteinas-sabor-frutal-en-caja-de-375ml-pack-x-6-u [media] // Colágeno bebible para piel
+    Suplemento En Polvo Framingham Pharma Quelat Multivitaminico Vitaminas Sabor Naranja En Bolsa De 1200ml Pack X 4 U | suplemento-en-polvo-framingham-pharma-quelat-multivitaminico-vitaminas-sabor-naranja-en-bolsa-de-1200ml-pack-x-4-u
+    Suplemento En Polvo Framingham Pharma Quelat Multivitaminico Vitaminas Sabor Naranja En Bolsa De 300ml | suplemento-en-polvo-framingham-pharma-quelat-multivitaminico-vitaminas-sabor-naranja-en-bolsa-de-300ml
+
+  --- Garden House (20) ---
+    Combo X 3 Garden House Magnesio 400 30 Comprimidos Sabor Sin Sabor | combo-x-3-garden-house-magnesio-400-30-comprimidos-sabor-sin-sabor
+    Combo X3 Garden House Power Bronz 30 Comprimidos Sabor Sin Sabor | combo-x3-garden-house-power-bronz-30-comprimidos-sabor-sin-sabor [media] // Power Bronz suplemento para bronceado, vit/minerales
+    Garden House - Calcio 500 X 40 Comprimidos | garden-house-calcio-500-x-40-comprimidos
+    Garden House Ajo 1000 Antioxidante Aumenta Defensas 30 Comp Pack X 4 | garden-house-ajo-1000-antioxidante-aumenta-defensas-30-comp-pack-x-4
+    Garden House Ajo 1000 Antioxidante Aumenta Defensas 30 Comp Sabor No | garden-house-ajo-1000-antioxidante-aumenta-defensas-30-comp-sabor-no
+    Garden House Cartilago De Tiburon 750 Vitamina D X30 Comp Sabor No | garden-house-cartilago-de-tiburon-750-vitamina-d-x30-comp-sabor-no
+    Garden House Ginseng Rojo Coreano En Caja 50 Un Pack X3 | garden-house-ginseng-rojo-coreano-en-caja-50-un-pack-x3 [media] // Ginseng - suplemento natural; podría ser energía pero típicamente salud general
+    Garden House Isoflavonas + Calcio 600 X 60 Comprimidos | garden-house-isoflavonas-calcio-600-x-60-comprimidos
+    Garden House Magnesio 400 Calambres Huesos Artrosis X30 Comp Sabor Sin Sabor | garden-house-magnesio-400-calambres-huesos-artrosis-x30-comp-sabor-sin-sabor
+    Garden House Magnesio 400 Calambres Huesos Artrosis X30 Pack X5 | garden-house-magnesio-400-calambres-huesos-artrosis-x30-pack-x5
+    Garden House Nutrilvision X 30 Comprimidos Sabor Sin Sabor | garden-house-nutrilvision-x-30-comprimidos-sabor-sin-sabor // Suplemento para la visión
+    Garden House Suplemento Centella Asiatica + Vit. E X 60 Un | garden-house-suplemento-centella-asiatica-vit-e-x-60-un
+    Garden House Suplemento Dietario Ginkgo 80mg 30comp Pack X3 | garden-house-suplemento-dietario-ginkgo-80mg-30comp-pack-x3
+    Garden House Suplemento Dietario Ginkgo 80mg X 30 Compri | garden-house-suplemento-dietario-ginkgo-80mg-x-30-compri
+    Garden House Suplemento Dietario Nervocalm X 20 Comprimidos Sabor Sin | garden-house-suplemento-dietario-nervocalm-x-20-comprimidos-sabor-sin
+    Garden House Valeriana Tranquilizante Sedante Natural 20comp | garden-house-valeriana-tranquilizante-sedante-natural-20comp
+    Garden House Valeriana Tranquilizante Sedante Natural 20comp Pack X4 | garden-house-valeriana-tranquilizante-sedante-natural-20comp-pack-x4
+    Levadura De Cerveza 500 X 60 Comprimidos | levadura-de-cerveza-500-x-60-comprimidos // Levadura de cerveza, suplemento dietario (Vit B)
+    Suplemento En Comprimidos Garden House Colágeno Hidrolizado En Caja 120 Un Pack X2 | suplemento-en-comprimidos-garden-house-colageno-hidrolizado-en-caja-120-un-pack-x2
+    Suplemento En Comprimidos Garden House Power Bronz En Caja 30 Un | suplemento-en-comprimidos-garden-house-power-bronz-en-caja-30-un [media] // Power Bronz suplemento bronceado/betacaroteno
+
+  --- Gold Nutrition (7) ---
+    Citrato De Magnesio Gold Nutrition 60 Capsulas Pastillero Legend Nutrition | citrato-de-magnesio-gold-nutrition-60-capsulas-pastillero-legend-nutrition
+    Colageno Hydrolizado Age Biologique Ac Hi Q10 Vitc 60caps X3 Sabor Sin Sabor | colageno-hydrolizado-age-biologique-ac-hi-q10-vitc-60caps-x3-sabor-sin-sabor
+    Nad Nicotinamida Adenina Dinucleótido Gold Nutrition X 30 Caps Energia Sin Sabor | nad-nicotinamida-adenina-dinucleotido-gold-nutrition-x-30-caps-energia-sin-sabor-5dbug
+    Suplementos En Capsulas Citrato De Magnesio Gold Nutrition X3 Pastillero Legend Nutrition | suplementos-en-capsulas-citrato-de-magnesio-gold-nutrition-x3-pastillero-legend-nutrition1
+    Suplementos En Capsulas Citrato De Magnesio Gold Nutrition X4 Pastillero Legend Nutrition | suplementos-en-capsulas-citrato-de-magnesio-gold-nutrition-x4-pastillero-legend-nutrition
+    Zma En Capsulas Gold Nutrition Pastillero Legend | zma-en-capsulas-gold-nutrition-pastillero-legend
+    Zma En Capsulas Gold Nutrition X2 Pastillero Legend | zma-en-capsulas-gold-nutrition-x2-pastillero-legend
+
+
+>>> NO-SUPLEMENTO (47 productos)
+
+  --- Breaking Lab (11) ---
+    Acido Citrico 1kg (1000 Gramos)maxima Calidad Maxima Pureza! | acido-citrico-1kg-1000-gramosmaxima-calidad-maxima-pureza // insumo quimico - va a Almacen fit o Quimicos/Limpieza
+    Ácido Málico Puro Importado 1kg | acido-malico-puro-importado-1kg // insumo quimico - Almacen fit/Quimicos
+    Ácido Málico Puro Importado 250gr Breaking Lab | acido-malico-puro-importado-250gr-breaking-lab // insumo quimico - Almacen fit/Quimicos
+    Acido Oxálico 1 Kg, Sal De Limón. 100% Puro Calidad! | acido-oxalico-1-kg-sal-de-limon-100-puro-calidad // insumo quimico industrial - Quimicos/Limpieza
+    Amonio Cuaternario Desinfectante Maxima Concentracion! 5l | amonio-cuaternario-desinfectante-maxima-concentracion-5l // desinfectante - Limpieza
+    Bicarbonato De Sodio 1kg (1000g) Máxima Pureza Y Calidad! Breaking Lab | bicarbonato-de-sodio-1kg-1000g-maxima-pureza-y-calidad-breaking-lab // insumo - Almacen fit/Quimicos
+    Bicarbonato De Sodio 2kg Breaking Lab Calidad Premium | bicarbonato-de-sodio-2kg-breaking-lab-calidad-premium // insumo - Almacen fit/Quimicos
+    Gel Neutro 5 Kg Breaking Lab Pote 5000gr | gel-neutro-5-kg-breaking-lab-pote-5000gr // base cosmetica - Cuidado personal/Cosmetica
+    Glicerina Liquida Pura Vegetal 1 Kilo Breaking Lab | glicerina-liquida-pura-vegetal-1-kilo-breaking-lab // insumo cosmetico - Cuidado personal/Quimicos
+    Percarbonato De Sodio Puro - 1 Kg Limpiador En Polvo | percarbonato-de-sodio-puro-1-kg-limpiador-en-polvo // limpiador - Limpieza/Quimicos
+    Vaselina Solida 1 Kg Breaking Lab Pote 1000gr | vaselina-solida-1-kg-breaking-lab-pote-1000gr // Cuidado personal/Cosmetica
+
+  --- Bsn (1) ---
+    Shaker Bsn Nutrition 400 Ml Vaso Mezclador De Proteina | shaker-bsn-nutrition-400-ml-vaso-mezclador-de-proteina // vaso shaker - Accesorios
+
+  --- Choco Fit (3) ---
+    Alfajor De Arroz Choco Fit Bañado Chocolate Blanco Ddl X54u | alfajor-de-arroz-choco-fit-banado-chocolate-blanco-ddl-x54u // alfajor de arroz no proteico - Almacen fit
+    Alfajor De Arroz Choco Fit Bañado Chocolate Limon X54u | alfajor-de-arroz-choco-fit-banado-chocolate-limon-x54u // alfajor de arroz - Almacen fit
+    Alfajor De Arroz Choco Fit Granel Bañado Chocolate Ddl X54u | alfajor-de-arroz-choco-fit-granel-banado-chocolate-ddl-x54u // alfajor de arroz - Almacen fit
+
+  --- Croppers (4) ---
+    Granola Berries Gonatural X 290 Grs | granola-berries-gonatural-x-290-grs // granola - Almacen fit
+    Granola Go Natural Crunch! 290gr | granola-go-natural-crunch-290gr // granola - Almacen fit
+    Granola Go Natural Seed And Nuts 290gr | granola-go-natural-seed-and-nuts-290gr // granola - Almacen fit
+    Granola Tropical Fruits X 250gr | granola-tropical-fruits-x-250gr // granola - Almacen fit
+
+  --- Dicomere (20) ---
+    Aceite Girasol Alto Oleico Orgánico Sin Tacc Dicomere 500ml | aceite-girasol-alto-oleico-organico-sin-tacc-dicomere-500ml // aceite - Almacen fit
+    Ají Molido Dicomere - Especia 1kg | aji-molido-dicomere-especia-1kg // especia - Almacen fit
+    Arandanos Deshidratados 1kg Dicomere | arandanos-deshidratados-1kg-dicomere // fruto seco - Almacen fit
+    Banana Deshidratada 1kg Dicomere | banana-deshidratada-1kg-dicomere // fruta deshidratada - Almacen fit
+    Café De Algarroba Sin Tacc Dicomere X 200gr | cafe-de-algarroba-sin-tacc-dicomere-x-200gr // infusion - Almacen fit
+    Dicomere Fish Masala (sin Tacc) - Sobres X25 50gr | dicomere-fish-masala-sin-tacc-sobres-x25-50gr // especia - Almacen fit
+    Dicomere Harina De Arroz Sin Tacc 1kg | dicomere-harina-de-arroz-sin-tacc-1kg // harina - Almacen fit
+    Dicomere Orégano Deshidratado 1kg - Especia Aromática | dicomere-oregano-deshidratado-1kg-especia-aromatica // especia - Almacen fit
+    Fécula De Maíz Dicomere Libre De Gluten Sin Tacc 450g | fecula-de-maiz-dicomere-libre-de-gluten-sin-tacc-450g // fecula - Almacen fit
+    Garam Masala (sin Tacc) - Sobres X25 50gr | garam-masala-sin-tacc-sobres-x25-50gr // especia - Almacen fit
+    Garbanzo Texturizado Dicomere X 350 Gr Sin Tacc | garbanzo-texturizado-dicomere-x-350-gr-sin-tacc // legumbre - Almacen fit
+    Girasol Pelado Dicomere 1 Kg | girasol-pelado-dicomere-1-kg // semilla - Almacen fit
+    Harina De Arroz Integral Organico Dicomere Sin Tacc 450gr | harina-de-arroz-integral-organico-dicomere-sin-tacc-450gr // harina - Almacen fit
+    Harina De Sorgo Blanco Integral Dicomere 450g | harina-de-sorgo-blanco-integral-dicomere-450g // harina - Almacen fit
+    Leche De Coco En Polvo Dicomere 150g | leche-de-coco-en-polvo-dicomere-150g // leche en polvo - Almacen fit
+    Lino Clasificado Dicomere X 1kg | lino-clasificado-dicomere-x-1kg // semilla - Almacen fit
+    Premezcla Para Pizza Sin Tacc Dicomere 450 Gr | premezcla-para-pizza-sin-tacc-dicomere-450-gr // premezcla - Almacen fit
+    Sal Marina Gruesa 100% Natural Sin Tacc Dicomere X 450 Grs | sal-marina-gruesa-100-natural-sin-tacc-dicomere-x-450-grs // sal - Almacen fit
+    Semillas De Sésamo Blanco Dicomere X 1kg | semillas-de-sesamo-blanco-dicomere-x-1kg // semilla - Almacen fit
+    Sésamo Integral Dicomere 1 Kg | sesamo-integral-dicomere-1-kg // semilla - Almacen fit
+
+  --- Entrenuts (1) ---
+    Aceite de Coco Neutro 360cc Entrenuts 3X1!! | aceite-de-coco-neutro-360cc-entrenuts-2x1-136s4 // aceite de coco - Almacen fit/Cuidado personal
+
+  --- Every Day Nature (1) ---
+    Bicarbonato De Sodio Every Day Nature 1 Kg Edn Nutrition | bicarbonato-de-sodio-every-day-nature-1-kg-edn-nutrition [media] // Bicarbonato uso doméstico; iría a Almacen fit o insumos
+
+  --- Gold Nutrition (4) ---
+    Vaso Shaker 2 En 1 X 600ml Color Blanco- Gold Nutrition | vaso-shaker-2-en-1-x-600ml-color-blanco-gold-nutrition // Vaso shaker, va a Accesorios
+    Vaso Shaker 2 En 1 X 600ml Color Negro - Gold Nutrition | vaso-shaker-2-en-1-x-600ml-color-negro-gold-nutrition // Vaso shaker, va a Accesorios
+    Vaso Shaker Gold Nutrition Blanco | vaso-shaker-gold-nutrition-blanco // Vaso shaker, va a Accesorios
+    Vaso Shaker Gold Nutrition Negro | vaso-shaker-gold-nutrition-negro // Vaso shaker, va a Accesorios
+
+  --- cookies fit (2) ---
+    Galletitas De Arroz Cookies Fit Sabor Chocolate Blanco | galletitas-de-arroz-cookies-fit-sabor-chocolate-blanco // galletita de arroz no proteica - Almacen fit
+    Galletitas De Arroz Cookies Fit Sabor Chocolate Negro | galletitas-de-arroz-cookies-fit-sabor-chocolate-negro // galletita de arroz - Almacen fit
+
+
+>>> Proteínas (33 productos)
+
+  --- Atlhetica Nutrition (1) ---
+    Whey Tech Athletic 900 G - Concentrado De Suero Y Sabor A Chocolate Aislado | whey-tech-athletic-900-g-concentrado-de-suero-y-sabor-a-chocolate-aislado
+
+  --- Body Advance (8) ---
+    Body Advance Whey Protein 3kg + 2 Creatinas Monohidratadas 150gr + Vaso Legend 600ml | body-advance-whey-protein-3kg-2-creatinas-monohidratadas-150gr-vaso-legend-600ml // pack dominado por whey 3kg
+    Body Advance Whey Protein 907g + Creatina Monohidratada 150g + Vaso Legend 600ml | body-advance-whey-protein-907g-creatina-monohidratada-150g-vaso-legend-600ml // pack dominado por whey
+    Pote 100 % Pure Whey Lacprodan 1 Kg Sin Sabor Body Advance En Polvo | pote-100--pure-whey-lacprodan-1-kg-sin-sabor-body-advance-en-polvo
+    Suplemento En Polvo Body Advance Whey Protein 3kg + 2 Creatinas 150gr | suplemento-en-polvo-body-advance-whey-protein-3kg-2-creatinas-150gr // pack dominado por whey 3kg
+    Suplemento En Polvo Body Advance Whey Protein 3kg + Vaso Legend Nutrition 600ml | suplemento-en-polvo-body-advance-whey-protein-3kg-vaso-legend-nutrition-600ml
+    Suplemento En Polvo Body Advance Whey Protein 907g + Vaso Legend Nutrition 600ml | suplemento-en-polvo-body-advance-whey-protein-907g-vaso-legend-nutrition-600ml
+    Suplemento En Polvo Body Advance Whey Protein 907g Pack X2 + Vaso Legend Nutrition 600ml | suplemento-en-polvo-body-advance-whey-protein-907g-pack-x2-vaso-legend-nutrition-600ml
+    Suplemento En Polvo Body Advance Whey Protein 910gr + Creatina 150gr | suplemento-en-polvo-body-advance-whey-protein-910gr-creatina-150gr // pack dominado por whey
+
+  --- Bsn (1) ---
+    Syntha 6 Bsn X 1.45lb - 658gr (14 Serv) Importada | syntha-6-bsn-x-1-45lb-658gr-14-serv-importada-mwfdh // blend protein
+
+  --- Dicomere (1) ---
+    Albumina De Huevo En Polvo Dicomere X 120g | albumina-de-huevo-en-polvo-dicomere-x-120g [media] // albumina de huevo es proteina alternativa; podria ir tambien Almacen fit
+
+  --- Ena (10) ---
+    100% Whey 2 Lb - Whey Protein Proteina Ena Chocolate Vaso Legend 600ml | 100-whey-2-lb-whey-protein-proteina-ena-chocolate-vaso-legend-600ml
+    Combo Ena Whey Protein Chocolate 930g + Creatina Neutro 300gr | combo-ena-whey-protein-chocolate-930g-creatina-neutro-300gr // Combo whey+creatina, dominante whey
+    Ena Isoprot Sabor Chocolate Mousse 2lb+ Vaso Legend 600ml | ena-isoprot-sabor-chocolate-mousse-2lb-vaso-legend-600ml // Isoprot = whey isolate
+    Suplemento En Polvo Ena Sport True Made 930g Creatina Fruit Punch 300g Vaso Legend 600ml | suplemento-en-polvo-ena-sport-true-made-930g-creatina-fruit-punch-300g-vaso-legend-600ml // Combo proteína+creatina, whey dominante
+    Suplemento En Polvo Ena Sport Truemade Whey Protein Banana 930gr Vaso Legend 600ml | suplemento-en-polvo-ena-sport-truemade-whey-protein-banana-930gr-vaso-legend-600ml
+    Suplemento En Polvo Ena Sport Truemade Whey Protein Chocolate 930gr Vaso Legend 600ml | suplemento-en-polvo-ena-sport-truemade-whey-protein-chocolate-930gr-vaso-legend-600ml
+    Suplemento En Polvo Ena Sport Truemade Whey Protein Vainilla 930gr Vaso Legend 600ml | suplemento-en-polvo-ena-sport-truemade-whey-protein-vainilla-930gr-vaso-legend-600ml
+    Suplemento En Polvo Proteina Ena Sport True Made 2.27kg Chocolate + Vaso Shaker Legend 600ml | suplemento-en-polvo-proteina-ena-sport-true-made-2-27kg-chocolate-vaso-shaker-legend-600ml
+    Suplemento En Polvo Proteína Ena Sport True Made 2lb Cookies & Cream + Vaso Shaker Legend 600ml | suplemento-en-polvo-proteina-ena-sport-true-made-2lb-cookies-cream-vaso-shaker-legend-600ml
+    Suplemento En Polvo Proteína Ena Sport True Made 2lb Strawberry Milkshake + Vaso Shaker Legend 600ml | suplemento-en-polvo-proteina-ena-sport-true-made-2lb-strawberry-milkshake-vaso-shaker-legend-600ml
+
+  --- Ena Sport (10) ---
+    100% Whey 2 Lb - Whey Protein Proteina Ena Chocolate Vaso Legend 600ml | 100-whey-2-lb-whey-protein-proteina-ena-chocolate-vaso-legend-600ml
+    Combo Ena Whey Protein Chocolate 930g + Creatina Neutro 300gr | combo-ena-whey-protein-chocolate-930g-creatina-neutro-300gr // combo whey+creatina, whey dominante
+    Ena Isoprot Sabor Chocolate Mousse 2lb+ Vaso Legend 600ml | ena-isoprot-sabor-chocolate-mousse-2lb-vaso-legend-600ml // isolate
+    Suplemento En Polvo Ena Sport True Made 930g Creatina Fruit Punch 300g Vaso Legend 600ml | suplemento-en-polvo-ena-sport-true-made-930g-creatina-fruit-punch-300g-vaso-legend-600ml // combo whey 930g+creatina; whey dominante
+    Suplemento En Polvo Ena Sport Truemade Whey Protein Banana 930gr Vaso Legend 600ml | suplemento-en-polvo-ena-sport-truemade-whey-protein-banana-930gr-vaso-legend-600ml
+    Suplemento En Polvo Ena Sport Truemade Whey Protein Chocolate 930gr Vaso Legend 600ml | suplemento-en-polvo-ena-sport-truemade-whey-protein-chocolate-930gr-vaso-legend-600ml
+    Suplemento En Polvo Ena Sport Truemade Whey Protein Vainilla 930gr Vaso Legend 600ml | suplemento-en-polvo-ena-sport-truemade-whey-protein-vainilla-930gr-vaso-legend-600ml
+    Suplemento En Polvo Proteina Ena Sport True Made 2.27kg Chocolate + Vaso Shaker Legend 600ml | suplemento-en-polvo-proteina-ena-sport-true-made-2-27kg-chocolate-vaso-shaker-legend-600ml
+    Suplemento En Polvo Proteína Ena Sport True Made 2lb Cookies & Cream + Vaso Shaker Legend 600ml | suplemento-en-polvo-proteina-ena-sport-true-made-2lb-cookies-cream-vaso-shaker-legend-600ml
+    Suplemento En Polvo Proteína Ena Sport True Made 2lb Strawberry Milkshake + Vaso Shaker Legend 600ml | suplemento-en-polvo-proteina-ena-sport-true-made-2lb-strawberry-milkshake-vaso-shaker-legend-600ml
+
+  --- Framingham Pharma (1) ---
+    Suplemento En Polvo Framingham Pharma Ampk Protein Vegana Sabor Chocolate En Bolsa De 506ml | suplemento-en-polvo-framingham-pharma-ampk-protein-vegana-sabor-chocolate-en-bolsa-de-506ml // Proteína vegana
+
+  --- Gold Nutrition (1) ---
+    Suplemento En Polvo Gold Nutrition 2lb + Vaso Legend Nutrition 600ml | suplemento-en-polvo-gold-nutrition-2lb-vaso-legend-nutrition-600ml // Proteína 2lb chocolate (whey/protein)
+
+
+>>> Creatinas (29 productos)
+
+  --- Body Advance (4) ---
+    Creatina Monohidrato 150 Gr Body Advance Pack X3 Sabor Sin Sabor | creatina-monohidrato-150-gr-body-advance-pack-x3-sabor-sin-sabor
+    Creatina Monohidrato 150 Gr Body Advance Pack X4 Sabor Sin Sabor | creatina-monohidrato-150-gr-body-advance-pack-x4-sabor-sin-sabor
+    Creatina Monohidrato Pura Sin Sabor 300g Body Advance + Vaso Legend Nutrition | creatina-monohidrato-pura-sin-sabor-300g-body-advance-vaso-legend-nutrition
+    Suplemento En Polvo Body Advance Creatina Monohidrato 150g X2 + Vaso Legend Nutrition 600ml | suplemento-en-polvo-body-advance-creatina-monohidrato-150g-x2-vaso-legend-nutrition-600ml
+
+  --- Ena (11) ---
+    2 Creatina Micronizada 100% Pura X 300gr Sabor Fruit Punch Vaso Legend Nutrition | 2-creatina-micronizada-100-pura-x-300gr-sabor-fruit-punch-vaso-legend-nutrition
+    2 Creatina Micronizada 100% Pura X 300gr Sabor Nuetro Vaso Legend Nutrition | 2-creatina-micronizada-100-pura-x-300gr-sabor-nuetro-vaso-legend-nutrition
+    3 Creatina Micronizada 100% Pura X 300gr Sabor Fruit Punch Vaso Legend Nutrition | 3-creatina-micronizada-100-pura-x-300gr-sabor-fruit-punch-vaso-legend-nutrition
+    3 Creatina Micronizada 100% Pura X 300gr Sabor Neutro Vaso Legend Nutrition | 3-creatina-micronizada-100-pura-x-300gr-sabor-neutro-vaso-legend-nutrition
+    Combo X2 Creatina Micronizada 100% Pura Ena Sport 300g Doypack Sabor Neutro Con Fit Magnesium Suplemento Deportivo Ideal Para Energía Y Rendimiento Físico | combo-x2-creatina-micronizada-100-pura-ena-sport-300g-doypack-sabor-neutro-con-fit-magnesium-suplemento-deportivo-ideal-para-energia-y-rendimiento-fisico
+    Creatina Creapure 200g Ena Sport Sin Sabor X2 + Vaso Legend 600ml | creatina-creapure-200g-ena-sport-sin-sabor-x2-vaso-legend-600ml
+    Creatina Creapure Monohidrato 200g Sin Sabor Ena Sport + Vaso Legend 600ml | creatina-creapure-monohidrato-200g-sin-sabor-ena-sport-vaso-legend-600ml
+    Suplemento En Polvo Ena Sport Creatina 300g Sabor Fruit Punch + Pastillero Legend X2 | suplemento-en-polvo-ena-sport-creatina-300g-sabor-fruit-punch-pastillero-legend-x2
+    Suplemento En Polvo Ena Sport Creatina 300g Sabor Neutro + Pastillero Legend X2 | suplemento-en-polvo-ena-sport-creatina-300g-sabor-neutro-pastillero-legend-x2
+    Suplemento En Polvo Ena Sport Creatina Micronizada 100% Pura Doypack De 300g Vaso Legend 600ml | suplemento-en-polvo-ena-sport-creatina-micronizada-100-pura-doypack-de-300g-vaso-legend-600ml
+    Suplemento En Polvo Ena Sport Creatina Micronizada Fruit Punch Doypack 300g Vaso Legend 600ml | suplemento-en-polvo-ena-sport-creatina-micronizada-fruit-punch-doypack-300g-vaso-legend-600ml
+
+  --- Ena Sport (13) ---
+    2 Creatina Micronizada 100% Pura X 300gr Sabor Fruit Punch Vaso Legend Nutrition | 2-creatina-micronizada-100-pura-x-300gr-sabor-fruit-punch-vaso-legend-nutrition
+    2 Creatina Micronizada 100% Pura X 300gr Sabor Nuetro Vaso Legend Nutrition | 2-creatina-micronizada-100-pura-x-300gr-sabor-nuetro-vaso-legend-nutrition
+    3 Creatina Micronizada 100% Pura X 300gr Sabor Fruit Punch Vaso Legend Nutrition | 3-creatina-micronizada-100-pura-x-300gr-sabor-fruit-punch-vaso-legend-nutrition
+    3 Creatina Micronizada 100% Pura X 300gr Sabor Neutro Vaso Legend Nutrition | 3-creatina-micronizada-100-pura-x-300gr-sabor-neutro-vaso-legend-nutrition
+    Combo X2 Creatina Micronizada 100% Pura Ena Sport 300g Doypack Sabor Neutro Con Fit Magnesium Suplemento Deportivo Ideal Para Energía Y Rendimiento Físico | combo-x2-creatina-micronizada-100-pura-ena-sport-300g-doypack-sabor-neutro-con-fit-magnesium-suplemento-deportivo-ideal-para-energia-y-rendimiento-fisico // combo dominado por creatina x2
+    Creatina Creapure 200g Ena Sport Sin Sabor X2 + Vaso Legend 600ml | creatina-creapure-200g-ena-sport-sin-sabor-x2-vaso-legend-600ml
+    Creatina Creapure Monohidrato 200g Sin Sabor Ena Sport + Vaso Legend 600ml | creatina-creapure-monohidrato-200g-sin-sabor-ena-sport-vaso-legend-600ml
+    Creatina Monohidrato 150g Ena Sport Sin Sabor 2X1!!!!! | creatina-monohidrato-150g-ena-sport-sin-sabor-2x1-1fswa
+    Creatina Monohidrato 150g Ena Sport Sin Sabor 2X1!!!!! | creatina-monohidrato-150g-ena-sport-sin-sabor-2x1-1fswa
+    Suplemento En Polvo Ena Sport Creatina 300g Sabor Fruit Punch + Pastillero Legend X2 | suplemento-en-polvo-ena-sport-creatina-300g-sabor-fruit-punch-pastillero-legend-x2
+    Suplemento En Polvo Ena Sport Creatina 300g Sabor Neutro + Pastillero Legend X2 | suplemento-en-polvo-ena-sport-creatina-300g-sabor-neutro-pastillero-legend-x2
+    Suplemento En Polvo Ena Sport Creatina Micronizada 100% Pura Doypack De 300g Vaso Legend 600ml | suplemento-en-polvo-ena-sport-creatina-micronizada-100-pura-doypack-de-300g-vaso-legend-600ml
+    Suplemento En Polvo Ena Sport Creatina Micronizada Fruit Punch Doypack 300g Vaso Legend 600ml | suplemento-en-polvo-ena-sport-creatina-micronizada-fruit-punch-doypack-300g-vaso-legend-600ml
+
+  --- Gold Nutrition (1) ---
+    Suplementos En Polvo Gold Nutrition Creatina Monohidratada 300g Vaso Legend 600ml | suplementos-en-polvo-gold-nutrition-creatina-monohidratada-300g-vaso-legend-600ml
+
+
+>>> Quemadores (20 productos)
+
+  --- Body Advance (4) ---
+    L-carnitine X 120 Comprimidos Body Advance X3 Quemador De Grasas Sin Sabor | l-carnitine-x-120-comprimidos-body-advance-x3-quemador-de-grasas-sin-sabor
+    Picolinato Cromo 90cap + Pastillero Legend Body Advance | picolinato-cromo-90cap-pastillero-legend-body-advance [media] // picolinato de cromo se usa como carbo blocker/control apetito; alternativa Vitaminas y Salud
+    Picolinato Cromo Body Advance 90caps X2 + Pastillero Legend | picolinato-cromo-body-advance-90caps-x2-pastillero-legend [media] // picolinato de cromo carbo blocker; alternativa Vitaminas y Salud
+    Picolinato De Cromo X 90 Cap - Body Advance - Carbo Blocker Sabor Neutro | picolinato-de-cromo-x-90-cap-body-advance-carbo-blocker-sabor-neutro [media] // marketing como carbo blocker; alternativa Vitaminas y Salud
+
+  --- Ena (3) ---
+    Carnitina 1500 Ena Sport 60 Capsulas Sin Sabor + Pastillero Legend | carnitina-1500-ena-sport-60-capsulas-sin-sabor-pastillero-legend
+    Carnitina 1500 Ena Sport 60 Capsulas Sin Sabor X2 + Pastillero Legend | carnitina-1500-ena-sport-60-capsulas-sin-sabor-x2-pastillero-legend
+    Ripped X Ena Sport Quemador De Grasas - Descenso De Peso Sabor Sin Sabor | ripped-x-ena-sport-quemador-de-grasas-descenso-de-peso-sabor-sin-sabor
+
+  --- Ena Sport (3) ---
+    Carnitina 1500 Ena Sport 60 Capsulas Sin Sabor + Pastillero Legend | carnitina-1500-ena-sport-60-capsulas-sin-sabor-pastillero-legend
+    Carnitina 1500 Ena Sport 60 Capsulas Sin Sabor X2 + Pastillero Legend | carnitina-1500-ena-sport-60-capsulas-sin-sabor-x2-pastillero-legend
+    Ripped X Ena Sport Quemador De Grasas - Descenso De Peso Sabor Sin Sabor | ripped-x-ena-sport-quemador-de-grasas-descenso-de-peso-sabor-sin-sabor
+
+  --- Eth Nutrition (3) ---
+    2 Potes X 30 Pastillas Inferno Para Adelgazar Rápido Quema Grasa Eth Nutrition | 2-potes-x-30-pastillas-inferno-para-adelgazar-rapido-quema-grasa-eth-nutrition
+    3 Potes X 30 Pastillas Inferno Para Adelgazar Rápido Quema Grasa Eth Nutrition | 3-potes-x-30-pastillas-inferno-para-adelgazar-rapido-quema-grasa-eth-nutrition
+    Pastillas Para Adelgazar Rápido Quema Grasa Eth Inferno Sabor Sin Sabor | pastillas-para-adelgazar-rapido-quema-grasa-eth-inferno-sabor-sin-sabor
+
+  --- Framingham Pharma (5) ---
+    Framingham Pharma Faseolamina Estandarizada Satial Carb Controller Comprimidos - Caja - Unidad - 60 - 1 | framingham-pharma-faseolamina-estandarizada-satial-carb-controller-comprimidos-caja-unidad-60-1 [media] // Bloqueador carbohidratos para descenso de peso; alt: Vitaminas y Salud
+    Satial Total Bloq. Carbohidratos Y Azucares Polvo X 50 Grs. Sabor Sin Sabor | satial-total-bloq-carbohidratos-y-azucares-polvo-x-50-grs-sabor-sin-sabor [media] // Bloqueador de azúcares/carbohidratos para adelgazar
+    Satial Total Sugar Stop & Carb Controller X 60 Comprimidos Sabor Sin Sabor | satial-total-sugar-stop-carb-controller-x-60-comprimidos-sabor-sin-sabor [media] // Bloqueador azucares y carbos para descenso de peso
+    Suplemento En Comprimidos Framingham Pharma Satial Carb Controller Faseolamina Estandarizada En Caja 30 Un | suplemento-en-comprimidos-framingham-pharma-satial-carb-controller-faseolamina-estandarizada-en-caja-30-un [media] // Bloqueador carbohidratos
+    Suplemento En Polvo Framingham Pharma Satial Food Dietario En Caja De 50ml | suplemento-en-polvo-framingham-pharma-satial-food-dietario-en-caja-de-50ml [baja] // Satial Food saciante para descenso de peso; alt Vitaminas y Salud
+
+  --- Gentech (1) ---
+    Gentech Tx3 Black Cuts 60 Comp. Adelgazante Sin Sabor Sin Sabor | gentech-tx3-black-cuts-60-comp-adelgazante-sin-sabor-sin-sabor-1fs7x
+
+  --- Gold Nutrition (1) ---
+    Lipo Burn Hardcore Gold Nutrition 3un X 120 Tabletas Sabor Sin Sabor | lipo-burn-hardcore-gold-nutrition-3un-x-120-tabletas-sabor-sin-sabor
+
+
+>>> Snacks proteicos (11 productos)
+
+  --- Atlhetica Nutrition (1) ---
+    Atlhetica Nutrition Best Whey Barra Proteinas Cookies 12u 3c | atlhetica-nutrition-best-whey-barra-proteinas-cookies-12u-3c
+
+  --- Bigual (9) ---
+    6 Barras 50g Bigual Con 18g De Proteína Sabor Cacao Amargo Sin Tacc | 6-barras-50g-bigual-con-18g-de-proteina-sabor-cacao-amargo-sin-tacc
+    6 Barras 50g Bigual Con 18g De Proteína Sabor Café Sin Tacc | 6-barras-50g-bigual-con-18g-de-proteina-sabor-cafe-sin-tacc
+    6 Barras 50g Bigual Con 19g De Proteína Original Con Chips | 6-barras-50g-bigual-con-19g-de-proteina-original-con-chips
+    Barra 50g Barra Con Proteinas 19g Original Chips Sin Tacc | barra-50g-barra-con-proteinas-19g-original-chips-sin-tacc
+    Barra 50g Bigual Con Proteina 18g Sabor Café Sin Tacc | barra-50g-bigual-con-proteina-18g-sabor-cafe-sin-tacc
+    Barra 50g Bigual Con Proteinas 18g Cacao Amargo Sin Tacc | barra-50g-bigual-con-proteinas-18g-cacao-amargo-sin-tacc
+    Pack 12 Barras 50g Bigual Con 18g Proteinas Cafe Sin Tacc | pack-12-barras-50g-bigual-con-18g-proteinas-cafe-sin-tacc
+    Pack 12 Barras 50g Bigual Con 19g Proteinas Sin Tacc | pack-12-barras-50g-bigual-con-19g-proteinas-sin-tacc
+    Pack 12 Barras 50g Con 18g Proteinas Cacao Amargo Sin Tacc | pack-12-barras-50g-con-18g-proteinas-cacao-amargo-sin-tacc
+
+  --- Body Advance (1) ---
+    Prosnick Protein Bar X 10 Unidades Body Advance Sabor Dulce De Leche | prosnick-protein-bar-x-10-unidades-body-advance-sabor-dulce-de-leche
+
+
+>>> Pre-entrenos (11 productos)
+
+  --- Cellucor (5) ---
+    C4 Original 470g Icy Blue Raspberry Preworkout 50 Servs X2 + Vaso Legend | c4-original-470g-icy-blue-raspberry-preworkout-50-servs-x2-vaso-legend
+    C4 Original 470g Sabor Icy Blue Raspberry Preworkout 50 Servs + Vaso Legend 600ml | c4-original-470g-sabor-icy-blue-raspberry-preworkout-50-servs-vaso-legend-600ml
+    C4 Ripped Pre-entreno 180g Cellucor Sabor Icy Blue Razz X2 + Vaso Legend | c4-ripped-pre-entreno-180g-cellucor-sabor-icy-blue-razz-x2-vaso-legend
+    C4 Ultimate Preworkout 400g Sabor Icy Blue Razz Cellucor + Vaso Legend 600ml | c4-ultimate-preworkout-400g-sabor-icy-blue-razz-cellucor-vaso-legend-600ml
+    C4 Ultimate Preworkout 400g Sabor Icy Blue Razz Cellucor X2+ Vaso Legend 600ml | c4-ultimate-preworkout-400g-sabor-icy-blue-razz-cellucor-x2-vaso-legend-600ml
+
+  --- Ena (3) ---
+    Óxido Nítrico (210 Grs) - Ena Sport Aumento De Masa Sabor Naranja | oxido-nitrico-210-grs-ena-sport-aumento-de-masa-sabor-naranja
+    Oxido Nitrico Pre-work Ena Sport 210g Sabor Naranja + Vaso Legend 600ml | oxido-nitrico-pre-work-ena-sport-210g-sabor-naranja-vaso-legend-600ml
+    Oxido Nitrico Pre-work Ena Sport 210g Sabor Naranja X2 + Vaso Legend 600ml | oxido-nitrico-pre-work-ena-sport-210g-sabor-naranja-x2-vaso-legend-600ml
+
+  --- Ena Sport (3) ---
+    Óxido Nítrico (210 Grs) - Ena Sport Aumento De Masa Sabor Naranja | oxido-nitrico-210-grs-ena-sport-aumento-de-masa-sabor-naranja // oxido nitrico/pump
+    Oxido Nitrico Pre-work Ena Sport 210g Sabor Naranja + Vaso Legend 600ml | oxido-nitrico-pre-work-ena-sport-210g-sabor-naranja-vaso-legend-600ml
+    Oxido Nitrico Pre-work Ena Sport 210g Sabor Naranja X2 + Vaso Legend 600ml | oxido-nitrico-pre-work-ena-sport-210g-sabor-naranja-x2-vaso-legend-600ml
+
+
+>>> BCAA · Aminos (8 productos)
+
+  --- Body Advance (1) ---
+    Glutamina Body Advance X 300 Gr Sabor Sin Sabor + Vaso Legend Nutrition | glutamina-body-advance-x-300-gr-sabor-sin-sabor-vaso-legend-nutrition
+
+  --- Breaking Lab (1) ---
+    Taurina Pura (100%) En Polvo 250 Gramos Sabor Clásico | taurina-pura-100-en-polvo-250-gramos-sabor-clasico // taurina es aminoacido
+
+  --- Bsn (1) ---
+    Suplemento Bsn Aminox 435g Con Bcaa En Polvo + Vaso Legend 600ml | suplemento-bsn-aminox-435g-con-bcaa-en-polvo-vaso-legend-600ml
+
+  --- Ena (2) ---
+    Ena Glutamina Rapida Recuperacion Sabor Neutro Doypack X300gr + Vaso Legend | ena-glutamina-rapida-recuperacion-sabor-neutro-doypack-x300gr-vaso-legend
+    Suplemento En Tabletas Sport Muscle Max En Frasco | suplemento-en-tabletas-sport-muscle-max-en-frasco [baja] // Muscle Max suele ser aminos/BCAA; alternativa Vitaminas y Salud si fuera multimineral
+
+  --- Ena Sport (2) ---
+    Ena Glutamina Rapida Recuperacion Sabor Neutro Doypack X300gr + Vaso Legend | ena-glutamina-rapida-recuperacion-sabor-neutro-doypack-x300gr-vaso-legend
+    Suplemento En Tabletas Sport Muscle Max En Frasco | suplemento-en-tabletas-sport-muscle-max-en-frasco [baja] // muscle max suele ser HMB/aminos; podria ir Vitaminas y Salud si es testo booster
+
+  --- Gold Nutrition (1) ---
+    Amino Essential 240 Grs X 3 Unidades Eaa Gold Nutrition Sabor Mango | amino-essential-240-grs-x-3-unidades-eaa-gold-nutrition-sabor-mango
+
+
+>>> Cafeína y energía (7 productos)
+
+  --- Breaking Lab (1) ---
+    Cafeina En Polvo Pura 99.9% I Anhidra Pura Energía 100g | cafeina-en-polvo-pura-99-9-i-anhidra-pura-energia-100g1
+
+  --- Ena (3) ---
+    Cafeina Anhidra Ena Concentracion + Resistencia (60 Caps) X2 | cafeina-anhidra-ena-concentracion-resistencia-60-caps-x2
+    Cafeína Anhidra Ena Sport 60 Caps Sin Sabor X2 + Pastillero Legend | cafeina-anhidra-ena-sport-60-caps-sin-sabor-x2-pastillero-legend
+    Polvo Cafeína Anhidra Ena Sport 60 Caps Sin Sabor + Pastillero Legend | polvo-cafeina-anhidra-ena-sport-60-caps-sin-sabor-pastillero-legend
+
+  --- Ena Sport (3) ---
+    Cafeina Anhidra Ena Concentracion + Resistencia (60 Caps) X2 | cafeina-anhidra-ena-concentracion-resistencia-60-caps-x2
+    Cafeína Anhidra Ena Sport 60 Caps Sin Sabor X2 + Pastillero Legend | cafeina-anhidra-ena-sport-60-caps-sin-sabor-x2-pastillero-legend
+    Polvo Cafeína Anhidra Ena Sport 60 Caps Sin Sabor + Pastillero Legend | polvo-cafeina-anhidra-ena-sport-60-caps-sin-sabor-pastillero-legend
+
+
+>>> Ganadores de peso (6 productos)
+
+  --- Ena (2) ---
+    Suplemento Ganador De Peso Ultramass 1.5 Kg Ena Sport Sabor Chocolate + Vaso Legend | suplemento-ganador-de-peso-ultramass-1-5-kg-ena-sport-sabor-chocolate-vaso-legend
+    Suplemento Ganador De Peso Ultramass 1.5 Kg Sabor Chocolate X2 + Vaso Legend | suplemento-ganador-de-peso-ultramass-1-5-kg-sabor-chocolate-x2-vaso-legend
+
+  --- Ena Sport (2) ---
+    Suplemento Ganador De Peso Ultramass 1.5 Kg Ena Sport Sabor Chocolate + Vaso Legend | suplemento-ganador-de-peso-ultramass-1-5-kg-ena-sport-sabor-chocolate-vaso-legend
+    Suplemento Ganador De Peso Ultramass 1.5 Kg Sabor Chocolate X2 + Vaso Legend | suplemento-ganador-de-peso-ultramass-1-5-kg-sabor-chocolate-x2-vaso-legend
+
+  --- Gentech (2) ---
+    Ganador Muscular Maxi Gain Gentech 750g Sin Tacc | ganador-muscular-maxi-gain-gentech-750g-sin-tacc-sabor-chocolate-1fg85
+    Maxi Gain Ganador De Masa 1.25kg Gentech | maxi-gain-ganador-de-masa-1250kg-gentech-sabor-chocolate-chocolate-1d29w
+
+
+>>> Carbohidratos · Isotónicos (4 productos)
+
+  --- Atlhetica Nutrition (1) ---
+    Gel De Recuperación Energética Sabor Fresa Atlhetica Nutrition Caja 10 Sobres De 30 G | gel-de-recuperacion-energetica-sabor-fresa-atlhetica-nutrition-caja-10-sobres-de-30-g // gel deportivo de recuperacion energetica
+
+  --- Ena (1) ---
+    Carbo Energy Ena Sabor Blueberry X546gr | carbo-energy-ena-sabor-blueberry-x546gr
+
+  --- Ena Sport (1) ---
+    Carbo Energy Ena Sabor Blueberry X546gr | carbo-energy-ena-sabor-blueberry-x546gr
+
+  --- Gold Nutrition (1) ---
+    Gold Nutrition Electrolytes 60caps Sales Minerales Vitaminas Sabor Sin Sabor | gold-nutrition-electrolytes-60caps-sales-minerales-vitaminas-sabor-sin-sabor // Electrolytes/sales minerales
+
+
+================================================================================
+
+INSTRUCCIONES BULK ASSIGN EN ADMIN TN:
+
+1. Admin > Productos > Lista de productos
+2. Filtrar por categoria "Suplementos" + buscar por marca
+3. Seleccionar todos los productos del bloque marca
+4. Accion masiva > "Agregar a categoria" > seleccionar sub-cat correspondiente
+5. Repetir por cada marca/sub-cat de este archivo
+
+Confidence baja [baja] = revisar manual, dudoso.
+Confidence media [media] = probable, verificar.
+NO-SUPLEMENTO = sacar de Suplementos y mover a categoria correcta segun notes.

@@ -1087,36 +1087,87 @@
     return out;
   })();
 
-  // Aliases por type para detectar intención del usuario
+  // Aliases por type — match a las sub-cats reales del catalog-data.js
   const SR_TYPE_ALIASES = {
-    'creatinas':     ['creatina', 'crea', 'creatinas', 'monohidrato'],
-    'proteinas':     ['proteina', 'proteinas', 'protein', 'whey', 'caseina'],
-    'pre-entrenos': ['pre', 'pre-entreno', 'pre-entrenos', 'preentreno', 'pre workout'],
-    'bcaa':          ['bcaa', 'aminoacido', 'aminoacidos'],
-    'quemadores':    ['quemador', 'quemadores', 'fat burn', 'termogenico'],
-    'barras':        ['barra', 'barras', 'gel', 'geles'],
-    'vitaminas':     ['vitamina', 'vitaminas', 'multivitaminico'],
-    'combos':        ['combo', 'combos', 'pack']
+    // Suplementos (11 sub-cats)
+    'proteinas':         ['proteina', 'proteinas', 'protein', 'whey', 'caseina', 'isolate', 'aislada'],
+    'creatinas':         ['creatina', 'crea', 'creatinas', 'monohidrato', 'creatine'],
+    'vitaminas-salud':   ['vitamina', 'vitaminas', 'multivitaminico', 'colageno', 'magnesio', 'omega', 'zinc', 'biotina', 'melatonina', 'salud'],
+    'bcaa-aminos':       ['bcaa', 'aminoacido', 'aminoacidos', 'amino', 'glutamina', 'arginina', 'leucina'],
+    'pre-entrenos':      ['pre', 'pre-entreno', 'pre-entrenos', 'preentreno', 'pre workout', 'preworkout', 'c4', 'pump'],
+    'quemadores':        ['quemador', 'quemadores', 'fat burner', 'termogenico', 'lipo', 'cla', 'adelgazante', 'detox'],
+    'combos':            ['combo', 'combos', 'pack', 'kit'],
+    'snacks-proteicos':  ['barra', 'barras', 'gel', 'geles', 'snack', 'alfajor', 'cookies', 'pancake', 'gomitas'],
+    'cafeina-energia':   ['cafeina', 'caffeine', 'cafeine', 'energia'],
+    'carbo-isotonicos':  ['isotonico', 'isotonicos', 'carbo', 'carbohidrato', 'electrolitos', 'hidratacion'],
+    'ganadores':         ['ganador', 'ganadores', 'mass gainer', 'gainer', 'serious mass', 'mutant mass'],
+    // Supermercado (7 sub-cats)
+    'aceites-vinagres':  ['aceite', 'aceites', 'vinagre', 'aceto', 'oliva'],
+    'panales-absorbentes':['panal', 'panales', 'toallita', 'toallitas', 'apositos', 'incontinencia', 'higiene'],
+    'salsas-jarabes':    ['salsa', 'salsas', 'jarabe', 'syrup'],
+    'pasta-mani':        ['pasta mani', 'pasta de mani', 'mantequilla mani', 'manteca de mani'],
+    'almacen-fit':       ['almacen', 'fit'],
+    'miel-endulzantes':  ['miel', 'endulzante', 'edulcorante', 'ghee'],
+    'yerba-mate':        ['yerba', 'mate'],
+    // Electro-Hogar (8 sub-cats)
+    'cocina-electrica':  ['cafetera', 'pava', 'tostadora', 'licuadora', 'batidora', 'air fryer', 'freidora', 'horno', 'yogurtera', 'sandwicher'],
+    'bano-espejos':      ['inodoro', 'bacha', 'griferia', 'espejo', 'baño'],
+    'salud-medicion':    ['balanza', 'termometro', 'oximetro', 'tensiometro', 'nebulizador'],
+    'cuidado-personal':  ['plancha', 'secador', 'planchita', 'depiladora'],
+    'grandes-electro':   ['lavarropas', 'heladera', 'freezer', 'aire'],
+    'limpieza':          ['aspirador', 'aspiradora', 'robot'],
+    'herramientas':      ['taladro', 'sierra', 'amoladora', 'atornillador', 'motosierra'],
+    'climatizacion':     ['ventilador', 'calefactor', 'estufa', 'caloventor'],
+    // Bodega (4 sub-cats)
+    'vinos-tintos':      ['vino', 'vinos', 'tinto', 'tintos', 'malbec', 'cabernet', 'merlot', 'syrah'],
+    'vinos-blancos':     ['blanco', 'blancos', 'chardonnay', 'sauvignon', 'torrontes'],
+    'destilados':        ['gin', 'whisky', 'vodka', 'ron', 'aperitivo', 'vermut', 'fernet'],
+    'espumantes':        ['espumante', 'champagne', 'brut', 'champa'],
+    // Bananero
+    'bananero':          ['japi', 'picante', 'salsa picante', 'cerveza japi', 'merch']
   };
   const SR_TYPE_LABEL = {
-    'creatinas': 'Creatinas',
     'proteinas': 'Proteínas',
+    'creatinas': 'Creatinas',
+    'vitaminas-salud': 'Vitaminas y Salud',
+    'bcaa-aminos': 'BCAA · Aminoácidos',
     'pre-entrenos': 'Pre-entrenos',
-    'bcaa': 'BCAA',
     'quemadores': 'Quemadores',
-    'barras': 'Barras y geles',
-    'vitaminas': 'Vitaminas',
-    'combos': 'Combos'
+    'combos': 'Combos',
+    'snacks-proteicos': 'Snacks proteicos',
+    'cafeina-energia': 'Cafeína y energía',
+    'carbo-isotonicos': 'Carbohidratos · Isotónicos',
+    'ganadores': 'Ganadores de peso',
+    'aceites-vinagres': 'Aceites y vinagres',
+    'panales-absorbentes': 'Pañales y absorbentes',
+    'salsas-jarabes': 'Salsas y jarabes',
+    'pasta-mani': 'Pasta de maní',
+    'almacen-fit': 'Almacén fit',
+    'miel-endulzantes': 'Miel y endulzantes',
+    'yerba-mate': 'Yerba mate',
+    'cocina-electrica': 'Cocina eléctrica',
+    'bano-espejos': 'Baño y espejos',
+    'salud-medicion': 'Salud y medición',
+    'cuidado-personal': 'Cuidado personal',
+    'grandes-electro': 'Grandes electrodomésticos',
+    'limpieza': 'Limpieza',
+    'herramientas': 'Herramientas',
+    'climatizacion': 'Climatización',
+    'vinos-tintos': 'Vinos tintos',
+    'vinos-blancos': 'Vinos blancos',
+    'destilados': 'Destilados',
+    'espumantes': 'Espumantes',
+    'bananero': 'El Bananero'
   };
 
-  // Hash determinístico para simular "más vendidos" (misma fórmula que la PDP)
+  // Hash determinístico para simular "más vendidos" — misma fórmula que cards/PDP
   function srSeed(p){
-    const s = (p.brand || '') + '|' + (p.name || '');
+    const s = ((p.brand || '') + (p.name || '')).toLowerCase();
     let h = 0;
-    for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+    for (let i = 0; i < s.length; i++) { h = ((h << 5) - h) + s.charCodeAt(i); h = h & h; }
     return Math.abs(h);
   }
-  function srVendidos(p){ return 20 + (srSeed(p) % 480); }
+  function srVendidos(p){ return (srSeed(p) % 1500) + 50; }
 
   function srMatchedType(qNorm){
     for (const type in SR_TYPE_ALIASES){
@@ -1160,7 +1211,17 @@
       // Sub-bonus dentro de tier: si la query aparece literal en searchKey, va antes
       scored.push({ p: p, tier: tier, literalHit: inKey ? 0 : 1, sales: srVendidos(p) });
     }
+    // Sort: si el query matchea un tipo (creatina/proteina/etc.) → ventas mandan SOBRE el tier.
+    // Sino: tier primero, después literal, después ventas.
     scored.sort(function(a, b){
+      if (typeHit) {
+        // Cuando hay typeHit, los que SÍ son del tipo van primero, luego los demás.
+        // Dentro de cada grupo, ordenar SOLO por ventas descendentes.
+        const aMatch = a.p.types.indexOf(typeHit) !== -1 ? 0 : 1;
+        const bMatch = b.p.types.indexOf(typeHit) !== -1 ? 0 : 1;
+        if (aMatch !== bMatch) return aMatch - bMatch;
+        return b.sales - a.sales;
+      }
       return (a.tier - b.tier) || (a.literalHit - b.literalHit) || (b.sales - a.sales);
     });
     return {

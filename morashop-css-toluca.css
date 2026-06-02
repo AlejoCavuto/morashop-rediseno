@@ -1,0 +1,178 @@
+/* === EXISTENTE - HACKS ACTUALES MORASHOP === */
+h1.js-product-name.mb-3 { font-size: x-large; }
+.js-item-product.item-product .payment-discount-price-product-container > span:last-of-type::before { content: 'Efectivo'; font-size: 12px; }
+#single-product .payment-discount-price-product-container > span:last-of-type::before,
+#single-product [data-toggle='#installments-modal'] > div.mb-2:not(.js-max-installments) > span.text-accent { content: 'Efectivo'; font-size: 14px; }
+.js-item-product.item-product .payment-discount-price-product-container > span:last-of-type,
+#single-product .payment-discount-price-product-container > span:last-of-type,
+#single-product [data-toggle='#installments-modal'] > div.mb-2:not(.js-max-installments) { font-size: 0px; }
+.textbanner-text.category-banner-info.over-image.over-image-invert { display: none; }
+#modal-cart { z-index: 20000 !important; }
+h1.js-product-name.mb-3[data-store="product-name-211960998"] { font-size: 16px; }
+.placeholder-shine, .placeholder-fade { background-color: #000e3500; }
+@media (max-width: 767px) { .category-banner { position: relative; height: 57px; overflow: hidden; } }
+.logo-img-mayorista { height: 40px; transition: all 0.3s ease; }
+.head-scroll .logo-img-mayorista { height: 20px; }
+@media (max-width: 767px) { .logo-img-mayorista { height: 30px; } .head-scroll .logo-img-mayorista { height: 18px; } }
+html:has(meta[property="og:url"][content$="/ofertas/"]) [data-component][data-component-value="Color" i],
+html:has(meta[property="og:url"][content$="/ofertas/"]) [data-component][data-component-value="Talle" i],
+html:has(meta[property="og:url"][content$="/ofertas/"]) [data-component][data-component-value="Sabor" i] { display: none !important; }
+
+/* === REDISENO MORASHOP V2 === */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
+:root {
+  --mr-ink: #ECEDEF; --mr-navy: #FFFFFF; --mr-text: #1A2744;
+  --mr-text-soft: rgba(26,39,68,0.58); --mr-line: rgba(26,39,68,0.14);
+  --mr-red: #E8341A; --mr-red-deep: #C42710; --mr-green: #00A650;
+  --mr-radius-card: 8px; --mr-radius-pill: 999px;
+  --mr-shadow-card: 0 1px 3px rgba(26,39,68,0.08);
+  --mr-shadow-card-hover: 0 12px 28px -8px rgba(26,39,68,0.18);
+  --mr-font-display: "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
+  --mr-font-body: "Inter", system-ui, -apple-system, sans-serif;
+}
+body { background-color: var(--mr-ink) !important; color: var(--mr-text) !important; font-family: var(--mr-font-body); -webkit-font-smoothing: antialiased; }
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 { font-family: var(--mr-font-display); font-weight: 900; letter-spacing: -0.01em; color: var(--mr-text); text-transform: uppercase; }
+.h1-huge,.h1-huge-md { font-family: var(--mr-font-display); font-weight: 900; }
+.head-main { background-color: var(--mr-navy) !important; color: var(--mr-text) !important; border-bottom: 1px solid var(--mr-line); backdrop-filter: saturate(140%) blur(8px); }
+.head-main,.head-main a,.head-main .nav-list-link { color: var(--mr-text) !important; }
+.advertising-bar,.ad-bar { background-color: var(--mr-text) !important; color: var(--mr-navy) !important; font-family: var(--mr-font-body); font-weight: 600; font-size: 13px; }
+/* === MORASHOP TICKER === */
+.morashop-ticker { background-color: var(--mr-text); color: #fff; overflow: hidden; padding: 8px 0; position: relative; }
+.morashop-ticker-track { display: flex; width: max-content; animation: morashop-marquee 32s linear infinite; }
+.morashop-ticker:hover .morashop-ticker-track { animation-play-state: paused; }
+.morashop-ticker-list { display: flex; list-style: none; padding: 0; margin: 0; flex-shrink: 0; }
+.morashop-ticker-item { padding: 0 28px; white-space: nowrap; font-family: var(--mr-font-body); font-weight: 600; font-size: 13px; letter-spacing: 0.02em; position: relative; }
+.morashop-ticker-item + .morashop-ticker-item::before { content: '•'; position: absolute; left: -4px; color: var(--mr-red); }
+.morashop-ticker-item a { color: #fff; text-decoration: none; }
+.morashop-ticker-item a:hover { color: var(--mr-red); }
+@keyframes morashop-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (max-width: 767px) { .morashop-ticker-item { padding: 0 20px; font-size: 12px; } .morashop-ticker-track { animation-duration: 26s; } }
+.search-input,.search-form-ios input { background-color: var(--mr-ink) !important; border: 1px solid var(--mr-line) !important; border-radius: var(--mr-radius-pill) !important; padding: 10px 16px !important; color: var(--mr-text) !important; font-family: var(--mr-font-body); font-size: 15px; }
+.search-input:focus { border-color: var(--mr-red) !important; box-shadow: 0 0 0 3px rgba(232,52,26,0.12) !important; }
+.search-submit-btn { color: var(--mr-text) !important; }
+.header-badge,.cart-quantity,.js-cart-count { background-color: var(--mr-red) !important; color: #fff !important; border-radius: var(--mr-radius-pill) !important; font-family: var(--mr-font-body); font-weight: 700; }
+.nav-desktop,.nav-desktop-list { background-color: var(--mr-navy) !important; color: var(--mr-text) !important; border-bottom: 1px solid var(--mr-line); }
+.nav-list-link { font-family: var(--mr-font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; font-size: 15px; color: var(--mr-text) !important; }
+.nav-list-link:hover { color: var(--mr-red) !important; }
+.btn,.btn-default,.btn-primary { font-family: var(--mr-font-display) !important; font-weight: 800 !important; text-transform: uppercase; letter-spacing: 0.04em; border-radius: var(--mr-radius-card) !important; border: none !important; transition: all 0.2s ease; }
+.btn-primary,button.btn-primary { background-color: var(--mr-red) !important; color: #fff !important; }
+.btn-primary:hover { background-color: var(--mr-red-deep) !important; transform: translateY(-1px); }
+.btn-default { background-color: var(--mr-text) !important; color: #fff !important; }
+.btn-default:hover { background-color: #0f1a30 !important; }
+.btn-secondary { background-color: var(--mr-navy) !important; color: var(--mr-text) !important; border: 1px solid var(--mr-line) !important; }
+.btn-link { color: var(--mr-red) !important; text-transform: none; }
+.btn-whatsapp,.js-whatsapp-chat { background-color: #25D366 !important; color: #fff !important; border-radius: 50% !important; box-shadow: 0 6px 18px rgba(26,39,68,0.25); }
+.item,.card,.js-item-product { background-color: var(--mr-navy) !important; border-radius: var(--mr-radius-card) !important; box-shadow: var(--mr-shadow-card) !important; border: 1px solid var(--mr-line); transition: box-shadow 0.2s, transform 0.2s; overflow: hidden; }
+.item:hover,.card:hover,.js-item-product:hover { box-shadow: var(--mr-shadow-card-hover) !important; transform: translateY(-2px); }
+.item-name,.js-item-name { font-family: var(--mr-font-body) !important; font-weight: 500 !important; text-transform: none !important; color: var(--mr-text) !important; font-size: 14px; line-height: 1.35; letter-spacing: 0; }
+.item-price,.js-price-display { font-family: var(--mr-font-body) !important; color: var(--mr-text) !important; font-weight: 700; }
+.item-price .js-compare-price-display,.item-compare-price { color: var(--mr-text-soft) !important; text-decoration: line-through; font-weight: 400; font-size: 13px; }
+.item-installments,.js-installments-display { color: var(--mr-green) !important; font-weight: 600; font-size: 13px; }
+.payment-discount-price-product-container { color: var(--mr-green) !important; font-weight: 700; }
+.label-accent,.label-discount,.item-discount { background-color: var(--mr-red) !important; color: #fff !important; font-family: var(--mr-font-body) !important; font-weight: 700; border-radius: 4px !important; padding: 2px 8px; text-transform: uppercase; font-size: 12px; }
+.label-default { background-color: var(--mr-text) !important; color: #fff !important; border-radius: 4px !important; }
+#single-product h1.js-product-name { font-family: var(--mr-font-display) !important; font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; }
+#single-product .product-price,#single-product .js-price-display { font-family: var(--mr-font-body) !important; font-weight: 700; }
+.form-control,.form-select,.form-quantity { background-color: var(--mr-navy) !important; border: 1px solid var(--mr-line) !important; border-radius: 6px !important; color: var(--mr-text) !important; font-family: var(--mr-font-body) !important; }
+.form-control:focus,.form-select:focus { border-color: var(--mr-red) !important; box-shadow: 0 0 0 3px rgba(232,52,26,0.12) !important; }
+.chip { background-color: var(--mr-navy) !important; border: 1px solid var(--mr-line) !important; border-radius: var(--mr-radius-pill) !important; color: var(--mr-text) !important; font-family: var(--mr-font-body) !important; font-weight: 600; font-size: 13px; box-shadow: none !important; }
+.tab-link { font-family: var(--mr-font-display) !important; text-transform: uppercase; letter-spacing: 0.04em; }
+.tab.active .tab-link,.tab-link.active { border-bottom-color: var(--mr-red) !important; color: var(--mr-red) !important; }
+.textbanner-text.over-image,.textbanner-text { font-family: var(--mr-font-display) !important; font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; }
+.textbanner-overline,.home-section-overline { color: var(--mr-red) !important; font-weight: 800; letter-spacing: 0.08em; }
+/* === FORZAR FONDOS DE SECCIONES (anti-override admin) === */
+section.section-featured-products-home-colors,
+section.section-new-products-home-colors,
+section.section-sale-products-home-colors,
+section.section-best-seller-products-home-colors,
+section.section-promotion-products-home-colors,
+.section-featured-products-home-colors,
+.section-new-products-home-colors,
+.section-sale-products-home-colors,
+.section-best-seller-products-home-colors,
+.section-promotion-products-home-colors { background-color: var(--mr-ink) !important; background-image: none !important; color: var(--mr-text) !important; }
+section.section-featured-products-home-colors h1,
+section.section-featured-products-home-colors h2,
+section.section-best-seller-products-home-colors h1,
+section.section-best-seller-products-home-colors h2,
+section.section-promotion-products-home-colors h1,
+section.section-promotion-products-home-colors h2,
+section.section-new-products-home-colors h1,
+section.section-new-products-home-colors h2,
+section.section-sale-products-home-colors h1,
+section.section-sale-products-home-colors h2 { color: var(--mr-text) !important; }
+.section-welcome-home-colors,.section-institutional-home-colors,.section-brands-home-colors { background-color: var(--mr-navy) !important; color: var(--mr-text) !important; }
+/* === SILENCIAR strip nativo "Informacion de envios pagos y compras" === */
+.section-information-payment-and-shipping,
+.section-information-payment-and-shipping-home-colors,
+[data-store="information-payment-shipping"],
+.information-payment-shipping { background-color: var(--mr-ink) !important; color: var(--mr-text) !important; }
+.section-information-payment-and-shipping .container,
+.section-information-payment-and-shipping-home-colors .container { background-color: transparent !important; }
+.section-information-payment-and-shipping h2,
+.section-information-payment-and-shipping h3,
+.section-information-payment-and-shipping h4,
+.section-information-payment-and-shipping-home-colors h2,
+.section-information-payment-and-shipping-home-colors h3,
+.section-information-payment-and-shipping-home-colors h4 { color: var(--mr-text) !important; font-family: var(--mr-font-display) !important; text-transform: uppercase; }
+.section-information-payment-and-shipping p,
+.section-information-payment-and-shipping-home-colors p { color: var(--mr-text-soft) !important; font-family: var(--mr-font-body) !important; }
+.section-information-payment-and-shipping svg,
+.section-information-payment-and-shipping i,
+.section-information-payment-and-shipping-home-colors svg,
+.section-information-payment-and-shipping-home-colors i { color: var(--mr-red) !important; fill: var(--mr-red) !important; }
+/* Bloque de redes sociales rojo del footer */
+.social-icons-bar,
+.section-social-home-colors,
+[data-store="social-icons"] { background-color: var(--mr-navy) !important; }
+.social-icons-bar .social-icon,
+.section-social-home-colors .social-icon,
+[data-store="social-icons"] a { background-color: var(--mr-ink) !important; color: var(--mr-text) !important; }
+.social-icons-bar .social-icon:hover,
+.section-social-home-colors .social-icon:hover,
+[data-store="social-icons"] a:hover { background-color: var(--mr-red) !important; color: #fff !important; }
+/* === REFUERZO TICKER === */
+section.morashop-ticker { background-color: var(--mr-text) !important; padding: 8px 0 !important; overflow: hidden !important; position: relative !important; display: block !important; }
+section.morashop-ticker .morashop-ticker-track { display: flex !important; width: max-content !important; animation: morashop-marquee 32s linear infinite !important; will-change: transform; }
+section.morashop-ticker .morashop-ticker-list { display: flex !important; list-style: none !important; padding: 0 !important; margin: 0 !important; flex-shrink: 0 !important; }
+section.morashop-ticker .morashop-ticker-item { padding: 0 28px !important; white-space: nowrap !important; color: #fff !important; font-family: var(--mr-font-body) !important; font-weight: 600 !important; font-size: 13px !important; }
+/* Anular cualquier swiper residual */
+.morashop-ticker .swiper-container,.morashop-ticker .swiper-wrapper,.morashop-ticker .swiper-slide { all: unset; }
+.banner-services .banner-service,.banner-services-item { background-color: var(--mr-navy) !important; border-radius: var(--mr-radius-card) !important; border: 1px solid var(--mr-line); box-shadow: var(--mr-shadow-card); padding: 20px; }
+.banner-services i,.banner-services svg { color: var(--mr-red) !important; }
+/* === MORASHOP INFOCARDS === */
+.morashop-infocards { padding: 32px 0 24px; }
+.morashop-infocards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.morashop-infocard { background: var(--mr-navy); border: 1px solid var(--mr-line); border-radius: var(--mr-radius-card); box-shadow: var(--mr-shadow-card); padding: 18px 16px; transition: transform 0.2s, box-shadow 0.2s; }
+.morashop-infocard:hover { transform: translateY(-2px); box-shadow: var(--mr-shadow-card-hover); }
+.morashop-infocard-link { display: flex; gap: 12px; align-items: center; color: var(--mr-text); text-decoration: none; }
+.morashop-infocard:not(:has(.morashop-infocard-link)) { display: flex; gap: 12px; align-items: center; }
+.morashop-infocard-icon { width: 44px; height: 44px; flex-shrink: 0; background: rgba(232,52,26,0.08); border-radius: 50%; display: grid; place-items: center; color: var(--mr-red); }
+.morashop-infocard-icon svg,.morashop-infocard-icon img { width: 22px; height: 22px; }
+.morashop-infocard-icon svg { fill: var(--mr-red); color: var(--mr-red); }
+.morashop-infocard-body { flex: 1; min-width: 0; }
+.morashop-infocard-title { font-family: var(--mr-font-display); font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; margin: 0 0 2px; color: var(--mr-text); line-height: 1.15; }
+.morashop-infocard-text { font-family: var(--mr-font-body); font-size: 12px; color: var(--mr-text-soft); margin: 0; line-height: 1.3; }
+@media (max-width: 1024px) { .morashop-infocards-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .morashop-infocards-grid { grid-template-columns: 1fr; gap: 10px; } .morashop-infocard { padding: 14px 14px; } }
+.section-brands-home-colors .home-circle-image,.section-brands-home-colors img { filter: grayscale(100%); opacity: 0.75; transition: all 0.25s ease; }
+.section-brands-home-colors .home-circle-image:hover,.section-brands-home-colors img:hover { filter: grayscale(0%); opacity: 1; }
+.section-newsletter-home-colors,.newsletter,.home-newsletter { background-color: var(--mr-ink) !important; color: var(--mr-text) !important; }
+.section-newsletter-home-colors input[type="email"],.newsletter input[type="email"] { background-color: var(--mr-navy) !important; border: 1px solid var(--mr-line) !important; color: var(--mr-text) !important; border-radius: var(--mr-radius-pill) !important; }
+.section-newsletter-home-colors button,.newsletter button[type="submit"] { background-color: var(--mr-red) !important; color: #fff !important; border-radius: var(--mr-radius-pill) !important; }
+footer,.footer-colors { background-color: #E3E5E8 !important; color: var(--mr-text) !important; border-top: 1px solid var(--mr-line); }
+footer a,.footer-colors a,.footer-menu a { color: var(--mr-text) !important; font-family: var(--mr-font-body); font-weight: 500; }
+footer a:hover { color: var(--mr-red) !important; }
+.footer-menu h4,footer h4 { font-family: var(--mr-font-display) !important; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--mr-text) !important; font-size: 14px; }
+.footer-legal { color: var(--mr-text-soft) !important; font-size: 12px; }
+.social-footer { background-color: var(--mr-navy) !important; }
+.social-icon { color: var(--mr-text) !important; background-color: var(--mr-ink); border-radius: 50%; padding: 8px; transition: all 0.2s ease; }
+.social-icon:hover { color: #fff !important; background-color: var(--mr-red); }
+.modal-header { background-color: var(--mr-navy) !important; color: var(--mr-text) !important; border-bottom: 1px solid var(--mr-line); }
+.notification-primary { background-color: var(--mr-text) !important; color: #fff !important; border-radius: var(--mr-radius-card) !important; }
+.buybar-sticky,.js-buybar { background-color: var(--mr-navy) !important; border-top: 1px solid var(--mr-line); box-shadow: 0 -4px 16px rgba(26,39,68,0.08); }
+.buybar-sticky .btn { background-color: var(--mr-red) !important; color: #fff !important; }
+.category-banner h1,.category-title { font-family: var(--mr-font-display) !important; font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; }
+body,p,.form-control,input,textarea { font-size: 15px; line-height: 1.55; }
+.btn { font-size: 14px; }
+@media (max-width: 767px) { h1,.h1 { font-size: clamp(32px, 9vw, 56px); } .item-name { font-size: 13px; } .search-input { font-size: 16px; } }

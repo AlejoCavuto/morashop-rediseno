@@ -1,0 +1,133 @@
+/* ROLLBACK A ESTADO ORIGINAL — copiar todo y pegar en Edicion avanzada de CSS reemplazando lo que este. */
+
+/* INICIO: Cambiar el texto de metodo de pago con descuento en el listado y detalle de productos. */
+
+h1.js-product-name.mb-3 {
+    font-size: x-large;
+}
+
+
+/* Listado de productos */
+.js-item-product.item-product
+.payment-discount-price-product-container
+> span:last-of-type::before {
+content: 'Efectivo';
+font-size: 12px;
+}
+
+
+
+/* Detalle de prodcuto */
+#single-product
+.payment-discount-price-product-container
+> span:last-of-type::before,
+#single-product
+[data-toggle='#installments-modal']
+> div.mb-2:not(.js-max-installments)
+> span.text-accent {
+content: 'Efectivo';
+font-size: 14px;
+}
+
+
+/* Ocultar todos los textos originales */
+.js-item-product.item-product
+.payment-discount-price-product-container
+> span:last-of-type,
+#single-product .payment-discount-price-product-container > span:last-of-type,
+#single-product
+[data-toggle='#installments-modal']
+> div.mb-2:not(.js-max-installments) {
+font-size: 0px;
+}
+/* FIN: Cambiar el texto de metodo de pago con descuento en el listado y detalle de productos. */
+
+/*ocultar titulo de categoria*/
+
+.textbanner-text.category-banner-info.over-image.over-image-invert {
+    display: none;
+}
+
+
+
+#modal-cart {
+    z-index: 20000!important;
+}
+
+h1.js-product-name.mb-3[data-store="product-name-211960998"] {
+    font-size: 16px;
+}
+
+.placeholder-shine, .placeholder-fade {
+    background-color: #000e3500;
+}
+
+@media (max-width: 767px) {
+.category-banner {
+    position: relative;
+    height: 57px;
+    overflow: hidden;
+}
+}
+
+
+
+
+/* MAYORISTA SOLAPA */
+
+.logo-img-mayorista {
+  height: 40px;
+  transition: all 0.3s ease;
+}
+
+.head-scroll .logo-img-mayorista {
+  height: 20px;
+}
+
+
+
+@media (max-width: 767px) {
+  .logo-img-mayorista {
+    height: 30px;
+  }
+
+  .head-scroll .logo-img-mayorista {
+    height: 18px;
+  }
+}
+
+
+
+
+
+
+/* Solo en morashop.ar/ofertas/ */
+html:has(meta[property="og:url"][content$="/ofertas/"])
+  [data-component][data-component-value="Color" i],
+  [data-component][data-component-value="Fragancia" i],
+  [data-component][data-component-value="Genero" i],
+  [data-component][data-component-value="Nombre" i],
+  [data-component][data-component-value="Nombre-del-diseno" i],
+  [data-component][data-component-value="Suplementos Deportivos" i],
+  [data-component][data-component-value="Tamano" i],
+  [data-component][data-component-value="Tamano-del-cuadro" i],
+  [data-component][data-component-value="Talle" i],
+  [data-component][data-component-value="Cantidad-de-piezas" i],
+  [data-component][data-component-value="Color-de-la-estructura" i],
+  [data-component][data-component-value="Color-del-chasis" i],
+  [data-component][data-component-value="Dinosaurio" i],
+  [data-component][data-component-value="Diseno" i],
+  [data-component][data-component-value="Diseno-de-la-tela" i],
+  [data-component][data-component-value="Frecuencia" i],
+  [data-component][data-component-value="Material" i],
+  [data-component][data-component-value="Personaje" i],
+  [data-component][data-component-value="Peso" i],
+  [data-component][data-component-value="Raza" i],
+  [data-component][data-component-value="Talle-de-los-patines" i],
+  [data-component][data-component-value="Version-del-personaje" i],
+  [data-component][data-component-value="Sabor" i],
+  [data-component][data-component-value="Acabado" i],
+  [data-component][data-component-value="Intensidad-del-flujo" i],
+  [data-component][data-component-value="Linea" i] {
+  display: none !important;
+}

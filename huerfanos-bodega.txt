@@ -1,0 +1,188 @@
+HUERFANOS BODEGA - CLASIFICADOS
+Total: 36 productos
+================================================================================
+
+RESUMEN POR SUB-CAT:
+   22 | Vinos tintos
+    5 | Destilados
+    4 | Vinos blancos
+    3 | Espumantes
+    2 | REVISAR MANUAL (rose / multi-variante)
+
+================================================================================
+
+>>> Vinos tintos (22 productos)
+
+  --- Cicchitti (6) ---
+    Vino Cicchitti Blend Cabernet Franc - Cabernet Sauvignon
+      SKU: CICCHITTI0 BLEND CABERNET FRANC 750ML
+      URL: vino-cicchitti-blend-cabernet-franc-cabernet-sauvignon-t2fpg
+    Vino Cicchitti Cabernet Sauvignon 750ml
+      SKU: CICCHITTI0 CABERNET SAUVIGNON 750ML
+      URL: vino-cicchitti-cabernet-sauvignon-750ml-w7szp
+    Vino Cicchitti Malbec
+      SKU: CICCHITTI0 MALBEC 750ML
+      URL: vino-cicchitti-malbec-qq019
+    Vino Cicchitti Merlot
+      SKU: CICCHITTI0 MERLOT 750ML
+      URL: vino-cicchitti-merlot-u5b30
+    Vino Cicchitti Pinot Noir
+      SKU: CICCHITTI0 PINOT NOIR 750ML
+      URL: vino-cicchitti-pinot-noir
+    Vino Cicchitti Sangiovese 750ml
+      SKU: CICCHITTI0 SANGIOVESE 750ML
+      URL: vino-cicchitti-sangiovese-750ml
+
+  --- Cordero Piel de Lobo (5) ---
+    Vino Cordero Con Piel De Lobo Bonarda 750ml
+      SKU: CORDERO0 BONARDA 750ML
+      URL: vino-cordero-con-piel-de-lobo-bonarda-750ml
+    Vino Cordero Con Piel De Lobo Cabernet Sauvignon 750ml
+      SKU: CORDERO0 CABERNET SAUVIGNON 750ML
+      URL: vino-cordero-con-piel-de-lobo-cabernet-sauvignon-750ml
+    Vino Cordero Con Piel De Lobo Malbec Bag In Box 3L
+      SKU: CORDERO0 MALBEC BAG IN BOX 3L
+      URL: vino-cordero-con-piel-de-lobo-malbec-bag-in-box-3l
+    Vino Cordero Con Piel De Lobo Merlot 750ml
+      SKU: CORDERO0 MERLOT 750ML
+      URL: vino-cordero-con-piel-de-lobo-merlot-750ml
+    Vino Cordero Con Piel De Lobo Syrah 750ml
+      SKU: CORDERO0 SYRAH 750ML
+      URL: vino-cordero-con-piel-de-lobo-syrah-750ml
+
+  --- Elementos (1) ---
+    Vino Elementos Malbec 750ml
+      SKU: ELEMENTOS0 MALBEC 750ML
+      URL: vino-elementos-malbec-750ml
+
+  --- Flintstone (1) ---
+    Vino Fuego Blanco Flintstone Malbec 750ml
+      SKU: FLINTSTONE0 MALBEC 750ML
+      URL: vino-fuego-blanco-flintstone-malbec-750ml
+
+  --- Fond de Cave (1) ---
+    Botella De Vino Tinto Fond De Cave Syrah 750ml
+      SKU: FONDCAVE0 SYRAH 750ML
+      URL: botella-de-vino-tinto-fond-de-cave-syrah-750ml
+
+  --- Fuego Blanco (1) ---
+    Vino Fuego Blanco Valle Del Silex Malbec 750ml
+      SKU: FUEGOBLANCO0 VALLE DEL SILEX MALBEC 750ML
+      URL: vino-fuego-blanco-valle-del-silex-malbec-750ml
+
+  --- La Celia (1) ---
+    Vino La Celia Reserva Malbec Tinto 750ml
+      SKU: LACELIA0 RESERVA MALBEC 750ML
+      URL: vino-la-celia-reserva-malbec-tinto-750ml
+
+  --- Laur (4) ---
+    Vino Cordero Con Piel De Lobo Malbec 750ml
+      SKU: LAUR0 CORDERO MALBEC 750ML
+      URL: vino-cordero-con-piel-de-lobo-malbec-750ml
+    Vino Mosquita Muerta Black Malbec 750 Ml
+      SKU: LAUR0 MOSQUITA MUERTA BLACK MALBEC 750ML
+      URL: vino-mosquita-muerta-black-malbec-750-ml
+    Vino Mosquita Muerta Blend De Tintas 750 Ml
+      SKU: LAUR0 MOSQUITA MUERTA BLEND TINTAS 750ML
+      URL: vino-mosquita-muerta-blend-de-tintas-750-ml
+    Vino Pispi Blend De Tintas X 750cc
+      SKU: LAUR0 PISPI BLEND TINTAS 750CC
+      URL: vino-pispi-blend-de-tintas-x-750cc
+
+  --- Malcriado (1) ---
+    Vino Malcriado Mosquita Muerta Wines Caja X3 750ml
+      SKU: MALCRIADO0 MOSQUITA MUERTA CAJA X3 750ML
+      URL: vino-malcriado-mosquita-muerta-wines-caja-x3-750ml
+
+  --- Sapo de Otro Pozo (1) ---
+    Vino Sapo De Otro Pozo Malbec 750cc
+      SKU: SAPO0 MALBEC 750CC
+      URL: vino-sapo-de-otro-pozo-malbec-750cc
+
+================================================================================
+
+>>> Vinos blancos (4 productos)
+
+  --- Cicchitti (2) ---
+    Vino Cicchitti Chardonnay
+      SKU: CICCHITTI0 CHARDONNAY 750ML
+      URL: vino-cicchitti-chardonnay-70wk4
+    Vino Cicchitti Sauvignon Blanc 750ml
+      SKU: CICCHITTI0 SAUVIGNON BLANC 750ML
+      URL: vino-cicchitti-sauvignon-blanc-750ml
+
+  --- Cordero Piel de Lobo (2) ---
+    Vino Cordero Con Piel De Lobo Chardonnay 750ml
+      SKU: CORDERO0 CHARDONNAY 750ML
+      URL: vino-cordero-con-piel-de-lobo-chardonnay-750ml
+    Vino Cordero Con Piel De Lobo Dulce Natural 750ml   [media]   // dulce natural - probable blanco cosecha tardia, confirmar
+      SKU: CORDERO0 DULCE NATURAL 750ML
+      URL: vino-cordero-con-piel-de-lobo-dulce-natural-750ml
+
+================================================================================
+
+>>> Espumantes (3 productos)
+
+  --- Cordero Piel de Lobo (1) ---
+    Espumante Cordero Con Piel De Lobo 750ml - Extra Brut, Demi Sec y Dulce   [media]   // multi-variante en 1 SKU, asignar a Espumantes igual
+      SKU: CORDERO0 ESPUMANTE 750ML
+      URL: espumante-cordero-con-piel-de-lobo-750ml-extra-brut-demi-sec-y-dulce
+
+  --- Federico Alvear (1) ---
+    Espumante Champagne Federico Alvear Extra Brut 750cc
+      SKU: FEDERICOALVEAR0 CHAMPAGNE EXTRA BRUT 750CC
+      URL: espumante-champagne-federico-alvear-extra-brut-750cc
+
+  --- Cicchitti (1) ---
+    Vino Cicchitti Nectar 750ml   [baja]   // "Nectar" - confirmar si espumante dulce / blanco / tinto
+      SKU: CICCHITTI0 NECTAR 750ML
+      URL: vino-cicchitti-nectar-750ml
+
+================================================================================
+
+>>> Destilados (5 productos)
+
+  --- Gin Terrier (5) ---
+    Gin Terrier Citric London Dry 700ml
+      SKU: GINTERRIER0 CITRIC LONDON DRY 700ML
+      URL: gin-terrier-citric-london-dry-700ml
+    Gin Terrier Old Tom 750ml Premium
+      SKU: GINTERRIER0 OLD TOM 750ML PREMIUM
+      URL: gin-terrier-old-tom-750ml-premium
+    Gin Terrier Spicy London Dry 700ml
+      SKU: GINTERRIER0 SPICY LONDON DRY 700ML
+      URL: gin-terrier-spicy-london-dry-700ml
+    Gin Terrier Wild London Dry 700ml
+      SKU: GINTERRIER0 WILD LONDON DRY 700ML
+      URL: gin-terrier-wild-london-dry-700ml
+    Pink Edicion Especial Tapaus 750ml   [media]   // Gin Terrier rosado, va a Destilados
+      SKU: GINTERRIER0 PINK TAPAUS 750ML
+      URL: pink-edicion-especial-tapaus-750ml
+
+================================================================================
+
+>>> REVISAR MANUAL - sin sub-cat clara (2 productos)
+
+  --- Cordero Piel de Lobo (1) ---
+    Vino Cordero Con Piel De Lobo Rose 750ml   [baja]   // NO hay sub-cat "Rosados" en Bodega. Opciones: (a) crear "Vinos rosados" / (b) default Tintos / (c) default Blancos
+      SKU: CORDERO0 ROSE 750ML
+      URL: vino-cordero-con-piel-de-lobo-rose-750ml
+
+  --- Perro Callejero (1) ---
+    Vino Perro Callejero 750ml - Malbec, Chardonnay y Rose   [baja]   // multi-variante con 3 sabores en 1 SKU. Si es 1 SKU multi-sabor -> default Tintos. Si son 3 productos separados -> separar primero.
+      SKU: PERRO0 750ML
+      URL: vino-perro-callejero-750ml-malbec-chardonnay-y-rose
+
+================================================================================
+
+INSTRUCCIONES BULK ASSIGN EN ADMIN TN:
+1. Productos > Lista de productos > filtrar por Marca
+2. Seleccionar todos los del bloque > Accion masiva > Agregar a categoria
+3. Elegir sub-cat indicada en el >>> bloque
+4. Confidence [media]/[baja] = revisar antes de aplicar
+
+DECISIONES PENDIENTES:
+- Vino Cicchitti Nectar      -> que es? Espumante / Blanco dulce / Tinto dulce
+- Vino Cordero Rose 750ml    -> crear sub-cat "Rosados" / poner en Tintos / poner en Blancos
+- Vino Perro Callejero       -> es 1 SKU multi-sabor o son 3 productos separados
+- Cordero Dulce Natural      -> confirmar blanco o tinto
