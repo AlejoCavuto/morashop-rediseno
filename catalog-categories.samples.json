@@ -1,0 +1,87 @@
+{
+  "counts": {
+    "supplement": 1256,
+    "alimento": 360,
+    "electro": 113,
+    "higiene": 331,
+    "otros": 4,
+    "vino": 51,
+    "hogar": 78,
+    "bebida": 60,
+    "yerba_mate": 7,
+    "juguete": 1018
+  },
+  "samples": {
+    "supplement": [
+      "omelette-proteico-granger-210g-albahaca-50-off-1opbq",
+      "diabla-multivitaminico-suplemento-x-30-capsulas-sabor-sin-sabor-1tubv",
+      "vitamina-c-1000mg-natulabs-30-capsulas-inmune-antioxidante-11v42",
+      "glicinato-de-magnesio-1000mg-natulabs-60-capsulas-vegano-1upba",
+      "citrato-de-magnesio-800mg-natulabs-60-capsulas-vegano-ygco8"
+    ],
+    "alimento": [
+      "pack-barras-sin-azucar-anadida-natural-mani-350g-x10-1sikf",
+      "super-bar-naranja-jengibre-barras-cereales-s-tacc-veg-diabla-1iui7",
+      "rellenas-diabla-cookies-de-chocolate-sin-tacc-43-g-pack-x-5-1c0wc",
+      "barritas-mole-energia-x-12u-cereal-y-f-rojos-69ucl",
+      "barras-placer-mole-x12-mani-y-chocolate-540g-aigjx"
+    ],
+    "electro": [
+      "balanza-digital-san-up-medivita-bluetooth-app-analisis-corporal-negro-1d556",
+      "termometro-digital-san-up-su-ter403-transparente-resistente-transparente-1r9uq",
+      "oximetro-de-dedo-san-up-su-oxi801n-negro-led-aaa-negro-t2tvi",
+      "tensiometro-digital-san-up-su-ted201-blanco-240-memorias-blanco-1ikb6",
+      "tensiometro-digital-de-brazo-san-up-bateria-medipress-plus-blanco-ruljr"
+    ],
+    "higiene": [
+      "pasta-dental-gel-sudanta-encias-sanas-hinojo-y-menta-50g-3x1-wjt8j",
+      "sri-sri-tattva-crema-facial-rejuvenecedora-de-noche-100g-3x1-o9d2o",
+      "pasta-dental-sudanta-sri-sri-natural-vegan-libre-fluor-50gr-3x1-1lrnn",
+      "aposito-incontinencia-moderada-nonisec-x-20-unidades-1lwr4",
+      "nonisec-apositos-para-incontinencia-fuerte-x-20-unidades-1a0uf"
+    ],
+    "otros": [
+      "prueba-tik-tok-q1pgn",
+      "hola-chicos-necesito-el-scoop-para-poder-usar-mi-sistemita-mrzlt",
+      "hola-chicos-necesito-el-pastillero-leg-xdc40",
+      "test-para-optizacion-no-comprar-7xt3b"
+    ],
+    "vino": [
+      "vino-fuego-blanco-valle-del-silex-malbec-750ml-1wpp0",
+      "espumante-margarita-para-los-chanchos-malbec-rose-nat-x3-bot-1pm9h",
+      "vino-malcriado-mosquita-muerta-wines-caja-x3-750ml-vh3g2",
+      "vino-fuego-blanco-cabernet-franc-malbec-750-ml-12w7c",
+      "vino-fuego-blanco-cabernet-franc-flinstone-750ml-3jtog"
+    ],
+    "hogar": [
+      "taza-stor-mickey-mouse-vintage-414-ml-blanco-vz2wn",
+      "taza-ceramica-cars-325ml-blanco-1wope",
+      "taza-ceramica-harry-potter-414ml-blanco-harry-potter-1dvyp",
+      "taza-ceramica-hello-kitty-414ml-blanco-7m3dd",
+      "taza-ceramica-harry-potter-414ml-blanco-gj9he"
+    ],
+    "bebida": [
+      "vermouth-la-union-federal-bianco-1l-dl5ag",
+      "jugo-de-limon-sin-tacc-en-botellla-menoyo-adkni",
+      "pink-edicion-especial-tapaus-750ml",
+      "gin-terrier-wild-london-dry-700ml",
+      "gin-terrier-citric-london-dry-700ml"
+    ],
+    "yerba_mate": [
+      "yerba-mate-baldo-original-brasil-premium-500g-1kg-5kg-1gh5w",
+      "yerba-cachamate-hierbas-serranas-menta-peperina-500gr",
+      "yerba-cachamate-amarilla-con-hierbas-500g",
+      "yerba-mate-cachamate-rosa-hierbas-con-palo-paquete-500g",
+      "yerba-mate-con-te-verde-jesper-x-500gr-sin-tacc"
+    ],
+    "juguete": [
+      "tamagotchi-bandai-con-detalle-en-las-cajas-pofph",
+      "par-de-medias-madmia-superman-talle-6-99-anos-azul-unico-estampado-c0cuk",
+      "goo-jit-zu-meteor-madness-mega-lanzador-32owv",
+      "par-de-medias-madmia-frozen-modelos-elsa-elsa-anna-talle-6-a-99-anos-eb0cp",
+      "sonic-the-headgehog-figura-articulada-10cm-e6o39"
+    ]
+  },
+  "classified": 3274,
+  "unclassified": 4
+}

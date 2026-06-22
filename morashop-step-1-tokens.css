@@ -1,0 +1,85 @@
+/* ============================================================
+   MORASHOP STEP 1 — TOKENS BASE + FUENTES
+   Riesgo: BAJO. NO cambia layout. Solo define variables.
+   Pegar AL FINAL del CSS de Edición avanzada (después de rollback).
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Colores Morashop rediseño */
+  --mr-bg:           #ECEDEF;  /* fondo principal cream off-white */
+  --mr-surface:      #FFFFFF;  /* cards / paneles blancos */
+  --mr-surface-2:    #F4F5F7;  /* hover / sutil */
+  --mr-text:         #1A2744;  /* navy oscuro */
+  --mr-text-soft:    rgba(26,39,68,0.58);
+  --mr-line:         rgba(26,39,68,0.14);
+  --mr-line-strong:  rgba(26,39,68,0.24);
+
+  --mr-red:          #E8341A;
+  --mr-red-deep:     #C42710;
+  --mr-red-soft:     rgba(232,52,26,0.08);
+  --mr-green:        #00A650;
+  --mr-green-soft:   rgba(0,166,80,0.10);
+
+  /* Tipografía */
+  --mr-font-display: "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
+  --mr-font-body:    "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --mr-fs-xs:  12px;
+  --mr-fs-sm:  14px;
+  --mr-fs-md:  15px;
+  --mr-fs-lg:  17px;
+  --mr-fs-xl:  22px;
+  --mr-fs-2xl: 28px;
+  --mr-fs-3xl: 40px;
+  --mr-fs-4xl: 56px;
+
+  --mr-fw-regular: 400;
+  --mr-fw-medium:  500;
+  --mr-fw-semi:    600;
+  --mr-fw-bold:    700;
+  --mr-fw-heavy:   800;
+  --mr-fw-black:   900;
+
+  --mr-lh-tight:  1.15;
+  --mr-lh-normal: 1.5;
+
+  /* Spacing */
+  --mr-sp-1:  4px;
+  --mr-sp-2:  8px;
+  --mr-sp-3:  12px;
+  --mr-sp-4:  16px;
+  --mr-sp-5:  20px;
+  --mr-sp-6:  24px;
+  --mr-sp-8:  32px;
+  --mr-sp-10: 40px;
+  --mr-sp-12: 48px;
+  --mr-sp-16: 64px;
+
+  /* Radius */
+  --mr-r-sm:   6px;
+  --mr-r-md:   10px;
+  --mr-r-lg:   16px;
+  --mr-r-xl:   24px;
+  --mr-r-pill: 999px;
+
+  /* Sombras */
+  --mr-sh-sm: 0 1px 3px rgba(26,39,68,0.08);
+  --mr-sh-md: 0 4px 14px rgba(26,39,68,0.10);
+  --mr-sh-lg: 0 12px 28px -8px rgba(26,39,68,0.18);
+
+  /* Transiciones */
+  --mr-tr-fast: 120ms ease;
+  --mr-tr-base: 200ms ease;
+  --mr-tr-slow: 280ms ease;
+
+  /* Layout */
+  --mr-container-max: 1280px;
+  --mr-header-h:      64px;
+  --mr-z-header:      1000;
+  --mr-z-modal:       2000;
+  --mr-z-drawer:      1500;
+}
+
+/* === FIN STEP 1 — confirmar tienda sigue igual antes de step 2 === */

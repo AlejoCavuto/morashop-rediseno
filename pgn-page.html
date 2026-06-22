@@ -1,0 +1,395 @@
+<!-- ============================================================
+     PGN BRAND PAGE - Morashop x PGN Redesign
+     Pegar en Tiendanube Admin -> Paginas -> /pgn2 -> modo HTML
+     ============================================================ -->
+<style>
+  .pgn-page {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #1a2744;
+    max-width: 100%;
+    margin: 0 auto;
+    background: #fafdf9;
+  }
+  .pgn-hero {
+    background: linear-gradient(135deg, #1d6e3d 0%, #2e8b57 50%, #4ca64c 100%);
+    color: #fff;
+    padding: 80px 24px 100px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .pgn-hero::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 80%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+    transform: rotate(15deg);
+    pointer-events: none;
+  }
+  .pgn-hero-eyebrow {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.3);
+    margin-bottom: 24px;
+  }
+  .pgn-hero h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 20px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.15);
+  }
+  .pgn-hero p {
+    font-size: clamp(16px, 2vw, 20px);
+    max-width: 640px;
+    margin: 0 auto 32px;
+    color: rgba(255,255,255,0.92);
+    line-height: 1.5;
+  }
+  .pgn-hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: #1d6e3d;
+    padding: 14px 32px;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 15px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    transition: all 0.2s;
+  }
+  .pgn-hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+  }
+  .pgn-stats {
+    background: #fff;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background-color: #e6efe2;
+    border-top: 4px solid #1d6e3d;
+  }
+  .pgn-stat {
+    background: #fff;
+    padding: 32px 16px;
+    text-align: center;
+  }
+  .pgn-stat-num {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1d6e3d;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .pgn-stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #5a6478;
+  }
+  @media (max-width: 768px) {
+    .pgn-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  .pgn-story {
+    padding: 80px 24px;
+    text-align: center;
+    background: #fff;
+  }
+  .pgn-story-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .pgn-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    color: #4ca64c;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 16px;
+  }
+  .pgn-story h2 {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    color: #1a2744;
+    margin: 0 0 20px;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .pgn-story p {
+    font-size: 17px;
+    line-height: 1.65;
+    color: #5a6478;
+    margin: 0 0 16px;
+  }
+  .pgn-products-section {
+    background: linear-gradient(180deg, #fafdf9 0%, #f0f7ee 100%);
+    padding: 80px 24px;
+  }
+  .pgn-products-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .pgn-products-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .pgn-products-header h2 {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    color: #1a2744;
+    margin: 8px 0 16px;
+    letter-spacing: -0.02em;
+  }
+  .pgn-products-header p {
+    font-size: 16px;
+    color: #5a6478;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .pgn-products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .pgn-product-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid #e8efe5;
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+  }
+  .pgn-product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(29,110,61,0.12);
+    border-color: #4ca64c;
+  }
+  .pgn-product-img {
+    aspect-ratio: 1 / 1;
+    background: #f7faf6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    overflow: hidden;
+  }
+  .pgn-product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s;
+  }
+  .pgn-product-card:hover .pgn-product-img img {
+    transform: scale(1.05);
+  }
+  .pgn-product-info {
+    padding: 14px 14px 18px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .pgn-product-name {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: #1a2744;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .pgn-product-cta {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1d6e3d;
+    letter-spacing: 0.02em;
+  }
+  .pgn-mayorista {
+    background: linear-gradient(135deg, #E8341A 0%, #C72D17 100%);
+    color: #fff;
+    padding: 60px 24px;
+    text-align: center;
+    margin: 40px 24px;
+    border-radius: 24px;
+    box-shadow: 0 16px 48px rgba(232,52,26,0.25);
+  }
+  .pgn-mayorista-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.85;
+    margin-bottom: 12px;
+  }
+  .pgn-mayorista h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    margin: 0 0 24px;
+    letter-spacing: -0.02em;
+  }
+  .pgn-mayorista a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    color: #E8341A;
+    padding: 14px 32px;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    transition: transform 0.2s;
+  }
+  .pgn-mayorista a:hover {
+    transform: translateY(-2px);
+  }
+  .pgn-values {
+    padding: 60px 24px 80px;
+    background: #fff;
+  }
+  .pgn-values-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .pgn-value {
+    text-align: center;
+    padding: 32px 20px;
+    background: #f7faf6;
+    border-radius: 16px;
+    border: 1px solid #e8efe5;
+  }
+  .pgn-value-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, #4ca64c, #1d6e3d);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+  .pgn-value h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a2744;
+    margin: 0 0 8px;
+  }
+  .pgn-value p {
+    font-size: 14px;
+    color: #5a6478;
+    line-height: 1.5;
+    margin: 0;
+  }
+  @media (max-width: 768px) {
+    .pgn-values-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="pgn-page">
+
+  <section class="pgn-hero">
+    <span class="pgn-hero-eyebrow">&#127807; Lideres en bienestar natural</span>
+    <h1>Volve a lo natural<br/>con PGN</h1>
+    <p>Suplementos dietarios elaborados con extractos herbales puros. Mas de 30 anos cuidando tu salud desde adentro.</p>
+    <a href="#productos-pgn" class="pgn-hero-cta">
+      Ver todos los productos
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </section>
+
+  <div class="pgn-stats">
+    <div class="pgn-stat">
+      <div class="pgn-stat-num">62+</div>
+      <div class="pgn-stat-label">Productos disponibles</div>
+    </div>
+    <div class="pgn-stat">
+      <div class="pgn-stat-num">30+</div>
+      <div class="pgn-stat-label">Anos de experiencia</div>
+    </div>
+    <div class="pgn-stat">
+      <div class="pgn-stat-num">100%</div>
+      <div class="pgn-stat-label">Origen natural</div>
+    </div>
+    <div class="pgn-stat">
+      <div class="pgn-stat-num">&#9733; 4.8</div>
+      <div class="pgn-stat-label">Rating clientes</div>
+    </div>
+  </div>
+
+  <section class="pgn-story">
+    <div class="pgn-story-inner">
+      <div class="pgn-eyebrow">&#127793; Sobre PGN</div>
+      <h2>Tu bienestar empieza hoy</h2>
+      <p>PGN es un laboratorio argentino lider en suplementos dietarios a base de hierbas naturales y extractos herbales. Cada formula esta pensada para acompanarte: desde la linea Andina con plantas medicinales tradicionales hasta nuestros suplementos premium con curcuma, espirulina y colageno.</p>
+      <p style="margin-top: 24px; font-weight: 600; color: #1d6e3d;">Calidad certificada &middot; Ingredientes puros &middot; Hecho en Argentina</p>
+    </div>
+  </section>
+
+  <section class="pgn-products-section" id="productos-pgn">
+    <div class="pgn-products-inner">
+      <div class="pgn-products-header">
+        <div class="pgn-eyebrow">&#127807; Catalogo completo</div>
+        <h2>Todos los productos PGN</h2>
+        <p>62 suplementos PGN disponibles ahora en Morashop. Envio a todo el pais.</p>
+      </div>
+      <div class="pgn-products-grid">
+        <a href="/productos/colageno-magnesio-pgn-x-60-capsulas/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/colageno-magnesio-pgn-x-60-capsulas-1.jpg" alt="Colágeno + Magnesio Pgn X 60 Capsulas" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Colágeno + Magnesio Pgn X 60 Capsulas</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/curcuma-pimienta-negra-x-100-capsulas-laboratorio-pgn/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/curcuma-pimienta-negra-x-100-capsulas-laboratorio-pgn-1.jpg" alt="Cúrcuma &amp; Pimienta Negra X 100 Cápsulas Laboratorio Pgn" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Cúrcuma &amp; Pimienta Negra X 100 Cápsulas Laboratorio Pgn</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/lisin-c-pgn-x-100-capsulas-vitamina-c-y-lisina-pack-x2/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/lisin-c-pgn-x-100-capsulas-vitamina-c-y-lisina-pack-x2-1.jpg" alt="Lisin C Pgn X 100 Capsulas Vitamina C Y Lisina - Pack X2" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Lisin C Pgn X 100 Capsulas Vitamina C Y Lisina - Pack X2</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/colageno-magnesio-pgn-60-capsulas-pack-x4/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/colageno-magnesio-pgn-60-capsulas-pack-x4-1.jpg" alt="Colágeno + Magnesio Pgn 60 Capsulas Pack X4" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Colágeno + Magnesio Pgn 60 Capsulas Pack X4</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/espirulina-x-100-capsulas-antioxidante-pgn-pack-x2/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/espirulina-x-100-capsulas-antioxidante-pgn-pack-x2-1.jpg" alt="Espirulina X 100 Capsulas Antioxidante Pgn Pack X2" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Espirulina X 100 Capsulas Antioxidante Pgn Pack X2</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/lisin-c-pgn-x-100-capsulas-vitamina-c-y-lisina-defensas/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/lisin-c-pgn-x-100-capsulas-vitamina-c-y-lisina-defensas-1.jpg" alt="Lisin C Pgn X 100 Capsulas Vitamina C Y Lisina + Defensas" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Lisin C Pgn X 100 Capsulas Vitamina C Y Lisina + Defensas</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/redumax-forte-x-100-capsulas-adelgazante-natural-pgn-pack-x2/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/redumax-forte-x-100-capsulas-adelgazante-natural-pgn-pack-x2-1.jpg" alt="Redumax Forte X 100 Cápsulas Adelgazante Natural Pgn Pack X2" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Redumax Forte X 100 Cápsulas Adelgazante Natural Pgn Pack X2</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/colageno-magnesio-pgn-x-60-capsulas-pack-x2/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/colageno-magnesio-pgn-x-60-capsulas-pack-x2-1.jpg" alt="Colágeno + Magnesio Pgn X 60 Capsulas Pack X2" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Colágeno + Magnesio Pgn X 60 Capsulas Pack X2</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pharmahepat-x-70ml-laboratorio-pgn-sabor-sin-sabor/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pharmahepat-x-70ml-laboratorio-pgn-sabor-sin-sabor-1.jpg" alt="Pharmahepat X 70ml Laboratorio Pgn Sabor Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pharmahepat X 70ml Laboratorio Pgn Sabor Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/sedanat-pgn-x-30-capsulas-sedante-natural-insomnio-pack-x2/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/sedanat-pgn-x-30-capsulas-sedante-natural-insomnio-pack-x2-1.jpg" alt="Sedanat Pgn X 30 Capsulas Sedante Natural Insomnio - Pack X2" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Sedanat Pgn X 30 Capsulas Sedante Natural Insomnio - Pack X2</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/suplemento-colageno-solar-colageno-betacarotero-30-capsulas/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/suplemento-colageno-solar-colageno-betacarotero-30-capsulas-1.jpg" alt="Suplemento Colageno Solar Colageno Betacarotero 30 Capsulas" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Suplemento Colageno Solar Colageno Betacarotero 30 Capsulas</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/suplemento-polvo-colageno-solar-colageno-betacarotero-300gr/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/suplemento-polvo-colageno-solar-colageno-betacarotero-300gr-1.jpg" alt="Suplemento Polvo Colageno Solar Colageno Betacarotero 300gr" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Suplemento Polvo Colageno Solar Colageno Betacarotero 300gr</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/espirulina-x-100-capsulas-antioxidante-pgn/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/espirulina-x-100-capsulas-antioxidante-pgn-1.jpg" alt="Espirulina X 100 Capsulas Antioxidante Pgn" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Espirulina X 100 Capsulas Antioxidante Pgn</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/aminoacidos-totales-pgn-x-100-capsulas-sin-sabor-sin-sabor-id7qh/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/aminoacidos-totales-pgn-x-100-capsulas-sin-sabor-sin-sabor-id7qh-1.jpg" alt="Aminoácidos Totales Pgn X 100 Capsulas Sin Sabor Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Aminoácidos Totales Pgn X 100 Capsulas Sin Sabor Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/aminoacidos-totales-pgn-x-30-capsulas-sabor-sin-sabor-sin-sabor-c5t3p/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/aminoacidos-totales-pgn-x-30-capsulas-sabor-sin-sabor-sin-sabor-c5t3p-1.jpg" alt="Aminoácidos Totales Pgn X 30 Capsulas Sabor Sin Sabor Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Aminoácidos Totales Pgn X 30 Capsulas Sabor Sin Sabor Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/cardio-magnesio-pgn-30-caps-con-magnesio-potasio-omega-3-sin-sabor-f44c8/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/cardio-magnesio-pgn-30-caps-con-magnesio-potasio-omega-3-sin-sabor-f44c8-1.jpg" alt="Cardio Magnesio Pgn 30 Caps Con Magnesio, Potasio, Omega 3 Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Cardio Magnesio Pgn 30 Caps Con Magnesio, Potasio, Omega 3 Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/curcuma-pimienta-negra-100-capsulas-laboratorio-pgn-pack-x4/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/curcuma-pimienta-negra-100-capsulas-laboratorio-pgn-pack-x4-1.jpg" alt="Cúrcuma &amp; Pimienta Negra 100 Cápsulas Laboratorio Pgn Pack X4" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Cúrcuma &amp; Pimienta Negra 100 Cápsulas Laboratorio Pgn Pack X4</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/magnesio-energy-pgn-calambres-y-dolores-30-capsulas/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/magnesio-energy-pgn-calambres-y-dolores-30-capsulas-1.jpg" alt="Magnesio Energy Pgn Calambres Y Dolores 30 Capsulas" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Magnesio Energy Pgn Calambres Y Dolores 30 Capsulas</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/magnesio-relax-con-magnesio-citrato-triptofano-tilo-y-vitamina-b6-30-capsulas/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/magnesio-relax-con-magnesio-citrato-triptofano-tilo-y-vitamina-b6-30-capsulas-1.jpg" alt="Magnesio Relax Con Magnesio Citrato, Triptófano, Tilo Y Vitamina B6 30 Capsulas" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Magnesio Relax Con Magnesio Citrato, Triptófano, Tilo Y Vitamina B6 30 Capsulas</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-extractos-herbales-en-gotas-30-formulas-naturales-estres-obesidad-digestion-colesterol-laxante-insomnio-hpv6n/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-extractos-herbales-en-gotas-30-formulas-naturales-estres-obesidad-digestion-colesterol-laxante-insomnio-hpv6n-1.jpg" alt="PGN Andino - Extractos Herbales en Gotas | 30 Fórmulas Naturales (Estrés, Obesidad, Digestión, Colesterol, Laxante, Insomnio)" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">PGN Andino - Extractos Herbales en Gotas | 30 Fórmulas Naturales (Estrés, Obesidad, Digestión, Colesterol, Laxante, Insomnio)</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-acidez-ulcera-calendula-ginkgo-y-taurina-sin-sabor-safqt/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-acidez-ulcera-calendula-ginkgo-y-taurina-sin-sabor-safqt-1.jpg" alt="Pgn Andino Acidez Ulcera Calendula Ginkgo Y Taurina Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Acidez Ulcera Calendula Ginkgo Y Taurina Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-ansiolitico-valeriana-pasiflora-melisa-y-vit-b6-sin-sabor-tc9c8/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-ansiolitico-valeriana-pasiflora-melisa-y-vit-b6-sin-sabor-tc9c8-1.jpg" alt="Pgn Andino Ansiolitico Valeriana, Pasiflora, Melisa Y Vit B6 Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Ansiolitico Valeriana, Pasiflora, Melisa Y Vit B6 Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-antiespamodico-manzanilla-pasiflora-y-magnesio-sin-sabor-qfeyr/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-antiespamodico-manzanilla-pasiflora-y-magnesio-sin-sabor-qfeyr-1.jpg" alt="Pgn Andino Antiespamodico Manzanilla Pasiflora Y Magnesio Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Antiespamodico Manzanilla Pasiflora Y Magnesio Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-asma-con-ambay-eucalipto-regaliz-y-vitamina-c-sin-sabor-9u3zd/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-asma-con-ambay-eucalipto-regaliz-y-vitamina-c-sin-sabor-9u3zd-1.jpg" alt="Pgn Andino Asma Con Ambay, Eucalipto, Regaliz Y Vitamina C Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Asma Con Ambay, Eucalipto, Regaliz Y Vitamina C Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-celulitis-con-centella-fucus-y-l-carnitina-sin-sabor-8srwh/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-celulitis-con-centella-fucus-y-l-carnitina-sin-sabor-8srwh-1.jpg" alt="Pgn Andino Celulitis Con Centella, Fucus Y L-carnitina Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Celulitis Con Centella, Fucus Y L-carnitina Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-circulatorio-lapacho-hamamelis-e-isoleucina-n27-sin-sabor-dibgv/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-circulatorio-lapacho-hamamelis-e-isoleucina-n27-sin-sabor-dibgv-1.jpg" alt="Pgn Andino Circulatorio Lapacho Hamamelis E Isoleucina N27 Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Circulatorio Lapacho Hamamelis E Isoleucina N27 Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-cistitis-arandano-ortiga-y-zinc-sin-sabor-bdm9u/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-cistitis-arandano-ortiga-y-zinc-sin-sabor-bdm9u-1.jpg" alt="Pgn Andino Cistitis Arandano, Ortiga Y Zinc Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Cistitis Arandano, Ortiga Y Zinc Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-colesterol-palta-fucus-carnitina-y-acido-folico-sin-sabor-hkysp/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-colesterol-palta-fucus-carnitina-y-acido-folico-sin-sabor-hkysp-1.jpg" alt="Pgn Andino Colesterol Palta, Fucus, Carnitina Y Acido Folico Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Colesterol Palta, Fucus, Carnitina Y Acido Folico Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-colesterol-palta-fucuscarinitina-y-acido-folico-sin-sabor-adpaj/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-colesterol-palta-fucuscarinitina-y-acido-folico-sin-sabor-adpaj-1.jpg" alt="Pgn Andino Colesterol Palta, Fucus,carinitina Y Acido Folico Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Colesterol Palta, Fucus,carinitina Y Acido Folico Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-diabetes-con-arandano-bardana-y-niacina-sin-sabor-gpq1g/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-diabetes-con-arandano-bardana-y-niacina-sin-sabor-gpq1g-1.jpg" alt="Pgn Andino Diabetes Con Arandano, Bardana Y Niacina Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Diabetes Con Arandano, Bardana Y Niacina Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-digestivo-alcachofa-zanahoria-boldo-y-metionina-sin-sabor-kjj6h/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-digestivo-alcachofa-zanahoria-boldo-y-metionina-sin-sabor-kjj6h-1.jpg" alt="Pgn Andino Digestivo Alcachofa, Zanahoria, Boldo Y Metionina Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Digestivo Alcachofa, Zanahoria, Boldo Y Metionina Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-digestivo-cola-de-caballo-manzanilla-y-taurina-sin-sabor-cm1mt/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-digestivo-cola-de-caballo-manzanilla-y-taurina-sin-sabor-cm1mt-1.jpg" alt="Pgn Andino Digestivo Cola De Caballo, Manzanilla Y Taurina Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Digestivo Cola De Caballo, Manzanilla Y Taurina Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-diuretico-uva-ursi-cola-de-caballo-vitamina-b6-sin-sabor-9i84c/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-diuretico-uva-ursi-cola-de-caballo-vitamina-b6-sin-sabor-9i84c-1.jpg" alt="Pgn Andino Diuretico Uva Ursi, Cola De Caballo, Vitamina B6 Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Diuretico Uva Ursi, Cola De Caballo, Vitamina B6 Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-energizante-guarana-y-arginina-sin-sabor-m6f90/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-energizante-guarana-y-arginina-sin-sabor-m6f90-1.jpg" alt="Pgn Andino Energizante Guarana Y Arginina Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Energizante Guarana Y Arginina Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-gripe-eucalipto-ambay-y-vitamina-c-sin-sabor-d2rto/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-gripe-eucalipto-ambay-y-vitamina-c-sin-sabor-d2rto-1.jpg" alt="Pgn Andino Gripe Eucalipto, Ambay Y Vitamina C Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Gripe Eucalipto, Ambay Y Vitamina C Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-hepatico-alcachofa-bardana-y-acido-aspartico-sin-sabor-k3xj5/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-hepatico-alcachofa-bardana-y-acido-aspartico-sin-sabor-k3xj5-1.jpg" alt="Pgn Andino Hepatico Alcachofa, Bardana Y Acido Aspartico Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Hepatico Alcachofa, Bardana Y Acido Aspartico Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-inmunologico-con-te-verde-ginkgo-y-arginina-n8-sin-sabor-efgdi/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-inmunologico-con-te-verde-ginkgo-y-arginina-n8-sin-sabor-efgdi-1.jpg" alt="Pgn Andino Inmunologico Con Te Verde, Ginkgo Y Arginina N8 Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Inmunologico Con Te Verde, Ginkgo Y Arginina N8 Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-insomio-valeriana-pasiflora-y-vitamina-b6-sin-sabor-i08f0/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-insomio-valeriana-pasiflora-y-vitamina-b6-sin-sabor-i08f0-1.jpg" alt="Pgn Andino Insomio Valeriana, Pasiflora Y Vitamina B6 Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Insomio Valeriana, Pasiflora Y Vitamina B6 Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-laxante-con-plantago-malva-y-magnesio-sin-sabor-h5g8p/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-laxante-con-plantago-malva-y-magnesio-sin-sabor-h5g8p-1.jpg" alt="Pgn Andino Laxante Con Plantago, Malva Y Magnesio Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Laxante Con Plantago, Malva Y Magnesio Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-menopausia-soja-salvia-y-vitamina-b1-sin-sabor-pllx3/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-menopausia-soja-salvia-y-vitamina-b1-sin-sabor-pllx3-1.jpg" alt="Pgn Andino Menopausia Soja, Salvia Y Vitamina B1 Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Menopausia Soja, Salvia Y Vitamina B1 Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-migrana-ulmaria-tilo-y-acido-aspartico-sin-sabor-rgave/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-migrana-ulmaria-tilo-y-acido-aspartico-sin-sabor-rgave-1.jpg" alt="Pgn Andino Migraña Ulmaria, Tilo Y Acido Aspartico Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Migraña Ulmaria, Tilo Y Acido Aspartico Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-neuroactivador-ginkgo-ginseng-y-l-glutamina-sin-sabor-otuz9/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-neuroactivador-ginkgo-ginseng-y-l-glutamina-sin-sabor-otuz9-1.jpg" alt="Pgn Andino Neuroactivador Ginkgo, Ginseng Y L-glutamina Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Neuroactivador Ginkgo, Ginseng Y L-glutamina Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-obesidad-con-fucus-hisopouva-ursi-y-l-carnitina-sin-sabor-lckhq/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-obesidad-con-fucus-hisopouva-ursi-y-l-carnitina-sin-sabor-lckhq-1.jpg" alt="Pgn Andino Obesidad Con Fucus, Hisopo,uva Ursi Y L-carnitina Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Obesidad Con Fucus, Hisopo,uva Ursi Y L-carnitina Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-parasitos-cuasia-ajo-y-vitamina-c-sin-sabor-apd2q/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-parasitos-cuasia-ajo-y-vitamina-c-sin-sabor-apd2q-1.jpg" alt="Pgn Andino Parasitos Cuasia, Ajo Y Vitamina C Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Parasitos Cuasia, Ajo Y Vitamina C Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-presion-alta-ortiga-pasiflora-ajo-y-taurina-sin-sabor-g9ft7/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-presion-alta-ortiga-pasiflora-ajo-y-taurina-sin-sabor-g9ft7-1.jpg" alt="Pgn Andino Presion Alta Ortiga, Pasiflora, Ajo Y Taurina Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Presion Alta Ortiga, Pasiflora, Ajo Y Taurina Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-re-vital-guarana-ginseng-y-l-glutamina-sin-sabor-jm851/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-re-vital-guarana-ginseng-y-l-glutamina-sin-sabor-jm851-1.jpg" alt="Pgn Andino Re-vital Guarana, Ginseng Y L-glutamina Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Re-vital Guarana, Ginseng Y L-glutamina Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-reumatismo-ulmaria-manzanilla-vitaminas-b1-y-b6-sin-sabor-bkmp4/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-reumatismo-ulmaria-manzanilla-vitaminas-b1-y-b6-sin-sabor-bkmp4-1.jpg" alt="Pgn Andino Reumatismo Ulmaria, Manzanilla, Vitaminas B1 Y B6 Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Reumatismo Ulmaria, Manzanilla, Vitaminas B1 Y B6 Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-tonico-cerebral-con-lapacho-salvia-y-glicina-sin-sabor-j7b7v/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-tonico-cerebral-con-lapacho-salvia-y-glicina-sin-sabor-j7b7v-1.jpg" alt="Pgn Andino Tonico Cerebral Con Lapacho, Salvia, Y Glicina Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Tonico Cerebral Con Lapacho, Salvia, Y Glicina Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-urico-romero-uva-ursi-y-citrulina-sin-sabor-ffj9i/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-urico-romero-uva-ursi-y-citrulina-sin-sabor-ffj9i-1.jpg" alt="Pgn Andino Urico Romero, Uva Ursi Y Citrulina Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Urico Romero, Uva Ursi Y Citrulina Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-andino-varices-castano-de-india-hammamelis-sin-sabor-it264/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-andino-varices-castano-de-india-hammamelis-sin-sabor-it264-1.jpg" alt="Pgn Andino Varices Castaño De India, Hammamelis, Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Andino Varices Castaño De India, Hammamelis, Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pgn-suplemento-dietario-a-base-de-melena-de-leon-8o0me/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pgn-suplemento-dietario-a-base-de-melena-de-leon-8o0me-1.jpg" alt="Pgn Suplemento Dietario A Base De Melena De Leon" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pgn Suplemento Dietario A Base De Melena De Leon</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/pharmahepat-pgn-x-20-caps-digestivo-natural-sabor-sin-sabor-n3sqq/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/pharmahepat-pgn-x-20-caps-digestivo-natural-sabor-sin-sabor-n3sqq-1.jpg" alt="Pharmahepat Pgn X 20 Caps Digestivo Natural Sabor Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Pharmahepat Pgn X 20 Caps Digestivo Natural Sabor Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/suplemento-en-polvo-full-complex-colmillot-pgn-300g-en-pote-vainilla-7t7gb/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/suplemento-en-polvo-full-complex-colmillot-pgn-300g-en-pote-vainilla-7t7gb-1.jpg" alt="Suplemento En Polvo Full Complex Colmillot Pgn 300g En Pote Vainilla" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Suplemento En Polvo Full Complex Colmillot Pgn 300g En Pote Vainilla</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/suplementos-creatinas-con-vitamina-c-pgn-x-100-capsulas-sin-sabor-l45ck/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/suplementos-creatinas-con-vitamina-c-pgn-x-100-capsulas-sin-sabor-l45ck-1.jpg" alt="Suplementos Creatinas Con Vitamina C Pgn X 100 Capsulas Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Suplementos Creatinas Con Vitamina C Pgn X 100 Capsulas Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/una-de-gato-uncaria-tomentosa-x-120ml-laboratorio-pgn-una-de-sin-sabor-fu4ju/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/una-de-gato-uncaria-tomentosa-x-120ml-laboratorio-pgn-una-de-sin-sabor-fu4ju-1.jpg" alt="Uña De Gato Uncaria Tomentosa X 120ml Laboratorio Pgn Una De Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Uña De Gato Uncaria Tomentosa X 120ml Laboratorio Pgn Una De Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/venostil-pgn-30-capsulas-castano-de-indias-vit-c-neutro-nz6ll/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/venostil-pgn-30-capsulas-castano-de-indias-vit-c-neutro-nz6ll-1.jpg" alt="Venostil Pgn 30 Cápsulas Castaño De Indias + Vit C Neutro" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Venostil Pgn 30 Cápsulas Castaño De Indias + Vit C Neutro</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/moringa-arginina-pgn-x-100-capsulas/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/moringa-arginina-pgn-x-100-capsulas-1.jpg" alt="Moringa + Arginina Pgn X 100 Capsulas" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Moringa + Arginina Pgn X 100 Capsulas</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/novo-pharmatos-x-120ml-laboratorio-pgn/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/novo-pharmatos-x-120ml-laboratorio-pgn-1.jpg" alt="Novo Pharmatos X 120ml Laboratorio Pgn" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Novo Pharmatos X 120ml Laboratorio Pgn</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/redumax-forte-por-100-capsulas-adelgazante-natural-laboratorio-pgn/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/redumax-forte-por-100-capsulas-adelgazante-natural-laboratorio-pgn-1.jpg" alt="Redumax Forte Por 100 Cápsulas Adelgazante Natural Laboratorio Pgn" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Redumax Forte Por 100 Cápsulas Adelgazante Natural Laboratorio Pgn</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/sedanat-pgn-x-30-capsulas-sedante-natural-insomnio-ansiedad/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/sedanat-pgn-x-30-capsulas-sedante-natural-insomnio-ansiedad-1.jpg" alt="Sedanat Pgn X 30 Capsulas Sedante Natural Insomnio Ansiedad" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Sedanat Pgn X 30 Capsulas Sedante Natural Insomnio Ansiedad</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/stevia-plus-x-200ml-pgn-0-calorias-100-natural-diabeticos/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/stevia-plus-x-200ml-pgn-0-calorias-100-natural-diabeticos-1.jpg" alt="Stevia Plus X 200ml Pgn 0 Calorias 100% Natural Diabeticos" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Stevia Plus X 200ml Pgn 0 Calorias 100% Natural Diabeticos</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a><a href="/productos/suplemento-energia-sexual-vigorizante-sabor-sin-sabor/" class="pgn-product-card"><div class="pgn-product-img"><img src="https://acdn.mitiendanube.com/stores/002/268/228/products/suplemento-energia-sexual-vigorizante-sabor-sin-sabor-1.jpg" alt="Suplemento Energía Sexual Vigorizante Sabor Sin Sabor" loading="lazy" onerror="this.style.opacity=0.3;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;%23f7faf6&quot;/><text x=&quot;50&quot; y=&quot;55&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot; fill=&quot;%231d6e3d&quot;>PGN</text></svg>';" /></div><div class="pgn-product-info"><h3 class="pgn-product-name">Suplemento Energía Sexual Vigorizante Sabor Sin Sabor</h3><span class="pgn-product-cta">Ver producto &rarr;</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pgn-values">
+    <div class="pgn-values-grid">
+      <div class="pgn-value">
+        <div class="pgn-value-icon">&#127793;</div>
+        <h3>100% natural</h3>
+        <p>Extractos herbales puros, sin quimicos agregados ni conservantes artificiales.</p>
+      </div>
+      <div class="pgn-value">
+        <div class="pgn-value-icon">&#128300;</div>
+        <h3>Calidad garantizada</h3>
+        <p>Laboratorio habilitado por ANMAT. Cada lote testeado y certificado.</p>
+      </div>
+      <div class="pgn-value">
+        <div class="pgn-value-icon">&#128666;</div>
+        <h3>Envio a todo el pais</h3>
+        <p>Despachamos en 24hs. Envio gratis CABA/GBA en compras superiores a $70.000.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pgn-mayorista">
+    <div class="pgn-mayorista-eyebrow">Mayorista</div>
+    <h2>Suma PGN a tu negocio</h2>
+    <a href="/mayoristas/">
+      Consultar ahora
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </section>
+
+</div>

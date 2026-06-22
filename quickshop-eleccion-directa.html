@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Morashop · Quickshop — Eleccion Directa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   MORASHOP QUICKSHOP — "ELECCION DIRECTA"
+   Full-bleed adaptive: full-screen sheet mobile / 720px card desktop.
+   ========================================================= */
+
+:root{
+  --mr-bg:        #ECEDEF;
+  --mr-surface:   #FFFFFF;
+  --mr-text:      #000E35;
+  --mr-text-70:   rgba(0,14,53,.70);
+  --mr-text-55:   rgba(0,14,53,.55);
+  --mr-text-40:   rgba(0,14,53,.40);
+  --mr-line:      rgba(0,14,53,.10);
+  --mr-line-mid:  rgba(0,14,53,.16);
+  --mr-cta:       #E8341A;
+  --mr-cta-hov:   #C72D17;
+  --mr-green:     #1FBA66;
+  --mr-orange:    #FF8A1F;
+
+  --mr-r-sm: 6px;
+  --mr-r-md: 10px;
+  --mr-r-lg: 16px;
+
+  --mr-sh-sm: 0 1px 2px rgba(0,14,53,.06);
+  --mr-sh-lg: 0 24px 64px rgba(0,14,53,.18), 0 2px 8px rgba(0,14,53,.06);
+
+  --mr-tr-fast: 120ms cubic-bezier(.4,0,.2,1);
+  --mr-tr-base: 220ms cubic-bezier(.16,1,.3,1);
+
+  --mr-font-display: "Barlow Condensed", system-ui, sans-serif;
+  --mr-font-body:    "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* page bg for demo */
+html,body{margin:0;height:100%;font-family:var(--mr-font-body);background:var(--mr-bg);color:var(--mr-text);-webkit-font-smoothing:antialiased}
+
+/* demo trigger */
+.demo-trigger{position:fixed;top:24px;left:24px;background:var(--mr-text);color:#fff;border:0;padding:12px 18px;border-radius:999px;font-family:var(--mr-font-body);font-weight:600;cursor:pointer}
+
+/* =========================================================
+   1. OVERLAY + ROOT
+========================================================= */
+.qs-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,14,53,.42);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity var(--mr-tr-base);
+  z-index:9000;
+}
+.qs-overlay[data-open="true"]{opacity:1;pointer-events:auto}
+
+.qs-modal{
+  position:fixed;
+  z-index:9001;
+  background:var(--mr-surface);
+  color:var(--mr-text);
+  font-family:var(--mr-font-body);
+  overflow:hidden;
+}
+
+/* ----- DESKTOP shape (>=768px): centered card 720px ----- */
+@media (min-width:768px){
+  .qs-modal{
+    top:50%;left:50%;
+    width:720px;max-width:calc(100vw - 48px);
+    max-height:calc(100vh - 48px);
+    border-radius:var(--mr-r-lg);
+    box-shadow:var(--mr-sh-lg);
+    opacity:0;
+    transform:translate(-50%,-50%) scale(.96);
+    transition:opacity 180ms ease-out, transform 180ms cubic-bezier(.16,1,.3,1);
+  }
+  .qs-modal[data-open="true"]{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(1);
+  }
+}
+
+/* ----- MOBILE shape (<768px): full-screen sheet from bottom ----- */
+@media (max-width:767.98px){
+  .qs-modal{
+    left:0;right:0;bottom:0;top:0;
+    width:100%;height:100%;
+    border-radius:0;
+    transform:translateY(100%);
+    transition:transform 260ms cubic-bezier(.32,.72,0,1);
+    display:flex;flex-direction:column;
+  }
+  .qs-modal[data-open="true"]{transform:translateY(0)}
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion:reduce){
+  .qs-overlay,.qs-modal{transition:opacity 120ms linear !important;transform:none !important}
+  .qs-modal{transform:none !important}
+  .qs-modal[data-open="true"]{transform:none !important}
+}
+
+/* =========================================================
+   2. CLOSE
+========================================================= */
+.qs-close{
+  position:absolute;top:12px;right:12px;
+  width:44px;height:44px;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:transparent;border:0;cursor:pointer;
+  border-radius:999px;
+  color:var(--mr-text);
+  transition:background var(--mr-tr-fast);
+  z-index:5;
+}
+.qs-close:hover{background:rgba(0,14,53,.06)}
+.qs-close:focus-visible{outline:2px solid var(--mr-text);outline-offset:2px}
+.qs-close svg{width:20px;height:20px}
+
+/* =========================================================
+   3. LAYOUT GRID
+========================================================= */
+.qs-grid{display:grid}
+
+@media (min-width:768px){
+  .qs-grid{
+    grid-template-columns:1fr 1fr;
+    min-height:520px;
+  }
+}
+@media (max-width:767.98px){
+  .qs-grid{
+    grid-template-columns:1fr;
+    grid-template-rows:auto 1fr;
+    flex:1;
+    overflow:hidden;
+  }
+}
+
+/* =========================================================
+   4. IMAGE COLUMN
+========================================================= */
+.qs-image{
+  position:relative;
+  background:#F4F5F7;
+  overflow:hidden;
+}
+.qs-image::after{
+  content:"";position:absolute;inset:auto 0 0 0;height:1px;background:var(--mr-line);
+}
+@media (min-width:768px){
+  .qs-image{aspect-ratio:auto}
+  .qs-image::after{display:none}
+}
+@media (max-width:767.98px){
+  .qs-image{aspect-ratio:1/1;width:100%}
+}
+
+.qs-image img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain;object-position:center;
+  padding:24px;box-sizing:border-box;
+}
+
+/* =========================================================
+   5. INFO COLUMN
+========================================================= */
+.qs-info{
+  display:flex;flex-direction:column;
+  padding:24px 24px 20px;
+  gap:14px;
+}
+@media (max-width:767.98px){
+  .qs-info{
+    padding:18px 18px 120px; /* leave room for sticky bar */
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+}
+
+/* --- name + brand --- */
+.qs-name{
+  font-family:var(--mr-font-body);
+  font-size:18px;line-height:1.25;font-weight:600;
+  color:var(--mr-text);
+  margin:0;letter-spacing:-.01em;
+  padding-right:40px; /* avoid close X on mobile/desktop */
+}
+.qs-brand{
+  font-family:var(--mr-font-body);
+  font-size:13px;font-weight:500;
+  color:var(--mr-text-55);
+  letter-spacing:.02em;
+  margin:0;
+}
+
+/* --- price block --- */
+.qs-price-row{
+  display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  margin-top:2px;
+}
+.qs-price-now{
+  font-family:var(--mr-font-display);
+  font-weight:800;
+  font-size:clamp(28px,4.4vw,34px);
+  line-height:1;
+  color:var(--mr-text);
+  letter-spacing:-.01em;
+}
+.qs-price-was{
+  font-family:var(--mr-font-display);
+  font-weight:600;
+  font-size:16px;
+  color:var(--mr-text-40);
+  text-decoration:line-through;
+}
+.qs-discount{
+  font-family:var(--mr-font-body);
+  font-size:11px;font-weight:700;
+  color:var(--mr-cta);
+  letter-spacing:.04em;
+  padding:3px 7px;border-radius:var(--mr-r-sm);
+  background:rgba(232,52,26,.08);
+  line-height:1;
+}
+.qs-pay-line{
+  font-size:13px;color:var(--mr-text-70);
+  font-weight:500;line-height:1.45;
+  margin:0;
+}
+.qs-pay-line strong{font-weight:600;color:var(--mr-text)}
+
+/* --- divider --- */
+.qs-divider{
+  height:1px;background:var(--mr-line);
+  border:0;margin:6px 0 2px;
+}
+
+/* --- labels --- */
+.qs-label{
+  font-size:11px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.09em;
+  color:var(--mr-text-55);
+  margin:0 0 8px;
+}
+
+/* =========================================================
+   6. VARIANT CHIPS — segmented control style
+========================================================= */
+.qs-chip-group{
+  display:flex;flex-wrap:wrap;
+  gap:0;
+  border:1px solid var(--mr-line-mid);
+  border-radius:var(--mr-r-md);
+  overflow:hidden;
+  background:var(--mr-surface);
+}
+.qs-chip{
+  flex:1 1 calc(33.333% - 0px);
+  min-height:48px;
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:8px 12px;
+  font-family:var(--mr-font-body);
+  font-size:13px;font-weight:500;
+  color:var(--mr-text);
+  background:transparent;border:0;
+  border-right:1px solid var(--mr-line-mid);
+  border-bottom:1px solid var(--mr-line-mid);
+  cursor:pointer;text-align:center;
+  transition:background var(--mr-tr-fast),color var(--mr-tr-fast),font-weight var(--mr-tr-fast);
+  line-height:1.2;
+  position:relative;
+}
+/* remove last column right-border per row of 3 */
+.qs-chip:nth-child(3n){border-right:0}
+/* remove bottom border from last row */
+.qs-chip:nth-last-child(-n+3){border-bottom:0}
+/* For 5 chips: layout is row1=3 / row2=2. Adjust border for 5-chip-case */
+.qs-chip-group[data-count="5"] .qs-chip:nth-child(4),
+.qs-chip-group[data-count="5"] .qs-chip:nth-child(5){
+  flex:1 1 50%;
+  border-bottom:0;
+}
+.qs-chip-group[data-count="5"] .qs-chip:nth-child(4){border-right:1px solid var(--mr-line-mid)}
+.qs-chip-group[data-count="5"] .qs-chip:nth-child(5){border-right:0}
+
+.qs-chip:hover{background:rgba(0,14,53,.04)}
+.qs-chip:focus-visible{
+  outline:2px solid var(--mr-text);outline-offset:-2px;z-index:2;
+}
+.qs-chip[aria-pressed="true"]{
+  background:var(--mr-text);
+  color:#fff;
+  font-weight:700;
+}
+.qs-chip[aria-pressed="true"]:hover{background:#001451}
+
+/* out of stock variant */
+.qs-chip[data-oos="true"]{
+  color:var(--mr-text-40);
+  cursor:not-allowed;
+  background:repeating-linear-gradient(
+    -45deg,
+    transparent 0 6px,
+    rgba(0,14,53,.05) 6px 7px
+  );
+}
+.qs-chip[data-oos="true"]:hover{background:repeating-linear-gradient(
+    -45deg,
+    transparent 0 6px,
+    rgba(0,14,53,.05) 6px 7px
+  )}
+
+/* =========================================================
+   7. QUANTITY + STOCK
+========================================================= */
+.qs-qty-row{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:16px;
+}
+.qs-qty-block{display:flex;flex-direction:column;gap:8px}
+.qs-stock{
+  font-size:12px;color:var(--mr-text-70);font-weight:500;
+  display:inline-flex;align-items:center;gap:6px;
+  align-self:flex-end;padding-bottom:14px;
+}
+.qs-stock::before{
+  content:"";width:6px;height:6px;border-radius:999px;
+  background:var(--mr-green);box-shadow:0 0 0 3px rgba(31,186,102,.18);
+}
+.qs-stock[data-low="true"]{color:var(--mr-orange)}
+.qs-stock[data-low="true"]::before{background:var(--mr-orange);box-shadow:0 0 0 3px rgba(255,138,31,.18)}
+
+.qs-stepper{
+  display:inline-flex;align-items:stretch;
+  border:1.5px solid var(--mr-line-mid);
+  border-radius:var(--mr-r-md);
+  overflow:hidden;
+  width:140px;height:48px;
+  background:var(--mr-surface);
+}
+.qs-stepper button{
+  flex:0 0 44px;
+  background:transparent;border:0;cursor:pointer;
+  color:var(--mr-text);
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:background var(--mr-tr-fast);
+  font-size:20px;font-weight:500;
+}
+.qs-stepper button:hover{background:rgba(0,14,53,.06)}
+.qs-stepper button:focus-visible{outline:2px solid var(--mr-text);outline-offset:-2px}
+.qs-stepper button:disabled{color:var(--mr-text-40);cursor:not-allowed}
+.qs-stepper input{
+  flex:1;border:0;background:transparent;
+  text-align:center;font-family:var(--mr-font-display);
+  font-weight:700;font-size:18px;color:var(--mr-text);
+  -moz-appearance:textfield;outline:0;
+  border-left:1px solid var(--mr-line);
+  border-right:1px solid var(--mr-line);
+}
+.qs-stepper input::-webkit-outer-spin-button,
+.qs-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+/* =========================================================
+   8. CTA
+========================================================= */
+.qs-cta{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;height:56px;
+  background:var(--mr-cta);color:#fff;
+  border:0;border-radius:var(--mr-r-md);
+  font-family:var(--mr-font-body);
+  font-size:15px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  cursor:pointer;
+  transition:background var(--mr-tr-fast),transform var(--mr-tr-fast);
+  margin-top:6px;
+  box-shadow:0 1px 2px rgba(232,52,26,.18),0 6px 16px rgba(232,52,26,.18);
+}
+.qs-cta:hover{background:var(--mr-cta-hov)}
+.qs-cta:active{transform:translateY(1px)}
+.qs-cta:focus-visible{outline:2px solid var(--mr-text);outline-offset:3px}
+.qs-cta svg{width:20px;height:20px}
+
+/* CTA price (mobile sticky shows price inline; desktop hides it) */
+.qs-cta-price{
+  font-family:var(--mr-font-display);
+  font-weight:700;font-size:18px;
+  letter-spacing:.01em;text-transform:none;
+  margin-left:auto;
+}
+@media (min-width:768px){.qs-cta-price{display:none}}
+
+/* =========================================================
+   9. MOBILE STICKY BOTTOM BAR
+========================================================= */
+@media (max-width:767.98px){
+  .qs-sticky{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    border-top:1px solid var(--mr-line);
+    box-shadow:0 -8px 24px rgba(0,14,53,.06);
+    z-index:3;
+  }
+  .qs-cta{margin-top:0}
+}
+@media (min-width:768px){
+  .qs-sticky{padding:0}
+}
+
+/* =========================================================
+   10. UTIL
+========================================================= */
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+</style>
+</head>
+<body>
+
+<button class="demo-trigger" onclick="document.querySelector('.qs-overlay').dataset.open='true';document.querySelector('.qs-modal').dataset.open='true'">Abrir quickshop</button>
+
+<!-- ============================================================
+     QUICKSHOP MODAL — "Eleccion Directa"
+============================================================ -->
+<div class="qs-overlay" data-open="true" onclick="this.dataset.open='false';document.querySelector('.qs-modal').dataset.open='false'"></div>
+
+<div class="qs-modal" data-open="true" role="dialog" aria-modal="true" aria-labelledby="qs-name">
+
+  <button class="qs-close" aria-label="Cerrar"
+    onclick="document.querySelector('.qs-overlay').dataset.open='false';this.closest('.qs-modal').dataset.open='false'">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 6 6 18M6 6l12 12"/>
+    </svg>
+  </button>
+
+  <div class="qs-grid">
+
+    <!-- IMAGE -->
+    <div class="qs-image">
+      <img src="https://acdn-us.mitiendanube.com/stores/001/336/660/products/whey-true-made-1kg1-c5e8d3.png"
+           alt="Whey True Made 1kg" onerror="this.style.display='none'">
+    </div>
+
+    <!-- INFO -->
+    <div class="qs-info">
+
+      <div>
+        <h2 id="qs-name" class="qs-name">Whey True Made 1Kg</h2>
+        <p class="qs-brand">Star Nutrition</p>
+      </div>
+
+      <div>
+        <div class="qs-price-row">
+          <span class="qs-price-now" id="qs-price">$24.990</span>
+          <span class="qs-price-was">$34.990</span>
+          <span class="qs-discount">-28%</span>
+        </div>
+        <p class="qs-pay-line"><strong>$22.490</strong> con efectivo</p>
+        <p class="qs-pay-line">3x sin interes de <strong>$8.330</strong></p>
+      </div>
+
+      <hr class="qs-divider">
+
+      <!-- VARIANTS -->
+      <div>
+        <p class="qs-label">Sabor</p>
+        <div class="qs-chip-group" data-count="5" role="radiogroup" aria-label="Elegi sabor">
+          <button type="button" class="qs-chip" role="radio" aria-pressed="false" aria-checked="false" data-flavor="banana">Banana</button>
+          <button type="button" class="qs-chip" role="radio" aria-pressed="true"  aria-checked="true"  data-flavor="chocolate">Chocolate suizo</button>
+          <button type="button" class="qs-chip" role="radio" aria-pressed="false" aria-checked="false" data-flavor="frutilla">Frutilla</button>
+          <button type="button" class="qs-chip" role="radio" aria-pressed="false" aria-checked="false" data-flavor="cookies">Cookies &amp; Cream</button>
+          <button type="button" class="qs-chip" role="radio" aria-pressed="false" aria-checked="false" data-flavor="vainilla">Vainilla Ice</button>
+        </div>
+      </div>
+
+      <!-- QUANTITY + STOCK -->
+      <div class="qs-qty-row">
+        <div class="qs-qty-block">
+          <p class="qs-label">Cantidad</p>
+          <div class="qs-stepper" role="group" aria-label="Cantidad">
+            <button type="button" aria-label="Restar" data-act="dec">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/></svg>
+            </button>
+            <input type="number" value="1" min="1" max="99" aria-label="Cantidad" id="qs-qty">
+            <button type="button" aria-label="Sumar" data-act="inc">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+        </div>
+        <span class="qs-stock" aria-live="polite">+100 en stock</span>
+      </div>
+
+      <!-- CTA - desktop inline -->
+      <div class="qs-sticky">
+        <button type="submit" class="qs-cta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+            <path d="M3 6h18"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span>Agregar al carrito</span>
+          <span class="qs-cta-price">$24.990</span>
+        </button>
+      </div>
+
+    </div><!-- /.qs-info -->
+  </div><!-- /.qs-grid -->
+</div>
+
+<script>
+// ===== chip selection =====
+document.querySelectorAll('.qs-chip-group').forEach(group=>{
+  group.addEventListener('click',e=>{
+    const chip=e.target.closest('.qs-chip');
+    if(!chip||chip.dataset.oos==='true')return;
+    group.querySelectorAll('.qs-chip').forEach(c=>{
+      c.setAttribute('aria-pressed','false');
+      c.setAttribute('aria-checked','false');
+    });
+    chip.setAttribute('aria-pressed','true');
+    chip.setAttribute('aria-checked','true');
+  });
+  // keyboard arrow navigation between chips
+  group.addEventListener('keydown',e=>{
+    if(!['ArrowRight','ArrowLeft','ArrowUp','ArrowDown'].includes(e.key))return;
+    const chips=[...group.querySelectorAll('.qs-chip:not([data-oos="true"])')];
+    const i=chips.indexOf(document.activeElement);
+    if(i<0)return;
+    e.preventDefault();
+    const next=(e.key==='ArrowRight'||e.key==='ArrowDown')?(i+1)%chips.length:(i-1+chips.length)%chips.length;
+    chips[next].focus();
+    chips[next].click();
+  });
+});
+
+// ===== stepper =====
+const qty=document.getElementById('qs-qty');
+document.querySelectorAll('.qs-stepper [data-act]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const v=parseInt(qty.value,10)||1;
+    qty.value=btn.dataset.act==='inc'?Math.min(99,v+1):Math.max(1,v-1);
+  });
+});
+
+// ===== ESC to close =====
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelector('.qs-overlay').dataset.open='false';
+    document.querySelector('.qs-modal').dataset.open='false';
+  }
+});
+</script>
+
+</body>
+</html>

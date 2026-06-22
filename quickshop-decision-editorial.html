@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Morashop — Decision Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   MORASHOP QUICKSHOP MODAL — "Decision Editorial"
+   Same DNA as Editorial Boutique cards.
+   ============================================================ */
+
+:root{
+  /* brand */
+  --mr-navy:#000e35;
+  --mr-navy-90:rgba(0,14,53,.90);
+  --mr-navy-70:rgba(0,14,53,.70);
+  --mr-navy-55:rgba(0,14,53,.55);
+  --mr-navy-40:rgba(0,14,53,.40);
+  --mr-hairline:rgba(0,14,53,.10);
+  --mr-hairline-strong:rgba(0,14,53,.18);
+  --mr-red:#E8341A;
+  --mr-red-deep:#C72D17;
+  --mr-green:#1FBA66;
+  --mr-orange:#FF8A1F;
+  --mr-bg:#ECEDEF;
+  --mr-surface:#FFFFFF;
+
+  /* type */
+  --mr-font-display:"Barlow Condensed",system-ui,sans-serif;
+  --mr-font-body:"Inter",system-ui,sans-serif;
+
+  /* radius + shadow + motion */
+  --mr-r-sm:8px;
+  --mr-r-md:12px;
+  --mr-r-lg:16px;
+  --mr-r-pill:999px;
+  --mr-sh-md:0 8px 24px rgba(0,14,53,.10);
+  --mr-sh-lg:0 24px 64px rgba(0,14,53,.18);
+  --mr-tr-fast:120ms;
+  --mr-tr-base:220ms;
+  --mr-ease:cubic-bezier(.16,1,.3,1);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--mr-font-body);
+  color:var(--mr-navy);
+  background:var(--mr-bg);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* page demo */
+.page-demo{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+.demo-trigger{
+  font-family:var(--mr-font-body);
+  font-weight:600;
+  background:var(--mr-navy);
+  color:#fff;
+  border:0;
+  padding:14px 28px;
+  border-radius:var(--mr-r-md);
+  cursor:pointer;
+  font-size:14px;
+  letter-spacing:.02em;
+}
+
+/* ============================================================
+   MODAL SHELL
+   ============================================================ */
+.qs-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,14,53,.42);
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+  z-index:1000;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity var(--mr-tr-base) ease-out;
+}
+.qs-overlay[data-open="true"]{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.qs-modal{
+  position:fixed;
+  z-index:1001;
+  background:var(--mr-surface);
+  box-shadow:var(--mr-sh-lg);
+  overflow:hidden;
+  pointer-events:none;
+}
+
+/* desktop: centered card */
+@media (min-width:768px){
+  .qs-modal{
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-48%) scale(.97);
+    width:min(880px,92vw);
+    max-height:88vh;
+    border-radius:var(--mr-r-lg);
+    opacity:0;
+    transition:
+      opacity var(--mr-tr-base) ease-out,
+      transform var(--mr-tr-base) var(--mr-ease);
+  }
+  .qs-modal[data-open="true"]{
+    opacity:1;
+    pointer-events:auto;
+    transform:translate(-50%,-50%) scale(1);
+  }
+}
+
+/* mobile: bottom sheet */
+@media (max-width:767.98px){
+  .qs-modal{
+    left:0;
+    right:0;
+    bottom:0;
+    width:100%;
+    max-height:92dvh;
+    border-radius:var(--mr-r-lg) var(--mr-r-lg) 0 0;
+    transform:translateY(100%);
+    transition:transform 260ms var(--mr-ease);
+  }
+  .qs-modal[data-open="true"]{
+    pointer-events:auto;
+    transform:translateY(0);
+  }
+  /* iOS safe area for sticky CTA */
+  .qs-modal{
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+}
+
+/* ============================================================
+   CLOSE BUTTON
+   ============================================================ */
+.qs-close{
+  position:absolute;
+  top:12px;
+  right:12px;
+  width:44px;
+  height:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  border:0;
+  border-radius:var(--mr-r-pill);
+  cursor:pointer;
+  color:var(--mr-navy);
+  z-index:5;
+  transition:background-color var(--mr-tr-fast) ease;
+}
+.qs-close:hover{background:rgba(0,14,53,.06)}
+.qs-close:focus-visible{
+  outline:2px solid var(--mr-navy);
+  outline-offset:2px;
+}
+.qs-close svg{width:18px;height:18px;stroke-width:2}
+
+/* ============================================================
+   LAYOUT GRID
+   ============================================================ */
+.qs-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  height:100%;
+}
+@media (min-width:768px){
+  .qs-grid{
+    grid-template-columns:1fr 1fr;
+    max-height:88vh;
+  }
+}
+
+/* IMAGE COLUMN */
+.qs-image{
+  position:relative;
+  background:var(--mr-bg);
+  aspect-ratio:1/1;
+  overflow:hidden;
+}
+@media (min-width:768px){
+  .qs-image{
+    aspect-ratio:auto;
+    height:100%;
+    border-right:1px solid var(--mr-hairline);
+  }
+}
+.qs-image img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  padding:24px;
+}
+
+/* INFO COLUMN */
+.qs-info{
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+}
+
+/* scroll area on mobile keeps CTA sticky */
+.qs-info-scroll{
+  flex:1 1 auto;
+  overflow-y:auto;
+  padding:24px 20px 16px;
+  -webkit-overflow-scrolling:touch;
+}
+@media (min-width:768px){
+  .qs-info-scroll{
+    padding:32px 28px 24px;
+  }
+}
+
+/* ============================================================
+   HEAD: brand eyebrow + name + price + cuotas
+   ============================================================ */
+.qs-brand{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--mr-navy-55);
+  margin:0 0 6px;
+}
+.qs-name{
+  font-family:var(--mr-font-body);
+  font-size:18px;
+  font-weight:600;
+  line-height:1.25;
+  color:var(--mr-navy);
+  margin:0 0 16px;
+  padding-right:48px; /* clear close button */
+}
+@media (min-width:768px){
+  .qs-name{font-size:20px;padding-right:0}
+}
+
+.qs-price-row{
+  display:flex;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:10px 12px;
+  margin-bottom:6px;
+}
+.qs-price{
+  font-family:var(--mr-font-display);
+  font-weight:700;
+  font-size:32px;
+  line-height:1;
+  color:var(--mr-navy);
+  letter-spacing:-.005em;
+}
+@media (min-width:768px){
+  .qs-price{font-size:36px}
+}
+.qs-was{
+  font-family:var(--mr-font-display);
+  font-weight:600;
+  font-size:18px;
+  color:var(--mr-navy-40);
+  text-decoration:line-through;
+  text-decoration-thickness:1.5px;
+}
+.qs-discount{
+  font-family:var(--mr-font-body);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.04em;
+  color:#fff;
+  background:var(--mr-red);
+  padding:4px 8px;
+  border-radius:var(--mr-r-sm);
+  line-height:1;
+}
+.qs-cuotas{
+  font-size:13px;
+  color:var(--mr-navy-70);
+  margin:0;
+}
+.qs-cuotas .ok{color:var(--mr-green);font-weight:600}
+
+/* divider */
+.qs-divider{
+  height:1px;
+  background:var(--mr-hairline);
+  margin:20px 0;
+  border:0;
+}
+
+/* ============================================================
+   VARIANT CHIPS
+   ============================================================ */
+.qs-section-label{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--mr-navy-55);
+  margin:0 0 10px;
+}
+
+.qs-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:0 0 4px;
+  padding:0;
+  list-style:none;
+}
+.qs-chip{
+  position:relative;
+  font-family:var(--mr-font-body);
+  font-size:13px;
+  font-weight:500;
+  line-height:1;
+  color:var(--mr-navy);
+  background:transparent;
+  border:1px solid var(--mr-hairline-strong);
+  border-radius:var(--mr-r-pill);
+  padding:0 16px;
+  min-height:40px;
+  min-width:64px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:
+    background-color var(--mr-tr-fast) ease,
+    color var(--mr-tr-fast) ease,
+    border-color var(--mr-tr-fast) ease,
+    transform var(--mr-tr-fast) ease;
+  white-space:nowrap;
+  user-select:none;
+}
+/* expand touch target without visual change */
+.qs-chip::before{
+  content:"";
+  position:absolute;
+  inset:-4px;
+  border-radius:inherit;
+}
+.qs-chip:hover{
+  border-color:var(--mr-navy-70);
+}
+.qs-chip[aria-pressed="true"]{
+  background:var(--mr-navy);
+  color:#fff;
+  border-color:var(--mr-navy);
+}
+.qs-chip[aria-pressed="true"]:hover{background:var(--mr-navy-90)}
+.qs-chip:focus-visible{
+  outline:2px solid var(--mr-navy);
+  outline-offset:2px;
+}
+.qs-chip[aria-disabled="true"]{
+  color:var(--mr-navy-40);
+  border-color:var(--mr-hairline);
+  cursor:not-allowed;
+  text-decoration:line-through;
+  text-decoration-thickness:1px;
+}
+
+/* ============================================================
+   QUANTITY + STOCK ROW
+   ============================================================ */
+.qs-qty-row{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:16px;
+  margin-top:24px;
+}
+.qs-qty-block{display:flex;flex-direction:column;gap:10px}
+.qs-stock{
+  font-size:12px;
+  color:var(--mr-navy-70);
+  margin:0;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+.qs-stock-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--mr-green);
+  display:inline-block;
+}
+.qs-stock.low .qs-stock-dot{background:var(--mr-orange)}
+.qs-stock.low{color:var(--mr-orange);font-weight:600}
+
+.qs-stepper{
+  display:inline-flex;
+  align-items:center;
+  border:1.5px solid var(--mr-hairline-strong);
+  border-radius:var(--mr-r-md);
+  overflow:hidden;
+  height:48px;
+  background:#fff;
+}
+.qs-step-btn{
+  width:44px;
+  height:46px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  border:0;
+  color:var(--mr-navy);
+  cursor:pointer;
+  font-size:18px;
+  font-weight:500;
+  transition:background-color var(--mr-tr-fast) ease;
+}
+.qs-step-btn:hover{background:rgba(0,14,53,.05)}
+.qs-step-btn:focus-visible{
+  outline:2px solid var(--mr-navy);
+  outline-offset:-2px;
+}
+.qs-step-btn[disabled]{
+  color:var(--mr-navy-40);
+  cursor:not-allowed;
+}
+.qs-step-input{
+  width:48px;
+  height:46px;
+  border:0;
+  background:transparent;
+  text-align:center;
+  font-family:var(--mr-font-body);
+  font-size:15px;
+  font-weight:600;
+  color:var(--mr-navy);
+  -moz-appearance:textfield;
+}
+.qs-step-input::-webkit-outer-spin-button,
+.qs-step-input::-webkit-inner-spin-button{
+  -webkit-appearance:none;margin:0;
+}
+.qs-step-input:focus{outline:none}
+
+/* ============================================================
+   CTA
+   ============================================================ */
+.qs-cta-wrap{
+  padding:16px 20px 20px;
+  border-top:1px solid var(--mr-hairline);
+  background:#fff;
+}
+@media (min-width:768px){
+  .qs-cta-wrap{
+    padding:20px 28px 24px;
+    border-top:0;
+  }
+}
+.qs-cta{
+  width:100%;
+  min-height:56px;
+  font-family:var(--mr-font-body);
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:#fff;
+  background:var(--mr-navy);
+  border:0;
+  border-radius:var(--mr-r-md);
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  transition:
+    background-color var(--mr-tr-fast) ease,
+    transform var(--mr-tr-fast) ease;
+}
+.qs-cta:hover{background:#0a1a45}
+.qs-cta:active{transform:translateY(1px)}
+.qs-cta:focus-visible{
+  outline:2px solid var(--mr-navy);
+  outline-offset:3px;
+}
+.qs-cta svg{width:18px;height:18px;stroke-width:2}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  .qs-overlay,.qs-modal,.qs-chip,.qs-cta,.qs-step-btn,.qs-close{
+    transition-duration:0ms !important;
+  }
+  .qs-modal{transform:none !important}
+}
+
+/* ============================================================
+   SCROLLBAR (info column on desktop)
+   ============================================================ */
+.qs-info-scroll::-webkit-scrollbar{width:6px}
+.qs-info-scroll::-webkit-scrollbar-thumb{
+  background:var(--mr-hairline-strong);
+  border-radius:3px;
+}
+.qs-info-scroll::-webkit-scrollbar-track{background:transparent}
+</style>
+</head>
+<body>
+
+<div class="page-demo">
+  <button class="demo-trigger" type="button" onclick="document.getElementById('qs-overlay').setAttribute('data-open','true');document.getElementById('qs-modal').setAttribute('data-open','true')">
+    Abrir Quickshop
+  </button>
+</div>
+
+<!-- ============================================================
+     OVERLAY
+     ============================================================ -->
+<div class="qs-overlay" id="qs-overlay" data-open="true"
+     onclick="this.setAttribute('data-open','false');document.getElementById('qs-modal').setAttribute('data-open','false')"></div>
+
+<!-- ============================================================
+     MODAL
+     ============================================================ -->
+<div class="qs-modal"
+     id="qs-modal"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="qs-title"
+     data-open="true">
+
+  <button class="qs-close"
+          type="button"
+          aria-label="Cerrar"
+          onclick="document.getElementById('qs-overlay').setAttribute('data-open','false');document.getElementById('qs-modal').setAttribute('data-open','false')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round">
+      <path d="M6 6l12 12M18 6L6 18"/>
+    </svg>
+  </button>
+
+  <div class="qs-grid">
+
+    <!-- IMAGE COLUMN -->
+    <div class="qs-image">
+      <img src="https://acdn-us.mitiendanube.com/stores/001/234/567/products/whey-true-made-chocolate1-1024x1024.jpg"
+           alt="Star Nutrition Whey True Made 1kg sabor Chocolate Suizo"
+           onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#ECEDEF 0%,#dadce1 100%)'">
+    </div>
+
+    <!-- INFO COLUMN -->
+    <div class="qs-info">
+      <div class="qs-info-scroll">
+
+        <p class="qs-brand">Star Nutrition</p>
+        <h2 class="qs-name" id="qs-title">Whey True Made 1kg</h2>
+
+        <div class="qs-price-row">
+          <span class="qs-price">$24.990</span>
+          <span class="qs-was">$32.500</span>
+          <span class="qs-discount">-23%</span>
+        </div>
+        <p class="qs-cuotas">3 cuotas <span class="ok">sin interes</span> de $8.330</p>
+
+        <hr class="qs-divider">
+
+        <p class="qs-section-label">Sabor</p>
+        <ul class="qs-chips" role="radiogroup" aria-label="Elegir sabor">
+          <li>
+            <button class="qs-chip" type="button" role="radio" aria-pressed="false" aria-checked="false">
+              Banana
+            </button>
+          </li>
+          <li>
+            <button class="qs-chip" type="button" role="radio" aria-pressed="true" aria-checked="true">
+              Chocolate Suizo
+            </button>
+          </li>
+          <li>
+            <button class="qs-chip" type="button" role="radio" aria-pressed="false" aria-checked="false">
+              Frutilla
+            </button>
+          </li>
+          <li>
+            <button class="qs-chip" type="button" role="radio" aria-pressed="false" aria-checked="false">
+              Cookies &amp; Cream
+            </button>
+          </li>
+          <li>
+            <button class="qs-chip" type="button" role="radio" aria-pressed="false" aria-checked="false">
+              Vainilla Ice
+            </button>
+          </li>
+        </ul>
+
+        <div class="qs-qty-row">
+          <div class="qs-qty-block">
+            <p class="qs-section-label" style="margin:0">Cantidad</p>
+            <div class="qs-stepper" role="group" aria-label="Cantidad">
+              <button class="qs-step-btn" type="button" aria-label="Restar uno" id="qs-minus">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M5 12h14"/></svg>
+              </button>
+              <input class="qs-step-input" type="number" value="1" min="1" max="99" aria-label="Cantidad" id="qs-qty">
+              <button class="qs-step-btn" type="button" aria-label="Sumar uno" id="qs-plus">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          </div>
+          <p class="qs-stock" aria-live="polite">
+            <span class="qs-stock-dot" aria-hidden="true"></span>
+            +100 en stock
+          </p>
+        </div>
+
+      </div>
+
+      <!-- CTA -->
+      <div class="qs-cta-wrap">
+        <button class="qs-cta" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 4h2l2.4 12.3a2 2 0 0 0 2 1.7h8.7a2 2 0 0 0 2-1.6L21.5 8H6"/>
+            <circle cx="9" cy="21" r="1.5"/>
+            <circle cx="18" cy="21" r="1.5"/>
+          </svg>
+          Agregar al carrito
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // chip radio behavior
+  document.querySelectorAll('.qs-chips').forEach(group=>{
+    group.addEventListener('click',e=>{
+      const chip=e.target.closest('.qs-chip');
+      if(!chip||chip.getAttribute('aria-disabled')==='true')return;
+      group.querySelectorAll('.qs-chip').forEach(c=>{
+        c.setAttribute('aria-pressed','false');
+        c.setAttribute('aria-checked','false');
+      });
+      chip.setAttribute('aria-pressed','true');
+      chip.setAttribute('aria-checked','true');
+    });
+    // arrow-key navigation for accessibility
+    group.addEventListener('keydown',e=>{
+      if(!['ArrowRight','ArrowLeft','ArrowUp','ArrowDown'].includes(e.key))return;
+      const chips=[...group.querySelectorAll('.qs-chip:not([aria-disabled="true"])')];
+      const i=chips.indexOf(document.activeElement);
+      if(i<0)return;
+      e.preventDefault();
+      const next=(e.key==='ArrowRight'||e.key==='ArrowDown')
+        ?chips[(i+1)%chips.length]
+        :chips[(i-1+chips.length)%chips.length];
+      next.focus();
+      next.click();
+    });
+  });
+
+  // stepper
+  const qty=document.getElementById('qs-qty');
+  document.getElementById('qs-minus').addEventListener('click',()=>{
+    qty.value=Math.max(1,parseInt(qty.value||1,10)-1);
+  });
+  document.getElementById('qs-plus').addEventListener('click',()=>{
+    qty.value=Math.min(99,parseInt(qty.value||1,10)+1);
+  });
+
+  // escape to close
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){
+      document.getElementById('qs-overlay').setAttribute('data-open','false');
+      document.getElementById('qs-modal').setAttribute('data-open','false');
+    }
+  });
+</script>
+
+</body>
+</html>

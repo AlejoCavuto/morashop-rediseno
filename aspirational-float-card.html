@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morashop — Aspirational Float Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ASPIRATIONAL FLOAT — Morashop product card
+   Philosophy: product floats over a quiet pedestal.
+   Drop-shadow under the PRODUCT (not the card).
+   ============================================================ */
+
+:root {
+  --mr-bg:         #ECEDEF;
+  --mr-surface:    #FFFFFF;
+  --mr-text:       #1A2744;
+  --mr-text-soft:  rgba(26, 39, 68, 0.58);
+  --mr-text-mute:  rgba(26, 39, 68, 0.42);
+  --mr-line:       rgba(26, 39, 68, 0.10);
+  --mr-red:        #E8341A;
+  --mr-red-deep:   #C72D17;
+  --mr-red-soft:   rgba(232, 52, 26, 0.10);
+  --mr-green:      #00A650;
+  --mr-green-soft: rgba(0, 166, 80, 0.10);
+
+  --mr-font-display: "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
+  --mr-font-body:    "Inter", system-ui, -apple-system, sans-serif;
+
+  --mr-r-sm:   8px;
+  --mr-r-md:   14px;
+  --mr-r-lg:   18px;
+  --mr-r-pill: 999px;
+
+  --mr-sh-rest:  0 1px 2px rgba(26, 39, 68, 0.04), 0 4px 16px -8px rgba(26, 39, 68, 0.08);
+  --mr-sh-hover: 0 12px 32px -10px rgba(26, 39, 68, 0.18), 0 2px 6px rgba(26, 39, 68, 0.06);
+
+  --mr-tr-fast: 160ms cubic-bezier(0.4, 0, 0.2, 1);
+  --mr-tr-base: 280ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  --mr-tr-slow: 520ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 48px 24px;
+  background: var(--mr-bg);
+  font-family: var(--mr-font-body);
+  color: var(--mr-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   CARD ROOT
+   ============================================================ */
+
+.mr-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF; /* explicit — NEVER `revert` */
+  border-radius: var(--mr-r-lg);
+  padding: 14px 14px 16px;
+  box-shadow: var(--mr-sh-rest);
+  transition:
+    transform var(--mr-tr-base),
+    box-shadow var(--mr-tr-base);
+  isolation: isolate;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Subtle inset highlight — premium "glass edge" feel */
+.mr-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.6;
+  transition: opacity var(--mr-tr-base);
+}
+
+.mr-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--mr-sh-hover);
+}
+
+.mr-card:hover::before { opacity: 1; }
+
+/* ============================================================
+   IMAGE STAGE — the floating pedestal
+   ============================================================ */
+
+.mr-card__stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--mr-r-md);
+  background: linear-gradient(180deg, #FAFBFC 0%, #F4F5F7 100%);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+/* Soft radial floor-shadow UNDER the product (not around the card) */
+.mr-card__stage::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  width: 64%;
+  height: 14px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(26, 39, 68, 0.22) 0%,
+    rgba(26, 39, 68, 0.08) 45%,
+    rgba(26, 39, 68, 0) 75%
+  );
+  filter: blur(6px);
+  z-index: 1;
+  transition: transform var(--mr-tr-base), opacity var(--mr-tr-base);
+  pointer-events: none;
+}
+
+.mr-card:hover .mr-card__stage::after {
+  transform: translateX(-50%) scale(1.12);
+  opacity: 0.85;
+}
+
+/* Floating product image */
+.mr-card__image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  padding: 14px;
+}
+
+.mr-card__image img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  animation: mr-float 4s ease-in-out infinite alternate;
+  transition: transform var(--mr-tr-slow);
+  will-change: transform;
+}
+
+@keyframes mr-float {
+  0%   { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-4px) scale(1.005); }
+}
+
+.mr-card:hover .mr-card__image img {
+  animation-play-state: paused;
+  transform: scale(1.06) translateY(-2px);
+}
+
+/* Disable idle float for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .mr-card__image img { animation: none; }
+}
+
+/* ============================================================
+   BADGES — over image, pill-rounded
+   ============================================================ */
+
+.mr-card__badges {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 4;
+}
+
+.mr-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: var(--mr-r-pill);
+  font-family: var(--mr-font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(26, 39, 68, 0.10);
+}
+
+.mr-badge--discount {
+  background: var(--mr-red);
+  color: #FFFFFF;
+}
+
+.mr-badge--bestseller {
+  background: var(--mr-text);
+  color: #FFFFFF;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+
+.mr-badge--shipping {
+  background: var(--mr-green);
+  color: #FFFFFF;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+
+.mr-badge--soldout {
+  background: rgba(26, 39, 68, 0.85);
+  color: #FFFFFF;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Wishlist (top-right) */
+.mr-card__wishlist {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--mr-r-pill);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--mr-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 4;
+  transition: background var(--mr-tr-fast), transform var(--mr-tr-fast);
+}
+
+.mr-card__wishlist:hover {
+  background: #FFFFFF;
+  transform: scale(1.08);
+}
+
+.mr-card__wishlist svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--mr-text);
+  fill: none;
+  stroke-width: 1.6;
+  transition: fill var(--mr-tr-fast), stroke var(--mr-tr-fast);
+}
+
+.mr-card__wishlist.is-active svg {
+  fill: var(--mr-red);
+  stroke: var(--mr-red);
+}
+
+/* ============================================================
+   BODY — typographic stack
+   ============================================================ */
+
+.mr-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 6px;
+}
+
+.mr-card__brand {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--mr-text-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.mr-card__name {
+  font-family: var(--mr-font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--mr-text);
+  line-height: 1.35;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 38px; /* reserve 2 lines so cards align */
+}
+
+.mr-card__prices {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4px;
+  line-height: 1;
+}
+
+.mr-card__compare {
+  font-family: var(--mr-font-body);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--mr-text-mute);
+  text-decoration: line-through;
+  margin-bottom: 4px;
+  height: 14px; /* reserved row so cards align even without compare */
+}
+
+.mr-card__price {
+  font-family: var(--mr-font-display);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--mr-text);
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.mr-card__installments {
+  font-family: var(--mr-font-body);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--mr-green);
+  margin-top: 6px;
+  line-height: 1.3;
+  min-height: 16px; /* reserved row */
+}
+
+/* ============================================================
+   CTA
+   ============================================================ */
+
+.mr-card__cta {
+  margin-top: 12px;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 14px;
+  border: none;
+  border-radius: var(--mr-r-md);
+  background: var(--mr-red);
+  color: #FFFFFF;
+  font-family: var(--mr-font-display);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--mr-tr-fast), box-shadow var(--mr-tr-base), transform var(--mr-tr-fast);
+  position: relative;
+  z-index: 2;
+}
+
+.mr-card__cta:hover {
+  background: var(--mr-red-deep);
+  box-shadow: 0 10px 24px -8px rgba(232, 52, 26, 0.45);
+}
+
+.mr-card__cta:active {
+  transform: scale(0.98);
+}
+
+.mr-card__cta:focus-visible {
+  outline: 2px solid var(--mr-text);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   SOLD OUT STATE
+   ============================================================ */
+
+.mr-card.is-soldout .mr-card__image img {
+  filter: grayscale(1) opacity(0.55);
+  animation: none;
+}
+
+.mr-card.is-soldout .mr-card__cta {
+  background: var(--mr-text-mute);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 768px) {
+  body { padding: 16px 12px; }
+
+  .demo-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .mr-card {
+    padding: 10px 10px 12px;
+    border-radius: var(--mr-r-md);
+  }
+
+  .mr-card__stage { margin-bottom: 12px; }
+
+  .mr-card__image { padding: 10px; }
+
+  /* Idle float disabled on mobile to save battery + avoid jitter */
+  .mr-card__image img { animation: none; }
+
+  .mr-card__name { font-size: 13px; min-height: 35px; }
+  .mr-card__price { font-size: 24px; }
+  .mr-card__installments { font-size: 11.5px; }
+
+  .mr-card__cta {
+    padding: 10px 12px;
+    font-size: 14px;
+    /* Always visible on mobile — no hover state */
+  }
+
+  /* Disable card lift on touch — only CTA tap response */
+  .mr-card:hover { transform: none; box-shadow: var(--mr-sh-rest); }
+  .mr-card:hover .mr-card__image img { transform: none; }
+  .mr-card:active { transform: scale(0.99); }
+}
+</style>
+</head>
+<body>
+
+<div class="demo-grid">
+
+  <!-- ============ Card with discount + installments ============ -->
+  <a class="mr-card" href="#">
+    <div class="mr-card__stage">
+      <div class="mr-card__badges">
+        <span class="mr-badge mr-badge--discount">-25% OFF</span>
+      </div>
+      <button class="mr-card__wishlist" aria-label="Agregar a favoritos">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <div class="mr-card__image">
+        <img src="https://acdn.mitiendanube.com/stores/001/234/567/products/whey-isolate-chocolate1-abc.png"
+             alt="ENA Sport Whey Protein Isolate Chocolate 2kg"
+             onerror="this.src='https://via.placeholder.com/400x400/FAFBFC/1A2744?text=WHEY+ISOLATE'">
+      </div>
+    </div>
+
+    <div class="mr-card__body">
+      <div class="mr-card__brand">ENA Sport</div>
+      <h3 class="mr-card__name">Whey Protein Isolate Chocolate 2kg</h3>
+
+      <div class="mr-card__prices">
+        <span class="mr-card__compare">$34.990</span>
+        <span class="mr-card__price">$26.240</span>
+      </div>
+
+      <div class="mr-card__installments">3 x $8.747 sin interés</div>
+
+      <button class="mr-card__cta" type="button">Comprar</button>
+    </div>
+  </a>
+
+  <!-- ============ Card bestseller + no discount ============ -->
+  <a class="mr-card" href="#">
+    <div class="mr-card__stage">
+      <div class="mr-card__badges">
+        <span class="mr-badge mr-badge--bestseller">Más vendido</span>
+      </div>
+      <button class="mr-card__wishlist is-active" aria-label="Quitar de favoritos">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <div class="mr-card__image">
+        <img src="https://acdn.mitiendanube.com/stores/001/234/567/products/creatine.png"
+             alt="Star Nutrition Creatina Monohidrato 300g"
+             onerror="this.src='https://via.placeholder.com/400x400/FAFBFC/1A2744?text=CREATINA'">
+      </div>
+    </div>
+
+    <div class="mr-card__body">
+      <div class="mr-card__brand">Star Nutrition</div>
+      <h3 class="mr-card__name">Creatina Monohidrato Pura 300g</h3>
+
+      <div class="mr-card__prices">
+        <span class="mr-card__compare">&nbsp;</span>
+        <span class="mr-card__price">$18.900</span>
+      </div>
+
+      <div class="mr-card__installments">3 x $6.300 sin interés</div>
+
+      <button class="mr-card__cta" type="button">Comprar</button>
+    </div>
+  </a>
+
+  <!-- ============ Card envío gratis + discount ============ -->
+  <a class="mr-card" href="#">
+    <div class="mr-card__stage">
+      <div class="mr-card__badges">
+        <span class="mr-badge mr-badge--discount">-15% OFF</span>
+        <span class="mr-badge mr-badge--shipping">Envío gratis</span>
+      </div>
+      <button class="mr-card__wishlist" aria-label="Agregar a favoritos">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <div class="mr-card__image">
+        <img src="https://acdn.mitiendanube.com/stores/001/234/567/products/preworkout.png"
+             alt="Gold Nutrition Pre-Workout Sandía 300g"
+             onerror="this.src='https://via.placeholder.com/400x400/FAFBFC/1A2744?text=PRE+WORKOUT'">
+      </div>
+    </div>
+
+    <div class="mr-card__body">
+      <div class="mr-card__brand">Gold Nutrition</div>
+      <h3 class="mr-card__name">Pre-Workout Explosive Sandía 300g</h3>
+
+      <div class="mr-card__prices">
+        <span class="mr-card__compare">$58.500</span>
+        <span class="mr-card__price">$49.725</span>
+      </div>
+
+      <div class="mr-card__installments">6 x $8.287 sin interés</div>
+
+      <button class="mr-card__cta" type="button">Comprar</button>
+    </div>
+  </a>
+
+  <!-- ============ Card sold out ============ -->
+  <a class="mr-card is-soldout" href="#">
+    <div class="mr-card__stage">
+      <div class="mr-card__badges">
+        <span class="mr-badge mr-badge--soldout">Sin stock</span>
+      </div>
+      <div class="mr-card__image">
+        <img src="https://acdn.mitiendanube.com/stores/001/234/567/products/bcaa.png"
+             alt="Universal BCAA 2:1:1 400g"
+             onerror="this.src='https://via.placeholder.com/400x400/FAFBFC/1A2744?text=BCAA'">
+      </div>
+    </div>
+
+    <div class="mr-card__body">
+      <div class="mr-card__brand">Universal</div>
+      <h3 class="mr-card__name">BCAA 2:1:1 Powder Frutos Rojos 400g</h3>
+
+      <div class="mr-card__prices">
+        <span class="mr-card__compare">&nbsp;</span>
+        <span class="mr-card__price">$22.400</span>
+      </div>
+
+      <div class="mr-card__installments">&nbsp;</div>
+
+      <button class="mr-card__cta" type="button">Sin stock</button>
+    </div>
+  </a>
+
+</div>
+
+</body>
+</html>

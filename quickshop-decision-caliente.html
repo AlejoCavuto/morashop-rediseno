@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Morashop · Quickshop "Decisión Caliente"</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   MORASHOP · QUICKSHOP MODAL "Decisión Caliente"
+   Scoped strictly to #quickshop-modal. JS hook classes preserved.
+   ============================================================ */
+:root{
+  --mr-bg:        #ECEDEF;
+  --mr-surface:   #FFFFFF;
+  --mr-tint:      #F7F8FA;            /* info-zone tint */
+  --mr-text:      #000E35;            /* navy */
+  --mr-text-60:   rgba(0,14,53,.60);
+  --mr-text-45:   rgba(0,14,53,.45);
+  --mr-line:      rgba(0,14,53,.10);
+  --mr-line-mid:  rgba(0,14,53,.18);
+  --mr-red:       #E8341A;
+  --mr-red-hover: #C72D17;
+  --mr-green:     #1FBA66;
+  --mr-green-bg:  rgba(31,186,102,.10);
+  --mr-orange:    #FF8A1F;
+  --mr-orange-bg: rgba(255,138,31,.12);
+  --mr-r-sm:      8px;
+  --mr-r:         12px;
+  --mr-r-lg:      16px;
+  --mr-r-pill:    999px;
+  --mr-sh-sm:     0 1px 2px rgba(0,14,53,.06);
+  --mr-sh-lg:     0 24px 60px -20px rgba(0,14,53,.35), 0 8px 20px -8px rgba(0,14,53,.18);
+  --mr-tr-fast:   120ms cubic-bezier(.4,0,.2,1);
+  --mr-tr-base:   220ms cubic-bezier(.16,1,.3,1);
+  --mr-font-display: 'Barlow Condensed', system-ui, sans-serif;
+  --mr-font-body:    'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Demo page background only */
+body{
+  margin:0;
+  font-family:var(--mr-font-body);
+  background:var(--mr-bg);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  color:var(--mr-text);
+}
+
+/* ============================================================
+   OVERLAY + ROOT
+   ============================================================ */
+.js-modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,14,53,.55);
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+  z-index:1040;
+  opacity:1;
+  transition:opacity var(--mr-tr-base);
+}
+
+#quickshop-modal.modal-quickshop{
+  position:fixed;
+  z-index:1050;
+  font-family:var(--mr-font-body);
+  color:var(--mr-text);
+  /* Desktop: centered medium box */
+  inset:50% auto auto 50%;
+  width:min(900px, calc(100vw - 48px));
+  max-height:min(680px, calc(100vh - 48px));
+  transform:translate(-50%,-50%) scale(.97);
+  opacity:0;
+  background:var(--mr-surface);
+  border-radius:var(--mr-r-lg);
+  box-shadow:var(--mr-sh-lg);
+  overflow:hidden;
+  animation:mrModalIn 220ms cubic-bezier(.16,1,.3,1) forwards;
+}
+@keyframes mrModalIn{
+  to{ transform:translate(-50%,-50%) scale(1); opacity:1; }
+}
+
+/* Modal body container */
+#quickshop-modal .modal-body{
+  padding:0;
+  height:100%;
+  max-height:inherit;
+  overflow:hidden;
+  background:var(--mr-surface);
+}
+
+/* Two-column shell */
+#quickshop-modal .js-quickshop-modal-shell .row{
+  display:grid;
+  grid-template-columns:40% 60%;
+  margin:0;
+  min-height:520px;
+}
+
+/* ============================================================
+   IMAGE COLUMN (40%)
+   ============================================================ */
+#quickshop-modal .quickshop-image-container{
+  position:relative;
+  background:var(--mr-tint);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px;
+  overflow:hidden;
+}
+#quickshop-modal .js-quickshop-image-padding{
+  position:relative;
+  width:100%;
+  aspect-ratio:1/1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+#quickshop-modal .quickshop-image{
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  filter:drop-shadow(0 18px 24px rgba(0,14,53,.18));
+  transition:transform var(--mr-tr-base);
+}
+#quickshop-modal .quickshop-image:hover{
+  transform:scale(1.03);
+}
+
+/* ============================================================
+   INFO COLUMN (60%)
+   ============================================================ */
+#quickshop-modal .js-item-variants{
+  padding:32px 32px 28px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  background:var(--mr-surface);
+  position:relative;
+  overflow-y:auto;
+}
+
+/* Close (desktop) */
+#quickshop-modal .modal-close-desktop{
+  position:absolute;
+  top:14px;
+  right:14px;
+  width:40px;
+  height:40px;
+  border-radius:var(--mr-r-pill);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  border:none;
+  color:var(--mr-text);
+  cursor:pointer;
+  transition:background var(--mr-tr-fast);
+}
+#quickshop-modal .modal-close-desktop:hover{ background:var(--mr-line); }
+#quickshop-modal .modal-close-desktop:focus-visible{
+  outline:2px solid var(--mr-text);
+  outline-offset:2px;
+}
+#quickshop-modal .modal-close-desktop svg{ width:18px; height:18px; }
+
+/* Brand eyebrow */
+#quickshop-modal .qs-brand{
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--mr-text-60);
+  margin:0;
+}
+
+/* Product name */
+#quickshop-modal .js-item-name{
+  font-family:var(--mr-font-body);
+  font-size:20px;
+  line-height:1.25;
+  font-weight:800;
+  color:var(--mr-text);
+  margin:2px 0 0;
+  letter-spacing:-.01em;
+}
+
+#quickshop-modal .qs-divider{
+  height:1px;
+  background:var(--mr-line);
+  border:none;
+  margin:4px 0 6px;
+}
+
+/* ============================================================
+   PRICE BLOCK
+   ============================================================ */
+#quickshop-modal .item-price-container{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin:0;
+}
+#quickshop-modal .qs-price-row{
+  display:flex;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:12px;
+}
+#quickshop-modal .js-price-display{
+  font-family:var(--mr-font-display);
+  font-weight:800;
+  font-size:clamp(32px, 4vw, 44px);
+  line-height:1;
+  color:var(--mr-text);
+  letter-spacing:-.01em;
+}
+#quickshop-modal .js-compare-price-display{
+  font-family:var(--mr-font-display);
+  font-weight:600;
+  font-size:20px;
+  color:var(--mr-text-45);
+  text-decoration:line-through;
+  text-decoration-thickness:1.5px;
+}
+#quickshop-modal .qs-discount-pill{
+  display:inline-flex;
+  align-items:center;
+  padding:4px 10px;
+  border-radius:var(--mr-r-pill);
+  background:var(--mr-red);
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.02em;
+  font-family:var(--mr-font-body);
+}
+#quickshop-modal .qs-pay-line{
+  font-size:13px;
+  font-weight:500;
+  color:var(--mr-text-60);
+}
+#quickshop-modal .qs-pay-line strong{
+  color:var(--mr-green);
+  font-weight:700;
+}
+#quickshop-modal .qs-pay-line .dot{
+  display:inline-block;
+  margin:0 8px;
+  color:var(--mr-line-mid);
+}
+
+/* ============================================================
+   VARIANT CHIPS
+   ============================================================ */
+#quickshop-modal .qs-variant-block{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+#quickshop-modal .qs-variant-label{
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.10em;
+  text-transform:uppercase;
+  color:var(--mr-text-60);
+}
+#quickshop-modal .qs-variant-label span{
+  color:var(--mr-text);
+  font-weight:800;
+  margin-left:6px;
+  text-transform:none;
+  letter-spacing:0;
+}
+#quickshop-modal .js-product-variants{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:0;
+}
+#quickshop-modal .qs-chip{
+  appearance:none;
+  background:var(--mr-surface);
+  border:1.5px solid var(--mr-line-mid);
+  border-radius:var(--mr-r);
+  padding:10px 14px;
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:var(--mr-font-body);
+  font-size:13.5px;
+  font-weight:600;
+  color:var(--mr-text);
+  cursor:pointer;
+  position:relative;
+  transition:border-color var(--mr-tr-fast),
+             background var(--mr-tr-fast),
+             transform var(--mr-tr-fast);
+}
+#quickshop-modal .qs-chip:hover{
+  border-color:var(--mr-text);
+  background:var(--mr-tint);
+}
+#quickshop-modal .qs-chip:focus-visible{
+  outline:2px solid var(--mr-text);
+  outline-offset:2px;
+}
+#quickshop-modal .qs-chip[aria-pressed="true"]{
+  border-color:var(--mr-text);
+  background:var(--mr-text);
+  color:#fff;
+  box-shadow:0 4px 12px -4px rgba(0,14,53,.4);
+}
+#quickshop-modal .qs-chip[disabled]{
+  opacity:.45;
+  cursor:not-allowed;
+  text-decoration:line-through;
+}
+#quickshop-modal .qs-chip__dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--swatch, #ddd);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.10);
+  flex-shrink:0;
+}
+#quickshop-modal .qs-chip[aria-pressed="true"] .qs-chip__dot{
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.35),
+             0 0 0 2px rgba(255,255,255,.25);
+}
+
+/* ============================================================
+   QUANTITY + STOCK ROW
+   ============================================================ */
+#quickshop-modal .qs-qty-stock-row{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:2px;
+}
+
+#quickshop-modal .js-quantity{
+  display:inline-flex;
+  align-items:center;
+  background:var(--mr-surface);
+  border:1.5px solid var(--mr-line-mid);
+  border-radius:var(--mr-r);
+  height:48px;
+  overflow:hidden;
+  transition:border-color var(--mr-tr-fast);
+}
+#quickshop-modal .js-quantity:focus-within{
+  border-color:var(--mr-text);
+}
+#quickshop-modal .js-quantity-down,
+#quickshop-modal .js-quantity-up{
+  width:40px;
+  height:48px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  border:none;
+  color:var(--mr-text);
+  cursor:pointer;
+  font-size:18px;
+  font-weight:700;
+  transition:background var(--mr-tr-fast), transform var(--mr-tr-fast);
+  user-select:none;
+}
+#quickshop-modal .js-quantity-down:hover,
+#quickshop-modal .js-quantity-up:hover{ background:var(--mr-tint); }
+#quickshop-modal .js-quantity-down:active,
+#quickshop-modal .js-quantity-up:active{ transform:scale(.92); }
+#quickshop-modal .js-quantity-input{
+  width:42px;
+  height:48px;
+  border:none;
+  background:transparent;
+  text-align:center;
+  font-family:var(--mr-font-display);
+  font-weight:700;
+  font-size:20px;
+  color:var(--mr-text);
+  -moz-appearance:textfield;
+}
+#quickshop-modal .js-quantity-input::-webkit-outer-spin-button,
+#quickshop-modal .js-quantity-input::-webkit-inner-spin-button{
+  -webkit-appearance:none; margin:0;
+}
+#quickshop-modal .js-quantity-input:focus{ outline:none; }
+
+/* Stock pill */
+#quickshop-modal .qs-stock{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 14px;
+  border-radius:var(--mr-r-pill);
+  font-size:12.5px;
+  font-weight:700;
+  letter-spacing:.01em;
+}
+#quickshop-modal .qs-stock--high{
+  background:var(--mr-green-bg);
+  color:#0F8049;
+}
+#quickshop-modal .qs-stock--low{
+  background:var(--mr-orange-bg);
+  color:#B85A00;
+}
+#quickshop-modal .qs-stock--urgent{
+  background:rgba(232,52,26,.10);
+  color:var(--mr-red);
+}
+#quickshop-modal .qs-stock__dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:currentColor;
+  animation:mrPulse 2s ease-in-out infinite;
+}
+@keyframes mrPulse{
+  0%,100%{ opacity:1; transform:scale(1); }
+  50%{ opacity:.55; transform:scale(.85); }
+}
+
+/* ============================================================
+   CTA
+   ============================================================ */
+#quickshop-modal .qs-cta-wrap{
+  margin-top:auto;
+  padding-top:8px;
+}
+#quickshop-modal .btn-add-to-cart{
+  appearance:none;
+  width:100%;
+  height:56px;
+  background:var(--mr-red);
+  color:#fff;
+  border:none;
+  border-radius:var(--mr-r);
+  font-family:var(--mr-font-body);
+  font-size:15px;
+  font-weight:800;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  box-shadow:0 8px 20px -8px rgba(232,52,26,.6);
+  transition:background var(--mr-tr-fast),
+             transform var(--mr-tr-fast),
+             box-shadow var(--mr-tr-fast);
+}
+#quickshop-modal .btn-add-to-cart:hover{
+  background:var(--mr-red-hover);
+  box-shadow:0 12px 26px -8px rgba(232,52,26,.7);
+}
+#quickshop-modal .btn-add-to-cart:active{ transform:translateY(1px); }
+#quickshop-modal .btn-add-to-cart:focus-visible{
+  outline:3px solid rgba(232,52,26,.4);
+  outline-offset:2px;
+}
+#quickshop-modal .btn-add-to-cart svg{ width:20px; height:20px; }
+
+/* ============================================================
+   MOBILE: BOTTOM SHEET
+   ============================================================ */
+@media (max-width: 767px){
+  #quickshop-modal.modal-quickshop{
+    inset:auto 0 0 0;
+    width:100%;
+    max-width:100%;
+    max-height:92vh;
+    transform:translateY(100%);
+    opacity:1;
+    border-radius:20px 20px 0 0;
+    animation:mrSheetIn 260ms cubic-bezier(.32,.72,0,1) forwards;
+    display:flex;
+    flex-direction:column;
+  }
+  @keyframes mrSheetIn{
+    to{ transform:translateY(0); }
+  }
+
+  #quickshop-modal .modal-body{
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:96px; /* leave room for sticky CTA */
+  }
+
+  /* Drag handle */
+  #quickshop-modal .modal-body::before{
+    content:'';
+    display:block;
+    width:44px;
+    height:5px;
+    border-radius:var(--mr-r-pill);
+    background:var(--mr-line-mid);
+    margin:10px auto 4px;
+  }
+
+  #quickshop-modal .js-quickshop-modal-shell .row{
+    grid-template-columns:1fr;
+    min-height:auto;
+  }
+
+  #quickshop-modal .quickshop-image-container{
+    padding:8px 24px 16px;
+    background:transparent;
+  }
+  #quickshop-modal .js-quickshop-image-padding{
+    aspect-ratio:1/1;
+    max-width:240px;
+    margin:0 auto;
+  }
+
+  #quickshop-modal .js-item-variants{
+    padding:8px 20px 16px;
+    gap:14px;
+  }
+
+  /* Hide desktop close on mobile - rely on floating + drag */
+  #quickshop-modal .modal-close-desktop{
+    top:10px; right:10px;
+    width:36px; height:36px;
+    background:rgba(255,255,255,.85);
+    backdrop-filter:blur(6px);
+  }
+
+  #quickshop-modal .js-item-name{ font-size:17px; }
+  #quickshop-modal .js-price-display{ font-size:32px; }
+  #quickshop-modal .js-compare-price-display{ font-size:17px; }
+
+  /* Sticky bottom CTA bar */
+  #quickshop-modal .qs-cta-wrap{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(12px);
+    border-top:1px solid var(--mr-line);
+    z-index:5;
+  }
+  #quickshop-modal .btn-add-to-cart{
+    height:54px;
+    font-size:14px;
+  }
+  #quickshop-modal .btn-add-to-cart__price{
+    margin-left:auto;
+    font-family:var(--mr-font-display);
+    font-size:18px;
+    font-weight:800;
+    letter-spacing:0;
+  }
+  #quickshop-modal .btn-add-to-cart__price-sep{
+    opacity:.6; margin:0 8px;
+  }
+}
+
+/* Desktop: hide mobile-only price-in-cta */
+@media (min-width: 768px){
+  #quickshop-modal .btn-add-to-cart__price-sep,
+  #quickshop-modal .btn-add-to-cart__price{ display:none; }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce){
+  #quickshop-modal.modal-quickshop,
+  .js-modal-overlay,
+  #quickshop-modal *{
+    animation-duration:0.01ms !important;
+    transition-duration:0.01ms !important;
+  }
+  #quickshop-modal.modal-quickshop{
+    transform:translate(-50%,-50%) scale(1);
+    opacity:1;
+  }
+  @media (max-width:767px){
+    #quickshop-modal.modal-quickshop{
+      transform:translateY(0);
+    }
+  }
+  #quickshop-modal .qs-stock__dot{ animation:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     BACKDROP OVERLAY
+     ============================================================ -->
+<div class="js-modal-overlay modal-overlay" data-modal-id="#quickshop-modal"></div>
+
+<!-- ============================================================
+     QUICKSHOP MODAL ROOT
+     ============================================================ -->
+<div id="quickshop-modal"
+     class="js-modal js-fullscreen-modal modal modal-quickshop modal-bottom modal-bottom-md transition-slide modal-centered-md modal-centered-medium transition-soft modal-overflow-none"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="qs-product-name">
+
+  <div class="modal-body modal-scrollable p-0 p-md-3">
+
+    <div class="js-item-product modal-scrollable modal-scrollable-area"
+         data-product-id="42">
+      <div class="js-product-container js-quickshop-container js-quickshop-modal js-quickshop-modal-shell js-quickshop-has-variants"
+           data-variants=""
+           data-quickshop-id="quick42">
+
+        <div class="row no-gutters">
+
+          <!-- IMAGE COLUMN -->
+          <div class="col-md-6 mb-1">
+            <div class="quickshop-image-container">
+              <div class="js-quickshop-image-padding">
+                <img class="js-item-image js-quickshop-img quickshop-image img-absolute-centered"
+                     src="https://acdn-us.mitiendanube.com/stores/001/234/567/products/whey-true-made-chocolate1-7d7f3-4c83fbcb6-960.png"
+                     alt="Star Nutrition Whey True Made Chocolate Suizo 908g"
+                     onerror="this.src='https://via.placeholder.com/600x600/F7F8FA/000E35?text=WHEY+TRUE+MADE'">
+              </div>
+            </div>
+          </div>
+
+          <!-- INFO COLUMN -->
+          <div class="js-item-variants col-md-6 p-3 pt-md-2 pr-md-3">
+
+            <!-- Close (desktop) -->
+            <button type="button"
+                    class="js-modal-close js-fullscreen-modal-close modal-close-desktop"
+                    aria-label="Cerrar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                <path d="M6 6l12 12M18 6L6 18"/>
+              </svg>
+            </button>
+
+            <!-- HEADER -->
+            <p class="qs-brand">Star Nutrition</p>
+            <h3 id="qs-product-name" class="js-item-name">Whey True Made 908g</h3>
+            <hr class="qs-divider">
+
+            <!-- PRICE BLOCK -->
+            <div class="item-price-container">
+              <div class="qs-price-row">
+                <span class="js-price-display">$28.990</span>
+                <span class="js-compare-price-display price-compare">$34.990</span>
+                <span class="qs-discount-pill">−17%</span>
+              </div>
+              <p class="qs-pay-line">
+                <strong>$24.642 efectivo</strong>
+                <span class="dot">·</span>
+                3x sin interés de $9.663
+              </p>
+            </div>
+
+            <!-- VARIANT CHIPS -->
+            <div id="quickshop-form" class="qs-variant-block">
+              <form class="js-product-form" action="/cart/add" method="post">
+                <input type="hidden" name="add_to_cart" value="42">
+
+                <div class="js-product-variants js-product-quickshop-variants">
+                  <label class="qs-variant-label" id="qs-flavor-label">
+                    SABOR<span id="qs-flavor-current">Chocolate Suizo</span>
+                  </label>
+
+                  <div class="js-product-variants-group"
+                       role="radiogroup"
+                       aria-labelledby="qs-flavor-label"
+                       data-variation-id="sabor">
+
+                    <button type="button" class="qs-chip" role="radio" aria-pressed="false"
+                            data-value="banana" style="--swatch:#F2D27A;">
+                      <span class="qs-chip__dot"></span>Banana
+                    </button>
+
+                    <button type="button" class="qs-chip" role="radio" aria-pressed="true"
+                            data-value="chocolate" style="--swatch:#5C3A22;">
+                      <span class="qs-chip__dot"></span>Chocolate Suizo
+                    </button>
+
+                    <button type="button" class="qs-chip" role="radio" aria-pressed="false"
+                            data-value="frutilla" style="--swatch:#E84E6A;">
+                      <span class="qs-chip__dot"></span>Frutilla
+                    </button>
+
+                    <button type="button" class="qs-chip" role="radio" aria-pressed="false"
+                            data-value="cookies" style="--swatch:#3A2A1C;">
+                      <span class="qs-chip__dot"></span>Cookies &amp; Cream
+                    </button>
+
+                    <button type="button" class="qs-chip" role="radio" aria-pressed="false"
+                            data-value="vainilla" style="--swatch:#F5E6C8;">
+                      <span class="qs-chip__dot"></span>Vainilla Ice
+                    </button>
+                  </div>
+                </div>
+
+                <!-- QUANTITY + STOCK -->
+                <div class="qs-qty-stock-row">
+                  <div class="js-quantity form-quantity" role="group" aria-label="Cantidad">
+                    <button type="button"
+                            class="js-quantity-down form-quantity-icon btn icon-30px"
+                            aria-label="Disminuir cantidad">−</button>
+                    <input class="js-quantity-input form-control-big"
+                           type="number"
+                           name="quantity42"
+                           value="1"
+                           min="1"
+                           aria-label="Cantidad">
+                    <button type="button"
+                            class="js-quantity-up form-quantity-icon btn icon-30px"
+                            aria-label="Aumentar cantidad">+</button>
+                  </div>
+
+                  <span class="qs-stock qs-stock--high" aria-live="polite">
+                    <span class="qs-stock__dot" aria-hidden="true"></span>
+                    Stock alto · <span class="js-product-stock">+50</span>&nbsp;disp.
+                  </span>
+                </div>
+
+                <!-- CTA -->
+                <div class="qs-cta-wrap">
+                  <button type="submit"
+                          class="js-addtocart js-prod-submit-form btn-add-to-cart btn btn-primary btn-big w-100 cart">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="9" cy="20" r="1.4"/>
+                      <circle cx="17" cy="20" r="1.4"/>
+                      <path d="M3 4h2.2l2.6 12.2a2 2 0 002 1.6h7.4a2 2 0 002-1.55L21 8H6.5"/>
+                    </svg>
+                    <span>Agregar al carrito</span>
+                    <span class="btn-add-to-cart__price-sep">·</span>
+                    <span class="btn-add-to-cart__price">$28.990</span>
+                  </button>
+                </div>
+
+              </form>
+            </div>
+
+          </div><!-- /info col -->
+        </div><!-- /row -->
+      </div>
+    </div>
+  </div><!-- /modal-body -->
+</div>
+
+<script>
+/* Minimal demo behavior — does NOT replace store.js.tpl hooks */
+document.querySelectorAll('#quickshop-modal .qs-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const group = chip.closest('[role="radiogroup"]');
+    group.querySelectorAll('.qs-chip').forEach(c => c.setAttribute('aria-pressed','false'));
+    chip.setAttribute('aria-pressed','true');
+    const current = document.getElementById('qs-flavor-current');
+    if(current) current.textContent = chip.textContent.trim();
+  });
+});
+
+const qty = document.querySelector('#quickshop-modal .js-quantity-input');
+document.querySelector('#quickshop-modal .js-quantity-up')
+  .addEventListener('click', () => qty.value = +qty.value + 1);
+document.querySelector('#quickshop-modal .js-quantity-down')
+  .addEventListener('click', () => qty.value = Math.max(1, +qty.value - 1));
+
+document.querySelectorAll('#quickshop-modal .js-modal-close, .js-modal-overlay')
+  .forEach(el => el.addEventListener('click', () => {
+    document.getElementById('quickshop-modal').style.display = 'none';
+    document.querySelector('.js-modal-overlay').style.display = 'none';
+  }));
+</script>
+</body>
+</html>

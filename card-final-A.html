@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morashop - Conversion Bold</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#000e35;--red:#E8341A;--red-deep:#C72D17;--orange:#FF8A1F;--green:#1FBA66;--muted:#8a8f9c;--line:#EFEFF2;--info-tint:#F7F8FA;--bg:#ECEDEF}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--navy);-webkit-font-smoothing:antialiased}
+.page-header{background:var(--navy);color:#fff;padding:32px 24px;text-align:center}
+.page-header .eyebrow{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;opacity:.6;margin-bottom:10px}
+.page-header h1{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
+.page-header h1 .accent{color:var(--red)}
+.page-header p{font-size:clamp(13px,1.5vw,16px);opacity:.85;max-width:680px;margin:0 auto;line-height:1.5}
+.page-header .back{display:inline-block;margin-top:18px;font-size:12px;color:#fff;opacity:.7;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:2px}
+.page-header .back:hover{opacity:1}
+main{padding:32px 16px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1280px;margin:0 auto}
+@media(max-width:768px){.grid{grid-template-columns:repeat(2,1fr);gap:12px;padding:0}main{padding:16px 12px}.page-header{padding:24px 16px}}
+.producto-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 2px 8px rgba(0,14,53,.04);transition:transform .22s cubic-bezier(.4,0,.2,1),box-shadow .22s,border-color .22s;isolation:isolate}
+.producto-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px -12px rgba(0,14,53,.18);border-color:var(--red)}
+.producto-imagen-wrapper{position:relative;aspect-ratio:1/1;background:#fff;overflow:hidden}
+.producto-imagen-wrapper img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:14px;transition:transform .4s cubic-bezier(.25,.46,.45,.94)}
+.producto-card:hover .producto-imagen-wrapper img{transform:scale(1.04)}
+.badge-flash,.badge-envio-gratis,.badge-sin-stock,.badge-discount{position:absolute;z-index:2;font-weight:700;font-size:11px;letter-spacing:.02em;padding:5px 9px;border-radius:6px;line-height:1;pointer-events:none}
+.badge-discount{top:12px;left:12px;background:var(--red);color:#fff}
+.badge-flash{top:12px;right:12px;background:var(--orange);color:#fff;text-transform:uppercase;letter-spacing:.06em;font-size:10px;padding:6px 9px}
+.badge-envio-gratis{top:12px;left:12px;background:var(--green);color:#fff;text-transform:uppercase;letter-spacing:.06em;font-size:10px;padding:6px 9px}
+.badge-sin-stock{top:12px;left:12px;background:rgba(0,14,53,.85);color:#fff;text-transform:uppercase;letter-spacing:.08em;font-size:10px;padding:6px 9px}
+.producto-info{background:var(--info-tint);border-top:1px solid var(--line);padding:14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.producto-nombre{font-size:14px;font-weight:600;line-height:1.35;color:var(--navy);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:38px}
+.precio-row{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:2px}
+.precio-stack{display:flex;flex-direction:column;line-height:1}
+.producto-anterior{font-size:12px;font-weight:500;color:var(--muted);text-decoration:line-through;margin-bottom:2px}
+.producto-precio{font-size:26px;font-weight:800;line-height:1;color:var(--navy);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.rating{display:inline-flex;align-items:center;gap:3px;font-size:12px;font-weight:600;color:var(--navy);padding-bottom:4px;white-space:nowrap}
+.rating .star{color:#F5A623;font-size:13px}
+.rating .count{color:var(--muted);font-weight:500}
+.producto-cuotas{font-size:12.5px;font-weight:600;color:var(--green);line-height:1.3}
+.envio-line{font-size:11px;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:.06em;margin-top:-2px}
+.producto-boton{margin-top:6px;display:flex;align-items:center;justify-content:center;width:100%;min-height:44px;padding:12px 16px;background:var(--red);color:#fff;border:none;border-radius:10px;font-weight:800;font-size:14px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .12s,transform .12s;-webkit-tap-highlight-color:transparent}
+.producto-boton:hover{background:var(--red-deep)}
+.producto-boton:active{transform:scale(.98)}
+.producto-card.sold-out img{filter:grayscale(1);opacity:.6}
+.producto-card.sold-out .producto-boton{background:var(--muted);cursor:not-allowed;pointer-events:none}
+@media(max-width:768px){.producto-info{padding:12px;gap:6px}.producto-nombre{font-size:13px;min-height:34px}.producto-precio{font-size:22px}.producto-anterior{font-size:11px}.producto-cuotas{font-size:11.5px}.producto-boton{font-size:13px;min-height:42px;padding:11px 12px}.producto-card:hover{transform:none}.producto-card:hover img{transform:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="page-header">
+<div class="eyebrow">Finalista A</div>
+<h1>Conversion <span class="accent">Bold</span></h1>
+<p>Cada pixel se gana su lugar — imagen domina, precio grita, CTA cierra.</p>
+<a class="back" href="card-finalists-index.html">← Volver al índice</a>
+</header>
+<main>
+<div class="grid">
+<a class="producto-card" href="#"><div class="producto-imagen-wrapper"><span class="badge-discount">-25%</span><span class="badge-flash">Mas Vendido</span><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23fff'/><rect x='60' y='40' width='80' height='130' rx='8' fill='%23E8341A'/><rect x='70' y='60' width='60' height='40' fill='%23fff' opacity='.9'/><text x='100' y='85' font-family='Inter' font-size='14' font-weight='800' text-anchor='middle' fill='%23000e35'>WHEY</text><text x='100' y='130' font-family='Inter' font-size='10' font-weight='600' text-anchor='middle' fill='%23fff'>PROTEIN</text><text x='100' y='145' font-family='Inter' font-size='9' text-anchor='middle' fill='%23fff'>1KG</text></svg>" alt=""></div><div class="producto-info"><h3 class="producto-nombre">Whey Protein Star Nutrition 1kg Chocolate</h3><div class="precio-row"><div class="precio-stack"><span class="producto-anterior">$24.000</span><span class="producto-precio">$18.000</span></div><span class="rating"><span class="star">★</span><span>4.8</span><span class="count">(231)</span></span></div><p class="producto-cuotas">3 x $6.000 sin interés</p><button class="producto-boton" type="button">Comprar</button></div></a>
+<a class="producto-card sold-out" href="#"><div class="producto-imagen-wrapper"><span class="badge-sin-stock">Sin Stock</span><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23fff'/><circle cx='100' cy='100' r='60' fill='%23000e35'/><text x='100' y='95' font-family='Inter' font-size='12' font-weight='800' text-anchor='middle' fill='%23fff'>BCAA</text><text x='100' y='115' font-family='Inter' font-size='9' text-anchor='middle' fill='%23fff'>2:1:1</text></svg>" alt=""></div><div class="producto-info"><h3 class="producto-nombre">BCAA 2:1:1 Star Nutrition 250g Limón</h3><div class="precio-row"><div class="precio-stack"><span class="producto-precio">$12.900</span></div></div><p class="producto-cuotas">3 x $4.300 sin interés</p><button class="producto-boton" type="button" disabled>Avisame</button></div></a>
+<a class="producto-card" href="#"><div class="producto-imagen-wrapper"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23fff'/><rect x='70' y='50' width='60' height='110' rx='6' fill='%23000e35'/><text x='100' y='100' font-family='Inter' font-size='12' font-weight='800' text-anchor='middle' fill='%23fff'>CREA</text><text x='100' y='118' font-family='Inter' font-size='9' text-anchor='middle' fill='%23fff'>300g</text></svg>" alt=""></div><div class="producto-info"><h3 class="producto-nombre">Creatina Monohidrato 300g Star Nutrition</h3><div class="precio-row"><div class="precio-stack"><span class="producto-precio">$15.500</span></div></div><p class="producto-cuotas">3 x $5.166 sin interés</p><button class="producto-boton" type="button">Comprar</button></div></a>
+<a class="producto-card" href="#"><div class="producto-imagen-wrapper"><span class="badge-envio-gratis">Envío Gratis</span><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23fff'/><rect x='55' y='30' width='90' height='150' rx='10' fill='%23FF8A1F'/><text x='100' y='75' font-family='Inter' font-size='11' font-weight='800' text-anchor='middle' fill='%23fff'>MASS</text><text x='100' y='95' font-family='Inter' font-size='11' font-weight='800' text-anchor='middle' fill='%23fff'>GAINER</text><text x='100' y='130' font-family='Inter' font-size='9' text-anchor='middle' fill='%23fff'>3KG</text></svg>" alt=""></div><div class="producto-info"><h3 class="producto-nombre">Mass Gainer Premium 3kg Vainilla Cookies Star Nutrition Edición Especial</h3><div class="precio-row"><div class="precio-stack"><span class="producto-anterior">$68.000</span><span class="producto-precio">$52.990</span></div><span class="rating"><span class="star">★</span><span>4.9</span><span class="count">(89)</span></span></div><p class="producto-cuotas">6 x $8.831 sin interés</p><p class="envio-line">Envío gratis</p><button class="producto-boton" type="button">Comprar</button></div></a>
+</div>
+</main>
+</body>
+</html>

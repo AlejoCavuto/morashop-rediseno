@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morashop — Card Redesign · 3 Finalistas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#000e35;
+  --navy-soft:#0a1a4a;
+  --red:#E8341A;
+  --red-deep:#C72D17;
+  --green:#1FBA66;
+  --orange:#FF8A1F;
+  --muted:#8a8f9c;
+  --line:#EFEFF2;
+  --bg:#ECEDEF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--navy);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+}
+
+/* ===== HEADER ===== */
+.hero{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-soft) 100%);
+  color:#fff;
+  padding:clamp(48px,8vw,96px) clamp(20px,5vw,80px);
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse at top right,rgba(232,52,26,.15) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero-inner{position:relative;max-width:880px;margin:0 auto}
+.hero .eyebrow{
+  display:inline-block;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--red);
+  margin-bottom:18px;
+  padding:6px 14px;
+  border:1px solid rgba(232,52,26,.4);
+  border-radius:999px;
+  background:rgba(232,52,26,.08);
+}
+.hero h1{
+  font-size:clamp(32px,5.5vw,56px);
+  font-weight:800;
+  letter-spacing:-.02em;
+  line-height:1.05;
+  margin-bottom:16px;
+}
+.hero h1 .accent{color:var(--red)}
+.hero h1 .dot{color:var(--red);margin:0 .25em}
+.hero p{
+  font-size:clamp(15px,1.6vw,18px);
+  opacity:.82;
+  max-width:640px;
+  margin:0 auto;
+  line-height:1.55;
+}
+.hero .meta{
+  margin-top:24px;
+  font-size:12px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  opacity:.5;
+  font-weight:600;
+}
+
+/* ===== FINALISTS GRID ===== */
+main{padding:clamp(40px,6vw,80px) clamp(20px,5vw,80px) 80px;max-width:1440px;margin:0 auto}
+.finalists{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:clamp(20px,2.5vw,32px);
+}
+@media(max-width:980px){.finalists{grid-template-columns:1fr;gap:24px}}
+
+.finalist{
+  background:#fff;
+  border-radius:20px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 2px 8px rgba(0,14,53,.06);
+  transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s,border-color .3s;
+  border:1px solid var(--line);
+  text-decoration:none;
+  color:inherit;
+}
+.finalist:hover{
+  transform:translateY(-8px);
+  box-shadow:0 24px 60px -20px rgba(0,14,53,.25);
+  border-color:var(--red);
+}
+.finalist-head{
+  padding:24px 24px 16px;
+  border-bottom:1px solid var(--line);
+}
+.finalist-key{
+  display:inline-block;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--red);
+  margin-bottom:10px;
+}
+.finalist-name{
+  font-size:clamp(22px,2.2vw,28px);
+  font-weight:800;
+  letter-spacing:-.015em;
+  line-height:1.1;
+  margin-bottom:10px;
+  color:var(--navy);
+}
+.finalist-tagline{
+  font-size:14px;
+  line-height:1.5;
+  color:var(--navy);
+  opacity:.7;
+  min-height:42px;
+}
+
+/* ===== MINI PREVIEW ===== */
+.preview{
+  position:relative;
+  padding:20px;
+  background:var(--bg);
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:280px;
+}
+.mini-card{
+  width:100%;
+  max-width:240px;
+  background:#fff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 4px 16px rgba(0,14,53,.08);
+  border:1px solid var(--line);
+}
+.mini-card .mini-img{
+  position:relative;
+  aspect-ratio:1/1;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px;
+}
+.mini-card .mini-img img{width:80%;height:80%;object-fit:contain}
+.mini-card .mini-badge{
+  position:absolute;
+  top:8px;
+  left:8px;
+  background:var(--red);
+  color:#fff;
+  font-size:10px;
+  font-weight:800;
+  padding:3px 7px;
+  border-radius:4px;
+  letter-spacing:.02em;
+}
+.mini-card .mini-info{padding:12px 14px}
+.mini-card .mini-name{
+  font-size:12px;
+  font-weight:600;
+  line-height:1.3;
+  margin-bottom:6px;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  min-height:32px;
+}
+.mini-card .mini-price{
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:-.01em;
+  color:var(--navy);
+  margin-bottom:4px;
+}
+.mini-card .mini-cuotas{
+  font-size:10px;
+  font-weight:600;
+  color:var(--green);
+  margin-bottom:10px;
+}
+
+/* Variant-specific mini-card styling (matches each finalist's DNA) */
+.finalist[data-variant="A"] .mini-info{background:#F7F8FA;border-top:1px solid var(--line)}
+.finalist[data-variant="A"] .mini-btn{
+  background:var(--red);color:#fff;border:none;border-radius:8px;
+  padding:9px 12px;width:100%;font-size:11px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.06em;cursor:pointer;
+}
+
+.finalist[data-variant="B"] .mini-brand{
+  font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(0,14,53,.42);margin-bottom:4px;
+}
+.finalist[data-variant="B"] .mini-cuotas{
+  font-size:9px;letter-spacing:.06em;text-transform:uppercase;
+}
+.finalist[data-variant="B"] .mini-btn{
+  background:var(--red);color:#fff;border:none;border-radius:4px;
+  padding:9px 12px;width:100%;font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.10em;cursor:pointer;
+}
+
+.finalist[data-variant="C"] .mini-info{border-top:1px solid var(--line);padding-bottom:0}
+.finalist[data-variant="C"] .mini-card{border:1px solid rgba(0,14,53,.18);box-shadow:none}
+.finalist[data-variant="C"] .mini-btn{
+  background:var(--red);color:#fff;border:none;border-radius:0;
+  padding:11px 12px;width:100%;font-size:11px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.08em;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  margin-top:8px;margin-left:-14px;margin-right:-14px;margin-bottom:0;
+  width:calc(100% + 28px);
+}
+.finalist[data-variant="C"] .mini-btn svg{width:12px;height:12px}
+
+/* ===== CTA FOOTER ===== */
+.finalist-foot{
+  padding:20px 24px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  background:#fff;
+}
+.finalist-cta{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--red);
+  color:#fff;
+  padding:14px 22px;
+  border-radius:10px;
+  font-size:14px;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:background .15s,transform .15s;
+  flex:1;
+  justify-content:center;
+}
+.finalist:hover .finalist-cta{background:var(--red-deep)}
+.finalist-cta svg{width:14px;height:14px;transition:transform .22s}
+.finalist:hover .finalist-cta svg{transform:translateX(4px)}
+
+/* ===== FOOTER ===== */
+.page-foot{
+  text-align:center;
+  padding:32px 20px 48px;
+  font-size:12px;
+  color:var(--navy);
+  opacity:.5;
+  letter-spacing:.05em;
+}
+
+@media(max-width:560px){
+  .hero{padding:48px 20px}
+  main{padding:32px 16px 48px}
+  .finalist-head{padding:20px 20px 14px}
+  .finalist-foot{padding:16px 20px 20px}
+  .preview{min-height:240px;padding:16px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Card Redesign</div>
+    <h1>Morashop <span class="dot">·</span> <span class="accent">3 Finalistas</span></h1>
+    <p>Tres direcciones distintas para el card de producto. Mismas reglas, mismo catálogo — diferente filosofía visual. Elegí la que mejor encaja con el ADN Morashop.</p>
+    <div class="meta">Conversion Bold &nbsp;·&nbsp; Editorial Boutique &nbsp;·&nbsp; Ledger Density</div>
+  </div>
+</header>
+
+<main>
+  <section class="finalists">
+
+    <!-- ===== FINALIST A ===== -->
+    <a class="finalist" data-variant="A" href="card-final-A.html">
+      <div class="finalist-head">
+        <div class="finalist-key">Finalista A</div>
+        <h2 class="finalist-name">Conversion Bold</h2>
+        <p class="finalist-tagline">Cada pixel se gana su lugar — imagen domina, precio grita, CTA cierra.</p>
+      </div>
+      <div class="preview">
+        <div class="mini-card">
+          <div class="mini-img">
+            <span class="mini-badge">-25%</span>
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23fff'/><rect x='60' y='40' width='80' height='130' rx='8' fill='%23E8341A'/><rect x='70' y='60' width='60' height='40' fill='%23fff' opacity='.9'/><text x='100' y='85' font-family='Inter' font-size='14' font-weight='800' text-anchor='middle' fill='%23000e35'>WHEY</text><text x='100' y='130' font-family='Inter' font-size='10' font-weight='600' text-anchor='middle' fill='%23fff'>PROTEIN</text><text x='100' y='145' font-family='Inter' font-size='9' text-anchor='middle' fill='%23fff'>1KG</text></svg>" alt="">
+          </div>
+          <div class="mini-info">
+            <div class="mini-name">Whey Protein Star Nutrition 1kg</div>
+            <div class="mini-price">$18.000</div>
+            <div class="mini-cuotas">3 x $6.000 sin interés</div>
+            <button class="mini-btn" type="button">Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="finalist-foot">
+        <span class="finalist-cta">Ver Finalista A
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </a>
+
+    <!-- ===== FINALIST B ===== -->
+    <a class="finalist" data-variant="B" href="card-final-B.html">
+      <div class="finalist-head">
+        <div class="finalist-key">Finalista B</div>
+        <h2 class="finalist-name">Editorial Boutique</h2>
+        <p class="finalist-tagline">Una boutique, no un supermercado — la tipografía manda, el aire respira, la imagen reina.</p>
+      </div>
+      <div class="preview">
+        <div class="mini-card">
+          <div class="mini-img">
+            <span class="mini-badge">-22%</span>
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23fff'/><rect x='60' y='35' width='80' height='135' rx='10' fill='%23000e35'/><rect x='70' y='55' width='60' height='35' fill='%23E8341A'/><text x='100' y='78' font-family='Inter' font-size='12' font-weight='800' text-anchor='middle' fill='%23fff'>WHEY</text><text x='100' y='120' font-family='Inter' font-size='9' text-anchor='middle' fill='%23fff'>VAINILLA</text><text x='100' y='140' font-family='Inter' font-size='8' text-anchor='middle' fill='%23fff'>1KG</text></svg>" alt="">
+          </div>
+          <div class="mini-info">
+            <div class="mini-brand">ENA Sports</div>
+            <div class="mini-name">Whey Protein Sabor Vainilla 1kg</div>
+            <div class="mini-price">$24.990</div>
+            <div class="mini-cuotas">3 x $8.330 sin interés</div>
+            <button class="mini-btn" type="button">Comprar</button>
+          </div>
+        </div>
+      </div>
+      <div class="finalist-foot">
+        <span class="finalist-cta">Ver Finalista B
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </a>
+
+    <!-- ===== FINALIST C ===== -->
+    <a class="finalist" data-variant="C" href="card-final-C.html">
+      <div class="finalist-head">
+        <div class="finalist-key">Finalista C</div>
+        <h2 class="finalist-name">Ledger Density</h2>
+        <p class="finalist-tagline">Tabla de ofertas que parece card — scan rate sobre vibes, cero shadows, border 1px.</p>
+      </div>
+      <div class="preview">
+        <div class="mini-card">
+          <div class="mini-img">
+            <span class="mini-badge">-15%</span>
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23fff'/><rect x='60' y='40' width='80' height='130' rx='8' fill='%23000e35'/><rect x='72' y='60' width='56' height='30' fill='%23E8341A'/><text x='100' y='80' font-family='Inter' font-size='11' font-weight='800' text-anchor='middle' fill='%23fff'>ISOLATE</text><text x='100' y='125' font-family='Inter' font-size='9' text-anchor='middle' fill='%23fff'>CHOCO</text><text x='100' y='145' font-family='Inter' font-size='8' text-anchor='middle' fill='%23fff'>1KG</text></svg>" alt="">
+          </div>
+          <div class="mini-info">
+            <div class="mini-name">Whey Protein Isolate ENA Sport 1kg</div>
+            <div class="mini-price">$15.300</div>
+            <div class="mini-cuotas">3 x $5.100 sin interés</div>
+            <button class="mini-btn" type="button">
+              Comprar
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="finalist-foot">
+        <span class="finalist-cta">Ver Finalista C
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </a>
+
+  </section>
+</main>
+
+<footer class="page-foot">
+  Morashop · Card Redesign Q2 · Prototipo de evaluación
+</footer>
+
+</body>
+</html>

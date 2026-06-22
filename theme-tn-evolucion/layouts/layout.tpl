@@ -50,6 +50,12 @@
 
         <link rel="stylesheet" href="{{ 'css/style-async.scss' | static_url }}" media="print" onload="this.media='all'">
 
+        {# Landing oculta Gero Arias: CSS propio + noindex, solo en esa página #}
+        {% if template == 'page' and page and page.handle == 'gero-arias' %}
+        <meta name="robots" content="noindex,nofollow" />
+        <link rel="stylesheet" href="{{ 'css/cavutia-gero.scss' | static_url }}" />
+        {% endif %}
+
         {# Loads custom CSS added from Advanced Settings on the admin´s theme customization screen #}
 
         <style>
@@ -112,7 +118,7 @@
 
         {# Page content #}
         {% if template == 'page' and page %}
-        {% if page.handle in ['supermercado2', 'electro-hogar', 'electro', 'suplementos2', 'bananero', 'comiqueria2', 'morakids', 'bodega', 'pgn2', 'granger'] %}
+        {% if page.handle in ['supermercado2', 'electro-hogar', 'electro', 'suplementos2', 'bananero', 'comiqueria2', 'morakids', 'bodega', 'pgn2', 'granger', 'gero-arias'] %}
             {% include 'templates/page.' ~ page.handle ~ '.tpl' %}
         {% else %}
             {% include 'templates/page.tpl' %}

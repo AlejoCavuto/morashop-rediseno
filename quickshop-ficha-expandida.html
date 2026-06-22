@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morashop Quickshop — Ficha Expandida</title>
+<style>
+:root{
+  --mr-bg: #ECEDEF;
+  --mr-surface: #FFFFFF;
+  --mr-text: #000e35;
+  --mr-text-soft: rgba(0,14,53,.62);
+  --mr-text-mute: rgba(0,14,53,.48);
+  --mr-line: rgba(0,14,53,.10);
+  --mr-line-strong: rgba(0,14,53,.18);
+  --mr-red: #E8341A;
+  --mr-red-deep: #C72D17;
+  --mr-green: #1FBA66;
+  --mr-orange: #FF8A1F;
+  --mr-r-sm: 6px;
+  --mr-r-md: 12px;
+  --mr-r-lg: 16px;
+  --mr-r-pill: 999px;
+  --mr-sh-sm: 0 1px 2px rgba(0,14,53,.06);
+  --mr-sh-md: 0 4px 16px rgba(0,14,53,.08);
+  --mr-sh-lg: 0 24px 64px rgba(0,14,53,.18);
+  --mr-tr-fast: 120ms;
+  --mr-tr-base: 220ms;
+  --mr-tr-slow: 320ms;
+  --mr-ease: cubic-bezier(.16,1,.3,1);
+  --mr-font-body: 'Inter','Helvetica Neue',Arial,sans-serif;
+  --mr-font-display: 'Barlow Condensed','Inter',sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:var(--mr-font-body);color:var(--mr-text);background:#f5f5f7}
+body{min-height:100vh;display:grid;place-items:center;padding:24px}
+
+/* ---- demo stage (just to render the modal) ---- */
+.demo-stage{
+  position:relative;width:100%;max-width:1200px;min-height:80vh;
+  display:grid;place-items:center;border-radius:24px;
+  background:linear-gradient(135deg,#1A2744 0%,#0a1429 100%);
+}
+
+/* =========================================================
+   OVERLAY
+   ========================================================= */
+.mr-overlay{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(0,14,53,.58);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  opacity:1;
+  animation:mrFadeIn var(--mr-tr-base) ease-out;
+}
+
+/* =========================================================
+   MODAL SHELL — "ficha expandida"
+   Same radius + same paddings as card
+   ========================================================= */
+.mr-quickshop{
+  position:fixed;z-index:1001;
+  background:var(--mr-surface);
+  border-radius:var(--mr-r-lg);
+  box-shadow:var(--mr-sh-lg);
+  overflow:hidden;
+  font-family:var(--mr-font-body);
+  color:var(--mr-text);
+}
+
+/* desktop: centered medium box */
+@media (min-width:768px){
+  .mr-quickshop{
+    top:50%;left:50%;
+    width:min(880px, calc(100vw - 48px));
+    max-height:min(620px, calc(100vh - 48px));
+    transform:translate(-50%,-50%) scale(.96);
+    opacity:0;
+    animation:mrScaleIn var(--mr-tr-base) var(--mr-ease) forwards;
+  }
+}
+
+/* mobile: bottom sheet */
+@media (max-width:767.98px){
+  .mr-quickshop{
+    left:0;right:0;bottom:0;
+    width:100%;
+    max-height:92vh;
+    border-radius:var(--mr-r-lg) var(--mr-r-lg) 0 0;
+    transform:translateY(100%);
+    animation:mrSlideUp 280ms var(--mr-ease) forwards;
+    display:flex;flex-direction:column;
+  }
+}
+
+/* =========================================================
+   LAYOUT GRID
+   ========================================================= */
+.mr-quickshop__grid{display:grid;height:100%}
+
+@media (min-width:768px){
+  .mr-quickshop__grid{
+    grid-template-columns:1fr 1fr;
+    min-height:520px;
+  }
+}
+
+@media (max-width:767.98px){
+  .mr-quickshop__grid{
+    grid-template-columns:1fr;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:88px; /* room for sticky CTA */
+  }
+}
+
+/* =========================================================
+   IMAGE COLUMN
+   ========================================================= */
+.mr-quickshop__media{
+  position:relative;
+  background:var(--mr-bg);
+  display:grid;place-items:center;
+  overflow:hidden;
+}
+.mr-quickshop__media::before{
+  content:'';display:block;padding-bottom:100%;
+}
+.mr-quickshop__media img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain;padding:8%;
+  filter:drop-shadow(0 18px 28px rgba(0,14,53,.18));
+}
+
+/* =========================================================
+   INFO COLUMN
+   ========================================================= */
+.mr-quickshop__info{
+  padding:28px 32px 28px;
+  display:flex;flex-direction:column;
+  gap:16px;
+  overflow-y:auto;
+  position:relative;
+}
+@media (max-width:767.98px){
+  .mr-quickshop__info{padding:20px 20px 16px}
+}
+
+/* =========================================================
+   DRAG HANDLE (mobile only)
+   ========================================================= */
+.mr-quickshop__handle{
+  display:none;
+  width:40px;height:4px;border-radius:var(--mr-r-pill);
+  background:var(--mr-line-strong);
+  margin:10px auto 4px;
+}
+@media (max-width:767.98px){
+  .mr-quickshop__handle{display:block}
+}
+
+/* =========================================================
+   CLOSE X
+   ========================================================= */
+.mr-quickshop__close{
+  position:absolute;top:14px;right:14px;
+  width:40px;height:40px;
+  display:grid;place-items:center;
+  border:0;background:transparent;
+  border-radius:var(--mr-r-pill);
+  color:var(--mr-text);
+  cursor:pointer;
+  transition:background var(--mr-tr-fast) ease;
+  z-index:5;
+}
+.mr-quickshop__close:hover{background:rgba(0,14,53,.06)}
+.mr-quickshop__close:focus-visible{
+  outline:2px solid var(--mr-text);outline-offset:2px;
+}
+.mr-quickshop__close svg{width:18px;height:18px;stroke-width:2}
+
+/* =========================================================
+   TITLE BLOCK
+   ========================================================= */
+.mr-quickshop__brand{
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mr-text-soft);font-weight:600;
+  margin:0 0 4px;
+}
+.mr-quickshop__title{
+  font-family:var(--mr-font-body);
+  font-size:22px;line-height:1.18;font-weight:600;
+  color:var(--mr-text);
+  margin:0;
+  letter-spacing:-.01em;
+}
+@media (max-width:767.98px){
+  .mr-quickshop__title{font-size:19px}
+}
+
+/* =========================================================
+   PRICE BLOCK
+   ========================================================= */
+.mr-quickshop__pricewrap{display:flex;flex-direction:column;gap:4px}
+.mr-quickshop__priceline{
+  display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;
+}
+.mr-quickshop__price{
+  font-family:var(--mr-font-display);
+  font-weight:800;font-size:38px;line-height:1;
+  color:var(--mr-text);letter-spacing:-.01em;
+}
+@media (max-width:767.98px){
+  .mr-quickshop__price{font-size:32px}
+}
+.mr-quickshop__was{
+  font-family:var(--mr-font-display);
+  font-weight:500;font-size:20px;
+  color:var(--mr-text-mute);
+  text-decoration:line-through;
+  text-decoration-thickness:1.5px;
+}
+.mr-quickshop__off{
+  display:inline-flex;align-items:center;
+  font-family:var(--mr-font-body);font-weight:700;font-size:11px;
+  color:#fff;background:var(--mr-red);
+  padding:4px 8px;border-radius:var(--mr-r-sm);
+  letter-spacing:.04em;
+}
+.mr-quickshop__cash{
+  font-size:13px;font-weight:600;color:var(--mr-green);
+  display:flex;align-items:center;gap:6px;
+}
+.mr-quickshop__cash::before{
+  content:'';width:6px;height:6px;border-radius:50%;background:var(--mr-green);
+}
+.mr-quickshop__instal{
+  font-size:13px;font-weight:500;color:var(--mr-text-soft);
+}
+.mr-quickshop__instal strong{color:var(--mr-text);font-weight:600}
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+.mr-quickshop__div{
+  height:1px;background:var(--mr-line);
+  margin:4px 0;
+}
+
+/* =========================================================
+   VARIANT GROUP
+   ========================================================= */
+.mr-quickshop__varlabel{
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:600;color:var(--mr-text-soft);
+  margin:0 0 12px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.mr-quickshop__varlabel span:last-child{
+  font-weight:500;color:var(--mr-text);letter-spacing:.02em;
+  text-transform:none;font-size:13px;
+}
+.mr-quickshop__chips{
+  display:flex;flex-wrap:wrap;gap:8px;
+}
+.mr-chip{
+  position:relative;
+  font-family:var(--mr-font-body);
+  font-size:13px;font-weight:500;line-height:1;
+  color:var(--mr-text);
+  background:var(--mr-surface);
+  border:1.5px solid var(--mr-line-strong);
+  border-radius:var(--mr-r-pill);
+  padding:13px 18px;
+  min-height:44px;min-width:64px;
+  cursor:pointer;
+  transition:
+    border-color var(--mr-tr-fast) ease,
+    background var(--mr-tr-fast) ease,
+    color var(--mr-tr-fast) ease,
+    transform var(--mr-tr-fast) ease;
+  user-select:none;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.mr-chip:hover{border-color:var(--mr-text);transform:translateY(-1px)}
+.mr-chip:focus-visible{
+  outline:2px solid var(--mr-text);outline-offset:2px;
+}
+.mr-chip[aria-pressed="true"]{
+  background:var(--mr-text);
+  color:#fff;
+  border-color:var(--mr-text);
+  font-weight:600;
+}
+.mr-chip[aria-pressed="true"]::after{
+  content:'';position:absolute;inset:-4px;border-radius:var(--mr-r-pill);
+  border:1px solid rgba(0,14,53,.18);
+  pointer-events:none;
+}
+.mr-chip[data-stock="0"]{
+  color:var(--mr-text-mute);
+  border-color:var(--mr-line);
+  cursor:not-allowed;
+  text-decoration:line-through;
+  text-decoration-thickness:1px;
+}
+.mr-chip[data-stock="0"]:hover{border-color:var(--mr-line);transform:none}
+
+/* =========================================================
+   STEPPER + CTA ROW
+   ========================================================= */
+.mr-quickshop__actions{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:12px;
+  align-items:stretch;
+}
+@media (max-width:767.98px){
+  .mr-quickshop__actions{
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+}
+
+.mr-stepper{
+  display:inline-flex;align-items:stretch;
+  border:1.5px solid var(--mr-line-strong);
+  border-radius:var(--mr-r-md);
+  background:var(--mr-surface);
+  overflow:hidden;
+  height:52px;
+}
+.mr-stepper button{
+  width:42px;border:0;background:transparent;
+  color:var(--mr-text);font-size:18px;font-weight:500;
+  cursor:pointer;
+  display:grid;place-items:center;
+  transition:background var(--mr-tr-fast) ease;
+}
+.mr-stepper button:hover{background:rgba(0,14,53,.05)}
+.mr-stepper button:focus-visible{
+  outline:2px solid var(--mr-text);outline-offset:-2px;
+}
+.mr-stepper button:disabled{color:var(--mr-text-mute);cursor:not-allowed}
+.mr-stepper input{
+  width:44px;border:0;text-align:center;
+  font-family:var(--mr-font-body);font-size:15px;font-weight:600;
+  color:var(--mr-text);background:transparent;
+  -moz-appearance:textfield;
+}
+.mr-stepper input::-webkit-outer-spin-button,
+.mr-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.mr-stepper input:focus{outline:0}
+
+.mr-cta{
+  font-family:var(--mr-font-display);
+  font-weight:800;font-size:18px;letter-spacing:.04em;
+  text-transform:uppercase;
+  color:#fff;background:var(--mr-red);
+  border:0;border-radius:var(--mr-r-md);
+  height:52px;padding:0 24px;
+  cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  transition:background var(--mr-tr-fast) ease,transform var(--mr-tr-fast) ease;
+}
+.mr-cta:hover{background:var(--mr-red-deep)}
+.mr-cta:active{transform:scale(.98)}
+.mr-cta:focus-visible{
+  outline:2px solid var(--mr-text);outline-offset:2px;
+}
+.mr-cta svg{width:18px;height:18px;stroke-width:2}
+
+/* =========================================================
+   STOCK INDICATOR
+   ========================================================= */
+.mr-quickshop__stock{
+  font-size:12px;font-weight:500;color:var(--mr-text-soft);
+  display:flex;align-items:center;gap:6px;
+  margin-top:8px;
+}
+.mr-quickshop__stock::before{
+  content:'';width:7px;height:7px;border-radius:50%;
+  background:var(--mr-green);
+  box-shadow:0 0 0 3px rgba(31,186,102,.18);
+}
+.mr-quickshop__stock--low::before{
+  background:var(--mr-orange);
+  box-shadow:0 0 0 3px rgba(255,138,31,.18);
+}
+
+/* =========================================================
+   MOBILE STICKY CTA
+   ========================================================= */
+@media (max-width:767.98px){
+  .mr-quickshop__sticky{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:14px 20px calc(14px + env(safe-area-inset-bottom));
+    background:var(--mr-surface);
+    border-top:1px solid var(--mr-line);
+    display:flex;flex-direction:column;gap:6px;
+    box-shadow:0 -4px 20px rgba(0,14,53,.06);
+  }
+  .mr-quickshop__sticky .mr-cta{width:100%}
+  .mr-quickshop__sticky-stock{
+    font-size:11px;color:var(--mr-text-soft);text-align:center;
+  }
+  /* desktop actions row hides quantity hint below stepper on mobile, sticky owns CTA */
+  .mr-quickshop__actions-desktop{display:none}
+  .mr-quickshop__stepper-mobile{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 4px;
+  }
+  .mr-quickshop__stepper-mobile-label{
+    font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    font-weight:600;color:var(--mr-text-soft);
+  }
+}
+@media (min-width:768px){
+  .mr-quickshop__sticky{display:none}
+  .mr-quickshop__stepper-mobile{display:none}
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+@keyframes mrFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes mrScaleIn{
+  from{opacity:0;transform:translate(-50%,-50%) scale(.96)}
+  to{opacity:1;transform:translate(-50%,-50%) scale(1)}
+}
+@keyframes mrSlideUp{
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+@media (prefers-reduced-motion: reduce){
+  .mr-overlay,.mr-quickshop{animation-duration:1ms!important}
+  .mr-chip,.mr-cta,.mr-stepper button,.mr-quickshop__close{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="demo-stage" aria-hidden="true"></div>
+
+<!-- OVERLAY -->
+<div class="mr-overlay" aria-hidden="true"></div>
+
+<!-- MODAL -->
+<div class="mr-quickshop" role="dialog" aria-modal="true" aria-labelledby="qs-title">
+
+  <!-- close X -->
+  <button class="mr-quickshop__close" aria-label="Cerrar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round">
+      <line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/>
+    </svg>
+  </button>
+
+  <div class="mr-quickshop__grid">
+
+    <!-- IMAGE -->
+    <div class="mr-quickshop__media">
+      <div class="mr-quickshop__handle" aria-hidden="true"></div>
+      <img src="https://acdn-us.mitiendanube.com/stores/001/640/108/products/whey-true-made-1kg1-3e08f5d6c80b59a8f1716878989432-1024-1024.png" alt="Whey True Made 1kg">
+    </div>
+
+    <!-- INFO -->
+    <div class="mr-quickshop__info">
+
+      <div>
+        <p class="mr-quickshop__brand">Star Nutrition</p>
+        <h2 class="mr-quickshop__title" id="qs-title">Whey True Made 1kg</h2>
+      </div>
+
+      <!-- PRICE -->
+      <div class="mr-quickshop__pricewrap">
+        <div class="mr-quickshop__priceline">
+          <span class="mr-quickshop__price">$24.990</span>
+          <span class="mr-quickshop__was">$29.990</span>
+          <span class="mr-quickshop__off">-17%</span>
+        </div>
+        <div class="mr-quickshop__cash">$22.490 con efectivo</div>
+        <div class="mr-quickshop__instal">3x sin interes de <strong>$8.330</strong></div>
+      </div>
+
+      <div class="mr-quickshop__div"></div>
+
+      <!-- VARIANTS -->
+      <div>
+        <p class="mr-quickshop__varlabel">
+          <span>Sabor</span>
+          <span>Chocolate suizo</span>
+        </p>
+        <div class="mr-quickshop__chips" role="radiogroup" aria-label="Sabor">
+          <button class="mr-chip" role="radio" aria-pressed="false" aria-checked="false">Banana</button>
+          <button class="mr-chip" role="radio" aria-pressed="true"  aria-checked="true">Chocolate suizo</button>
+          <button class="mr-chip" role="radio" aria-pressed="false" aria-checked="false">Frutilla</button>
+          <button class="mr-chip" role="radio" aria-pressed="false" aria-checked="false">Cookies &amp; Cream</button>
+          <button class="mr-chip" role="radio" aria-pressed="false" aria-checked="false">Vainilla Ice</button>
+        </div>
+      </div>
+
+      <div class="mr-quickshop__div"></div>
+
+      <!-- DESKTOP: stepper + CTA inline -->
+      <div class="mr-quickshop__actions mr-quickshop__actions-desktop">
+        <div class="mr-stepper" role="group" aria-label="Cantidad">
+          <button type="button" aria-label="Disminuir cantidad">&minus;</button>
+          <input type="number" value="1" min="1" max="99" aria-label="Cantidad">
+          <button type="button" aria-label="Aumentar cantidad">+</button>
+        </div>
+        <button type="submit" class="mr-cta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 7h12l-1.5 10.5a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 7Z"/>
+            <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
+          </svg>
+          Agregar al carrito
+        </button>
+      </div>
+      <div class="mr-quickshop__stock" aria-live="polite" style="display:flex">
+        +100 en stock
+      </div>
+
+      <!-- MOBILE: stepper row above sticky -->
+      <div class="mr-quickshop__stepper-mobile">
+        <span class="mr-quickshop__stepper-mobile-label">Cantidad</span>
+        <div class="mr-stepper" role="group" aria-label="Cantidad">
+          <button type="button" aria-label="Disminuir cantidad">&minus;</button>
+          <input type="number" value="1" min="1" max="99" aria-label="Cantidad">
+          <button type="button" aria-label="Aumentar cantidad">+</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MOBILE STICKY CTA -->
+  <div class="mr-quickshop__sticky">
+    <button type="submit" class="mr-cta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 7h12l-1.5 10.5a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 7Z"/>
+        <path d="M9 7V5a3 3 0 0 1 6 0v2"/>
+      </svg>
+      Agregar al carrito &nbsp;·&nbsp; $24.990
+    </button>
+    <div class="mr-quickshop__sticky-stock">+100 en stock</div>
+  </div>
+
+</div>
+
+<script>
+// minimal chip toggle for demo
+document.querySelectorAll('.mr-chip').forEach(c => {
+  c.addEventListener('click', e => {
+    if (c.dataset.stock === '0') return;
+    document.querySelectorAll('.mr-chip').forEach(x => {
+      x.setAttribute('aria-pressed','false');
+      x.setAttribute('aria-checked','false');
+    });
+    c.setAttribute('aria-pressed','true');
+    c.setAttribute('aria-checked','true');
+    document.querySelector('.mr-quickshop__varlabel span:last-child').textContent = c.textContent.trim();
+  });
+});
+// stepper
+document.querySelectorAll('.mr-stepper').forEach(s => {
+  const [minus, input, plus] = [s.children[0], s.children[1], s.children[2]];
+  minus.addEventListener('click', () => { input.value = Math.max(1, (+input.value||1) - 1); });
+  plus.addEventListener('click', () => { input.value = Math.min(99, (+input.value||1) + 1); });
+});
+</script>
+
+</body>
+</html>

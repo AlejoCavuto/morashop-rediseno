@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morashop Quickshop — Silencio Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Brand tokens — Morashop */
+    --mr-bg: #ECEDEF;
+    --mr-surface: #FFFFFF;
+    --mr-text: #000E35;
+    --mr-text-soft: rgba(0, 14, 53, 0.62);
+    --mr-text-muted: rgba(0, 14, 53, 0.42);
+    --mr-line: rgba(0, 14, 53, 0.10);
+    --mr-line-strong: rgba(0, 14, 53, 0.18);
+    --mr-cta: #E8341A;
+    --mr-cta-hover: #C72D17;
+    --mr-success: #1FBA66;
+
+    /* Typography */
+    --mr-font-display: 'Barlow Condensed', Impact, sans-serif;
+    --mr-font-body: 'Inter', -apple-system, system-ui, sans-serif;
+
+    /* Geometry */
+    --mr-r-sm: 6px;
+    --mr-r-md: 10px;
+    --mr-r-lg: 16px;
+    --mr-r-pill: 999px;
+
+    /* Motion */
+    --mr-tr-fast: 120ms cubic-bezier(.4, 0, .2, 1);
+    --mr-tr-base: 220ms cubic-bezier(.16, 1, .3, 1);
+    --mr-tr-slide: 260ms cubic-bezier(.32, .72, 0, 1);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: var(--mr-font-body);
+    color: var(--mr-text);
+    background: var(--mr-bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  /* Demo trigger — not part of modal */
+  .demo-trigger {
+    background: var(--mr-text);
+    color: #fff;
+    border: none;
+    font-family: var(--mr-font-body);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    border-radius: var(--mr-r-pill);
+    cursor: pointer;
+    transition: transform var(--mr-tr-fast);
+  }
+  .demo-trigger:hover { transform: translateY(-1px); }
+
+  /* ========================================
+     MODAL SHELL
+     ======================================== */
+  .qs-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 14, 53, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--mr-tr-base);
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  .qs-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .qs-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -48%) scale(.98);
+    opacity: 0;
+    pointer-events: none;
+    width: min(880px, calc(100vw - 48px));
+    max-height: calc(100vh - 48px);
+    background: var(--mr-surface);
+    border-radius: var(--mr-r-lg);
+    overflow: hidden;
+    z-index: 1001;
+    transition: opacity var(--mr-tr-base), transform var(--mr-tr-base);
+    box-shadow: 0 20px 60px -20px rgba(0, 14, 53, 0.25);
+  }
+  .qs-modal.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  /* ========================================
+     CLOSE BUTTON
+     ======================================== */
+  .qs-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--mr-text);
+    border-radius: 50%;
+    transition: background var(--mr-tr-fast);
+    z-index: 10;
+  }
+  .qs-close:hover { background: rgba(0, 14, 53, 0.06); }
+  .qs-close:focus-visible {
+    outline: 2px solid var(--mr-text);
+    outline-offset: 2px;
+  }
+  .qs-close svg { width: 18px; height: 18px; }
+
+  /* ========================================
+     LAYOUT GRID
+     ======================================== */
+  .qs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 520px;
+  }
+
+  /* ========================================
+     IMAGE COLUMN
+     ======================================== */
+  .qs-image {
+    background: #FAFAFB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+  }
+  .qs-image img {
+    width: 86%;
+    height: 86%;
+    object-fit: contain;
+    display: block;
+    transition: transform var(--mr-tr-base);
+  }
+
+  /* ========================================
+     INFO COLUMN
+     ======================================== */
+  .qs-info {
+    padding: 48px 44px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .qs-title {
+    font-family: var(--mr-font-body);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--mr-text);
+    margin: 0 0 6px;
+  }
+
+  .qs-meta {
+    font-family: var(--mr-font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--mr-text-soft);
+    margin: 0 0 24px;
+  }
+
+  .qs-price {
+    font-family: var(--mr-font-display);
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--mr-text);
+    letter-spacing: -0.01em;
+    margin: 0 0 28px;
+  }
+
+  .qs-divider {
+    height: 1px;
+    background: var(--mr-line);
+    margin: 0 0 24px;
+    border: none;
+  }
+
+  /* ========================================
+     VARIANT LABEL
+     ======================================== */
+  .qs-label {
+    font-family: var(--mr-font-body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mr-text-soft);
+    margin: 0 0 14px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .qs-label-value {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--mr-text);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  /* ========================================
+     CHIPS — outlined → filled navy on select
+     ======================================== */
+  .qs-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .qs-chip {
+    --chip-bg: transparent;
+    --chip-fg: var(--mr-text);
+    --chip-border: var(--mr-line-strong);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 18px;
+    background: var(--chip-bg);
+    color: var(--chip-fg);
+    border: 1.5px solid var(--chip-border);
+    border-radius: var(--mr-r-pill);
+    font-family: var(--mr-font-body);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0;
+    cursor: pointer;
+    transition: background var(--mr-tr-fast), color var(--mr-tr-fast),
+                border-color var(--mr-tr-fast), transform var(--mr-tr-fast);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qs-chip:hover:not([aria-pressed="true"]):not(:disabled) {
+    --chip-border: var(--mr-text);
+  }
+  .qs-chip:active:not(:disabled) { transform: scale(.97); }
+  .qs-chip[aria-pressed="true"] {
+    --chip-bg: var(--mr-text);
+    --chip-fg: #fff;
+    --chip-border: var(--mr-text);
+    font-weight: 600;
+  }
+  .qs-chip:focus-visible {
+    outline: 2px solid var(--mr-text);
+    outline-offset: 3px;
+  }
+  .qs-chip:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    text-decoration: line-through;
+  }
+
+  /* ========================================
+     QUANTITY + STOCK ROW
+     ======================================== */
+  .qs-quant-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .qs-stock {
+    font-family: var(--mr-font-body);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--mr-text-soft);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .qs-stock::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--mr-success);
+  }
+
+  /* ========================================
+     STEPPER — ghost / flat
+     ======================================== */
+  .qs-stepper {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 32px;
+  }
+  .qs-step-btn {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1.5px solid var(--mr-line-strong);
+    border-radius: var(--mr-r-md);
+    color: var(--mr-text);
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    transition: background var(--mr-tr-fast), border-color var(--mr-tr-fast);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qs-step-btn:hover:not(:disabled) {
+    border-color: var(--mr-text);
+    background: rgba(0, 14, 53, 0.04);
+  }
+  .qs-step-btn:active:not(:disabled) {
+    transform: scale(.94);
+    transition: transform 80ms;
+  }
+  .qs-step-btn:focus-visible {
+    outline: 2px solid var(--mr-text);
+    outline-offset: 2px;
+  }
+  .qs-step-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  .qs-step-input {
+    width: 48px;
+    height: 40px;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-family: var(--mr-font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--mr-text);
+    -moz-appearance: textfield;
+  }
+  .qs-step-input::-webkit-outer-spin-button,
+  .qs-step-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .qs-step-input:focus { outline: none; }
+
+  /* ========================================
+     CTA — Add to cart
+     ======================================== */
+  .qs-cta {
+    margin-top: auto;
+    width: 100%;
+    min-height: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--mr-cta);
+    color: #fff;
+    border: none;
+    border-radius: var(--mr-r-md);
+    font-family: var(--mr-font-body);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background var(--mr-tr-fast), transform var(--mr-tr-fast);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qs-cta:hover { background: var(--mr-cta-hover); }
+  .qs-cta:active { transform: scale(.99); }
+  .qs-cta:focus-visible {
+    outline: 2px solid var(--mr-text);
+    outline-offset: 3px;
+  }
+  .qs-cta svg {
+    width: 18px;
+    height: 18px;
+    transition: transform var(--mr-tr-fast);
+  }
+  .qs-cta:hover svg { transform: translateX(2px); }
+
+  /* ========================================
+     MOBILE BOTTOM SHEET (≤ 768px)
+     ======================================== */
+  @media (max-width: 768px) {
+    .qs-modal {
+      top: auto;
+      bottom: 0;
+      left: 0;
+      transform: translateY(100%);
+      width: 100vw;
+      max-width: 100vw;
+      max-height: 92vh;
+      border-radius: var(--mr-r-lg) var(--mr-r-lg) 0 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .qs-modal.is-open {
+      transform: translateY(0);
+    }
+
+    /* Drag handle */
+    .qs-modal::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--mr-line-strong);
+      z-index: 5;
+    }
+
+    .qs-close {
+      top: 18px;
+      right: 12px;
+      width: 40px;
+      height: 40px;
+    }
+
+    .qs-grid {
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
+      padding-bottom: 88px; /* space for sticky CTA */
+    }
+
+    .qs-image {
+      aspect-ratio: 1 / 1;
+      max-height: 38vh;
+      width: 100%;
+    }
+    .qs-image img { width: 78%; height: 78%; }
+
+    .qs-info {
+      padding: 24px 20px 20px;
+    }
+
+    .qs-title { font-size: 18px; }
+    .qs-price { font-size: 36px; margin-bottom: 24px; }
+
+    /* Sticky CTA outside scroll area */
+    .qs-cta {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      border-radius: 0;
+      margin: 0;
+      min-height: 64px;
+      padding-bottom: max(16px, env(safe-area-inset-bottom));
+      padding-top: 16px;
+      z-index: 6;
+      box-shadow: 0 -1px 0 var(--mr-line);
+    }
+  }
+
+  /* ========================================
+     REDUCED MOTION
+     ======================================== */
+  @media (prefers-reduced-motion: reduce) {
+    .qs-overlay,
+    .qs-modal,
+    .qs-chip,
+    .qs-step-btn,
+    .qs-cta,
+    .qs-cta svg,
+    .qs-image img {
+      transition: opacity 120ms linear !important;
+      transform: none !important;
+    }
+    .qs-modal.is-open { transform: translate(-50%, -50%) !important; }
+    @media (max-width: 768px) {
+      .qs-modal.is-open { transform: translateY(0) !important; }
+    }
+  }
+</style>
+</head>
+<body>
+
+<button class="demo-trigger" onclick="openModal()">Ver variantes</button>
+
+<!-- ========================================
+     QUICKSHOP MODAL — SILENCIO EDITORIAL
+     ======================================== -->
+<div class="qs-overlay" id="qsOverlay" onclick="closeModal()" aria-hidden="true"></div>
+
+<div class="qs-modal"
+     id="qsModal"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="qsTitle"
+     aria-hidden="true">
+
+  <button class="qs-close" onclick="closeModal()" aria-label="Cerrar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="18" y1="6" x2="6" y2="18"/>
+      <line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+
+  <div class="qs-grid">
+
+    <!-- IMAGE -->
+    <div class="qs-image">
+      <img src="https://acdn-us.mitiendanube.com/stores/001/646/068/products/whey-true-made1-cfd02f6d2c7b34e5b316925050063862-1024-1024.png"
+           alt="Whey True Made 1kg"
+           onerror="this.style.display='none'; this.parentNode.style.background='linear-gradient(135deg, #FAFAFB 0%, #ECEDEF 100%)';">
+    </div>
+
+    <!-- INFO -->
+    <div class="qs-info">
+
+      <h2 class="qs-title" id="qsTitle">Whey True Made</h2>
+      <p class="qs-meta">Star Nutrition &middot; 1 kg</p>
+
+      <p class="qs-price">$28.490</p>
+
+      <hr class="qs-divider">
+
+      <!-- VARIANTS -->
+      <div class="qs-label">
+        <span>Sabor</span>
+        <span class="qs-label-value" id="qsLabelValue">Chocolate suizo</span>
+      </div>
+      <div class="qs-chips" role="radiogroup" aria-label="Sabor">
+        <button class="qs-chip" role="radio" aria-pressed="false" data-value="Banana">Banana</button>
+        <button class="qs-chip" role="radio" aria-pressed="true"  data-value="Chocolate suizo">Chocolate suizo</button>
+        <button class="qs-chip" role="radio" aria-pressed="false" data-value="Frutilla">Frutilla</button>
+        <button class="qs-chip" role="radio" aria-pressed="false" data-value="Cookies &amp; Cream">Cookies &amp; Cream</button>
+        <button class="qs-chip" role="radio" aria-pressed="false" data-value="Vainilla Ice">Vainilla Ice</button>
+      </div>
+
+      <hr class="qs-divider">
+
+      <!-- QUANTITY + STOCK -->
+      <div class="qs-quant-row">
+        <span class="qs-label" style="margin: 0;">Cantidad</span>
+        <span class="qs-stock" aria-live="polite">+100 en stock</span>
+      </div>
+
+      <div class="qs-stepper" role="group" aria-label="Cantidad">
+        <button class="qs-step-btn" id="qsDown" aria-label="Disminuir cantidad">&minus;</button>
+        <input class="qs-step-input" id="qsQty" type="number" value="1" min="1" max="99" aria-label="Cantidad">
+        <button class="qs-step-btn" id="qsUp"   aria-label="Aumentar cantidad">+</button>
+      </div>
+
+      <!-- CTA -->
+      <button class="qs-cta" id="qsCta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/>
+        </svg>
+        <span>Agregar al carrito</span>
+      </button>
+
+    </div><!-- /qs-info -->
+  </div><!-- /qs-grid -->
+</div><!-- /qs-modal -->
+
+<script>
+  const overlay = document.getElementById('qsOverlay');
+  const modal   = document.getElementById('qsModal');
+  const trigger = document.querySelector('.demo-trigger');
+  let lastFocus = null;
+
+  function openModal() {
+    lastFocus = document.activeElement;
+    overlay.classList.add('is-open');
+    modal.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    // Focus first interactive element (the selected chip)
+    setTimeout(() => {
+      const selected = modal.querySelector('.qs-chip[aria-pressed="true"]');
+      if (selected) selected.focus();
+    }, 260);
+  }
+  function closeModal() {
+    overlay.classList.remove('is-open');
+    modal.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  }
+
+  // ESC to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+  });
+
+  // Chip selection
+  const chips = modal.querySelectorAll('.qs-chip');
+  const labelValue = document.getElementById('qsLabelValue');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.setAttribute('aria-pressed', 'false'));
+      chip.setAttribute('aria-pressed', 'true');
+      labelValue.textContent = chip.dataset.value;
+    });
+    // Arrow key navigation
+    chip.addEventListener('keydown', (e) => {
+      const arr = [...chips];
+      const i = arr.indexOf(chip);
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        arr[(i + 1) % arr.length].focus();
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        arr[(i - 1 + arr.length) % arr.length].focus();
+      }
+    });
+  });
+
+  // Stepper
+  const qtyInput = document.getElementById('qsQty');
+  document.getElementById('qsUp').addEventListener('click', () => {
+    qtyInput.value = Math.min(99, parseInt(qtyInput.value || 1, 10) + 1);
+  });
+  document.getElementById('qsDown').addEventListener('click', () => {
+    qtyInput.value = Math.max(1, parseInt(qtyInput.value || 1, 10) - 1);
+  });
+
+  // CTA demo
+  document.getElementById('qsCta').addEventListener('click', () => {
+    const flavor = modal.querySelector('.qs-chip[aria-pressed="true"]').dataset.value;
+    const qty = qtyInput.value;
+    alert(`Agregado: ${qty} x Whey True Made — ${flavor}`);
+  });
+</script>
+
+</body>
+</html>

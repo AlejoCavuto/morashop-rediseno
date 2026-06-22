@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morashop — Card Redesign Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =====================================================
+   PAGE SHELL
+   ===================================================== */
+:root {
+  --ms-navy:    #000e35;
+  --ms-navy-2:  #0F1B3D;
+  --ms-red:     #E8341A;
+  --ms-red-dk:  #C72D17;
+  --ms-green:   #1FBA66;
+  --ms-green-dk:#168A4B;
+  --ms-orange:  #FF8A1F;
+  --ms-line:    #EFEFF2;
+  --ms-line-2:  #E4E8F0;
+  --ms-muted:   #8a8f9c;
+  --ms-beige:   #F7F1E6;
+  --ms-beige-b: #C8A36A;
+  --ms-disabled:#C7CCD8;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: linear-gradient(180deg, #f5f6fa 0%, #eef0f5 100%);
+  color: var(--ms-navy);
+  padding: 32px 20px 80px;
+}
+header.shell-header {
+  max-width: 1240px;
+  margin: 0 auto 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.shell-title h1 {
+  margin: 0 0 4px;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.shell-title p {
+  margin: 0;
+  color: var(--ms-muted);
+  font-size: 14px;
+}
+.shell-toggle {
+  display: inline-flex;
+  background: #fff;
+  border: 1px solid var(--ms-line-2);
+  border-radius: 999px;
+  padding: 4px;
+  box-shadow: 0 2px 8px rgba(0,14,53,0.06);
+}
+.shell-toggle button {
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--ms-navy);
+  transition: all .2s ease;
+}
+.shell-toggle button.active {
+  background: var(--ms-navy);
+  color: #fff;
+}
+.section {
+  max-width: 1240px;
+  margin: 0 auto 48px;
+}
+.section-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ms-muted);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--ms-line-2);
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  grid-auto-rows: 1fr;
+}
+@media (max-width: 991px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 767px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+}
+
+/* =====================================================
+   NEW CARD — premium-trust + grafts
+   ===================================================== */
+.producto-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--ms-line-2);
+  border-radius: 14px;
+  overflow: hidden;
+  font-family: 'Inter', system-ui, sans-serif;
+  transition:
+    transform 240ms cubic-bezier(.2,.7,.2,1),
+    box-shadow 240ms ease,
+    border-color 240ms ease;
+  height: 100%;
+}
+.producto-card.agotado { opacity: 0.72; }
+.producto-card.agotado .badge-envio-gratis { display: none; }
+
+/* IMAGE ZONE */
+.producto-imagen-wrapper {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: radial-gradient(ellipse at 50% 45%, #fafbfd 0%, #fff 70%);
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  overflow: hidden;
+}
+.producto-imagen-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  object-fit: contain;
+  transition: transform 320ms cubic-bezier(.2,.7,.2,1);
+}
+
+/* BADGES */
+.badge-envio-gratis {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--ms-red);
+  color: #fff;
+  font: 700 10px/1 'Inter', sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 0 0 0 10px;
+  z-index: 3;
+}
+.badge-sin-stock {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--ms-navy);
+  color: #fff;
+  font: 700 10px/1 'Inter', sans-serif;
+  padding: 5px 9px;
+  border-radius: 999px;
+  z-index: 4;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.badge-flash {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  background: var(--ms-orange);
+  color: #fff;
+  font: 700 10px/1 'Inter', sans-serif;
+  padding: 5px 9px;
+  border-radius: 6px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.badge-flash::before { content: "⚡"; }
+
+/* INFO ZONE */
+.producto-info {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--ms-line);
+  flex: 1;
+}
+
+.producto-nombre {
+  font: 500 14px/1.35 'Inter', sans-serif;
+  color: var(--ms-navy-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding: 12px 14px 6px;
+  min-height: 2.7em;
+  margin: 0;
+}
+
+/* OLD PRICE + DISCOUNT CHIP */
+.producto-row-old {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  min-height: 18px;
+}
+.producto-anterior {
+  font: 500 12px/1 'Inter', sans-serif;
+  color: var(--ms-muted);
+  text-decoration: line-through;
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+}
+.chip-descuento {
+  font: 700 10px/1 'Inter', sans-serif;
+  color: #fff;
+  background: var(--ms-red);
+  padding: 3px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.03em;
+}
+
+/* MAIN PRICE — green bold tabular */
+.producto-precio {
+  font: 800 28px/1 'Inter', sans-serif;
+  color: var(--ms-green);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  padding: 4px 14px 2px;
+  margin: 0;
+}
+
+.producto-descuento {
+  font: 600 11px/1 'Inter', sans-serif;
+  color: var(--ms-green-dk);
+  letter-spacing: 0.04em;
+  padding: 4px 14px 0;
+}
+
+/* CUOTAS — promoted navy */
+.producto-cuotas {
+  font: 500 12px/1.3 'Inter', sans-serif;
+  color: var(--ms-navy);
+  padding: 8px 14px 10px;
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+}
+
+/* CTA */
+.producto-boton {
+  margin: 2px 14px 10px;
+  background: var(--ms-red);
+  color: #fff;
+  font: 700 13px/1 'Inter', sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 13px 16px;
+  border: 0;
+  border-radius: 10px;
+  min-height: 44px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 200ms ease, transform 120ms ease;
+  text-decoration: none;
+}
+.producto-boton::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><circle cx='9' cy='21' r='1'/><circle cx='20' cy='21' r='1'/><path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.producto-boton:hover  { background: var(--ms-red-dk); }
+.producto-boton:active { transform: scale(0.98); }
+.producto-boton.disabled,
+.producto-boton[disabled] {
+  background: var(--ms-disabled);
+  color: #fff;
+  cursor: not-allowed;
+}
+.producto-boton.disabled::before { display: none; }
+
+/* Pulse first card */
+@keyframes ms-pulse-red {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232,52,26,0); }
+  50%      { box-shadow: 0 0 0 6px rgba(232,52,26,0.22); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .grid > .producto-card:first-of-type .producto-boton {
+    animation: ms-pulse-red 1400ms ease-out 1;
+  }
+}
+
+/* ENVIO + STOCK */
+.envio-cartel {
+  margin: 0 14px 10px;
+  background: var(--ms-beige);
+  color: #5A4626;
+  font: 600 11px/1.3 'Inter', sans-serif;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border-left: 3px solid var(--ms-beige-b);
+  margin-top: auto;
+}
+.envio-cartel::before {
+  content: "🚚 ";
+}
+.kg-stock {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 500 11px/1 'Inter', sans-serif;
+  color: #5A6480;
+  padding: 0 14px 12px;
+}
+.kg-stock::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ms-green);
+  flex-shrink: 0;
+}
+
+/* HOVER STACK desktop only */
+@media (hover: hover) and (pointer: fine) {
+  .producto-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px -10px rgba(0,14,53,0.14);
+    border-color: var(--ms-navy);
+  }
+  .producto-card:hover .producto-imagen-wrapper img {
+    transform: scale(1.03);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .producto-card { border-radius: 10px; }
+  .producto-nombre   { font-size: 13px; padding: 10px 10px 4px; }
+  .producto-precio   { font-size: 22px; padding: 4px 10px 2px; }
+  .producto-anterior { font-size: 11px; }
+  .producto-row-old  { padding: 0 10px; }
+  .producto-descuento{ font-size: 10px; padding: 4px 10px 0; }
+  .producto-cuotas   { font-size: 11px; padding: 6px 10px 8px; }
+  .producto-boton    { margin: 2px 10px 8px; padding: 13px 12px; font-size: 12px; }
+  .envio-cartel      {
+    margin: 0 10px 8px; font-size: 10px; padding: 6px 8px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .kg-stock          { padding: 0 10px 10px; font-size: 10px; }
+  .badge-envio-gratis,
+  .badge-sin-stock,
+  .badge-flash       { font-size: 9px; padding: 4px 7px; }
+  .producto-card:hover { transform: none; box-shadow: none; border-color: var(--ms-line-2); }
+  .producto-card:hover .producto-imagen-wrapper img { transform: none; }
+  .producto-card:active { transform: translateY(-1px); transition: transform 150ms ease; }
+}
+@media (max-width: 360px) {
+  .badge-flash { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .producto-card, .producto-card *, .producto-imagen-wrapper img, .producto-boton {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* =====================================================
+   OLD CARD — for comparison (current Morashop look)
+   ===================================================== */
+.old-card {
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  padding: 12px;
+  box-sizing: border-box;
+  position: relative;
+  font-family: 'Inter', sans-serif;
+}
+.old-card img { width: 100%; max-height: 160px; object-fit: contain; }
+.old-nombre { font-size: 13px; font-weight: 400; margin: 6px 0 2px; line-height: 1.3em;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+  overflow: hidden; min-height: 2.6em; }
+.old-discount { font-size: 12px; color: #1fa22e; font-weight: 700; margin: 4px 0 2px; }
+.old-pill { background: #1fa22e; color: #fff; font-size: 18px; font-weight: 700;
+  padding: 4px 8px; display: inline-block; border-radius: 4px; margin-bottom: 8px; }
+.old-anterior { font-size: 13px; color: gray; text-decoration: line-through; margin: 0 6px 0 0; }
+.old-off { background: #d40000; color: #fff; font-weight: 700; font-size: 10px;
+  padding: 1px 4px; border-radius: 4px; }
+.old-precio { color: #001c4b; font-size: 17px; font-weight: 700; margin: 4px 0; }
+.old-cuotas { font-size: 12px; color: red; font-weight: 400; margin: 0; }
+.old-envio { display: inline-block; font-size: 12px; font-weight: 600;
+  background-color: #ead8bb; color: #001e50; padding: 4px 8px; border-radius: 6px; margin: 4px 0; }
+.old-boton { background: #000e35; color: #fff; border: none; border-radius: 6px;
+  padding: 8px 12px; font-weight: 700; width: 100%; margin-top: 8px;
+  font-size: 13px; cursor: pointer; }
+.old-stock { font-size: 12px; color: #333; margin: 4px 0; }
+</style>
+</head>
+<body>
+
+<header class="shell-header">
+  <div class="shell-title">
+    <h1>Morashop — Card Redesign</h1>
+    <p>Premium-trust + grafts · 4 estados · vs. card actual</p>
+  </div>
+  <div class="shell-toggle" id="viewToggle">
+    <button class="active" data-view="new">Nueva</button>
+    <button data-view="old">Actual</button>
+    <button data-view="split">Comparar</button>
+  </div>
+</header>
+
+<!-- =====================================================
+     NEW CARDS — 4 STATES
+     ===================================================== -->
+<section class="section" id="new-section">
+  <div class="section-label">Nueva — 4 estados</div>
+  <div class="grid">
+
+    <!-- 1. FULL DEAL: envío gratis + descuento + cuotas + más vendido -->
+    <article class="producto-card">
+      <div class="producto-imagen-wrapper">
+        <div class="badge-envio-gratis">Envío gratis</div>
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><defs><linearGradient id='b' x1='0' x2='0' y1='0' y2='1'><stop offset='0' stop-color='%23000e35'/><stop offset='1' stop-color='%23001a6e'/></linearGradient></defs><rect x='40' y='30' width='120' height='160' rx='8' fill='url(%23b)'/><rect x='55' y='55' width='90' height='30' rx='4' fill='%23ffffff'/><text x='100' y='75' font-family='Arial' font-size='14' font-weight='800' fill='%23000e35' text-anchor='middle'>WHEY</text><rect x='55' y='90' width='90' height='20' fill='%23E8341A'/><text x='100' y='104' font-family='Arial' font-size='10' font-weight='700' fill='%23fff' text-anchor='middle'>PROTEIN</text><circle cx='100' cy='145' r='25' fill='%23ffffff' opacity='.15'/></svg>" alt="Whey Protein">
+        <div class="badge-flash">Más vendido</div>
+      </div>
+      <div class="producto-info">
+        <h3 class="producto-nombre">Whey Protein Premium Vainilla 1kg — ENA Sport</h3>
+        <div class="producto-row-old">
+          <span class="producto-anterior">$28.900</span>
+          <span class="chip-descuento">-15%</span>
+        </div>
+        <p class="producto-precio">$24.565</p>
+        <p class="producto-cuotas">3 × $8.188 sin interés</p>
+        <button class="producto-boton">Comprar</button>
+      </div>
+    </article>
+
+    <!-- 2. OUT OF STOCK -->
+    <article class="producto-card agotado">
+      <div class="producto-imagen-wrapper">
+        <div class="badge-sin-stock">Sin stock</div>
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect x='50' y='40' width='100' height='140' rx='6' fill='%23ffffff' stroke='%23E8341A' stroke-width='2'/><rect x='60' y='55' width='80' height='18' fill='%23E8341A'/><text x='100' y='68' font-family='Arial' font-size='10' font-weight='800' fill='%23fff' text-anchor='middle'>STAR</text><text x='100' y='100' font-family='Arial' font-size='13' font-weight='800' fill='%23000e35' text-anchor='middle'>CREATINA</text><text x='100' y='120' font-family='Arial' font-size='9' fill='%23666' text-anchor='middle'>MONOHIDRATADA</text><rect x='65' y='135' width='70' height='35' rx='4' fill='%231fa22e'/><text x='100' y='158' font-family='Arial' font-size='9' font-weight='700' fill='%23fff' text-anchor='middle'>300 GR</text></svg>" alt="Creatina">
+      </div>
+      <div class="producto-info">
+        <h3 class="producto-nombre">Creatina Monohidratada Star Nutrition 300g Doypack</h3>
+        <div class="producto-row-old">
+          <span class="producto-anterior">$28.535</span>
+          <span class="chip-descuento">-5%</span>
+        </div>
+        <p class="producto-precio">$27.108</p>
+        <p class="producto-cuotas">3 × $9.036 sin interés</p>
+        <button class="producto-boton disabled" disabled>Sin stock</button>
+      </div>
+    </article>
+
+    <!-- 3. PLAIN supermarket SKU — no badges, no descuento -->
+    <article class="producto-card">
+      <div class="producto-imagen-wrapper">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><ellipse cx='100' cy='180' rx='45' ry='5' fill='%23000' opacity='.1'/><path d='M85 45 L115 45 L120 60 L120 175 Q120 180 115 180 L85 180 Q80 180 80 175 L80 60 Z' fill='%23165e3a'/><rect x='75' y='80' width='50' height='65' fill='%23ffffff'/><text x='100' y='105' font-family='Arial' font-size='9' font-weight='800' fill='%23165e3a' text-anchor='middle'>OLIVA</text><text x='100' y='120' font-family='Arial' font-size='8' fill='%23165e3a' text-anchor='middle'>EXTRA</text><text x='100' y='133' font-family='Arial' font-size='7' fill='%23165e3a' text-anchor='middle'>VIRGEN</text><circle cx='100' cy='45' r='8' fill='%23ffd700'/></svg>" alt="Aceite">
+      </div>
+      <div class="producto-info">
+        <h3 class="producto-nombre">Aceite de Oliva Extra Virgen 500ml</h3>
+        <p class="producto-precio">$3.450</p>
+        <p class="producto-cuotas">3 × $1.150 sin interés</p>
+        <button class="producto-boton">Comprar</button>
+      </div>
+    </article>
+
+    <!-- 4. LONG NAME + bestseller -->
+    <article class="producto-card">
+      <div class="producto-imagen-wrapper">
+        <div class="badge-envio-gratis">Envío gratis</div>
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect x='55' y='30' width='90' height='160' rx='10' fill='%23153a73'/><circle cx='100' cy='75' r='25' fill='%23ffd700'/><text x='100' y='82' font-family='Arial' font-size='16' font-weight='800' fill='%23153a73' text-anchor='middle'>Ω3</text><rect x='65' y='115' width='70' height='20' fill='%23ffffff'/><text x='100' y='129' font-family='Arial' font-size='10' font-weight='800' fill='%23153a73' text-anchor='middle'>OMEGA 3</text><text x='100' y='150' font-family='Arial' font-size='9' fill='%23ffd700' text-anchor='middle'>1000 mg</text><text x='100' y='165' font-family='Arial' font-size='7' fill='%23fff' text-anchor='middle'>EPA + DHA</text></svg>" alt="Omega 3">
+        <div class="badge-flash">Más vendido</div>
+      </div>
+      <div class="producto-info">
+        <h3 class="producto-nombre">Omega 3 Max 1000mg EPA + 500mg DHA Innova Naturals Cápsulas Blandas Pack 90 unidades</h3>
+        <div class="producto-row-old">
+          <span class="producto-anterior">$86.626</span>
+          <span class="chip-descuento">-5%</span>
+        </div>
+        <p class="producto-precio">$82.294</p>
+        <p class="producto-cuotas">3 × $27.431 sin interés</p>
+        <button class="producto-boton">Comprar</button>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- =====================================================
+     OLD CARDS — for comparison
+     ===================================================== -->
+<section class="section" id="old-section" style="display:none;">
+  <div class="section-label">Actual — mismo dataset</div>
+  <div class="grid">
+
+    <article class="old-card">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><defs><linearGradient id='b' x1='0' x2='0' y1='0' y2='1'><stop offset='0' stop-color='%23000e35'/><stop offset='1' stop-color='%23001a6e'/></linearGradient></defs><rect x='40' y='30' width='120' height='160' rx='8' fill='url(%23b)'/><rect x='55' y='55' width='90' height='30' rx='4' fill='%23ffffff'/><text x='100' y='75' font-family='Arial' font-size='14' font-weight='800' fill='%23000e35' text-anchor='middle'>WHEY</text><rect x='55' y='90' width='90' height='20' fill='%23E8341A'/><text x='100' y='104' font-family='Arial' font-size='10' font-weight='700' fill='%23fff' text-anchor='middle'>PROTEIN</text><circle cx='100' cy='145' r='25' fill='%23ffffff' opacity='.15'/></svg>" alt="">
+      <p class="old-nombre">Whey Protein Premium Vainilla 1kg — ENA Sport</p>
+      <p class="old-discount">-15% OFF en Efectivo</p>
+      <div class="old-pill">$24.565</div>
+      <div><span class="old-anterior">$28.900</span><span class="old-off">15% OFF</span></div>
+      <p class="old-precio">$28.900</p>
+      <p class="old-cuotas">3 × $8.188 sin interés</p>
+      <div class="old-envio">Llega hoy gratis CABA/GBA</div>
+      <p class="old-stock">+99 en stock</p>
+      <button class="old-boton">COMPRAR</button>
+    </article>
+
+    <article class="old-card" style="filter:grayscale(100%) brightness(.9); opacity:.7;">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect x='50' y='40' width='100' height='140' rx='6' fill='%23ffffff' stroke='%23E8341A' stroke-width='2'/><rect x='60' y='55' width='80' height='18' fill='%23E8341A'/><text x='100' y='68' font-family='Arial' font-size='10' font-weight='800' fill='%23fff' text-anchor='middle'>STAR</text><text x='100' y='100' font-family='Arial' font-size='13' font-weight='800' fill='%23000e35' text-anchor='middle'>CREATINA</text><text x='100' y='120' font-family='Arial' font-size='9' fill='%23666' text-anchor='middle'>MONOHIDRATADA</text><rect x='65' y='135' width='70' height='35' rx='4' fill='%231fa22e'/><text x='100' y='158' font-family='Arial' font-size='9' font-weight='700' fill='%23fff' text-anchor='middle'>300 GR</text></svg>" alt="">
+      <p class="old-nombre">Creatina Monohidratada Star Nutrition 300g Doypack</p>
+      <p class="old-discount">-15% OFF en Efectivo</p>
+      <div class="old-pill">$27.108</div>
+      <p class="old-precio">$28.535</p>
+      <p class="old-cuotas">3 × $9.036 sin interés</p>
+      <p class="old-stock">SIN STOCK</p>
+      <button class="old-boton" style="background:#bdbdbd;">SIN STOCK</button>
+    </article>
+
+    <article class="old-card">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><ellipse cx='100' cy='180' rx='45' ry='5' fill='%23000' opacity='.1'/><path d='M85 45 L115 45 L120 60 L120 175 Q120 180 115 180 L85 180 Q80 180 80 175 L80 60 Z' fill='%23165e3a'/><rect x='75' y='80' width='50' height='65' fill='%23ffffff'/><text x='100' y='105' font-family='Arial' font-size='9' font-weight='800' fill='%23165e3a' text-anchor='middle'>OLIVA</text><text x='100' y='120' font-family='Arial' font-size='8' fill='%23165e3a' text-anchor='middle'>EXTRA</text><text x='100' y='133' font-family='Arial' font-size='7' fill='%23165e3a' text-anchor='middle'>VIRGEN</text><circle cx='100' cy='45' r='8' fill='%23ffd700'/></svg>" alt="">
+      <p class="old-nombre">Aceite de Oliva Extra Virgen 500ml</p>
+      <p class="old-precio">$3.450</p>
+      <p class="old-cuotas">3 × $1.150 sin interés</p>
+      <p class="old-stock">42 en stock</p>
+      <button class="old-boton">COMPRAR</button>
+    </article>
+
+    <article class="old-card">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect x='55' y='30' width='90' height='160' rx='10' fill='%23153a73'/><circle cx='100' cy='75' r='25' fill='%23ffd700'/><text x='100' y='82' font-family='Arial' font-size='16' font-weight='800' fill='%23153a73' text-anchor='middle'>Ω3</text><rect x='65' y='115' width='70' height='20' fill='%23ffffff'/><text x='100' y='129' font-family='Arial' font-size='10' font-weight='800' fill='%23153a73' text-anchor='middle'>OMEGA 3</text><text x='100' y='150' font-family='Arial' font-size='9' fill='%23ffd700' text-anchor='middle'>1000 mg</text><text x='100' y='165' font-family='Arial' font-size='7' fill='%23fff' text-anchor='middle'>EPA + DHA</text></svg>" alt="">
+      <p class="old-nombre">Omega 3 Max 1000mg EPA + 500mg DHA Innova Naturals</p>
+      <p class="old-discount">-15% OFF en Efectivo</p>
+      <div class="old-pill">$82.294</div>
+      <div><span class="old-anterior">$86.626</span><span class="old-off">5% OFF</span></div>
+      <p class="old-precio">$86.626</p>
+      <p class="old-cuotas">3 × $27.431 sin interés</p>
+      <div class="old-envio">Llega GRATIS mañana CABA/GBA</div>
+      <p class="old-stock">15 en stock</p>
+      <button class="old-boton">COMPRAR</button>
+    </article>
+
+  </div>
+</section>
+
+<script>
+const btns = document.querySelectorAll('#viewToggle button');
+const newSec = document.getElementById('new-section');
+const oldSec = document.getElementById('old-section');
+btns.forEach(b => b.addEventListener('click', () => {
+  btns.forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  const v = b.dataset.view;
+  if (v === 'new')   { newSec.style.display = ''; oldSec.style.display = 'none'; }
+  if (v === 'old')   { newSec.style.display = 'none'; oldSec.style.display = ''; }
+  if (v === 'split') { newSec.style.display = ''; oldSec.style.display = ''; }
+}));
+</script>
+</body>
+</html>

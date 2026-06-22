@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morashop — Quickshop Modal Redesign · 3 Finalistas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#000e35;
+  --navy-2:#0F1B3D;
+  --red:#E8341A;
+  --red-deep:#C72D17;
+  --green:#1FBA66;
+  --mute:rgba(255,255,255,.7);
+  --mute-dark:rgba(0,14,53,.6);
+  --line:rgba(255,255,255,.12);
+  --line-card:rgba(0,14,53,.10);
+  --bg:#f5f5f7;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:'Inter',system-ui,sans-serif;color:var(--navy);background:var(--bg);-webkit-font-smoothing:antialiased}
+
+/* HERO */
+.hero{background:linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);color:#fff;padding:80px 24px 100px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-30%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(232,52,26,.18) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:1200px;margin:0 auto;position:relative}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:20px;padding:6px 14px;border:1px solid rgba(232,52,26,.4);border-radius:999px;background:rgba(232,52,26,.08)}
+.hero-kicker::before{content:"";width:6px;height:6px;background:var(--red);border-radius:50%;box-shadow:0 0 0 4px rgba(232,52,26,.2)}
+.hero-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(38px,7vw,72px);line-height:1;letter-spacing:-.01em;margin:0 0 18px;text-transform:uppercase}
+.hero-title em{color:var(--red);font-style:normal}
+.hero-sub{font-family:'Inter',sans-serif;font-size:clamp(15px,2vw,18px);line-height:1.5;color:var(--mute);margin:0;max-width:680px;font-weight:400}
+
+/* GRID */
+.grid-wrap{max-width:1200px;margin:-60px auto 0;padding:0 24px 80px;position:relative;z-index:2}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media (max-width:1000px){.grid{grid-template-columns:1fr;gap:20px}}
+
+/* CARD */
+.card{position:relative;background:#fff;border-radius:16px;overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;border:1px solid var(--line-card);transition:transform .22s cubic-bezier(.16,1,.3,1),box-shadow .22s cubic-bezier(.16,1,.3,1);box-shadow:0 8px 32px rgba(0,14,53,.08)}
+.card:hover{transform:translateY(-4px);box-shadow:0 20px 48px rgba(0,14,53,.14)}
+.card:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+
+.card-preview{aspect-ratio:4/3;background:var(--bg);position:relative;border-bottom:1px solid var(--line-card);display:flex;align-items:center;justify-content:center;padding:32px;overflow:hidden}
+
+/* mini-modal preview (A: centered) */
+.preview-A{width:80%;height:78%;background:#fff;border-radius:6px;box-shadow:0 8px 24px rgba(0,14,53,.16);display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.preview-A__img{background:var(--navy);position:relative}
+.preview-A__img::after{content:"";position:absolute;left:30%;top:25%;width:40%;height:50%;background:#E8341A;border-radius:4px;opacity:.85}
+.preview-A__info{padding:10px 8px;display:flex;flex-direction:column;justify-content:space-between}
+.preview-A__lines{display:flex;flex-direction:column;gap:4px}
+.preview-A__line{height:5px;border-radius:2px;background:rgba(0,14,53,.18)}
+.preview-A__line.w70{width:70%}
+.preview-A__line.w90{width:90%}
+.preview-A__line.w50{width:50%}
+.preview-A__cta{height:14px;border-radius:3px;background:var(--red)}
+
+/* mini-drawer preview (B: side) */
+.preview-B{width:100%;height:100%;position:relative;background:rgba(0,14,53,.42);border-radius:6px;overflow:hidden}
+.preview-B__panel{position:absolute;top:0;right:0;bottom:0;width:48%;background:#fff;display:flex;flex-direction:column;padding:14px 10px}
+.preview-B__lines{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.preview-B__line{height:5px;border-radius:2px;background:rgba(0,14,53,.18)}
+.preview-B__line.w70{width:70%}
+.preview-B__line.w90{width:90%}
+.preview-B__line.w50{width:50%}
+.preview-B__img{height:36%;background:var(--navy);border-radius:4px;margin-bottom:10px;position:relative}
+.preview-B__img::after{content:"";position:absolute;left:30%;top:20%;width:40%;height:60%;background:#E8341A;border-radius:3px;opacity:.85}
+.preview-B__cta{height:16px;border-radius:4px;background:var(--red);margin-top:auto}
+
+/* mini-fullbleed preview (C: segmented) */
+.preview-C{width:80%;height:78%;background:#fff;border-radius:6px;box-shadow:0 8px 24px rgba(0,14,53,.16);display:grid;grid-template-columns:1fr 1fr;overflow:hidden;position:relative}
+.preview-C__img{background:var(--navy);position:relative}
+.preview-C__img::after{content:"";position:absolute;left:30%;top:25%;width:40%;height:50%;background:#E8341A;border-radius:4px;opacity:.85}
+.preview-C__info{padding:10px 8px;display:flex;flex-direction:column;gap:6px;position:relative}
+.preview-C__lines{display:flex;flex-direction:column;gap:4px;margin-bottom:6px}
+.preview-C__line{height:5px;border-radius:2px;background:rgba(0,14,53,.18)}
+.preview-C__line.w70{width:70%}
+.preview-C__line.w90{width:90%}
+.preview-C__chips{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:6px}
+.preview-C__chip{height:10px;border-radius:2px;background:#ededf0}
+.preview-C__chip.on{background:var(--navy)}
+.preview-C__sticky{margin-top:auto;background:rgba(255,255,255,.85);backdrop-filter:blur(4px);padding:4px 0;border-top:1px solid var(--line-card)}
+.preview-C__cta{height:14px;border-radius:3px;background:var(--red)}
+
+/* card-body */
+.card-body{padding:24px 24px 28px;flex:1;display:flex;flex-direction:column;gap:12px}
+.card-letter{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;letter-spacing:.18em;color:var(--red);text-transform:uppercase}
+.card-name{font-family:'Inter',sans-serif;font-weight:700;font-size:22px;line-height:1.2;letter-spacing:-.01em;color:var(--navy);margin:0}
+.card-tagline{font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;color:var(--mute-dark);margin:0;flex:1}
+.card-link{font-family:'Inter',sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--red);display:inline-flex;align-items:center;gap:6px;margin-top:8px}
+.card-link::after{content:"\2192";transition:transform .18s ease;display:inline-block}
+.card:hover .card-link::after{transform:translateX(4px)}
+
+/* FOOTER */
+.foot{text-align:center;padding:0 24px 60px;font-family:'Inter',sans-serif;font-size:12px;color:var(--mute-dark)}
+.foot strong{color:var(--navy);font-weight:600}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="hero-kicker">Quickshop · Selección final</span>
+    <h1 class="hero-title">Morashop <em>—</em> Quickshop Modal Redesign · 3 Finalistas</h1>
+    <p class="hero-sub">Tres aproximaciones visualmente distintas pasaron la curaduría: un modal editorial centrado, un cajón lateral que respeta el catálogo, y una experiencia segmentada con CTA frosted sticky. Elegí cuál llevamos a producción.</p>
+  </div>
+</header>
+
+<main class="grid-wrap">
+  <div class="grid">
+
+    <a href="modal-final-A.html" class="card" aria-label="Ver finalista A — Modal Editorial Centrado">
+      <div class="card-preview">
+        <div class="preview-A" aria-hidden="true">
+          <div class="preview-A__img"></div>
+          <div class="preview-A__info">
+            <div class="preview-A__lines">
+              <span class="preview-A__line w50"></span>
+              <span class="preview-A__line w90"></span>
+              <span class="preview-A__line w70"></span>
+              <span class="preview-A__line w50"></span>
+            </div>
+            <div class="preview-A__cta"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <span class="card-letter">Finalista A</span>
+        <h2 class="card-name">Modal Editorial Centrado</h2>
+        <p class="card-tagline">La boutique respira: tipografía manda, hairlines en vez de sombras, decisión en un gesto.</p>
+        <span class="card-link">Ver finalista A</span>
+      </div>
+    </a>
+
+    <a href="modal-final-B.html" class="card" aria-label="Ver finalista B — Cajón Lateral Decisión">
+      <div class="card-preview">
+        <div class="preview-B" aria-hidden="true">
+          <div class="preview-B__panel">
+            <div class="preview-B__img"></div>
+            <div class="preview-B__lines">
+              <span class="preview-B__line w50"></span>
+              <span class="preview-B__line w90"></span>
+              <span class="preview-B__line w70"></span>
+            </div>
+            <div class="preview-B__cta"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <span class="card-letter">Finalista B</span>
+        <h2 class="card-name">Cajón Lateral Decisión</h2>
+        <p class="card-tagline">Entra desde el costado, no tapa el catálogo: el usuario sigue viendo dónde estaba.</p>
+        <span class="card-link">Ver finalista B</span>
+      </div>
+    </a>
+
+    <a href="modal-final-C.html" class="card" aria-label="Ver finalista C — Elección Directa Segmentada">
+      <div class="card-preview">
+        <div class="preview-C" aria-hidden="true">
+          <div class="preview-C__img"></div>
+          <div class="preview-C__info">
+            <div class="preview-C__lines">
+              <span class="preview-C__line w90"></span>
+              <span class="preview-C__line w70"></span>
+            </div>
+            <div class="preview-C__chips">
+              <span class="preview-C__chip on"></span>
+              <span class="preview-C__chip"></span>
+              <span class="preview-C__chip"></span>
+            </div>
+            <div class="preview-C__sticky">
+              <div class="preview-C__cta"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <span class="card-letter">Finalista C</span>
+        <h2 class="card-name">Elección Directa Segmentada</h2>
+        <p class="card-tagline">Chips segmentados estilo iOS + barra frosted sticky con precio inline: el botón nunca se pierde.</p>
+        <span class="card-link">Ver finalista C</span>
+      </div>
+    </a>
+
+  </div>
+</main>
+
+<footer class="foot">
+  <p><strong>Morashop</strong> · Quickshop Redesign — cada finalista abre con el modal ya activo. Probá desktop &amp; mobile (≤768px).</p>
+</footer>
+
+</body>
+</html>

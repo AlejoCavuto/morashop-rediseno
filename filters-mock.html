@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Morashop — Filtros Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #000e35;
+  --navy-2: #0F1B3D;
+  --red: #E8341A;
+  --red-deep: #C72D17;
+  --green: #1FBA66;
+  --orange: #FF8A1F;
+  --muted: #8a8f9c;
+  --mute2: rgba(0, 14, 53, 0.42);
+  --line: #EFEFF2;
+  --line-strong: rgba(0, 14, 53, 0.10);
+  --bg: #ECEDEF;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--navy);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.demo-header {
+  background: var(--navy);
+  color: #fff;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.demo-header h1 { margin: 0; font-size: 16px; font-weight: 800; letter-spacing: -0.01em; }
+.demo-header h1 span { color: var(--red); }
+.demo-header .reopen {
+  background: var(--red);
+  color: #fff;
+  border: 0;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* PAGE BG */
+.demo-page {
+  padding: 32px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.demo-page p {
+  color: var(--mute2);
+  font-size: 13px;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+/* ===== FILTERS OVERLAY ===== */
+.filters-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 14, 53, 0.42);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s ease, visibility 0.22s;
+  z-index: 9998;
+  backdrop-filter: blur(2px);
+}
+.filters-overlay.is-open { opacity: 1; visibility: visible; }
+
+/* ===== FILTERS PANEL ===== */
+.filters-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(420px, 100vw);
+  background: #fff;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: -20px 0 60px -20px rgba(0, 14, 53, 0.2);
+  border-radius: 18px 0 0 18px;
+  overflow: hidden;
+}
+.filters-panel.is-open { transform: translateX(0); }
+
+/* HEADER */
+.filters-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--line-strong);
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.filters-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+}
+.filters-header .count {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  margin-left: 8px;
+  font-variant-numeric: tabular-nums;
+}
+.filters-close {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--navy);
+  transition: background 0.12s ease;
+  padding: 0;
+}
+.filters-close:hover { background: #fafafa; }
+.filters-close svg { width: 14px; height: 14px; }
+
+/* BODY scroll */
+.filters-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 24px 24px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ACCORDION SECTION */
+.filter-section {
+  border-bottom: 1px solid var(--line-strong);
+}
+.filter-section:last-child { border-bottom: 0; }
+
+.filter-section__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+}
+.filter-section__title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+.filter-section__chevron {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mute2);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+.filter-section.is-open .filter-section__chevron {
+  transform: rotate(90deg);
+}
+.filter-section__body {
+  display: none;
+  padding: 0 0 20px;
+}
+.filter-section.is-open .filter-section__body { display: block; }
+
+/* MARCA chips */
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 14px;
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--navy);
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
+}
+.filter-chip:hover { border-color: var(--navy); }
+.filter-chip.is-selected {
+  background: var(--navy);
+  color: #fff;
+  border-color: var(--navy);
+}
+.filter-chip .count {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--mute2);
+}
+.filter-chip.is-selected .count { color: rgba(255,255,255,0.7); }
+
+/* PRECIO range */
+.filter-price {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.price-row {
+  display: flex;
+  gap: 12px;
+}
+.price-input {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.price-input label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--mute2);
+}
+.price-input input {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  background: #fff;
+  font-variant-numeric: tabular-nums;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+  outline: none;
+}
+.price-input input:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(0, 14, 53, 0.08);
+}
+.price-apply {
+  width: 100%;
+  height: 44px;
+  background: var(--navy);
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+.price-apply:hover { background: var(--navy-2); }
+
+/* SABOR list (checkboxes pill alt) */
+.filter-checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.filter-checklist__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--navy);
+}
+.filter-checklist__item .checkbox {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+.filter-checklist__item .checkbox svg {
+  width: 12px;
+  height: 12px;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+.filter-checklist__item.is-checked .checkbox {
+  background: var(--navy);
+  border-color: var(--navy);
+}
+.filter-checklist__item.is-checked .checkbox svg { opacity: 1; }
+.filter-checklist__item .count {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--mute2);
+}
+
+/* FOOTER */
+.filters-footer {
+  border-top: 1px solid var(--line-strong);
+  padding: 16px 24px 18px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: sticky;
+  bottom: 0;
+}
+.filters-apply {
+  width: 100%;
+  height: 48px;
+  background: var(--red);
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.12s ease;
+}
+.filters-apply:hover { background: var(--red-deep); }
+.filters-apply .count {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  opacity: 0.92;
+}
+.filters-clear {
+  background: transparent;
+  border: 0;
+  color: var(--mute2);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.filters-clear:hover { color: var(--navy); }
+
+/* MOBILE bottom-sheet */
+@media (max-width: 768px) {
+  .filters-panel {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    max-height: 88dvh;
+    border-radius: 18px 18px 0 0;
+    transform: translateY(100%);
+    box-shadow: 0 -20px 60px -20px rgba(0, 14, 53, 0.2);
+  }
+  .filters-panel.is-open { transform: translateY(0); }
+  .filters-panel::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: var(--line-strong);
+    border-radius: 4px;
+  }
+  .filters-header { padding-top: 20px; }
+  .filters-body { padding: 0 20px 20px; }
+  .filters-footer { padding: 14px 20px calc(14px + env(safe-area-inset-bottom)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filters-overlay, .filters-panel, .filter-section__chevron, .filter-chip, .price-input input, .price-apply, .filters-apply {
+    transition: none !important;
+  }
+  .filters-panel { transform: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="demo-header">
+  <h1>Morashop — Filtros <span>Editorial</span></h1>
+  <button class="reopen" id="reopenBtn">Reabrir panel</button>
+</header>
+
+<div class="demo-page">
+  <p><strong>Mock standalone.</strong> Click "Reabrir panel" o ESC para cerrar. Probá los chips MARCA, abrir PRECIO y SABOR. Mobile (&lt;768px) entra como bottom-sheet.</p>
+</div>
+
+<!-- ===== FILTERS OVERLAY + PANEL ===== -->
+<div class="filters-overlay is-open" id="filtersOverlay"></div>
+<aside class="filters-panel is-open" id="filtersPanel" role="dialog" aria-modal="true" aria-labelledby="filtersTitle">
+
+  <div class="filters-header">
+    <div>
+      <h2 id="filtersTitle">Filtros<span class="count" id="filtersActiveCount"></span></h2>
+    </div>
+    <button class="filters-close" id="filtersCloseBtn" aria-label="Cerrar filtros">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div class="filters-body">
+
+    <!-- MARCA -->
+    <section class="filter-section is-open">
+      <button class="filter-section__header" aria-expanded="true" data-toggle>
+        <span class="filter-section__title">Marca</span>
+        <span class="filter-section__chevron">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+        </span>
+      </button>
+      <div class="filter-section__body">
+        <ul class="filter-chips">
+          <li><button class="filter-chip" data-chip>Star Nutrition <span class="count">(89)</span></button></li>
+          <li><button class="filter-chip is-selected" data-chip>ENA Sport <span class="count">(54)</span></button></li>
+          <li><button class="filter-chip" data-chip>Gentech <span class="count">(38)</span></button></li>
+          <li><button class="filter-chip" data-chip>Body Advance <span class="count">(27)</span></button></li>
+          <li><button class="filter-chip" data-chip>Optimum Nutrition <span class="count">(22)</span></button></li>
+          <li><button class="filter-chip" data-chip>Gold Nutrition <span class="count">(19)</span></button></li>
+          <li><button class="filter-chip" data-chip>Universal <span class="count">(14)</span></button></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PRECIO -->
+    <section class="filter-section is-open">
+      <button class="filter-section__header" aria-expanded="true" data-toggle>
+        <span class="filter-section__title">Precio</span>
+        <span class="filter-section__chevron">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+        </span>
+      </button>
+      <div class="filter-section__body">
+        <div class="filter-price">
+          <div class="price-row">
+            <div class="price-input">
+              <label for="priceDesde">Desde</label>
+              <input id="priceDesde" type="text" inputmode="numeric" placeholder="$" value="19.056">
+            </div>
+            <div class="price-input">
+              <label for="priceHasta">Hasta</label>
+              <input id="priceHasta" type="text" inputmode="numeric" placeholder="$" value="45.424">
+            </div>
+          </div>
+          <button class="price-apply">Aplicar rango</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SABOR -->
+    <section class="filter-section">
+      <button class="filter-section__header" aria-expanded="false" data-toggle>
+        <span class="filter-section__title">Sabor</span>
+        <span class="filter-section__chevron">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+        </span>
+      </button>
+      <div class="filter-section__body">
+        <ul class="filter-checklist">
+          <li class="filter-checklist__item is-checked" data-check>
+            <span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>Chocolate</span>
+            <span class="count">(124)</span>
+          </li>
+          <li class="filter-checklist__item" data-check>
+            <span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>Vainilla</span>
+            <span class="count">(98)</span>
+          </li>
+          <li class="filter-checklist__item" data-check>
+            <span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>Frutilla</span>
+            <span class="count">(76)</span>
+          </li>
+          <li class="filter-checklist__item" data-check>
+            <span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>Cookies &amp; Cream</span>
+            <span class="count">(54)</span>
+          </li>
+          <li class="filter-checklist__item" data-check>
+            <span class="checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>Dulce de Leche</span>
+            <span class="count">(41)</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="filters-footer">
+    <button class="filters-apply">
+      Mostrar <span class="count" id="resultCount">47 resultados</span>
+    </button>
+    <button class="filters-clear">Limpiar filtros</button>
+  </div>
+
+</aside>
+
+<script>
+const overlay = document.getElementById('filtersOverlay');
+const panel = document.getElementById('filtersPanel');
+const closeBtn = document.getElementById('filtersCloseBtn');
+const reopenBtn = document.getElementById('reopenBtn');
+
+function openPanel() { overlay.classList.add('is-open'); panel.classList.add('is-open'); }
+function closePanel() { overlay.classList.remove('is-open'); panel.classList.remove('is-open'); }
+
+reopenBtn.addEventListener('click', openPanel);
+closeBtn.addEventListener('click', closePanel);
+overlay.addEventListener('click', closePanel);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+// Accordion toggle
+document.querySelectorAll('[data-toggle]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const section = btn.closest('.filter-section');
+    section.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', section.classList.contains('is-open'));
+  });
+});
+
+// Chip toggle
+document.querySelectorAll('[data-chip]').forEach(chip => {
+  chip.addEventListener('click', () => chip.classList.toggle('is-selected'));
+});
+
+// Checklist toggle
+document.querySelectorAll('[data-check]').forEach(item => {
+  item.addEventListener('click', () => item.classList.toggle('is-checked'));
+});
+</script>
+</body>
+</html>

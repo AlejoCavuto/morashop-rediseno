@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Finalista C — Elección Directa Segmentada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#000e35;
+  --navy-2:#0F1B3D;
+  --red:#E8341A;
+  --red-deep:#C72D17;
+  --orange:#FF8A1F;
+  --green:#1FBA66;
+  --muted:#8a8f9c;
+  --mute2:rgba(0,14,53,.42);
+  --line:#EFEFF2;
+  --line-strong:rgba(0,14,53,.10);
+  --img-bg:#ECEDEF;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:'Inter',system-ui,sans-serif;color:var(--navy);background:#fafafa;-webkit-font-smoothing:antialiased}
+
+/* HEADER BAR */
+.finalist-header{position:fixed;top:0;left:0;right:0;z-index:20000;background:var(--navy);color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 2px 12px rgba(0,14,53,.15)}
+.finalist-header-info{display:flex;flex-direction:column;gap:2px;min-width:0}
+.finalist-header-name{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;letter-spacing:.02em;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.finalist-header-name span{color:var(--red);margin-right:6px}
+.finalist-header-tagline{font-family:'Inter',sans-serif;font-size:12px;font-weight:400;color:rgba(255,255,255,.7);margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.finalist-header-back{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.3);padding:8px 14px;border-radius:6px;white-space:nowrap;transition:background .12s ease,border-color .12s ease;flex-shrink:0}
+.finalist-header-back:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.5)}
+.finalist-header-back:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+@media (max-width:600px){
+  .finalist-header-tagline{display:none}
+  .finalist-header{padding:10px 14px}
+  .finalist-header-back{padding:6px 10px;font-size:11px}
+}
+
+.demo-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:80px 24px 24px}
+.demo-btn{font-family:'Inter',sans-serif;font-weight:700;font-size:14px;letter-spacing:.04em;text-transform:uppercase;background:var(--navy);color:#fff;border:0;padding:16px 32px;border-radius:8px;cursor:pointer;transition:background .12s ease}
+.demo-btn:hover{background:var(--navy-2)}
+
+/* OVERLAY */
+.qs-overlay{position:fixed;inset:0;background:rgba(0,14,53,.42);opacity:0;visibility:hidden;transition:opacity .22s cubic-bezier(.16,1,.3,1),visibility .22s;z-index:9998}
+.qs-overlay.is-open{opacity:1;visibility:visible}
+
+/* MODAL */
+.qs-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.96);opacity:0;visibility:hidden;width:min(820px,calc(100vw - 32px));max-height:82vh;background:#fff;border-radius:12px;box-shadow:0 24px 64px rgba(0,14,53,.18);z-index:9999;display:flex;flex-direction:column;overflow:hidden;transition:opacity .18s cubic-bezier(.16,1,.3,1),transform .18s cubic-bezier(.16,1,.3,1),visibility .18s}
+.qs-modal.is-open{transform:translate(-50%,-50%) scale(1);opacity:1;visibility:visible}
+
+.qs-grid{display:grid;grid-template-columns:1fr 1fr;min-height:0;flex:1}
+
+/* IMAGE */
+.qs-image{background:var(--img-bg);position:relative;display:flex;align-items:center;justify-content:center;padding:32px;aspect-ratio:1/1}
+.qs-image::after{content:"";position:absolute;left:24px;right:24px;bottom:0;height:1px;background:var(--line-strong)}
+.qs-image img{max-width:100%;max-height:100%;object-fit:contain;mix-blend-mode:multiply}
+
+/* INFO */
+.qs-info{display:flex;flex-direction:column;min-height:0;position:relative;overscroll-behavior:contain}
+.qs-info-scroll{flex:1;overflow-y:auto;padding:28px 28px 16px;min-height:0;-webkit-overflow-scrolling:touch}
+
+/* CLOSE */
+.qs-close{position:absolute;top:14px;right:14px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.96);border:1px solid var(--line-strong);border-radius:50%;cursor:pointer;color:var(--navy);z-index:3;transition:background .12s ease;backdrop-filter:blur(6px)}
+.qs-close:hover{background:#fff}
+.qs-close:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.qs-close svg{width:16px;height:16px}
+
+/* BRAND + NAME */
+.qs-brand{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute2);margin:0 0 6px}
+.qs-name{font-family:'Inter',sans-serif;font-weight:700;font-size:22px;line-height:1.2;letter-spacing:-.01em;margin:0 0 16px;color:var(--navy);padding-right:48px}
+
+/* PRICE */
+.qs-price-row{display:flex;align-items:baseline;gap:12px;margin-bottom:4px;flex-wrap:wrap}
+.qs-price{font-family:'Inter',sans-serif;font-weight:800;font-size:30px;letter-spacing:-.02em;color:var(--navy);font-variant-numeric:tabular-nums;line-height:1}
+.qs-was{font-family:'Inter',sans-serif;font-weight:500;font-size:14px;color:var(--mute2);text-decoration:line-through;font-variant-numeric:tabular-nums}
+.qs-badge{display:inline-block;font-family:'Inter',sans-serif;font-weight:700;font-size:11px;letter-spacing:.06em;color:#fff;background:var(--red);padding:4px 7px;border-radius:4px;text-transform:uppercase}
+.qs-cuotas{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--navy);margin:0 0 22px;font-variant-numeric:tabular-nums}
+.qs-cuotas strong{color:var(--green);font-weight:700}
+
+.qs-divider{height:1px;background:var(--line-strong);margin:0 0 20px}
+
+/* SEGMENTED CHIPS — joined pill segment */
+.qs-variant-label{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.qs-variant-title{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute2)}
+.qs-variant-value{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--navy)}
+.qs-chips{list-style:none;margin:0 0 22px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:6px}
+.qs-chip{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 12px;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--navy);background:#f5f5f7;border:1px solid transparent;border-radius:8px;cursor:pointer;transition:background .12s,color .12s,border-color .12s;font-variant-numeric:tabular-nums;width:100%;text-align:center;line-height:1.2}
+.qs-chip:hover{background:#ededf0}
+.qs-chip[aria-checked="true"]{background:var(--navy);color:#fff;font-weight:600}
+.qs-chip:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.qs-chip[aria-disabled="true"]{color:var(--mute2);text-decoration:line-through;cursor:not-allowed;background:#fafafa}
+
+/* QTY + STOCK */
+.qs-qty-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px}
+.qs-qty-label{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute2)}
+.qs-stepper{display:inline-flex;align-items:center;background:#f5f5f7;border-radius:8px;overflow:hidden;padding:2px}
+.qs-stepper button{width:44px;height:44px;background:transparent;border:0;cursor:pointer;font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--navy);border-radius:6px;transition:background .12s ease}
+.qs-stepper button:hover{background:#ededf0}
+.qs-stepper button:focus-visible{outline:2px solid var(--navy);outline-offset:-2px}
+.qs-stepper input{width:42px;height:44px;border:0;background:transparent;text-align:center;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--navy);font-variant-numeric:tabular-nums;-moz-appearance:textfield}
+.qs-stepper input::-webkit-outer-spin-button,.qs-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.qs-stock{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--navy);display:flex;align-items:center;gap:6px;margin:0 0 8px;font-variant-numeric:tabular-nums}
+.qs-stock-dot{width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block}
+
+/* STICKY CTA BAR — frosted */
+.qs-sticky{flex-shrink:0;padding:14px 28px calc(14px + env(safe-area-inset-bottom)) 28px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px) saturate(160%);-webkit-backdrop-filter:blur(12px) saturate(160%);border-top:1px solid var(--line-strong)}
+.qs-cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:56px;background:var(--red);color:#fff;border:0;border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .12s ease,transform .12s ease}
+.qs-cta:hover{background:var(--red-deep)}
+.qs-cta:active{transform:translateY(1px)}
+.qs-cta:focus-visible{outline:3px solid rgba(232,52,26,.35);outline-offset:2px}
+.qs-cta svg{width:20px;height:20px;flex-shrink:0}
+.qs-cta-sep{opacity:.6;margin:0 2px}
+.qs-cta-price{font-variant-numeric:tabular-nums;font-weight:700;letter-spacing:.02em}
+
+/* MOBILE FULLBLEED BOTTOM-SHEET */
+@media (max-width:768px){
+  .qs-modal{top:0;left:0;right:0;bottom:0;transform:translateY(100%);width:100%;max-width:100%;max-height:100dvh;height:100dvh;border-radius:0;transition:transform .26s cubic-bezier(.32,.72,0,1),opacity .26s,visibility .26s}
+  .qs-modal.is-open{transform:translateY(0)}
+  .qs-grid{grid-template-columns:1fr;grid-template-rows:auto 1fr auto;overflow:hidden}
+  .qs-image{aspect-ratio:1/1;padding:24px;max-height:40vh}
+  .qs-info-scroll{padding:20px 20px 16px}
+  .qs-name{font-size:18px;padding-right:52px}
+  .qs-price{font-size:26px}
+  .qs-sticky{padding:12px 20px calc(12px + env(safe-area-inset-bottom)) 20px}
+  .qs-close{top:10px;right:10px}
+}
+
+/* REDUCED MOTION */
+@media (prefers-reduced-motion:reduce){
+  .qs-overlay,.qs-modal,.qs-chip,.qs-cta,.qs-stepper button{transition:none!important;animation:none!important}
+  .qs-modal{transform:translate(-50%,-50%)!important}
+  @media (max-width:768px){.qs-modal{transform:translateY(0)!important}}
+}
+</style>
+</head>
+<body>
+
+<header class="finalist-header">
+  <div class="finalist-header-info">
+    <h1 class="finalist-header-name"><span>C</span>Elección Directa Segmentada</h1>
+    <p class="finalist-header-tagline">Chips segmentados estilo iOS + barra frosted sticky con precio inline: el botón nunca se pierde.</p>
+  </div>
+  <a href="modal-finalists-index.html" class="finalist-header-back">&larr; Volver al index</a>
+</header>
+
+<div class="demo-page">
+  <button class="demo-btn" id="openBtn">Reabrir modal</button>
+</div>
+
+<div class="qs-overlay is-open" id="qsOverlay"></div>
+
+<div class="qs-modal is-open" id="qsModal" role="dialog" aria-modal="true" aria-labelledby="qsName">
+  <div class="qs-grid">
+    <div class="qs-image">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23ECEDEF'/><rect x='40' y='20' width='120' height='160' rx='8' fill='%23000e35'/><text x='100' y='90' font-family='Arial' font-size='14' font-weight='700' fill='white' text-anchor='middle'>STAR</text><text x='100' y='115' font-family='Arial' font-size='10' fill='white' text-anchor='middle'>WHEY</text><text x='100' y='135' font-family='Arial' font-size='10' fill='white' text-anchor='middle'>PROTEIN</text><text x='100' y='165' font-family='Arial' font-size='8' fill='%23FF8A1F' text-anchor='middle'>CHOCOLATE</text></svg>" alt="Whey Protein Star Nutrition Chocolate">
+    </div>
+
+    <div class="qs-info">
+      <button class="qs-close" id="qsClose" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+
+      <div class="qs-info-scroll">
+        <p class="qs-brand">Star Nutrition</p>
+        <h2 class="qs-name" id="qsName">Whey Protein 1kg</h2>
+
+        <div class="qs-price-row">
+          <span class="qs-price">$24.990</span>
+          <span class="qs-was">$29.990</span>
+          <span class="qs-badge">-17%</span>
+        </div>
+        <p class="qs-cuotas">3 cuotas sin interés de <strong>$8.330</strong></p>
+
+        <div class="qs-divider"></div>
+
+        <div class="qs-variant-label">
+          <span class="qs-variant-title">Sabor</span>
+          <span class="qs-variant-value" id="qsVariantValue">Chocolate</span>
+        </div>
+        <ul class="qs-chips" role="radiogroup" aria-label="Sabor">
+          <li><button class="qs-chip" role="radio" aria-checked="true" aria-pressed="true" data-variant="Chocolate">Chocolate</button></li>
+          <li><button class="qs-chip" role="radio" aria-checked="false" aria-pressed="false" data-variant="Vainilla">Vainilla</button></li>
+          <li><button class="qs-chip" role="radio" aria-checked="false" aria-pressed="false" data-variant="Frutilla">Frutilla</button></li>
+          <li><button class="qs-chip" role="radio" aria-checked="false" aria-pressed="false" data-variant="Cookies">Cookies</button></li>
+          <li><button class="qs-chip" role="radio" aria-checked="false" aria-pressed="false" aria-disabled="true" data-variant="DDL">D. de Leche</button></li>
+        </ul>
+
+        <div class="qs-qty-row">
+          <span class="qs-qty-label">Cantidad</span>
+          <div class="qs-stepper" role="group" aria-label="Cantidad">
+            <button id="qsMinus" aria-label="Restar uno">&minus;</button>
+            <input type="number" id="qsQty" value="1" min="1" max="99" aria-label="Cantidad">
+            <button id="qsPlus" aria-label="Sumar uno">+</button>
+          </div>
+        </div>
+
+        <p class="qs-stock" aria-live="polite">
+          <span class="qs-stock-dot"></span>
+          12 disponibles
+        </p>
+      </div>
+
+      <div class="qs-sticky">
+        <button class="qs-cta" id="qsCta" aria-label="Agregar al carrito por 24.990 pesos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span>Agregar al carrito</span>
+          <span class="qs-cta-sep">·</span>
+          <span class="qs-cta-price">$24.990</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const openBtn=document.getElementById('openBtn');
+const overlay=document.getElementById('qsOverlay');
+const modal=document.getElementById('qsModal');
+const closeBtn=document.getElementById('qsClose');
+const chips=document.querySelectorAll('.qs-chip');
+const variantValue=document.getElementById('qsVariantValue');
+const minus=document.getElementById('qsMinus');
+const plus=document.getElementById('qsPlus');
+const qty=document.getElementById('qsQty');
+
+function openModal(){overlay.classList.add('is-open');modal.classList.add('is-open');document.body.style.overflow='hidden'}
+function closeModal(){overlay.classList.remove('is-open');modal.classList.remove('is-open');document.body.style.overflow=''}
+
+openBtn.addEventListener('click',openModal);
+closeBtn.addEventListener('click',closeModal);
+overlay.addEventListener('click',closeModal);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('is-open'))closeModal()});
+
+chips.forEach(chip=>{
+  chip.addEventListener('click',()=>{
+    if(chip.getAttribute('aria-disabled')==='true')return;
+    chips.forEach(c=>{c.setAttribute('aria-checked','false');c.setAttribute('aria-pressed','false')});
+    chip.setAttribute('aria-checked','true');chip.setAttribute('aria-pressed','true');
+    variantValue.textContent=chip.textContent;
+  });
+});
+
+minus.addEventListener('click',()=>{const v=parseInt(qty.value)||1;if(v>1)qty.value=v-1});
+plus.addEventListener('click',()=>{const v=parseInt(qty.value)||1;if(v<99)qty.value=v+1});
+
+document.body.style.overflow='hidden';
+</script>
+</body>
+</html>

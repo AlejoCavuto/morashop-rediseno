@@ -1,0 +1,201 @@
+/* ============================================================
+   MORASHOP STEP 2 — LISTADO CATEGORÍA (/suplementos/, /supermercado/, etc.)
+   Riesgo: medio. Toca cards de producto y body.
+   Preserva hacks: Efectivo, Mayorista, ocultar variantes /ofertas/.
+   Pegar DESPUÉS de step 1 (tokens) en Edición avanzada de CSS.
+   ============================================================ */
+
+/* === BODY GLOBAL (cream + Inter) === */
+body {
+  background-color: var(--mr-bg);
+  color: var(--mr-text);
+  font-family: var(--mr-font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headings con Barlow Condensed solo donde NO rompa Toluca */
+.category-banner h1,
+.category-banner h2,
+.section-title h2,
+.product-list-header h1,
+.product-list-header h2 {
+  font-family: var(--mr-font-display);
+  font-weight: var(--mr-fw-black);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--mr-text);
+}
+
+/* === HERO CATEGORÍA (banner de arriba) === */
+/* Toluca renderiza category-banner — NO tocar el height mobile (ya hackeado a 57px) */
+.category-banner {
+  background: var(--mr-surface);
+  border-bottom: 1px solid var(--mr-line);
+}
+.category-banner .container,
+.category-banner .row {
+  color: var(--mr-text);
+}
+
+/* === FILTER SIDEBAR === */
+.filter-bar,
+.js-filter-bar,
+.filter-section {
+  background: var(--mr-surface);
+  border: 1px solid var(--mr-line);
+  border-radius: var(--mr-r-md);
+  padding: var(--mr-sp-4);
+}
+.filter-section h3,
+.filter-section .filter-title {
+  font-family: var(--mr-font-display);
+  font-weight: var(--mr-fw-heavy);
+  font-size: var(--mr-fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--mr-text);
+  margin: 0 0 var(--mr-sp-2);
+}
+.filter-section label,
+.filter-section a {
+  font-family: var(--mr-font-body);
+  font-size: var(--mr-fs-sm);
+  color: var(--mr-text);
+}
+.filter-section a:hover {
+  color: var(--mr-red);
+}
+
+/* Botón Aplicar filtros */
+.filter-bar .btn-apply,
+.js-filter-apply {
+  background: var(--mr-red);
+  color: #fff;
+  border-radius: var(--mr-r-pill);
+  font-family: var(--mr-font-display);
+  font-weight: var(--mr-fw-heavy);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* === PRODUCT CARD GRID === */
+/* Card outer — NO toco .payment-discount-price-product-container (hack vive ahí) */
+.js-item-product,
+.js-item-product.item-product {
+  background: var(--mr-surface);
+  border: 1px solid var(--mr-line);
+  border-radius: var(--mr-r-md);
+  box-shadow: var(--mr-sh-sm);
+  overflow: hidden;
+  transition: transform var(--mr-tr-base), box-shadow var(--mr-tr-base);
+}
+.js-item-product:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--mr-sh-lg);
+}
+
+/* Imagen producto */
+.js-item-product .item-image,
+.js-item-product .product-image {
+  background: var(--mr-surface);
+}
+
+/* Badge "OFF / 5% / 10%" en card */
+.js-item-product .item-discount,
+.js-item-product .label-accent,
+.js-item-product .label-discount {
+  background: var(--mr-red);
+  color: #fff;
+  font-family: var(--mr-font-body);
+  font-weight: var(--mr-fw-bold);
+  font-size: var(--mr-fs-xs);
+  padding: 4px 10px;
+  border-radius: var(--mr-r-sm);
+  letter-spacing: 0.02em;
+}
+
+/* Nombre producto */
+.js-item-product .item-name,
+.js-item-product .js-item-name {
+  font-family: var(--mr-font-body);
+  font-weight: var(--mr-fw-medium);
+  font-size: var(--mr-fs-sm);
+  line-height: 1.35;
+  color: var(--mr-text);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Precio principal */
+.js-item-product .item-price,
+.js-item-product .js-price-display {
+  font-family: var(--mr-font-body);
+  font-weight: var(--mr-fw-bold);
+  color: var(--mr-text);
+}
+
+/* Precio tachado (compare-at) */
+.js-item-product .item-compare-price,
+.js-item-product .js-compare-price-display {
+  color: var(--mr-text-soft);
+  text-decoration: line-through;
+  font-weight: var(--mr-fw-regular);
+  font-size: var(--mr-fs-sm);
+}
+
+/* Cuotas / instalments */
+.js-item-product .item-installments,
+.js-item-product .js-installments-display {
+  color: var(--mr-green);
+  font-weight: var(--mr-fw-semi);
+  font-size: var(--mr-fs-sm);
+}
+
+/* IMPORTANTE: payment-discount-price-product-container — color verde para "Efectivo"
+   No tocar font-size (hack del user lo tiene en 0 + content::before en 12px) */
+.js-item-product .payment-discount-price-product-container {
+  color: var(--mr-green);
+  font-weight: var(--mr-fw-bold);
+}
+
+/* === SORT / TOOLBAR === */
+.cat-toolbar,
+.product-list-toolbar,
+.js-sort {
+  font-family: var(--mr-font-body);
+  font-size: var(--mr-fs-sm);
+  color: var(--mr-text);
+}
+.cat-toolbar select,
+.product-list-toolbar select {
+  background: var(--mr-surface);
+  border: 1px solid var(--mr-line);
+  border-radius: var(--mr-r-sm);
+  color: var(--mr-text);
+  padding: var(--mr-sp-2) var(--mr-sp-4);
+  font-family: var(--mr-font-body);
+}
+
+/* === PAGINACIÓN === */
+.pagination a,
+.pagination span {
+  font-family: var(--mr-font-body);
+  font-weight: var(--mr-fw-medium);
+  color: var(--mr-text);
+}
+.pagination a:hover { color: var(--mr-red); }
+.pagination .active,
+.pagination .current {
+  background: var(--mr-text);
+  color: #fff;
+  border-radius: var(--mr-r-sm);
+}
+
+/* === MOBILE === */
+@media (max-width: 767px) {
+  .js-item-product .item-name { font-size: var(--mr-fs-xs); line-height: 1.3; }
+  .js-item-product .item-price { font-size: var(--mr-fs-md); }
+  .filter-bar { font-size: var(--mr-fs-sm); }
+}
+
+/* === FIN STEP 2 — validar /suplementos/ antes de step 3 === */
