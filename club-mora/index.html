@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Club Mora · La comunidad Morashop</title>
+  <meta name="description" content="Club Mora: los atletas, coaches e influencers que entrenan con Morashop. Seguilos y sumate." />
+  <meta name="theme-color" content="#0B0F1A" />
+  <meta property="og:title" content="Club Mora · La comunidad Morashop" />
+  <meta property="og:description" content="Los atletas, coaches e influencers que entrenan con Morashop." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;900&family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css?v=19" />
+</head>
+<body>
+
+  <header class="topbar" id="top">
+    <a class="topbar__back" href="https://www.morashop.ar" aria-label="Volvé a Mora">
+      <span aria-hidden="true">&larr;</span> Volvé a Mora
+    </a>
+    <a class="topbar__wordmark" href="#top">
+      <span class="wm-club">CLUB MORA</span>
+      <img class="wm-logo" src="assets/logo-morashop.png" alt="Morashop" width="38" height="38" loading="eager" />
+    </a>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <p class="eyebrow">La comunidad Morashop</p>
+      <h1 class="hero__title"><span>Club</span> <span>Mora</span></h1>
+      <p class="hero__sub">La familia de Morashop: atletas, creadores y gente que nos elige todos los días. Esta es la banda — seguilos.</p>
+      <div class="hero__stats">
+        <div class="stat"><span class="stat__n" id="stat-members">0</span><span class="stat__l">Miembros</span></div>
+        <div class="stat"><span class="stat__n" id="stat-disc">0</span><span class="stat__l">Disciplinas</span></div>
+        <div class="stat"><span class="stat__n">1</span><span class="stat__l">Sola familia</span></div>
+      </div>
+      <a class="hero__cta" href="#club-grid">Conocé la banda</a>
+    </section>
+
+    <!-- RIEL DISCIPLINAS -->
+    <div class="rail" role="separator" aria-label="Disciplinas del Club Mora">
+      <div class="rail__track" id="disc-rail" aria-hidden="true"></div>
+    </div>
+
+    <!-- ¿QUÉ ES? -->
+    <section class="about reveal">
+      <p class="about__kicker">Qué es esto</p>
+      <h2 class="about__title">No es publicidad. Es familia.</h2>
+      <p class="about__text">Club Mora no es publicidad: es la familia de Morashop. Los que entrenan en serio, los que recién arrancan, los que cocinan rico, los que equipan su casa. Vendemos suplementos, almacén, electro y mucho más — así que <strong>no importa lo tuyo</strong>: si sos de Mora, sos de la familia. Acá cualquiera puede ser parte, y está perfecto.</p>
+      <div class="about__pills">
+        <span>Suplementos, super y electro</span>
+        <span>Al precio de siempre</span>
+        <span>Con la confianza de siempre</span>
+      </div>
+    </section>
+
+    <!-- GRILLA -->
+    <section class="club">
+      <div class="club__head">
+        <p class="club__kicker">Confían en nosotros</p>
+        <h2 class="club__title">Influencers que entrenan con Mora</h2>
+      </div>
+      <div class="club__grid" id="club-grid"></div>
+    </section>
+
+    <!-- SUMATE -->
+    <section class="join reveal">
+      <div class="join__glow" aria-hidden="true"></div>
+      <p class="join__kicker">¿Querés ser parte?</p>
+      <h2 class="join__title">Sumate al Club Mora</h2>
+      <p class="join__text">No importa cuántos seguidores tengas ni a qué te dediques: si sos de la movida Morashop, escribinos. Hay lugar para vos.</p>
+      <a class="join__cta" href="https://mail.google.com/mail/?view=cm&fs=1&to=francomorashop@gmail.com&su=Quiero%20ser%20parte%20del%20Club%20Mora" target="_blank" rel="noopener noreferrer">
+        Quiero ser parte
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__tagline">Comprar suplementos<br/><span>es Morashop.</span></p>
+    <div class="footer__bottom">
+      <img class="footer__logo" src="assets/logo-morashop.png" alt="Morashop" width="44" height="44" loading="lazy" />
+      <p>Club Mora · La comunidad de Morashop.</p>
+    </div>
+  </footer>
+
+  <script src="app.js?v=19"></script>
+</body>
+</html>

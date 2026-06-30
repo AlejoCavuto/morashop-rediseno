@@ -11,7 +11,15 @@
       "Bash(find \"c:/Users/alejo/.claude/projects/c--Users-alejo-OneDrive-Escritorio-catalogo-star-morashop-rediseno/memory\" -name \"*.md\" 2>/dev/null | sort)",
       "Read(//c/Users/alejo/.claude/projects/c--Users-alejo-OneDrive-Escritorio-catalogo-star-morashop-rediseno/memory/**)",
       "Read(//c/Users/alejo/Downloads/Morashop/**)",
-      "WebFetch(domain:www.morashop.ar)"
+      "WebFetch(domain:www.morashop.ar)",
+      "WebSearch",
+      "WebFetch(domain:www.instagram.com)",
+      "WebFetch(domain:www.maikifit.com)",
+      "WebFetch(domain:www.threads.com)",
+      "WebFetch(domain:www.tiktok.com)",
+      "Bash(echo \"=== port scripts ===\"; ls -la /tmp/port_scss.py /tmp/port_tpl.py 2>/dev/null || echo \"NO scripts en /tmp\" *)",
+      "Read(//tmp/**)",
+      "Read(//c/tmp/**)"
     ],
     "additionalDirectories": [
       "C:\\Users\\alejo\\Downloads\\Morashop\\Backup_tienda\\_\\snipplets",

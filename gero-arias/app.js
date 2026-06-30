@@ -9,7 +9,7 @@
 const PRODUCTOS = [
   {
     nombre: "L-Citrulline 300g Star Nutrition",
-    tag: "Pre-entreno · Óxido nítrico",
+    tag: "Aminoácidos · Óxido nítrico",
     precio: 59448, efectivo: 50531, cuota3: 19816,
     img: "https://acdn-us.mitiendanube.com/stores/002/268/228/products/l-citrulline-300-gr-star-nutrition-citrulina-malato-pre-entreno-oxido-nitrico-750ae7be0a0bbcf56a17049828706844-640-0.webp",
     link: "https://www.morashop.ar/productos/l-citrulline-300-gr-star-nutrition-citrulina-malato-pre-entreno-oxido-nitrico/"
@@ -20,13 +20,6 @@ const PRODUCTOS = [
     precio: 82294, efectivo: 69950, cuota3: 27431,
     img: "https://acdn-us.mitiendanube.com/stores/002/268/228/products/omega-3-max-1000-epa-500-dha-innovanaturals-60caps-ifos-goed-454c3b5ca9a3b85c6d17659080390301-640-0.webp",
     link: "https://www.morashop.ar/productos/omega-3-max-1000-epa-500-dha-innovanaturals-60caps-ifos-goed/"
-  },
-  {
-    nombre: "C4 Ultimate Preworkout Cellucor",
-    tag: "Pre-entreno",
-    precio: 111851, efectivo: 95073, cuota3: 37284,
-    img: "https://acdn-us.mitiendanube.com/stores/002/268/228/products/c4-ultimate-pre-workout-powder-icy-blue-razz-c56cb8982f7453eda017518961568769-640-0.webp",
-    link: "https://www.morashop.ar/productos/c4-ultimate-preworkout-cellucor-6s4ut/"
   },
   {
     nombre: "Granger Pancake Proteico Dulce de Leche 300g",
@@ -73,8 +66,8 @@ const PRODUCTOS = [
 ];
 
 /* Categorías para el filtro (orden = orden de los chips) */
-const CAT_LABELS = { pre: "Pre-entreno", proteina: "Proteína", creatina: "Creatina", salud: "Salud" };
-const CATS = ["pre", "salud", "pre", "proteina", "proteina", "proteina", "salud", "salud", "creatina"];
+const CAT_LABELS = { amino: "Aminoácidos", proteina: "Proteína", creatina: "Creatina", salud: "Salud" };
+const CATS = ["amino", "salud", "proteina", "proteina", "proteina", "salud", "salud", "creatina"];
 PRODUCTOS.forEach((p, i) => { p.cat = CATS[i] || "salud"; });
 
 /* ---------- 2) VIDEOS YouTube (editables) ---------- */
@@ -102,8 +95,9 @@ function renderProductos() {
       ? `<p class="card__save">Ahorrás ${ARS(p.precio - efectivo)}</p>` : "";
     const cuotas = Number.isFinite(p.cuota3)
       ? `<p class="card__inst">o <b>3 cuotas sin interés</b> de ${ARS(p.cuota3)}</p>` : "";
+    const tight = /d_\d+-mla/i.test(p.img) ? " card--tight" : ""; // fotos ML van a sangre → achicar
     return `
-    <article class="card reveal reveal--scale" data-cat="${p.cat}" data-idx="${i}" style="--d:${Math.min(i, 8) * 55}ms">
+    <article class="card reveal reveal--scale${tight}" data-cat="${p.cat}" data-idx="${i}" style="--d:${Math.min(i, 8) * 55}ms">
       <a class="card__media" href="${p.link}" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
         <img src="${p.img}" alt="${esc(p.nombre)}" loading="lazy" width="640" height="640" />
         ${offBadge}
