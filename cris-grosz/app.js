@@ -4,7 +4,7 @@
    se reemplazan por el catálogo real / render server-side.
    ============================================================ */
 
-/* ---------- Productos (Grosz Nutrition, referencia jun 2026) ---------- */
+/* ---------- Productos (Grosz Nutrition — fotos reales, fondo gris estudio) ---------- */
 /* Landing promocional: ignoramos prefers-reduced-motion para que las animaciones
    de marca se vean en TODOS los dispositivos/navegadores (decision del dueno).
    Parchea solo esa media query; el resto (pointer/hover/width) pasa sin tocar. */
@@ -19,16 +19,19 @@
   };
 })();
 
-const CDN = "https://acdn-us.mitiendanube.com/stores/003/462/441/products/";
+const IMG = "assets/productos/";
 const PRODUCTOS = [
-  { img:CDN+"whey-v-d06ddaf9fb13a7dd0c17125287842799-1024-1024.webp",            tag:"Proteína",    nombre:"Whey Protein Concentrate Vainilla 907g",       precio:39999, off:33 },
-  { img:CDN+"creatina-fondo-gris-0b1937f7a74c352cf417125292728167-1024-1024.webp",tag:"Creatina",    nombre:"Creatina Micronizada Monohidrato 150g",        precio:24900, off:38 },
-  { img:CDN+"pre-nox-pump-fondo-gris-c894708ebc411bb5a617125302728298-1024-1024.webp",tag:"Pre-entreno",nombre:"Pre Nox Pump · Pre-entreno",               precio:24999, off:36 },
-  { img:CDN+"bcaa-fondo-gris-b96277c8ace4ee1d6717125300706525-1024-1024.webp",   tag:"Aminoácidos", nombre:"BCAA Mega Ratio 12:1:1",                       precio:19900, off:28 },
-  { img:CDN+"whey-choco-62f74cc16048c0a1cd17125288660898-1024-1024.webp",        tag:"Proteína",    nombre:"Whey Protein Concentrate Cacao Amargo 907g",   precio:47999, off:0 },
-  { img:CDN+"colageno-fondo-grispng-d562886c6049ce558d17125296539012-1024-1024.webp",tag:"Articular",nombre:"Colágeno Hidrolizado",                         precio:27900, off:31 },
-  { img:CDN+"glutamina-db2dc18247565b49b417550128394584-1024-1024.webp",         tag:"Recuperación",nombre:"Glutamina",                                    precio:20900, off:24 },
-  { img:CDN+"magnesio-d7f8913f786b18779317550117891618-1024-1024.webp",          tag:"Recuperación",nombre:"Citrato de Magnesio",                          precio:20900, off:24 }
+  { img:IMG+"whey-vainilla.jpg", tag:"Proteína",    nombre:"Whey Protein Concentrate Vainilla 907g",     precio:39999, off:33 },
+  { img:IMG+"whey-cacao.jpg",    tag:"Proteína",    nombre:"Whey Protein Concentrate Cacao Amargo 907g", precio:47999, off:0  },
+  { img:IMG+"creatina.jpg",      tag:"Creatina",    nombre:"Creatina Micronizada Monohidrato 150g",      precio:24900, off:38 },
+  { img:IMG+"pre-nox-pump.jpg",  tag:"Pre-entreno", nombre:"Pre Nox Pump · Pre-entreno",                 precio:24999, off:36 },
+  { img:IMG+"bcaa.jpg",          tag:"Aminoácidos", nombre:"BCAA Mega Ratio 12:1:1",                     precio:19900, off:28 },
+  { img:IMG+"glutamina.jpg",     tag:"Recuperación",nombre:"Glutamina Micronizada",                      precio:20900, off:24 },
+  { img:IMG+"burn-max.jpg",      tag:"Quemador",    nombre:"Burn Max · Termogénico",                     precio:26999, off:30 },
+  { img:IMG+"colageno.jpg",      tag:"Articular",   nombre:"Colágeno Hidrolizado",                       precio:27900, off:31 },
+  { img:IMG+"omega-3.jpg",       tag:"Bienestar",   nombre:"Omega 3 · Aceite de pescado",                precio:18900, off:22 },
+  { img:IMG+"magnesio.jpg",      tag:"Recuperación",nombre:"Citrato de Magnesio",                        precio:20900, off:24 },
+  { img:IMG+"vitamina-c.jpg",    tag:"Bienestar",   nombre:"Vitamina C 1000mg",                          precio:15900, off:20 }
 ];
 
 /* ---------- Videos YouTube (verificados embeddables) ---------- */
@@ -40,6 +43,7 @@ const VIDEOS = [
 
 const ARS = n => "$" + Math.round(n).toLocaleString("es-AR");
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const slug = s => String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 
 function renderProductos(){
   const grid = document.getElementById("product-grid");
@@ -50,10 +54,10 @@ function renderProductos(){
     const wasLine = was ? `<p class="card__was">${ARS(was)}</p>` : `<p class="card__was" style="visibility:hidden">.</p>`;
     const cuota = Math.round(p.precio/3);
     return `
-    <article class="card reveal reveal--scale" style="--d:${Math.min(i,7)*55}ms">
-      <div class="card__media">
+    <article class="card reveal reveal--scale" data-idx="${i}" data-cat="${slug(p.tag)}" style="--d:${Math.min(i,7)*55}ms">
+      <div class="card__media" role="button" tabindex="0" aria-label="Ver ${esc(p.nombre)}">
         ${offBadge}
-        <img src="${p.img}" alt="${esc(p.nombre)}" loading="lazy" width="1024" height="1024" />
+        <img src="${p.img}?v=2" alt="${esc(p.nombre)}" loading="lazy" width="1024" height="1024" />
       </div>
       <div class="card__body">
         <p class="card__pick"><b>&#10022;</b> Elegido por Cris</p>
@@ -231,6 +235,24 @@ function initMagnetic(){
   });
 }
 
+/* ---------- Ripple al tocar botones (touch + click, todos los dispositivos) ---------- */
+function initRipple(){
+  const sel = ".btn, .plan__btn, .card__btn";
+  document.addEventListener("pointerdown",(e)=>{
+    const btn = e.target.closest(sel);
+    if(!btn) return;
+    const r = btn.getBoundingClientRect();
+    const size = Math.max(r.width, r.height) * 2.2;
+    const span = document.createElement("span");
+    span.className = "btn__ripple";
+    span.style.width = span.style.height = size + "px";
+    span.style.left = (e.clientX - r.left) + "px";
+    span.style.top  = (e.clientY - r.top) + "px";
+    btn.appendChild(span);
+    span.addEventListener("animationend", ()=> span.remove());
+  }, { passive:true });
+}
+
 /* ---------- Tilt 3D en cards de producto (solo desktop, respeta reduced-motion) ---------- */
 function initTilt(){
   if(window.matchMedia("(prefers-reduced-motion:reduce)").matches) return;
@@ -354,32 +376,28 @@ function initProofBarsCount(){
 
 /* 4) Clip-wipe + blur-up para imagenes de cards y thumbs de video */
 function initImgWipe(){
-  var imgs = document.querySelectorAll(".card__media img, .video-card__thumb img");
+  var imgs = [].slice.call(document.querySelectorAll(".card__media img, .video-card__thumb img"));
   if(!imgs.length) return;
-  var reduce = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  function reveal(i){ i.classList.add("gz-shown"); }
   Array.prototype.forEach.call(imgs, function(i){ i.classList.add("gz-wipe"); });
-  if(reduce || !("IntersectionObserver" in window)){ Array.prototype.forEach.call(imgs,function(i){ i.classList.add("gz-shown"); }); return; }
+  if(!("IntersectionObserver" in window)){ imgs.forEach(reveal); return; }
   var io = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("gz-shown"); io.unobserve(e.target); } });
-  },{ rootMargin:"0px 0px -8% 0px", threshold:.05 });
-  Array.prototype.forEach.call(imgs, function(i){ io.observe(i); });
-  setTimeout(function(){
-    Array.prototype.forEach.call(imgs, function(i){
-      if(i.classList.contains("gz-shown")) return;
-      if(i.getBoundingClientRect().top < window.innerHeight*0.95) i.classList.add("gz-shown");
-    });
-  }, 1600);
+    es.forEach(function(e){ if(e.isIntersecting){ reveal(e.target); io.unobserve(e.target); } });
+  },{ rootMargin:"0px 0px 15% 0px", threshold:.01 });
+  imgs.forEach(function(i){ io.observe(i); });
+  // red de seguridad TOTAL: ninguna imagen queda oculta permanentemente
+  setTimeout(function(){ imgs.forEach(function(i){ if(!i.classList.contains("gz-shown")) reveal(i); }); }, 3000);
 }
 
 /* 6) Hojas flotando en la banda natural (formas CSS, no emoji -> mismas en todo navegador) */
 function initNaturalLeaves(){
   var band = document.querySelector(".natural");
   if(!band) return;
-  // colores claros que contrastan sobre el verde de la banda
+  // destellos dorado/naranja que contrastan sobre el azul de la banda
   var BG = [
-    "linear-gradient(135deg,#B6F09C,#5BE07C)",
-    "linear-gradient(135deg,#F2F4F0,#B6F09C)",
-    "linear-gradient(135deg,#5BE07C,#2FBF4E)"
+    "linear-gradient(135deg,#FFCE6A,#F5820A)",
+    "linear-gradient(135deg,#F2F4F0,#FFCE6A)",
+    "linear-gradient(135deg,#FF9E2C,#F5820A)"
   ];
   var N = 14, built = false;
   function build(){
@@ -458,14 +476,7 @@ function initHeroGyroTilt(){
   var DOE = window.DeviceOrientationEvent;
   if(!DOE){ startSway(); return; }
   if(typeof DOE.requestPermission === "function"){
-    startSway();
-    var btn = document.createElement("button");
-    btn.type = "button"; btn.className = "gz-tiltperm"; btn.textContent = "Move el telefono · toca para activar";
-    fig.appendChild(btn);
-    btn.addEventListener("click", function(){
-      DOE.requestPermission().then(function(state){ btn.hidden = true; if(state === "granted") startSensor(); })
-        .catch(function(){ btn.hidden = true; });
-    }, { once:true });
+    startSway();   // iOS: solo sway suave, SIN pedir permiso ni botón
   } else {
     startSway();
     var got = false;
@@ -481,7 +492,7 @@ function initPlanConfetti(){
   var btns = document.querySelectorAll(".plan__btn");
   if(!btns.length) return;
   var reduce = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
-  var COLORS = ["#2FBF4E","#5BE07C","#B6F09C","#ffffff"];
+  var COLORS = ["#F5820A","#FF9E2C","#FFCE6A","#3D6BF0","#ffffff"];
   function pulse(btn){ btn.classList.remove("gz-pulse"); void btn.offsetWidth; btn.classList.add("gz-pulse"); }
   Array.prototype.forEach.call(btns, function(btn){
     btn.addEventListener("click", function(){
@@ -504,6 +515,78 @@ function initPlanConfetti(){
   });
 }
 
+/* ---------- Filtro de productos por tipo (chips) ---------- */
+function initFilters(){
+  const cont = document.getElementById("product-filters");
+  const grid = document.getElementById("product-grid");
+  if(!cont || !grid) return;
+  const cats = [];
+  PRODUCTOS.forEach(p=>{ const k = slug(p.tag); if(!cats.some(c=>c.k===k)) cats.push({ k, label:p.tag }); });
+  cont.innerHTML = ['<button class="gz-chip is-active" data-cat="all" type="button">Todos</button>']
+    .concat(cats.map(c=>`<button class="gz-chip" data-cat="${c.k}" type="button">${esc(c.label)}</button>`)).join("");
+  cont.addEventListener("click",(e)=>{
+    const b = e.target.closest(".gz-chip"); if(!b) return;
+    cont.querySelectorAll(".gz-chip").forEach(x=>x.classList.toggle("is-active", x===b));
+    const cat = b.dataset.cat;
+    grid.querySelectorAll(".card").forEach(card=>{ card.classList.toggle("is-hidden", !(cat==="all" || card.dataset.cat===cat)); });
+  });
+}
+
+/* ---------- Quick-view de producto (tap en la foto) ---------- */
+function openQuickView(p){
+  const was = p.off ? Math.round(p.precio/(1 - p.off/100)) : 0;
+  const cuota = Math.round(p.precio/3);
+  const box = document.createElement("div");
+  box.className = "gz-qv"; box.tabIndex = -1;
+  box.innerHTML =
+    '<div class="gz-qv__panel" role="dialog" aria-modal="true" aria-label="'+esc(p.nombre)+'">'+
+      '<button class="gz-qv__x" aria-label="Cerrar">&times;</button>'+
+      '<div class="gz-qv__media">'+(p.off?'<span class="card__off">'+p.off+'% OFF</span>':'')+'<img src="'+p.img+'?v=2" alt="'+esc(p.nombre)+'" /></div>'+
+      '<div class="gz-qv__info">'+
+        '<p class="gz-qv__pick">&#10022; Grosz Nutrition · '+esc(p.tag)+'</p>'+
+        '<h3 class="gz-qv__name">'+esc(p.nombre)+'</h3>'+
+        (was?'<p class="gz-qv__was">'+ARS(was)+'</p>':'')+
+        '<p class="gz-qv__price">'+ARS(p.precio)+'<em>o 3 cuotas sin interés de '+ARS(cuota)+'</em></p>'+
+        '<a class="gz-qv__btn" href="https://www.morashop.ar/" target="_blank" rel="noopener">Comprar en Morashop'+
+          '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>'+
+      '</div>'+
+    '</div>';
+  document.body.appendChild(box);
+  requestAnimationFrame(()=>box.classList.add("is-open"));
+  box.focus();
+  const close = ()=>{ box.classList.remove("is-open"); setTimeout(()=>box.remove(),320); document.removeEventListener("keydown", onKey); };
+  const onKey = (ev)=>{ if(ev.key==="Escape") close(); };
+  box.addEventListener("click",(ev)=>{ if(ev.target===box || ev.target.closest(".gz-qv__x")) close(); });
+  document.addEventListener("keydown", onKey);
+}
+function initQuickView(){
+  const grid = document.getElementById("product-grid"); if(!grid) return;
+  const fire = (art)=>{ const i = art ? parseInt(art.getAttribute("data-idx"),10) : -1; const p = PRODUCTOS[i]; if(p) openQuickView(p); };
+  grid.addEventListener("click",(e)=>{ const m = e.target.closest(".card__media"); if(m) fire(m.closest(".card")); });
+  grid.addEventListener("keydown",(e)=>{ if(e.key!=="Enter" && e.key!==" ") return; const m = e.target.closest(".card__media"); if(!m) return; e.preventDefault(); fire(m.closest(".card")); });
+}
+
+/* ---------- Sub-nav sticky (scrollspy) ---------- */
+function initSubnav(){
+  const nav = document.getElementById("gz-subnav"); if(!nav) return;
+  const pill = nav.querySelector(".gz-subnav__pill");
+  const links = Array.prototype.slice.call(nav.querySelectorAll("a"));
+  const secs = links.map(a=>document.querySelector(a.getAttribute("href")));
+  function move(a){
+    const r = a.getBoundingClientRect(), pr = a.parentElement.getBoundingClientRect();
+    pill.style.width = r.width + "px"; pill.style.transform = "translateX(" + (r.left - pr.left - 4) + "px)";
+    links.forEach(l=>l.classList.toggle("active", l===a));
+  }
+  if("IntersectionObserver" in window){
+    const io = new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ const i = secs.indexOf(e.target); if(i>=0) move(links[i]); } }),{ rootMargin:"-45% 0px -50% 0px" });
+    secs.forEach(s=>{ if(s) io.observe(s); });
+    const hero = document.querySelector(".hero");
+    if(hero){ const io2 = new IntersectionObserver((es)=>{ nav.classList.toggle("show", !es[0].isIntersecting); },{ threshold:.06 }); io2.observe(hero); }
+  } else { nav.classList.add("show"); }
+  links.forEach(a=>a.addEventListener("click", ()=>setTimeout(()=>move(a),60)));
+  requestAnimationFrame(()=>move(links[0]));
+}
+
 document.addEventListener("DOMContentLoaded", ()=>{
   renderProductos();
   renderVideos();
@@ -521,5 +604,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
   initTilt();
   initHeroSpot();
   initMagnetic();
+  initRipple();
   initHeroGyroTilt();
+  initFilters();
+  initQuickView();
+  initSubnav();
 });

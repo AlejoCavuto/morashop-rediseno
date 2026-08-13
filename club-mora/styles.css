@@ -185,3 +185,22 @@ body::after {
 /* v12 — scroll suave para CTA "Conocé la banda" (hero → grilla) */
 html { scroll-behavior: smooth; }
 #club-grid { scroll-margin-top: 90px; }
+
+/* v13 — stats grandes + chip disciplina afuera + filtro + fuente Sora */
+.mcard__name{ font-family:"Sora",system-ui,sans-serif; font-weight:700; letter-spacing:.005em; }
+.hero__stats{ gap:clamp(1.6rem,6vw,4rem); }
+.stat__n{ font-family:"Sora",sans-serif; font-size:clamp(2.8rem,2rem + 3.6vw,4.8rem); line-height:.86; font-weight:800; }
+.stat__l{ font-family:"Sora",sans-serif; font-size:clamp(.72rem,.62rem + .35vw,.92rem); letter-spacing:.16em; margin-top:.35rem; }
+.mcard__cat{ display:inline-block; margin:.4rem 0 .1rem; font-family:"Sora",sans-serif; font-size:.62rem; font-weight:700;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--cc,#ff5a3c); background:transparent; border:1.5px solid var(--cc,#ff5a3c);
+  padding:.3em .8em; border-radius:999px; }
+/* card pintada por disciplina */
+.mcard{ border-top:3px solid var(--cc,#E8341A); transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
+.mcard:hover{ transform:translateY(-5px); border-color:var(--cc); box-shadow:0 18px 46px rgba(0,0,0,.5), 0 0 0 1px var(--cc); }
+.mcard__avatar{ box-shadow:0 0 0 2px var(--cc); }
+.club-filters{ display:flex; flex-wrap:wrap; justify-content:center; gap:.5rem; max-width:920px; margin:0 auto 2rem; padding:0 1rem; }
+.club-chip{ font-family:"Sora",sans-serif; font-size:.78rem; font-weight:600; padding:.5rem 1.05rem; border-radius:999px;
+  border:1px solid rgba(255,255,255,.2); background:transparent; color:rgba(255,255,255,.72); cursor:pointer; transition:all .18s ease; }
+.club-chip:hover{ color:#fff; border-color:var(--cc,#fff); }
+.club-chip.is-active{ background:var(--cc,#E8341A); border-color:var(--cc,#E8341A); color:#fff; box-shadow:0 6px 18px rgba(0,0,0,.35); }
+.mcard.is-hidden{ display:none; }

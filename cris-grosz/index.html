@@ -8,15 +8,25 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Cris Grosz × Morashop · Grosz Nutrition" />
-  <meta property="og:description" content="Suplementación deportiva natural de un atleta IFBB. Ahora en Morashop." />
-  <meta name="theme-color" content="#101316" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23101316'/%3E%3Ctext x='16' y='23' font-family='Arial' font-size='20' font-weight='bold' fill='%235BE07C' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E" />
+  <meta property="og:description" content="Suplementación deportiva natural de un ex atleta IFBB. Ahora en Morashop." />
+  <meta name="theme-color" content="#0b1120" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1120'/%3E%3Ctext x='16' y='23' font-family='Arial' font-size='20' font-weight='bold' fill='%23FF9E2C' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=8" />
+  <link rel="stylesheet" href="styles.css?v=24" />
+
+  <!-- Three.js (ES modules desde CDN — vanilla, sin build) -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
 </head>
 <body>
 
@@ -34,6 +44,17 @@
     </a>
   </header>
 
+  <!-- ============ SUB-NAV (scrollspy) ============ -->
+  <nav class="gz-subnav" id="gz-subnav" aria-label="Secciones">
+    <div class="gz-subnav__inner">
+      <span class="gz-subnav__pill" aria-hidden="true"></span>
+      <a href="#quien">Cris</a>
+      <a href="#asesoria">Asesoría</a>
+      <a href="#linea">Línea</a>
+      <a href="#helados">Frosz</a>
+    </div>
+  </nav>
+
   <main>
 
     <!-- ============ HERO ============ -->
@@ -43,31 +64,29 @@
       <div class="hero__spot" aria-hidden="true"></div>
 
       <div class="hero__content">
-        <p class="eyebrow">Cris Grosz <span class="eyebrow__x">×</span> Morashop <span class="eyebrow__dot">·</span> Suplementación natural</p>
+        <p class="eyebrow">Cris Grosz <span class="eyebrow__x">×</span> Morashop <span class="eyebrow__dot">·</span> Personal trainer &amp; preparador físico</p>
         <h1 class="hero__title">
           <span>Trabajo real.</span>
           <span>Resultados <em>reales.</em></span>
         </h1>
         <p class="hero__sub">
-          La línea de <strong>Cris Grosz</strong> —atleta IFBB Men's Physique— ahora en Morashop.
-          Suplementación deportiva natural, con el envío, las cuotas y la confianza de siempre.
+<strong>Personal trainer y preparador físico deportivo.</strong> Cris Grosz preparó atletas, campeones y figuras del país, y creó su propia línea, Grosz Nutrition. Ahora todo en Morashop —con el envío, las cuotas y la confianza de siempre.
         </p>
         <div class="hero__actions">
           <a class="btn btn--green" href="#linea">Ver Grosz Nutrition</a>
           <a class="btn btn--ghost" href="#quien">¿Quién es Cris?</a>
         </div>
         <ul class="hero__creds" aria-label="Credenciales">
-          <li><b>Atleta IFBB</b><span>Men's Physique</span></li>
+          <li><b>Personal trainer</b><span>&amp; preparador físico</span></li>
           <li><b>+360K</b><span>comunidad</span></li>
           <li><b>Envío</b><span>a todo el país</span></li>
         </ul>
       </div>
 
       <div class="hero__figure">
-        <img class="hero__img" src="assets/cris.jpg" alt="Cris Grosz, atleta IFBB Men's Physique" fetchpriority="high" />
+        <img class="hero__img" src="assets/cris.jpg" alt="Cris Grosz, ex atleta IFBB Men's Physique" fetchpriority="high" />
       </div>
 
-      <a class="hero__cue" href="#quien" aria-label="Bajar a conocer a Cris"><span></span></a>
     </section>
 
     <!-- ============ RIEL (divisor) ============ -->
@@ -78,23 +97,23 @@
     <!-- ============ ¿QUIÉN ES? ============ -->
     <section class="quien" id="quien" aria-labelledby="quien-title">
       <div class="quien__media reveal">
-        <img class="quien__img" src="assets/cris.jpg" alt="Cris Grosz, atleta IFBB Men's Physique" loading="lazy" />
+        <img class="quien__img" src="assets/cris.jpg" alt="Cris Grosz, ex atleta IFBB Men's Physique" loading="lazy" />
         <span class="quien__stamp"><span data-count="360">0</span>K</span>
       </div>
 
       <div class="quien__text reveal">
-        <p class="kicker">La autoridad</p>
+        <p class="kicker">El entrenador</p>
         <h2 id="quien-title" data-split>¿Quién es Cris Grosz?</h2>
-        <p>Cristian "Cris" Grosz no habla de resultados: los consigue. Atleta <strong>IFBB de Men's Physique</strong> y preparador físico, llevó a sus alumnos de la teoría al podio —incluido un campeón absoluto— y se hizo referente fitness de Argentina con más de <strong>360 mil</strong> de comunidad.</p>
+        <p>Cristian "Cris" Grosz es <strong>personal trainer y preparador físico deportivo</strong>. No habla de resultados: los consigue —llevó a sus alumnos de la teoría al podio, incluido un campeón absoluto, y se hizo referente fitness de Argentina con más de <strong>360 mil</strong> de comunidad. Ex atleta IFBB de Men's Physique.</p>
         <p>Pero lo que lo separa del resto es simple: <strong>formula sus propios suplementos</strong>. Detrás de Grosz Nutrition hay un atleta que entrena, compite y usa exactamente lo que vende. Su filosofía mezcla cuerpo y cabeza —<em>"se enseña con el ejemplo, no con la palabra"</em>— y esa misma vara es la que pone en cada producto.</p>
 
         <ul class="creds-list reveal" aria-label="Trayectoria">
           <li class="creds-list__item reveal reveal--left" style="--d:0ms">
-            <span class="creds-list__label">Atleta IFBB · Men's Physique</span>
-            <span class="creds-list__badge">Compite</span>
+            <span class="creds-list__label">Personal trainer &amp; preparador físico deportivo</span>
+            <span class="creds-list__badge">Entrena</span>
           </li>
           <li class="creds-list__item reveal reveal--left" style="--d:90ms">
-            <span class="creds-list__label">Preparador físico · transformaciones reales</span>
+            <span class="creds-list__label">Preparó atletas, campeones y figuras</span>
             <span class="creds-list__badge">15% → 4% grasa</span>
           </li>
           <li class="creds-list__item reveal reveal--left" style="--d:180ms">
@@ -102,7 +121,7 @@
             <span class="creds-list__badge">Su marca</span>
           </li>
           <li class="creds-list__item reveal reveal--left" style="--d:270ms">
-            <span class="creds-list__label">+360K comunidad · IFE Capacitaciones</span>
+            <span class="creds-list__label">Ex atleta IFBB · +360K comunidad</span>
             <span class="creds-list__badge">Referente</span>
           </li>
         </ul>
@@ -112,9 +131,17 @@
     <!-- ============ EL ENTRENADOR DE... (resultados) ============ -->
     <section class="proof" aria-labelledby="proof-title">
       <div class="proof__head reveal">
-        <p class="kicker kicker--green">El entrenador</p>
-        <h2 id="proof-title" data-split>El que entrena a los que entrenan</h2>
-        <p class="proof__lede">Cris prepara atletas, competidores e influencers del fitness argentino. No promete: muestra resultados reales.</p>
+        <p class="kicker kicker--green">Sus alumnos</p>
+        <h2 id="proof-title" data-split>El entrenador de las estrellas</h2>
+        <p class="proof__lede">De la música al deporte y los medios — Cris prepara a las figuras que ves en todos lados.</p>
+      </div>
+      <div class="proof__celebs">
+        <figure class="proof__celeb reveal" style="--d:0ms"><img src="assets/entrena/maravilla.jpg" alt="Cris Grosz entrenando a Maravilla Martínez" loading="lazy" /><figcaption>Maravilla Martínez</figcaption></figure>
+        <figure class="proof__celeb reveal" style="--d:70ms"><img src="assets/entrena/emilia.jpg" alt="Cris Grosz con Emilia Mernes" loading="lazy" /><figcaption>Emilia Mernes</figcaption></figure>
+        <figure class="proof__celeb reveal" style="--d:140ms"><img src="assets/entrena/momo.jpg" alt="Cris Grosz entrenando a El Momo" loading="lazy" /><figcaption>El Momo</figcaption></figure>
+        <figure class="proof__celeb reveal" style="--d:0ms"><img src="assets/entrena/angie-velasco.jpg" alt="Cris Grosz entrenando a Angie Velasco" loading="lazy" /><figcaption>Angie Velasco</figcaption></figure>
+        <figure class="proof__celeb reveal" style="--d:70ms"><img src="assets/entrena/gero-arias.jpg" alt="Cris Grosz entrenando a Gero Arias" loading="lazy" /><figcaption>Gero Arias</figcaption></figure>
+        <figure class="proof__celeb reveal" style="--d:140ms"><img src="assets/entrena/lauty-gram.jpg" alt="Cris Grosz entrenando a Lauty Gram" loading="lazy" /><figcaption>Lauty Gram</figcaption></figure>
       </div>
       <div class="proof__grid">
         <article class="proof__card reveal">
@@ -131,6 +158,32 @@
           <span class="proof__big">15&rarr;4<small>% grasa</small></span>
           <h3>Sus alumnos</h3>
           <p>Transformaciones extremas preservando masa muscular. Trabajo real, no atajos.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ ASESORÍA ONLINE (entrená con Cris) ============ -->
+    <section class="plans" id="asesoria" aria-labelledby="plans-title">
+      <div class="plans__head reveal">
+        <p class="kicker">Entrená con Cris</p>
+        <h2 id="plans-title" data-split>Asesoría online</h2>
+        <p class="plans__lede">Plan de alimentación y rutina de entrenamiento personalizados, con seguimiento y soporte del equipo de Cris por WhatsApp. Acompañamiento uno a uno.</p>
+      </div>
+      <div class="plans__grid plans__grid--one">
+        <article class="plan plan--feat reveal">
+          <span class="plan__tag">Grosz Training</span>
+          <h3 class="plan__name">Asesoría online</h3>
+          <p class="plan__for">Acompañamiento real, uno a uno, con el equipo de Cris</p>
+          <ul class="plan__feats">
+            <li>Plan de alimentación personalizado</li>
+            <li>Rutina de entrenamiento a tu objetivo</li>
+            <li>Seguimiento continuo</li>
+            <li>Soporte por WhatsApp</li>
+          </ul>
+          <a class="plan__btn" href="https://wa.me/5491160162831?text=Hola%20Grosz%20Training%2C%20quiero%20la%20asesor%C3%ADa%20online%20de%20Cris" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.6.8 2 .9 2.1.1.1.1.3 0 .5-.1.2-.1.3-.3.5l-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.7.9.2.1.4.2.4.3.1.1.1.5-.1 1Z"/></svg>
+            Contratar por WhatsApp
+          </a>
         </article>
       </div>
     </section>
@@ -161,20 +214,61 @@
       </div>
     </section>
 
-    <!-- ============ LÍNEA GROSZ NUTRITION ============ -->
-    <section class="store" id="linea" aria-labelledby="store-title">
-      <div class="store__head reveal">
-        <p class="kicker">La línea</p>
-        <h2 id="store-title" data-split>Grosz Nutrition</h2>
-        <p class="store__lede">Suplementación deportiva natural. Lo que Cris usa todos los días, ahora en Morashop.</p>
-        <ul class="promo-strip" aria-label="Beneficios">
-          <li>15% OFF efectivo</li>
-          <li>Hasta 3 cuotas sin interés</li>
-          <li>Envío a todo el país</li>
+    <!-- ============ MARCA GROSZ NUTRITION (lockup animado con pesa) ============ -->
+    <section class="gz-brand reveal" aria-label="Grosz Nutrition">
+      <div class="gz-brand__glow" aria-hidden="true"></div>
+      <div class="gz-brand__lockup">
+        <span class="gz-brand__word">GR</span>
+        <span class="gz-brand__o" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="10"/>
+            <circle cx="50" cy="50" r="13" fill="none" stroke="currentColor" stroke-width="7"/>
+            <g fill="currentColor"><circle cx="50" cy="21" r="3.2"/><circle cx="75" cy="37" r="3.2"/><circle cx="75" cy="63" r="3.2"/><circle cx="50" cy="79" r="3.2"/><circle cx="25" cy="63" r="3.2"/><circle cx="25" cy="37" r="3.2"/></g>
+          </svg>
+        </span>
+        <span class="gz-brand__word">SZ</span>
+      </div>
+      <span class="gz-brand__sub">Nutrition</span>
+      <p class="gz-brand__tag">Suplementación deportiva natural · la línea de Cris</p>
+    </section>
+
+    <!-- ============ LA LÍNEA · VISOR 3D EN VIVO (es la tienda) ============ -->
+    <section class="gz3d" id="linea" aria-label="La línea Grosz Nutrition en 3D">
+      <div class="gz3d__sticky">
+        <div class="gz3d__bg" id="gz3d-bg" aria-hidden="true"></div>
+        <span class="gz3d__brand" aria-hidden="true">GROSZ</span>
+        <div class="gz3d__head">
+          <p class="kicker kicker--green">La línea · en vivo 3D</p>
+          <h2 class="gz3d__title">Girá la línea</h2>
+        </div>
+
+        <div class="gz3d__viewer">
+          <button class="gz3d__arrow gz3d__arrow--prev" id="gz3d-prev" type="button" aria-label="Producto anterior">&#8249;</button>
+          <div class="gz3d__stage" id="gz3d-stage">
+            <span class="gz3d__off" id="gz3d-off">33% OFF</span>
+            <canvas id="gz3d-canvas"></canvas>
+            <span class="gz3d__hint" id="gz3d-hint" aria-hidden="true">&#10021; arrastrá para girar</span>
+          </div>
+          <button class="gz3d__arrow gz3d__arrow--next" id="gz3d-next" type="button" aria-label="Producto siguiente">&#8250;</button>
+        </div>
+
+        <div class="gz3d__panel">
+          <p class="gz3d__tag" id="gz3d-tag">Proteína</p>
+          <h3 class="gz3d__name" id="gz3d-name">Whey Protein Vainilla</h3>
+          <p class="gz3d__benefit" id="gz3d-benefit">86% proteína · 30 servicios</p>
+          <div class="gz3d__pricerow">
+            <span class="gz3d__was" id="gz3d-was"></span>
+            <span class="gz3d__now" id="gz3d-now">$39.999</span>
+          </div>
+          <p class="gz3d__cuotas" id="gz3d-cuotas">3 cuotas sin interés</p>
+          <a class="gz3d__cta" id="gz3d-cta" href="https://www.morashop.ar/" rel="noopener">Comprar en Morashop <span aria-hidden="true">&#8594;</span></a>
+        </div>
+
+        <div class="gz3d__dots" id="gz3d-dots"></div>
+        <ul class="gz3d__trust" aria-label="Beneficios">
+          <li>15% OFF efectivo</li><li>3 cuotas sin interés</li><li>Envío a todo el país</li>
         </ul>
       </div>
-      <div class="store__grid" id="product-grid"><!-- inyectado por app.js --></div>
-      <p class="store__note">Boceto · precios y fotos de referencia, se cargan los reales al publicar.</p>
     </section>
 
     <!-- ============ MARQUEE INVERSO (divisor) ============ -->
@@ -182,30 +276,50 @@
       <div class="gz-rail2__track" id="gz-rail2-track" aria-hidden="true"></div>
     </div>
 
-    <!-- ============ PRODUCTO ESTRELLA ============ -->
-    <section class="hero-prod" aria-labelledby="heroprod-title">
-      <div class="hero-prod__viz reveal">
-        <img class="hero-prod__img" src="https://acdn-us.mitiendanube.com/stores/003/462/441/products/creatina-fondo-gris-0b1937f7a74c352cf417125292728167-1024-1024.webp" alt="Creatina Micronizada Monohidrato — Grosz Nutrition" loading="lazy" />
-      </div>
-      <div class="hero-prod__text reveal">
-        <p class="kicker kicker--green">El producto estrella</p>
-        <h2 id="heroprod-title" data-split>Creatina Micronizada<br>Monohidrato</h2>
-        <p>100% pura, 200 mesh, sin sabor. El monohidrato más estudiado del mundo, en la calidad que firma un atleta IFBB.</p>
-        <ul class="claims" aria-label="Beneficios">
-          <li>Fuerza y explosividad</li>
-          <li>Recuperación más rápida</li>
-          <li>Masa muscular magra</li>
-          <li>Rendimiento sostenido</li>
-        </ul>
-        <a class="btn btn--green" href="#linea">Sumar al combo</a>
-      </div>
-    </section>
-
     <!-- ============ BANDA NATURAL ============ -->
     <section class="natural reveal" aria-label="Suplementación deportiva natural">
       <p class="natural__leaf" aria-hidden="true">🌱</p>
       <h2 class="natural__title" data-split>Suplementación deportiva <span>natural</span></h2>
       <p class="natural__sub">Sin vueltas ni promesas mágicas. Productos pensados para rendir, recuperar y sostener —la misma vara con la que Cris compite.</p>
+    </section>
+
+    <!-- ============ FROSZ · HELADO PROTEICO ARTESANAL ============ -->
+    <section class="frosz2 reveal" id="helados" aria-labelledby="frosz-title">
+      <div class="frosz2__head reveal">
+        <p class="kicker kicker--green">Su otra marca</p>
+        <h2 id="frosz-title" data-split>Frosz · Helado proteico</h2>
+        <p class="frosz2__lede">El postre que suma en vez de restar. Helado <strong>proteico artesanal</strong> de Cris —gelato fit, cremoso, a cucharadas— en 10 sabores.</p>
+      </div>
+      <div class="frosz2__grid">
+        <article class="frosz2__flavor reveal" style="--d:0ms"><img src="assets/frosz/chocolate.jpg" alt="Frosz Chocolate" loading="lazy" /><span>Chocolate</span></article>
+        <article class="frosz2__flavor reveal" style="--d:60ms"><img src="assets/frosz/dulce-de-leche.jpg" alt="Frosz Dulce de Leche" loading="lazy" /><span>Dulce de Leche</span></article>
+        <article class="frosz2__flavor reveal" style="--d:120ms"><img src="assets/frosz/frutilla.jpg" alt="Frosz Frutilla" loading="lazy" /><span>Frutilla</span></article>
+        <article class="frosz2__flavor reveal" style="--d:180ms"><img src="assets/frosz/frutos-rojos.jpg" alt="Frosz Frutos Rojos" loading="lazy" /><span>Frutos Rojos</span></article>
+        <article class="frosz2__flavor reveal" style="--d:240ms"><img src="assets/frosz/banana.jpg" alt="Frosz Banana" loading="lazy" /><span>Banana</span></article>
+        <article class="frosz2__flavor reveal" style="--d:0ms"><img src="assets/frosz/limon.jpg" alt="Frosz Limón" loading="lazy" /><span>Limón</span></article>
+        <article class="frosz2__flavor reveal" style="--d:60ms"><img src="assets/frosz/coco.jpg" alt="Frosz Coco" loading="lazy" /><span>Coco</span></article>
+        <article class="frosz2__flavor reveal" style="--d:120ms"><img src="assets/frosz/mani.jpg" alt="Frosz Maní" loading="lazy" /><span>Maní</span></article>
+        <article class="frosz2__flavor reveal" style="--d:180ms"><img src="assets/frosz/vainilla.jpg" alt="Frosz Vainilla" loading="lazy" /><span>Vainilla</span></article>
+        <article class="frosz2__flavor reveal" style="--d:240ms"><img src="assets/frosz/affogato.jpg" alt="Frosz Affogato" loading="lazy" /><span>Affogato</span></article>
+      </div>
+      <p class="frosz2__soon"><span class="badge-soon">Próximamente en Morashop</span></p>
+    </section>
+
+    <!-- ============ LIBRO (teaser) ============ -->
+    <section class="libro reveal" id="libro" aria-labelledby="libro-title" hidden style="display:none">
+      <div class="libro__inner">
+        <div class="libro__text">
+          <p class="kicker kicker--green">Muy pronto</p>
+          <h2 id="libro-title" data-split>El libro de Cris</h2>
+          <p>Su método, su historia y su forma de entrenar y comer —en papel. Estamos terminando los detalles para que lo tengas en tus manos.</p>
+          <span class="badge-soon">Próximamente</span>
+        </div>
+        <div class="libro__viz reveal" aria-hidden="true">
+          <div class="libro__book">
+            <span class="libro__cover"><i>GROSZ</i><b>El método</b></span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ============ CRIS EN ACCIÓN (videos) ============ -->
@@ -217,50 +331,6 @@
       <div class="videos__grid" id="video-grid"><!-- inyectado por app.js --></div>
     </section>
 
-    <!-- ============ GROSZ TRAINING (asesoría) ============ -->
-    <section class="plans" id="asesoria" aria-labelledby="plans-title">
-      <div class="plans__head reveal">
-        <p class="kicker">Más que suplementos</p>
-        <h2 id="plans-title" data-split>Entrená con Grosz Training</h2>
-        <p class="plans__lede">Asesoría 100% personalizada: plan de comidas, rutina, suplementación y seguimiento. Elegí cuánto querés a Cris adentro.</p>
-      </div>
-      <div class="plans__grid">
-        <article class="plan reveal">
-          <h3 class="plan__name">Plan Esencial</h3>
-          <p class="plan__for">Para arrancar con cabeza</p>
-          <ul class="plan__feats">
-            <li>Plan de comidas personalizado</li>
-            <li>Plan de suplementación</li>
-            <li>Rutina a tu objetivo</li>
-            <li>Soporte por WhatsApp</li>
-          </ul>
-          <a class="plan__btn" href="https://wa.me/5491160162831?text=Hola%20Grosz%20Training,%20quiero%20el%20Plan%20Esencial" target="_blank" rel="noopener">Empezar</a>
-        </article>
-        <article class="plan plan--feat reveal" style="--d:90ms">
-          <span class="plan__tag">Más elegido</span>
-          <h3 class="plan__name">Plan Pro</h3>
-          <p class="plan__for">Acompañamiento real</p>
-          <ul class="plan__feats">
-            <li>Todo lo del Esencial</li>
-            <li><b>Videoconsulta con Cris Grosz</b></li>
-            <li>Ajuste mensual del plan</li>
-            <li>Seguimiento diario</li>
-          </ul>
-          <a class="plan__btn" href="https://wa.me/5491160162831?text=Hola%20Grosz%20Training,%20quiero%20el%20Plan%20Pro" target="_blank" rel="noopener">Quiero este</a>
-        </article>
-        <article class="plan reveal" style="--d:180ms">
-          <h3 class="plan__name">Plan Élite</h3>
-          <p class="plan__for">Lo máximo, presencial</p>
-          <ul class="plan__feats">
-            <li>Todo lo del Pro</li>
-            <li><b>Consulta presencial</b></li>
-            <li>Preparación de atleta</li>
-            <li>Prioridad total</li>
-          </ul>
-          <a class="plan__btn" href="https://wa.me/5491160162831?text=Hola%20Grosz%20Training,%20quiero%20el%20Plan%20Elite" target="_blank" rel="noopener">Postularme</a>
-        </article>
-      </div>
-    </section>
 
     <!-- ============ SEGUÍ A CRIS ============ -->
     <section class="follow reveal" aria-labelledby="follow-title">
@@ -279,6 +349,10 @@
         <a href="https://www.youtube.com/@groszcris" target="_blank" rel="noopener noreferrer" data-net="yt">
           <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
           <span>YouTube</span>
+        </a>
+        <a href="https://kick.com/groszcris" target="_blank" rel="noopener noreferrer" data-net="kick">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 3h5v5h2V6h2V4h5v6h-2v2h-2v2h2v2h2v6h-5v-2h-2v-2H9v5H4V3z"/></svg>
+          <span>Kick</span>
         </a>
       </div>
     </section>
@@ -302,6 +376,7 @@
     </div>
   </footer>
 
-  <script src="app.js?v=8"></script>
+  <script src="app.js?v=13"></script>
+  <script type="module" src="gz3d.js?v=8"></script>
 </body>
 </html>
