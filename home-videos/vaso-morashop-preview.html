@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preview · Vaso Morashop</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0b1120;color:#fff;font-family:"Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .note{background:#111827;color:#9fb0d6;text-align:center;font-size:13px;padding:10px}
+  .mock-top{background:#E8341A;color:#fff;text-align:center;font-weight:800;font-size:13px;padding:10px}
+  .mock-nav{background:#001c4b;color:#fff;display:flex;flex-wrap:wrap;gap:20px;justify-content:center;align-items:center;padding:14px;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:15px;letter-spacing:.04em;border-bottom:3px solid #E8341A}
+  .mock-nav b{font-family:"Anton",sans-serif;font-size:20px}.mock-nav span{opacity:.9}
+
+  .cgv{ position:relative; width:100%; height:62vh; height:62svh; min-height:440px; max-height:660px; overflow:hidden; display:flex; align-items:flex-end; isolation:isolate; }
+  .cgv__video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; z-index:0; background:#0b1120; }
+  .cgv__wm{ position:absolute; z-index:1; right:1.5%; top:50%; transform:translateY(-50%); font-family:"Anton",sans-serif; font-size:clamp(9rem,26vw,24rem); line-height:.75; color:rgba(255,255,255,.06); letter-spacing:-.02em; pointer-events:none; white-space:nowrap; }
+  .cgv__scrim{ position:absolute; inset:0; z-index:2; pointer-events:none; background:radial-gradient(120% 130% at 12% 92%, rgba(5,8,16,.92) 0%, rgba(5,8,16,.35) 40%, transparent 66%),linear-gradient(90deg, rgba(5,8,16,.9) 0%, rgba(5,8,16,.55) 38%, rgba(5,8,16,.08) 66%, transparent 88%),linear-gradient(0deg, rgba(5,8,16,.75) 0%, transparent 40%); }
+  .cgv__inner{ position:relative; z-index:3; width:100%; max-width:1240px; margin:0 auto; padding:clamp(1.5rem,4.5vw,3.2rem) clamp(1.2rem,5vw,3.4rem); }
+  .cgv__content{ position:relative; max-width:590px; padding-left:22px; }
+  .cgv__content::before{ content:""; position:absolute; left:0; top:6px; bottom:6px; width:4px; border-radius:4px; background:linear-gradient(180deg,#E8341A,transparent); }
+  .cgv__badge{ display:inline-flex; align-items:center; gap:7px; background:#E8341A; color:#fff; font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:13.5px; letter-spacing:.13em; text-transform:uppercase; padding:6px 13px; border-radius:6px; }
+  .cgv__badge i{ width:7px;height:7px;border-radius:50%;background:#fff; }
+  .cgv__eyebrow{ margin-top:15px; color:#b9c6e6; font-family:"Barlow Condensed",sans-serif; font-weight:700; font-size:15px; letter-spacing:.22em; text-transform:uppercase; text-shadow:0 2px 12px rgba(0,0,0,.7); }
+  .cgv__title{ font-family:"Anton",sans-serif; line-height:.86; font-size:clamp(3rem,8.5vw,5.8rem); margin-top:8px; text-transform:uppercase; color:#fff; text-shadow:0 6px 34px rgba(0,0,0,.6); }
+  .cgv__title span{ color:#E8341A; }
+  .cgv__sub{ margin-top:16px; color:#e7eeff; font-size:clamp(15px,1.7vw,17.5px); line-height:1.5; max-width:42ch; text-shadow:0 2px 16px rgba(0,0,0,.75); }
+  .cgv__sub b{ color:#fff; font-weight:800; }
+  .cgv__cta{ display:inline-flex; align-items:center; gap:10px; margin-top:24px; background:linear-gradient(180deg,#ff5330,#E8341A); color:#fff; text-decoration:none; font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.06em; font-size:clamp(18px,2.1vw,22px); padding:15px 34px; border-radius:11px; box-shadow:0 18px 40px -12px rgba(232,52,26,.75); }
+  .cgv__cta svg{ width:20px; height:20px; }
+</style>
+</head>
+<body>
+  <div class="note">PREVIEW · Nuevo hero "Vaso Morashop" (reemplaza el de Gero). Video: 800 mobile / 1440 desktop. Fijate el encuadre.</div>
+  <div class="mock-top">🔥 ¡HOY JUEVES DE SUPLEMENTOS! 10% OFF · CÓDIGO JUEVES10</div>
+  <nav class="mock-nav"><b>Morashop</b><span>Suplementos</span><span>Supermercado</span><span>Gero Arias</span><span>Cris Grosz</span><span>Club Mora</span></nav>
+
+  <section class="cgv" aria-label="Nuevo vaso Morashop">
+    <video class="cgv__video" autoplay muted loop playsinline preload="auto">
+      <source src="https://cdn.jsdelivr.net/gh/AlejoCavuto/morashop-rediseno@main/home-videos/video_final_800.mp4" type="video/mp4">
+    </video>
+    <div class="cgv__scrim" aria-hidden="true"></div>
+    <div class="cgv__inner"><div class="cgv__content">
+      <span class="cgv__badge"><i></i> Nuevo ingreso</span>
+      <h2 class="cgv__title">El vaso<br><span>Morashop</span></h2>
+      <p class="cgv__sub">Ya disponible — <b>al precio de siempre.</b></p>
+      <a class="cgv__cta" href="#">Comprar ahora <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div></div>
+  </section>
+
+  <script>
+  (function(){ if(window.innerWidth<768) return; var v=document.querySelector('.cgv__video'),s=v&&v.querySelector('source'); if(!s)return;
+    s.src='https://cdn.jsdelivr.net/gh/AlejoCavuto/morashop-rediseno@main/home-videos/video_final_1440.mp4'; v.load(); var p=v.play(); if(p&&p.catch)p.catch(function(){}); })();
+  </script>
+</body>
+</html>

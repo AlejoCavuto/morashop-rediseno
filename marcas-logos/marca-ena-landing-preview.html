@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ena · landing (v3 premium)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{ --navy:#16223a; --navy-2:#22345c; --steel:#65748e; --red:#E8341A; --gold:#f5b301; --line:#e5e9f0; --bg:#eef2f6; }
+  body{background:var(--bg);color:var(--navy);font-family:"Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .note{background:#111827;color:#9fb0d6;text-align:center;font-size:13px;padding:10px}
+  .mock-nav{background:#001c4b;color:#fff;display:flex;flex-wrap:wrap;gap:20px;justify-content:center;align-items:center;padding:12px;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:.04em;border-bottom:3px solid #E8341A}
+  .mock-nav b{font-family:"Anton",sans-serif;font-size:19px}.mock-nav span{opacity:.9}
+  .wrap{ max-width:1200px; margin:0 auto; padding-left:clamp(1rem,4vw,2rem); padding-right:clamp(1rem,4vw,2rem) }
+
+  /* ===== HERO SPLIT ===== */
+  .eh{ position:relative; overflow:hidden; background:linear-gradient(160deg,#0e1830 0%, #16223a 55%, #0c1428 100%); color:#fff; }
+  .eh::before{ content:''; position:absolute; inset:0; opacity:.5; background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px); background-size:36px 36px; -webkit-mask:radial-gradient(90% 100% at 20% 15%,#000,transparent 70%); mask:radial-gradient(90% 100% at 20% 15%,#000,transparent 70%); }
+  .eh__orb{ position:absolute; right:6%; top:44%; transform:translateY(-50%); width:min(560px,46vw); aspect-ratio:1; border-radius:50%; background:radial-gradient(circle at 42% 40%, rgba(232,52,26,.30), transparent 60%); filter:blur(8px) }
+  .eh__grid{ position:relative; z-index:1; padding:clamp(2rem,4.5vw,3.4rem) 0 clamp(2.4rem,5vw,3.6rem); max-width:760px }
+  .eh__chip{ display:inline-flex;align-items:center;gap:8px;padding:6px 13px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#dbe4f5 }
+  .eh__chip i{width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red)}
+  .eh__logo{height:clamp(48px,6vw,76px);margin:16px 0 4px;filter:brightness(0) invert(1) drop-shadow(0 8px 20px rgba(0,0,0,.4))}
+  .eh__t{font-family:"Anton",sans-serif;font-size:clamp(2.6rem,5.6vw,4.6rem);line-height:.9;text-transform:uppercase;color:#fff;margin-top:10px;text-shadow:0 6px 30px rgba(0,0,0,.4)}
+  .eh__t span{color:#ff6a4d}
+  .eh__s{margin-top:14px;color:#c3cde0;font-size:clamp(15px,1.7vw,17px);max-width:42ch;line-height:1.55}
+  .eh__stats{ display:flex; gap:26px; margin-top:20px; flex-wrap:wrap }
+  .eh__stat b{ font-family:"Anton",sans-serif; font-size:1.9rem; color:#fff; display:block; line-height:1 }
+  .eh__stat span{ font-family:"Barlow Condensed",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:12px; color:#8fa0c0 }
+  .eh__cta{ display:inline-flex;align-items:center;gap:9px;margin-top:24px;background:var(--red);color:#fff;font-family:"Barlow Condensed",sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:17px;padding:14px 30px;border-radius:11px;text-decoration:none;box-shadow:0 16px 38px -12px rgba(232,52,26,.6);transition:transform .18s }
+  .eh__cta:hover{ transform:translateY(-2px) }
+  /* feature product */
+  .feat{ position:relative; background:linear-gradient(165deg,#ffffff,#eef1f7); border-radius:22px; padding:22px; box-shadow:0 40px 80px -30px rgba(0,0,0,.6); color:var(--navy) }
+  .feat__badge{ position:absolute; left:18px; top:-13px; display:inline-flex; align-items:center; gap:6px; background:var(--gold); color:#3a2a00; font-family:"Barlow Condensed",sans-serif; font-weight:900; text-transform:uppercase; letter-spacing:.05em; font-size:12.5px; padding:5px 12px; border-radius:999px; box-shadow:0 8px 18px -6px rgba(245,179,1,.6) }
+  .feat__media{ aspect-ratio:16/11; display:flex; align-items:center; justify-content:center; }
+  .feat__media img{ max-width:78%; max-height:100%; object-fit:contain; filter:drop-shadow(0 20px 30px rgba(0,0,0,.25)) }
+  .feat__name{ font-weight:700; font-size:15px; line-height:1.3; margin-top:6px; color:#31415f }
+  .feat__row{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:10px }
+  .feat__price b{ font-family:"Barlow Condensed",sans-serif; font-weight:900; font-size:30px; color:var(--navy); display:block; line-height:1 }
+  .feat__price s{ color:#9aa6bb; font-size:13px }
+  .feat__buy{ background:var(--navy); color:#fff; font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.04em; font-size:14px; padding:12px 20px; border-radius:10px; text-decoration:none; transition:background .15s }
+  .feat__buy:hover{ background:var(--red) }
+  @media (max-width:820px){ .eh__grid{ grid-template-columns:1fr; gap:22px } .feat{ order:2 } }
+
+  /* ===== BANDA CONFIANZA ===== */
+  .trust{ background:var(--navy); color:#cdd6e8 }
+  .trust__in{ display:flex; flex-wrap:wrap; justify-content:center; gap:12px 34px; padding:13px 0; font-family:"Barlow Condensed",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:13px }
+  .trust__in span{ display:inline-flex; align-items:center; gap:8px }
+  .trust__in svg{ width:16px; height:16px; color:#ff6a4d }
+
+  /* ===== BESTSELLERS ===== */
+  .best{ padding:clamp(2.2rem,4vw,3rem) 0 }
+  .best__head{ display:flex; align-items:baseline; gap:12px; margin-bottom:18px }
+  .best__k{ font-family:"Barlow Condensed",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.2em; font-size:13px; color:var(--red) }
+  .best__t{ font-family:"Barlow Condensed",sans-serif; font-weight:900; text-transform:uppercase; font-size:clamp(1.5rem,3.2vw,2rem); color:var(--navy) }
+  .brow{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px }
+
+  /* ===== NAV DE TIPOS ===== */
+  .tnav{ position:sticky; top:0; z-index:30; background:var(--navy); box-shadow:0 6px 20px -12px rgba(0,0,0,.5) }
+  .tnav__in{ max-width:1200px; margin:0 auto; padding:10px clamp(1rem,4vw,2rem); display:flex; gap:9px; overflow-x:auto }
+  .tnav a{ flex:none; display:inline-flex; align-items:center; gap:7px; font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.04em; font-size:14px; color:#c7d2e6; text-decoration:none; padding:7px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.16); white-space:nowrap; transition:.15s }
+  .tnav a:hover{ background:var(--red); color:#fff; border-color:var(--red) }
+  .tnav svg{ width:15px; height:15px }
+
+  /* ===== SECCIONES ===== */
+  .sec{ scroll-margin-top:62px }
+  .sec__wrap{ max-width:1200px; margin:0 auto; padding:clamp(2.2rem,4vw,3.2rem) clamp(1rem,4vw,2rem) }
+  .sec--tint{ background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line) }
+  .sec__head{ display:flex; align-items:center; gap:14px; margin:0 0 20px }
+  .sec__ico{ width:48px; height:48px; flex:none; border-radius:14px; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,var(--navy-2),var(--navy)); color:#fff; box-shadow:0 10px 22px -12px rgba(22,34,58,.7) }
+  .sec__ico svg{ width:25px; height:25px }
+  .sec__ttl{ font-family:"Barlow Condensed",sans-serif; font-weight:900; text-transform:uppercase; font-size:clamp(1.5rem,3.4vw,2.15rem); color:var(--navy); line-height:1 }
+  .sec__ttl small{ display:block; font-family:"Barlow Condensed",sans-serif; font-weight:700; font-size:13px; letter-spacing:.06em; color:var(--steel); margin-top:3px }
+  .sec__more{ margin-left:auto; font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.05em; font-size:13.5px; color:var(--red); text-decoration:none; white-space:nowrap }
+
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px }
+  .card{ background:#fff; border:1px solid var(--line); border-radius:16px; overflow:hidden; display:flex; flex-direction:column; text-decoration:none; color:inherit; transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease }
+  .sec--tint .card{ background:#fbfcfe }
+  .card:hover{ transform:translateY(-5px); border-color:var(--navy); box-shadow:0 22px 44px -22px rgba(22,34,58,.5) }
+  .card__media{ position:relative; aspect-ratio:1/1; background:radial-gradient(120% 100% at 50% 0%,#ffffff,#eef1f6); overflow:hidden; display:flex; align-items:center; justify-content:center; padding:14px }
+  .card__media img{ max-width:100%; max-height:100%; object-fit:contain; transition:transform .35s ease }
+  .card:hover .card__media img{ transform:scale(1.07) }
+  .card__off{ position:absolute; left:0; top:12px; background:var(--red); color:#fff; font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:12.5px; padding:4px 10px 4px 9px; border-radius:0 6px 6px 0; box-shadow:0 6px 14px -6px rgba(232,52,26,.6) }
+  .card__b{ padding:13px 14px 15px; display:flex; flex-direction:column; flex:1 }
+  .stars{ display:flex; align-items:center; gap:4px; margin-bottom:7px; font-size:12px; color:var(--steel) }
+  .stars svg{ width:13px; height:13px; color:var(--gold) }
+  .card__name{ font-size:13.5px; font-weight:600; line-height:1.35; color:#31415f; min-height:3.6em; margin-bottom:10px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden }
+  .card__price{ display:flex; align-items:baseline; gap:8px; margin-top:auto }
+  .card__was{ color:#9aa6bb; text-decoration:line-through; font-size:13px }
+  .card__now{ font-family:"Barlow Condensed",sans-serif; font-weight:900; font-size:25px; color:var(--navy); line-height:1 }
+  .card__ef{ margin-top:7px; display:inline-block; background:rgba(4,120,87,.08); color:#047857; font-size:12px; font-weight:700; padding:3px 8px; border-radius:6px }
+  .card__cuot{ margin-top:6px; font-size:11.5px; color:var(--steel) }
+  .card__cta{ margin-top:12px; text-align:center; background:var(--navy); color:#fff; font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.05em; font-size:14px; padding:11px; border-radius:10px; transition:background .15s }
+  .card:hover .card__cta{ background:var(--red) }
+
+  /* CTA final */
+  .final{ background:linear-gradient(160deg,#16223a,#0c1428); color:#fff; text-align:center; padding:clamp(2.6rem,6vw,4rem) 1.2rem; position:relative; overflow:hidden }
+  .final__t{ font-family:"Barlow Condensed",sans-serif; font-weight:900; text-transform:uppercase; font-size:clamp(1.8rem,4vw,2.8rem); }
+  .final__cta{ display:inline-flex; margin-top:18px; background:var(--red); color:#fff; font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.05em; font-size:16px; padding:14px 34px; border-radius:11px; text-decoration:none; box-shadow:0 16px 38px -12px rgba(232,52,26,.6) }
+
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .6s ease, transform .6s ease }
+  .reveal.is-in{ opacity:1; transform:none }
+  @media (max-width:600px){ .grid{ grid-template-columns:repeat(2,1fr); gap:11px } .card__now{ font-size:21px } }
+</style>
+</head>
+<body>
+  <div class="note">PREVIEW · Ena v3 premium — hero split + producto estrella, bestsellers con ratings, banda de confianza, estrellas en cards, reveal al scroll.</div>
+  <nav class="mock-nav"><b>Morashop</b><span>Suplementos</span><span>Supermercado</span><span>Gero Arias</span><span>Cris Grosz</span><span>Club Mora</span></nav>
+
+  <section class="eh"><div class="eh__orb"></div><div class="wrap"><div class="eh__grid">
+    <div>
+      <span class="eh__chip"><i></i> Marca oficial · Ena Sport</span>
+      <img class="eh__logo" src="https://cdn.jsdelivr.net/gh/AlejoCavuto/morashop-rediseno@main/marcas-logos/ena.png" alt="Ena">
+      <h1 class="eh__t">Descubrí tu <span>potencial</span></h1>
+      <p class="eh__s">La fuerza empieza en tu cabeza. Toda la línea Ena Sport — al precio de siempre, con la confianza de siempre.</p>
+      <div class="eh__stats"><div class="eh__stat"><b>73</b><span>Productos</span></div><div class="eh__stat"><b>11</b><span>Tipos</span></div><div class="eh__stat"><b>15%</b><span>OFF Efectivo</span></div></div>
+      <a class="eh__cta" href="#proteinas">Ver la línea ↓</a>
+    </div>
+  </div></div></section>
+
+  <div class="trust"><div class="wrap"><div class="trust__in">
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> ANMAT · GMP aprobados</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Envío a todo el país</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Producto original</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg> 3 cuotas sin interés</span>
+  </div></div></div>
+
+  <div class="wrap best reveal"><div class="best__head"><span class="best__k">★ Lo más elegido</span><h2 class="best__t">Los favoritos de la comunidad</h2></div><div class="brow" id="best"></div></div>
+
+  <nav class="tnav"><div class="tnav__in" id="tnav"></div></nav>
+  <div id="app"></div>
+
+  <section class="final"><div class="final__t">Toda la línea Ena, en Morashop</div><a class="final__cta" href="#">Ver los 73 productos →</a></section>
+
+  <script>
+  var IMG="https://acdn-us.mitiendanube.com/stores/002/268/228/products/";
+  var POOL=["choco-bfa8f3ba2c398239a017141674811164-480-0.webp","ena-sport-creatina-micronizada-300-g-polvo-doypack-fruit-pu-6517ee3a87f925ad4d16965530975136-480-0.webp","creatina-monohidrato-1-kg-ena-sport-micronizada-sin-sabor-e2b9355a0359f1acef17625211538351-480-0.webp","creatina-creapure-monohidrato-ena-sport-en-pote-200grs-sabor-sin-sabor-2e29a4fef98923d55a17510352284857-480-0.webp","amino-4500-x-150-caps-ena-aminoacidos-6298743dc2986fc07b17510280397184-480-0.webp","beta-attack-60-tabs-ena-sport-beta-alanina-pre-work-sabor-na-e6b93684cca404d6c917503396146068-480-0.webp","carnitina-1500-ena-60-caps-sabor-sin-sabor-68e599f33ea45e47ae17510329786966-480-0.webp","17673-2c39ee6dc968fb367317465390292958-480-0.webp","17674-c0e40ebb8ceb50bbad17465392923093-480-0.webp","17675-192aca5a9bf16cf8be17465393658353-480-0.webp","19-51200ddf22188b235d17170955743110-480-0.webp","21-f0b1a22a75e25f0a4d17170956325266-480-0.webp","23-44b0df35464f171eba17170956908016-480-0.webp","24-9c945376c8519851f217170957162450-480-0.webp","26-e03c02f3c48d47686f17170957926647-480-0.webp","28-41134cd733260c0a5c17170958468243-480-0.webp","89-264be7d23b27911e0217273671796296-480-0.webp","90-56bb09202cbee47ddc17273672392355-480-0.webp","93-9bcefe9dfc5e3f75fb17273674355651-480-0.webp","94-67e88262e43cda00a217273674936735-480-0.webp"];
+  var STAR='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"/></svg>';
+  var ST5=STAR+STAR+STAR+STAR+STAR;
+  var ic={prot:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9v6M20 9v6M2 11v2M22 11v2M7 6v12M17 6v12M7 12h10"/></svg>',crea:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="8" r="2.4"/><circle cx="18" cy="8" r="2.4"/><circle cx="12" cy="17" r="2.4"/><path d="M8 9.4l3 6M16 9.4l-3 6M8 8h8"/></svg>',col:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 1 1-12 0c0-4.5 6-11 6-11z"/></svg>',vit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="9" width="18" height="6" rx="3"/><path d="M12 9v6"/></svg>',amino:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3v6a6 6 0 0 0 12 0V3M6 21v-6a6 6 0 0 1 12 0v6M7 8h10M7 16h10"/></svg>',pre:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>',quem:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2c1 4 4 5 4 9a4 4 0 1 1-8 0c0-2 1-3 2-4 .5 2 2 2 2 4"/></svg>',barra:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="8" rx="2"/><path d="M7 8v8M11 8v8M15 8v8"/></svg>',mass:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8v8M20 8v8M6 6v12M18 6v12M6 12h12"/></svg>'};
+  // [name, was, now, off, reviews]
+  var SECS=[
+    {id:"proteinas",t:"Proteínas",sub:"Whey, True Made, vegana",ic:"prot",items:[["Ena Sport True Made Proteínas Double Rich 930g",100619,95588,"5%",105],["100% Whey Protein Concentrada Vainilla 2Lb",74567,70838,"",85],["Whey X-Pro Proteína 907g",97898,93003,"",0],["Ena Starter Protein 400g Café con Leche",43124,40967,"",0],["Plant Protein Ena Vegana",53904,51208,"",0],["True Made 453g Double Rich Chocolate",52106,49500,"",0]]},
+    {id:"creatinas",t:"Creatinas",sub:"Micronizada, Creapure, monohidrato",ic:"crea",tint:1,items:[["Creatina Micronizada 300g Fruit Punch",27129,25772,"5%",66],["Creatina Monohidrato 1kg Micronizada",88302,83886,"",39],["Creatina Creapure Monohidrato 200g",44103,41897,"",0],["Creatina con Electrolitos 293g Blue Lemon",29948,28450,"",0],["Creatina Micronizada 150g Neutro",19195,18235,"",0]]},
+    {id:"colagenos",t:"Colágenos",sub:"Sport, Truemade, Enacción",ic:"col",items:[["Colágeno Sport 407g Magnesio + Cúrcuma Naranja",35082,33327,"",0],["Truemade Pure Collagen 349g Blueberry",37463,35589,"",0],["Enacción Colágeno Complex 270g Limonada",31445,29872,"",0],["Enacción Colágeno Move x30 comp",18418,17497,"",0]]},
+    {id:"vitaminas",t:"Vitaminas & Salud",sub:"Multivit, ZMA, magnesio",ic:"vit",tint:1,items:[["Multivitamin Ena Sport 60 comp",18376,17457,"5%",13],["ZMA 300mg 60 caps · Zinc Magnesio B6",12735,12098,"",21],["Citrato de Magnesio 60 servicios Lemonade",19766,18777,"",0],["Trans Resveratrol 60 caps Antioxidante",44920,42674,"",0]]},
+    {id:"aminos",t:"Aminos & BCAA",sub:"Glutamina, BCAA, carnitina",ic:"amino",items:[["Glutamina Rápida Recuperación 300g",30331,28814,"",0],["BCAA 2:1:1 90 caps Ramificados",17071,16217,"",0],["Amino 4500 x150 caps",30097,28592,"",0],["Carnitina 1500 60 caps",17071,16217,"",0]]},
+    {id:"preentreno",t:"Pre-entrenos",sub:"Pre War, beta alanina",ic:"pre",tint:1,items:[["Pre War Energizante Pre Entreno 400g Lemonade",35846,34053,"",0],["Beta Attack 60 tabs · Beta Alanina",14106,13400,"",0]]},
+    {id:"quemadores",t:"Quemadores",sub:"Termogénicos, descenso de peso",ic:"quem",items:[["Hydroxy Max Black 120 tabs Termogénico",13439,12767,"",0],["Ripped X Quemador de Grasas",13477,12803,"",0],["Hydroxy Max Neutro 120 tabs",12110,11504,"",0]]},
+    {id:"barras",t:"Barras & Carbos",sub:"Energy bar, carbo energy",ic:"barra",tint:1,items:[["Energy Bar x16 Proteína Varios Sabores",33780,32091,"5%",32],["Carbo Energy 546g Blueberry",17520,16644,"",0]]},
+    {id:"gainer",t:"Ganadores de Masa",sub:"Mass gainer",ic:"mass",items:[["Ena Super Ultra Mass 1500g",60193,57183,"",0]]}
+  ];
+  var money=n=>"$"+n.toLocaleString("es-AR"); var k=0;
+  function card(it){ var was=it[1],now=it[2],off=it[3],rv=it[4]; var img=IMG+POOL[k++%POOL.length];
+    return '<a class="card" href="#"><div class="card__media">'+(off?'<span class="card__off">-'+off+' OFF</span>':'')+'<img src="'+img+'" alt="'+it[0]+'" loading="lazy"></div>'
+      +'<div class="card__b"><div class="stars">'+ST5+(rv?'<span>('+rv+')</span>':'')+'</div><div class="card__name">'+it[0]+'</div>'
+      +'<div class="card__price">'+(was?'<span class="card__was">'+money(was)+'</span>':'')+'<span class="card__now">'+money(now)+'</span></div>'
+      +'<span class="card__ef">'+money(Math.round(now*0.85))+' con Efectivo</span>'
+      +'<div class="card__cuot">3 x '+money(Math.round(now/3))+' sin interés</div>'
+      +'<div class="card__cta">Comprar</div></div></a>';
+  }
+  // bestsellers = los que tienen reviews
+  var best=[]; SECS.forEach(s=>s.items.forEach(it=>{ if(it[4]) best.push(it); }));
+  best.sort((a,b)=>b[4]-a[4]);
+  document.getElementById("best").innerHTML = best.map(card).join("");
+  document.getElementById("tnav").innerHTML = SECS.map(s=>'<a href="#'+s.id+'">'+ic[s.ic]+s.t+'</a>').join("");
+  document.getElementById("app").innerHTML = SECS.map(function(s){
+    var inner='<div class="sec__head"><div class="sec__ico">'+ic[s.ic]+'</div><div><div class="sec__ttl">'+s.t+'<small>'+s.sub+'</small></div></div><a class="sec__more" href="#">Ver todos →</a></div><div class="grid">'+s.items.map(card).join("")+'</div>';
+    return '<section class="sec reveal'+(s.tint?' sec--tint':'')+'" id="'+s.id+'"><div class="sec__wrap">'+inner+'</div></section>';
+  }).join("");
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("is-in");io.unobserve(e.target);}});},{threshold:.05,rootMargin:"0px 0px -6% 0px"});
+  document.querySelectorAll(".reveal").forEach(function(el){io.observe(el);});
+  </script>
+</body>
+</html>

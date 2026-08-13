@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heros elevados · estética premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700;800;900&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#07080b;color:#fff;font-family:"Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .note{background:#111827;color:#9fb0d6;text-align:center;font-size:13px;padding:10px}
+  .mock-top{background:#E8341A;color:#fff;text-align:center;font-weight:800;font-size:13px;padding:10px}
+  .mock-nav{background:#001c4b;color:#fff;display:flex;flex-wrap:wrap;gap:20px;justify-content:center;align-items:center;padding:14px;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:15px;letter-spacing:.04em;border-bottom:3px solid #E8341A}
+  .mock-nav b{font-family:"Anton",sans-serif;font-size:20px}.mock-nav span{opacity:.9}
+
+  .eh{ position:relative; overflow:hidden; min-height:50vh; display:flex; align-items:center;
+    background:linear-gradient(155deg,#101218 0%, #0a0b0f 60%, #070809 100%); isolation:isolate; }
+  /* orbe de luz color de marca */
+  .eh__orb{ position:absolute; right:-8%; top:-25%; width:min(680px,70vw); aspect-ratio:1; border-radius:50%; z-index:0;
+    background:radial-gradient(circle at 42% 42%, color-mix(in srgb,var(--c) 55%, transparent), transparent 60%); filter:blur(6px); }
+  /* anillo + logo gigante de fondo */
+  .eh__ring{ position:absolute; right:3%; top:50%; transform:translateY(-50%); width:min(430px,42vw); aspect-ratio:1; border-radius:50%; z-index:0;
+    border:1px solid color-mix(in srgb,var(--c) 32%, transparent); box-shadow:inset 0 0 90px color-mix(in srgb,var(--c) 16%, transparent); display:flex; align-items:center; justify-content:center; }
+  .eh__ghost{ width:64%; max-height:52%; object-fit:contain; opacity:.10; filter:grayscale(1) brightness(0) invert(1); }
+  /* grain */
+  .eh::after{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.055; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  /* vignette abajo */
+  .eh::before{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(180deg, transparent 55%, rgba(0,0,0,.35)); }
+
+  .eh__in{ position:relative; z-index:2; max-width:1180px; margin:0 auto; padding:clamp(2rem,5vw,3.6rem) clamp(1.2rem,5vw,3rem); width:100%; }
+  .eh__chip{ display:inline-flex; align-items:center; gap:8px; padding:6px 13px; border-radius:999px;
+    background:color-mix(in srgb,var(--c) 14%, transparent); border:1px solid color-mix(in srgb,var(--c) 34%, transparent);
+    font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:12.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--c); }
+  .eh__chip i{ width:6px; height:6px; border-radius:50%; background:var(--c); box-shadow:0 0 8px var(--c); }
+  .eh__logo{ display:block; height:clamp(48px,7.5vw,86px); width:auto; margin:18px 0 4px; filter:drop-shadow(0 8px 24px rgba(0,0,0,.45)); }
+  .eh__logo.inv{ filter:brightness(0) invert(1) drop-shadow(0 8px 20px rgba(0,0,0,.5)); }
+  .eh__t{ font-family:"Anton",sans-serif; font-weight:400; text-transform:uppercase; line-height:.88; letter-spacing:.005em;
+    font-size:clamp(2.5rem,6vw,4.8rem); margin-top:14px; color:#fff; max-width:16ch; text-shadow:0 4px 30px rgba(0,0,0,.4); }
+  .eh__s{ margin-top:15px; font-size:clamp(15px,1.7vw,17.5px); line-height:1.55; color:#c6cad3; max-width:42ch; }
+  .eh__cta{ position:relative; overflow:hidden; display:inline-flex; align-items:center; gap:9px; margin-top:24px; background:var(--c); color:var(--ink,#0a0b0e);
+    font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.05em; font-size:17.5px; padding:14px 32px; border-radius:12px;
+    box-shadow:0 16px 38px -12px color-mix(in srgb,var(--c) 60%, transparent); transition:transform .18s ease, box-shadow .18s ease; }
+  .eh__cta::after{ content:''; position:absolute; top:0; left:-120%; width:55%; height:100%; transform:skewX(-18deg);
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent); animation:sweep 4s 1.4s infinite; }
+  @keyframes sweep{ 0%{left:-120%} 26%,100%{left:140%} }
+  .eh__cta:hover{ transform:translateY(-2px); box-shadow:0 22px 48px -12px color-mix(in srgb,var(--c) 75%, transparent); }
+  .eh__m{ margin-top:18px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; font-family:"Barlow Condensed",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:12.5px; color:#8b909b; }
+  .eh__m i{ width:5px; height:5px; border-radius:50%; background:var(--c); }
+
+  /* ===== variante WELLNESS (light, serif) ===== */
+  .eh--well{ background:linear-gradient(155deg,#ffffff 0%, #eef7e3 100%); }
+  .eh--well .eh__orb{ background:radial-gradient(circle at 42% 42%, color-mix(in srgb,var(--c) 42%, transparent), transparent 62%); }
+  .eh--well .eh__ghost{ filter:none; opacity:.08; }
+  .eh--well::after{ mix-blend-mode:multiply; opacity:.04; }
+  .eh--well::before{ background:none; }
+  .eh--well .eh__chip{ color:#12643a; border-color:color-mix(in srgb,var(--c) 50%,#12643a); background:color-mix(in srgb,var(--c) 22%, #fff); }
+  .eh--well .eh__chip i{ background:#12643a; box-shadow:none; }
+  .eh--well .eh__logo{ filter:drop-shadow(0 8px 20px rgba(18,100,58,.18)); }
+  .eh--well .eh__t{ font-family:"Fraunces",Georgia,serif; font-weight:600; text-transform:none; line-height:1.02; color:#0c3f26; text-shadow:none; }
+  .eh--well .eh__t em{ font-style:italic; color:#12643a; }
+  .eh--well .eh__s{ color:#39543f; }
+  .eh--well .eh__cta{ border-radius:999px; color:#fff; background:#12643a; box-shadow:0 14px 30px -12px rgba(18,100,58,.5); }
+  .eh--well .eh__m{ color:#4b6b53; }
+
+  .gh{ background:#0c0d11; color:#565b66; text-align:center; font-size:12px; padding:12px; }
+</style>
+</head>
+<body>
+  <div class="note">PREVIEW · estética elevada (grain + orbe + anillo con logo fantasma + chip + CTA con brillo). Universal / Cellucor / Optimum + Diabla wellness.</div>
+  <div class="mock-top">🔥 ¡HOY JUEVES DE SUPLEMENTOS! 10% OFF · CÓDIGO JUEVES10</div>
+  <nav class="mock-nav"><b>Morashop</b><span>Suplementos</span><span>Supermercado</span><span>Electro-Hogar</span><span>Bodega</span><span>Gero Arias</span><span>Cris Grosz</span><span>Club Mora</span></nav>
+  <div id="app"></div>
+  <script>
+  var B="https://cdn.jsdelivr.net/gh/AlejoCavuto/morashop-rediseno@main/marcas-logos/";
+  var M=[
+    {h:"universal",f:"png",c:"#F5D500",ink:"#181401",inv:0,well:0,eye:"Universal Nutrition",t:"El estándar desde 1977",s:"Las fórmulas que hicieron historia en el hierro. Animal Pak y más, ahora en Morashop.",m:["Animal Pak","Proteínas","Aminos"]},
+    {h:"cellucor",f:"svg",c:"#ED1C24",ink:"#fff",inv:0,well:0,eye:"Cellucor · C4",t:"Energía que explota",s:"C4, el pre-entreno más vendido de USA. Foco, bombeo y potencia en cada scoop.",m:["Pre-entrenos","C4","Energía"]},
+    {h:"optimum",f:"svg",c:"#E6A400",ink:"#1c1400",inv:0,well:0,eye:"Optimum Nutrition",t:"La proteína #1 del mundo",s:"Gold Standard 100% Whey y las fórmulas más vendidas del planeta.",m:["Whey","Aminos","Creatina"]},
+    {h:"diabla",f:"png",c:"#CDEE5B",ink:"#0c3f26",inv:0,well:1,eye:"Bienestar & Super Greens",t:"Mismo ritual, <em>más beneficios.</em>",s:"Super greens, colágeno y bienestar de todos los días. Tu ritual, ahora mejor.",m:["Super Greens","Colágeno","Bienestar"]}
+  ];
+  document.getElementById("app").innerHTML = M.map(function(m){
+    return '<section class="eh'+(m.well?' eh--well':'')+'" style="--c:'+m.c+';--ink:'+m.ink+'">'
+      +'<div class="eh__orb"></div>'
+      +'<div class="eh__ring"></div>'
+      +'<div class="eh__in">'
+      +'<span class="eh__chip"><i></i> Marca oficial · '+m.eye+'</span>'
+      +'<img class="eh__logo'+(m.inv?' inv':'')+'" src="'+B+m.h+'.'+m.f+'" alt="'+m.eye+'">'
+      +'<h2 class="eh__t">'+m.t+'</h2><p class="eh__s">'+m.s+'</p>'
+      +'<a class="eh__cta" href="#">Ver productos ↓</a>'
+      +'<div class="eh__m">'+m.m.map(function(x,i){return (i?'<i></i>':'')+'<span>'+x+'</span>';}).join('')+'</div>'
+      +'</div></section><div class="gh">↓ grilla real de productos ↓</div>';
+  }).join("");
+  </script>
+</body>
+</html>

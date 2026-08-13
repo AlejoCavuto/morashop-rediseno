@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preview · Marcas oficiales — Morashop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;600;700;800&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#f4f6f9;color:#1a2744;font-family:"Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .mock-top{background:#E8341A;color:#fff;text-align:center;font-weight:700;font-size:13px;padding:9px 12px}
+  .mock-nav{background:#001c4b;color:#fff;display:flex;gap:22px;justify-content:center;align-items:center;padding:14px;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:15px;letter-spacing:.04em;border-bottom:3px solid #E8341A}
+  .mock-nav b{font-size:19px}
+  .container{max-width:1200px;margin:0 auto;padding:0 16px}
+
+  .mm-section{ padding:38px 0 40px; }
+  .mm-head{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin:0 0 20px; }
+  .mm-title{ position:relative; padding-left:15px; margin:0; font-family:"Sora",sans-serif; font-size:26px; font-weight:800; text-transform:uppercase; letter-spacing:.4px; color:#001c4b; }
+  .mm-title::before{ content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:5px; height:24px; background:#E8341A; border-radius:3px; }
+  .mm-all{ font-size:13px; font-weight:700; color:#E8341A; text-decoration:none; }
+  .mm-all:hover{ text-decoration:underline; }
+
+  .mm-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:14px; }
+  .mm-card{ display:flex; align-items:center; justify-content:center; min-height:96px; padding:22px 18px; background:#fff; border:1px solid #e7eaf0; border-radius:14px; text-decoration:none; transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+  .mm-card img{ max-height:56px; max-width:100%; width:auto; object-fit:contain; }
+  .mm-card--dark{ background:#0f1d38; border-color:#22304f; }
+  .mm-card:hover{ transform:translateY(-4px); border-color:#E8341A; box-shadow:0 14px 30px -14px rgba(232,52,26,.35); }
+
+  @media (max-width:600px){
+    .mm-title{ font-size:20px; padding-left:12px; }
+    .mm-grid{ grid-template-columns:repeat(auto-fill, minmax(104px, 1fr)); gap:10px; }
+    .mm-card{ min-height:76px; padding:15px 12px; }
+    .mm-card img{ max-height:40px; }
+  }
+</style>
+</head>
+<body>
+  <div class="mock-top">🔥 TODOS LOS JUEVES · 10% OFF EN SUPLEMENTOS</div>
+  <div class="mock-nav"><b>Morashop</b><span>Suplementos</span><span>Supermercado</span><span>Gero Arias</span><span>Cris Grosz</span></div>
+
+  <section class="mm-section">
+    <div class="container">
+      <div class="mm-head">
+        <h2 class="mm-title">Marcas oficiales</h2>
+        <a class="mm-all" href="#">Ver todas →</a>
+      </div>
+      <div class="mm-grid" id="grid"></div>
+    </div>
+  </section>
+
+  <script>
+    var B="https://cdn.jsdelivr.net/gh/AlejoCavuto/morashop-rediseno@main/marcas-logos/";
+    var M=[["star-nutrition","Star Nutrition","png"],["ena","Ena","png"],["gold","Gold Nutrition","png"],["gentech","Gentech","png"],["universal","Universal","png",1],["optimum","Optimum","svg",1],["bsn","BSN","svg"],["cellucor","Cellucor","svg",1],["grosz-nutrition","Grosz Nutrition","png"],["body-advance","Body Advance","png"],["nutrex","Nutrex","svg"],["eth","ETH","png",1],["labs-nutrition","Labs Nutrition","png",1],["innovanaturals","InnovaNaturals","png"],["natural-whey","Natural Whey","png",1],["the-protein-lab","The Protein Lab","png"],["natulabs1","Natulabs","png"],["pgn","PGN","png"],["entrenuts","Entrenuts","png"],["vits","Vits","png",1],["diabla","Diabla","png"],["leguilab","Leguilab","png"],["rei-verde","Rei Verde","png"],["laur","Laur","png"],["kanji","Kanji","svg"],["crudda-bar","Crudda Bar","png"],["babysec","Babysec","png"],["nonisec","Nonisec","png"]];
+    document.getElementById("grid").innerHTML = M.map(function(m){
+      return '<a class="mm-card'+(m[3]?' mm-card--dark':'')+'" href="#" aria-label="'+m[1]+'"><img src="'+B+m[0]+'.'+m[2]+'" alt="'+m[1]+'" loading="lazy"></a>';
+    }).join("");
+  </script>
+</body>
+</html>

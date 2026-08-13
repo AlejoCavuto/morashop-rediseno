@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gold Nutrition · hero a medida</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0c0b08;color:#fff;font-family:"Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .note{background:#111827;color:#9fb0d6;text-align:center;font-size:13px;padding:10px}
+  .mock-top{background:#E8341A;color:#fff;text-align:center;font-weight:800;font-size:13px;padding:10px}
+  .mock-nav{background:#001c4b;color:#fff;display:flex;flex-wrap:wrap;gap:20px;justify-content:center;align-items:center;padding:14px;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:15px;letter-spacing:.04em;border-bottom:3px solid #E8341A}
+  .mock-nav b{font-family:"Anton",sans-serif;font-size:20px}
+  .mock-nav span{opacity:.9}
+
+  .gd{ --gold:#D4AF37; --gold-lt:#fbea8c; --gold-dk:#997a15;
+    position:relative; overflow:hidden; min-height:46vh; display:flex; align-items:center;
+    background:
+      radial-gradient(85% 120% at 82% 15%, rgba(212,175,55,.20), transparent 55%),
+      radial-gradient(60% 90% at 8% 92%, rgba(212,175,55,.07), transparent 60%),
+      linear-gradient(160deg,#17130a 0%, #0b0a07 72%);
+    border-bottom:2px solid var(--gold);
+  }
+  .gd__wm{ position:absolute; right:-3%; top:50%; transform:translateY(-50%); z-index:0; font-family:"Anton",sans-serif;
+    font-size:clamp(7rem,22vw,20rem); line-height:.75; letter-spacing:-.02em; color:rgba(212,175,55,.05); user-select:none; }
+  .gd__inner{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:clamp(1.8rem,5vw,3.4rem) clamp(1.2rem,5vw,3rem); width:100%; }
+  .gd__eyebrow{ display:inline-flex; align-items:center; gap:9px; font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:14px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); }
+  .gd__eyebrow::before{ content:''; width:22px; height:2px; background:linear-gradient(90deg,var(--gold-dk),var(--gold-lt)); }
+  .gd__logo{ display:block; height:clamp(54px,8vw,92px); width:auto; margin:14px 0 4px; }
+  .gd__title{ font-family:"Anton",sans-serif; font-weight:400; text-transform:uppercase; line-height:.92; letter-spacing:.01em;
+    font-size:clamp(2.5rem,6vw,4.8rem); margin-top:12px; max-width:16ch;
+    background:linear-gradient(100deg,var(--gold-lt),var(--gold) 45%,var(--gold-dk)); background-size:220% 100%;
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+    animation:shine 6s ease-in-out infinite; }
+  @keyframes shine{ 0%,100%{background-position:0% 0} 50%{background-position:100% 0} }
+  .gd__sub{ margin-top:16px; font-size:clamp(15px,1.8vw,18px); line-height:1.55; color:#ded7c6; max-width:42ch; }
+  .gd__sub b{ color:var(--gold-lt); font-weight:700; }
+  .gd__cta{ display:inline-flex; align-items:center; gap:9px; margin-top:24px; background:linear-gradient(180deg,var(--gold-lt),var(--gold) 55%,var(--gold-dk)); color:#1c1503;
+    font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.05em; font-size:18px; padding:14px 30px; border-radius:10px; text-decoration:none; box-shadow:0 14px 34px -12px rgba(212,175,55,.5); transition:transform .18s ease; }
+  .gd__cta:hover{ transform:translateY(-2px); }
+  .gd__meta{ margin-top:18px; display:flex; gap:22px; flex-wrap:wrap; font-family:"Barlow Condensed",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:13px; color:#9a8f72; }
+  .gd__meta b{ color:var(--gold-lt); }
+
+  .grid-hint{ background:#0f0d09; color:#6b6249; text-align:center; font-size:12.5px; padding:16px; }
+</style>
+</head>
+<body>
+  <div class="note">PREVIEW · Gold Nutrition — hero a medida (dark + oro metálico, premium). Abajo va la grilla real.</div>
+  <div class="mock-top">🔥 ¡HOY JUEVES DE SUPLEMENTOS! 10% OFF · CÓDIGO JUEVES10</div>
+  <nav class="mock-nav"><b>Morashop</b><span>Suplementos</span><span>Supermercado</span><span>Electro-Hogar</span><span>Bodega</span><span>Gero Arias</span><span>Cris Grosz</span><span>Club Mora</span></nav>
+
+  <section class="gd">
+    <div class="gd__wm" aria-hidden="true">GOLD</div>
+    <div class="gd__inner">
+      <span class="gd__eyebrow">Marca oficial · La excelencia en suplementación</span>
+      <img class="gd__logo" src="https://cdn.jsdelivr.net/gh/AlejoCavuto/morashop-rediseno@main/marcas-logos/gold.png" alt="Gold Nutrition">
+      <h1 class="gd__title">Suplementos que valen oro</h1>
+      <p class="gd__sub">Construimos tu mejor versión. Calidad premium con ingredientes <b>CREAPURE®</b> y <b>PEPTAN®</b> — al precio de siempre.</p>
+      <a class="gd__cta" href="#">Ver productos Gold ↓</a>
+      <div class="gd__meta"><span><b>CREAPURE®</b> · PEPTAN®</span><span>Proteínas · Creatina · Colágeno</span></div>
+    </div>
+  </section>
+  <div class="grid-hint">↓ grilla real de productos Gold Nutrition ↓</div>
+</body>
+</html>

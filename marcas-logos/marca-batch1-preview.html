@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Batch 1 · heros de marca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#07080b;color:#fff;font-family:"Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .note{background:#111827;color:#9fb0d6;text-align:center;font-size:13px;padding:10px}
+  .mock-top{background:#E8341A;color:#fff;text-align:center;font-weight:800;font-size:13px;padding:10px}
+  .mock-nav{background:#001c4b;color:#fff;display:flex;flex-wrap:wrap;gap:20px;justify-content:center;align-items:center;padding:14px;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:15px;letter-spacing:.04em;border-bottom:3px solid #E8341A}
+  .mock-nav b{font-family:"Anton",sans-serif;font-size:20px}.mock-nav span{opacity:.9}
+
+  .bh{ position:relative; overflow:hidden; min-height:42vh; display:flex; align-items:center;
+    background:
+      radial-gradient(85% 120% at 82% 12%, color-mix(in srgb, var(--c) 30%, transparent), transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--c) 16%, #0b0c10) 0%, #08090c 72%);
+    border-bottom:2px solid var(--c); }
+  .bh__wm{ position:absolute; right:-3%; top:50%; transform:translateY(-50%); z-index:0; font-family:"Anton",sans-serif;
+    font-size:clamp(6rem,20vw,18rem); line-height:.75; color:color-mix(in srgb, var(--c) 8%, transparent); white-space:nowrap; }
+  .bh__in{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:clamp(1.6rem,4.5vw,3rem) clamp(1.2rem,5vw,3rem); width:100%; }
+  .bh__eye{ display:inline-flex; align-items:center; gap:8px; font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:13.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--c); }
+  .bh__eye::before{ content:''; width:20px; height:2px; background:var(--c); }
+  .bh__logo{ display:block; height:clamp(46px,7vw,80px); width:auto; margin:13px 0 3px; }
+  .bh__logo.inv{ filter:brightness(0) invert(1); }
+  .bh__t{ font-family:"Anton",sans-serif; font-weight:400; text-transform:uppercase; line-height:.9; letter-spacing:.01em; font-size:clamp(2.3rem,5.6vw,4.3rem); margin-top:12px; color:#fff; max-width:18ch; }
+  .bh__s{ margin-top:13px; font-size:clamp(14.5px,1.7vw,17px); line-height:1.5; color:#c9ccd4; max-width:44ch; }
+  .bh__cta{ display:inline-flex; align-items:center; gap:9px; margin-top:20px; background:var(--c); color:var(--ink,#0a0b0e);
+    font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.05em; font-size:17px; padding:13px 28px; border-radius:10px; text-decoration:none; box-shadow:0 14px 32px -12px color-mix(in srgb,var(--c) 60%, transparent); transition:transform .18s ease; }
+  .bh__cta:hover{ transform:translateY(-2px); }
+  .bh__m{ margin-top:15px; font-family:"Barlow Condensed",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:12.5px; color:#7c828e; }
+  .gh{ background:#0c0d11; color:#565b66; text-align:center; font-size:12px; padding:12px; }
+</style>
+</head>
+<body>
+  <div class="note">PREVIEW · Batch 1 — Gentech / Universal / BSN / Nutrex / ETH (cada una con su color real). Abajo de cada una va la grilla de productos.</div>
+  <div class="mock-top">🔥 ¡HOY JUEVES DE SUPLEMENTOS! 10% OFF · CÓDIGO JUEVES10</div>
+  <nav class="mock-nav"><b>Morashop</b><span>Suplementos</span><span>Supermercado</span><span>Electro-Hogar</span><span>Bodega</span><span>Gero Arias</span><span>Cris Grosz</span><span>Club Mora</span></nav>
+  <div id="app"></div>
+
+  <script>
+  var B="https://cdn.jsdelivr.net/gh/AlejoCavuto/morashop-rediseno@main/marcas-logos/";
+  var M=[
+    {h:"gentech", f:"png", c:"#D6B15E", ink:"#20180a", inv:1, wm:"GENTECH", eye:"Marca oficial · Tecnología en suplementación", t:"Ciencia que rinde", s:"Fórmulas de alta gama para exigirte más. Tecnología aplicada al músculo — al precio de siempre.", m:"Proteínas · Creatina · Aminos"},
+    {h:"universal", f:"png", c:"#F5D500", ink:"#181401", inv:0, wm:"UNIVERSAL", eye:"Marca oficial · Universal Nutrition", t:"El estándar desde 1977", s:"Las fórmulas que hicieron historia en el hierro. Animal Pak y más, ahora en Morashop.", m:"Animal Pak · Proteínas · Aminos"},
+    {h:"bsn", f:"svg", c:"#E4002B", ink:"#fff", inv:0, wm:"BSN", eye:"Marca oficial · Distribuidor autorizado", t:"Be the standard", s:"Syntha-6, N.O.-Xplode y las fórmulas que marcaron una era. Marca oficial en Morashop.", m:"Proteínas · Pre-entrenos"},
+    {h:"nutrex", f:"svg", c:"#FBBF24", ink:"#1a1403", inv:1, wm:"NUTREX", eye:"Marca oficial · Nutrex Research", t:"Research que se siente", s:"Lipo-6 y fórmulas de laboratorio, con resultados que se notan. Al precio de siempre.", m:"Quemadores · Pre-entrenos"},
+    {h:"eth", f:"png", c:"#FF6B00", ink:"#1a0d02", inv:0, wm:"ETH", eye:"Marca oficial · ETH Nutrition", t:"Nutrición sin excusas", s:"Suplementos nacionales de alto rendimiento, sin vueltas ni promesas mágicas.", m:"Proteínas · Creatina · Pre-entrenos"}
+  ];
+  document.getElementById("app").innerHTML = M.map(function(m){
+    return '<section class="bh" style="--c:'+m.c+';--ink:'+m.ink+'">'
+      +'<div class="bh__wm">'+m.wm+'</div>'
+      +'<div class="bh__in">'
+      +'<span class="bh__eye">'+m.eye+'</span>'
+      +'<img class="bh__logo'+(m.inv?' inv':'')+'" src="'+B+m.h+'.'+m.f+'" alt="'+m.wm+'">'
+      +'<h2 class="bh__t">'+m.t+'</h2>'
+      +'<p class="bh__s">'+m.s+'</p>'
+      +'<a class="bh__cta" href="#">Ver productos ↓</a>'
+      +'<div class="bh__m">'+m.m+'</div>'
+      +'</div></section>'
+      +'<div class="gh">↓ grilla real de productos '+m.wm+' ↓</div>';
+  }).join("");
+  </script>
+</body>
+</html>

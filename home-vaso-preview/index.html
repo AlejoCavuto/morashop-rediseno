@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preview · Vaso de Gero — Morashop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --red:#E8341A; --red-2:#ff5330; --ink:#eef3ff; --muted:#b9c6e6; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#050810;color:var(--ink);font-family:"Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+
+  /* barras fake solo para contexto (NO van al portar) */
+  .mock-top{background:var(--red);color:#fff;text-align:center;font-weight:700;font-size:13px;letter-spacing:.02em;padding:9px 12px}
+  .mock-nav{background:#001c4b;color:#fff;display:flex;align-items:center;gap:22px;justify-content:center;padding:14px 12px;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:15px;letter-spacing:.04em;border-bottom:3px solid var(--red)}
+  .mock-nav b{font-family:"Anton",sans-serif;letter-spacing:.02em;font-size:20px;color:#fff}
+  .mock-nav span{opacity:.85}
+
+  /* ===== HERO VASO ===== */
+  .vaso{
+    position:relative; width:100%;
+    height:62vh; height:62svh; min-height:440px; max-height:660px;
+    overflow:hidden; display:flex; align-items:flex-end; isolation:isolate;
+  }
+  .vaso__video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:60% center; z-index:0; background:#0b1120; }
+
+  /* watermark 366 (detrás del texto, sobre el video) */
+  .vaso__wm{
+    position:absolute; z-index:1; right:1.5%; top:50%; transform:translateY(-50%);
+    font-family:"Anton",sans-serif; font-size:clamp(11rem,34vw,30rem); line-height:.75;
+    color:rgba(255,255,255,.06); letter-spacing:-.02em; pointer-events:none; user-select:none; white-space:nowrap;
+    text-shadow:0 0 40px rgba(0,0,0,.4);
+  }
+
+  /* scrim + vignette para legibilidad */
+  .vaso__scrim{
+    position:absolute; inset:0; z-index:2; pointer-events:none;
+    background:
+      radial-gradient(120% 130% at 12% 92%, rgba(5,8,16,.92) 0%, rgba(5,8,16,.35) 40%, transparent 66%),
+      linear-gradient(90deg, rgba(5,8,16,.9) 0%, rgba(5,8,16,.55) 38%, rgba(5,8,16,.08) 66%, transparent 88%),
+      linear-gradient(0deg, rgba(5,8,16,.75) 0%, transparent 40%);
+    box-shadow:inset 0 0 180px 30px rgba(0,0,0,.45);
+  }
+
+  .vaso__inner{ position:relative; z-index:3; width:100%; max-width:1240px; margin:0 auto; padding:clamp(1.5rem,4.5vw,3.2rem) clamp(1.2rem,5vw,3.4rem); }
+  .vaso__content{ position:relative; max-width:590px; padding-left:22px; }
+  .vaso__content::before{ /* barra de acento roja */
+    content:""; position:absolute; left:0; top:6px; bottom:6px; width:4px; border-radius:4px;
+    background:linear-gradient(180deg,var(--red),transparent); box-shadow:0 0 18px rgba(232,52,26,.6);
+  }
+
+  .vaso__badge{ display:inline-flex; align-items:center; gap:7px; background:var(--red); color:#fff; font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:13.5px; letter-spacing:.13em; text-transform:uppercase; padding:6px 13px; border-radius:6px; box-shadow:0 8px 22px -8px rgba(232,52,26,.75); animation:vpop .5s .05s both; }
+  .vaso__badge i{ width:7px; height:7px; border-radius:50%; background:#fff; animation:vpulse 1.7s infinite; }
+
+  .vaso__eyebrow{ margin-top:15px; color:var(--muted); font-family:"Barlow Condensed",sans-serif; font-weight:700; font-size:15px; letter-spacing:.22em; text-transform:uppercase; text-shadow:0 2px 12px rgba(0,0,0,.7); animation:vrise .6s .14s both; }
+
+  .vaso__title{
+    font-family:"Anton",sans-serif; font-weight:400; line-height:.86; letter-spacing:.01em;
+    font-size:clamp(3rem,8.5vw,5.8rem); margin-top:8px; text-transform:uppercase; color:#fff;
+    text-shadow:0 6px 34px rgba(0,0,0,.6); animation:vrise .6s .2s both;
+  }
+  .vaso__title span{ color:var(--red); text-shadow:0 0 34px rgba(232,52,26,.55), 0 6px 34px rgba(0,0,0,.6); }
+
+  .vaso__meta{ margin-top:12px; display:inline-flex; align-items:center; gap:9px; font-family:"Barlow Condensed",sans-serif; font-weight:700; font-size:14px; letter-spacing:.16em; text-transform:uppercase; color:#fff; animation:vrise .6s .26s both; }
+  .vaso__meta::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--red); box-shadow:0 0 10px var(--red); }
+  .vaso__meta em{ color:var(--muted); font-style:normal; }
+
+  .vaso__sub{ margin-top:14px; color:#e7eeff; font-size:clamp(15px,1.7vw,17.5px); line-height:1.5; max-width:42ch; text-shadow:0 2px 16px rgba(0,0,0,.75); animation:vrise .6s .32s both; }
+  .vaso__sub b{ color:#fff; font-weight:800; }
+
+  .vaso__actions{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:24px; animation:vrise .6s .4s both; }
+  .vaso__cta{
+    position:relative; overflow:hidden; display:inline-flex; align-items:center; gap:10px;
+    background:linear-gradient(180deg,var(--red-2),var(--red)); color:#fff; text-decoration:none;
+    font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.06em;
+    font-size:clamp(18px,2.1vw,22px); padding:15px 34px; border-radius:11px;
+    box-shadow:0 18px 40px -12px rgba(232,52,26,.75); transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+  }
+  .vaso__cta::after{ /* brillo que cruza */
+    content:""; position:absolute; top:0; left:-120%; width:60%; height:100%;
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent); transform:skewX(-18deg);
+    animation:vshine 3.6s 1.2s infinite;
+  }
+  .vaso__cta:hover{ transform:translateY(-2px); box-shadow:0 26px 52px -12px rgba(232,52,26,.9); filter:brightness(1.06); color:#fff; }
+  .vaso__cta:active{ transform:translateY(0); }
+  .vaso__cta svg{ width:20px; height:20px; transition:transform .18s ease; }
+  .vaso__cta:hover svg{ transform:translateX(4px); }
+
+  .vaso__chips{ display:flex; flex-wrap:wrap; gap:8px 16px; margin-top:20px; animation:vrise .6s .48s both; }
+  .vaso__chip{ display:inline-flex; align-items:center; gap:7px; color:#d7e1fb; font-size:12.5px; font-weight:600; letter-spacing:.01em; text-shadow:0 2px 10px rgba(0,0,0,.7); }
+  .vaso__chip svg{ width:15px; height:15px; color:var(--red); }
+
+  @keyframes vrise{ from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
+  @keyframes vpop{ from{opacity:0;transform:scale(.8)} to{opacity:1;transform:none} }
+  @keyframes vpulse{ 0%{box-shadow:0 0 0 0 rgba(255,255,255,.6)} 70%{box-shadow:0 0 0 8px rgba(255,255,255,0)} 100%{box-shadow:0 0 0 0 rgba(255,255,255,0)} }
+  @keyframes vshine{ 0%{left:-120%} 22%,100%{left:130%} }
+
+  @media (max-width:820px){
+    .vaso{ min-height:480px; }
+    .vaso__content{ max-width:none; }
+    .vaso__title{ font-size:clamp(3.1rem,13vw,5rem); }
+    .vaso__wm{ font-size:44vw; opacity:.8; right:-6%; }
+    .vaso__sub{ max-width:34ch; }
+    .vaso__actions{ display:block; }
+    .vaso__cta{ width:100%; justify-content:center; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- barras fake solo para contexto (NO van al portar) -->
+  <div class="mock-top">🔥 TODOS LOS JUEVES · 10% OFF EN SUPLEMENTOS</div>
+  <div class="mock-nav"><b>Morashop</b><span>Suplementos</span><span>Supermercado</span><span>Gero Arias</span><span>Cris Grosz</span></div>
+
+  <!-- ====== HERO VASO DE GERO (esto se porta al home) ====== -->
+  <section class="vaso" aria-label="Novedad: el vaso de Gero">
+    <video class="vaso__video" autoplay muted loop playsinline preload="auto" aria-label="Vaso shaker Gero Arias en movimiento">
+      <source src="assets/vaso_shaker.mp4" type="video/mp4">
+    </video>
+    <div class="vaso__wm" aria-hidden="true">366</div>
+    <div class="vaso__scrim" aria-hidden="true"></div>
+
+    <div class="vaso__inner">
+      <div class="vaso__content">
+        <span class="vaso__badge"><i></i> Ya ingresó</span>
+        <p class="vaso__eyebrow">Colab Gero Arias × Morashop</p>
+        <h1 class="vaso__title">El vaso<br>de <span>Gero</span></h1>
+        <p class="vaso__meta">Edición limitada 366 <em>· 650 ml</em></p>
+        <p class="vaso__sub">El shaker oficial que usa Gero, ahora en Morashop. <b>Unidades limitadas.</b></p>
+        <div class="vaso__actions">
+          <a class="vaso__cta" href="https://www.morashop.ar/productos/shaker-366-discipline-gero-arias-x-morashop-650ml-11wow/" aria-label="Comprar el vaso de Gero">
+            Comprar ahora
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

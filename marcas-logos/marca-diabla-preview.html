@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diabla · hero a medida (betterdiabla)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#08341d;color:#fff;font-family:"Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .note{background:#111827;color:#9fb0d6;text-align:center;font-size:13px;padding:10px}
+  .mock-nav{background:#001c4b;color:#fff;display:flex;flex-wrap:wrap;gap:20px;justify-content:center;align-items:center;padding:12px;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:.04em;border-bottom:3px solid #E8341A}
+  .mock-nav b{font-family:"Anton",sans-serif;font-size:19px}.mock-nav span{opacity:.9}
+
+  .db{ --green:#0e4a29; --green-dk:#083a20; --lime:#DCF57A; --lime-2:#cbe95a;
+    position:relative; overflow:hidden; min-height:48vh; display:flex; flex-direction:column;
+    background:
+      radial-gradient(70% 90% at 88% 26%, rgba(220,245,122,.20), transparent 55%),
+      linear-gradient(160deg,#12572f 0%, #0a3a20 78%);
+    border-bottom:3px solid var(--lime); }
+  /* marquee lima como su web */
+  .db__marq{ position:relative; z-index:2; background:var(--lime); color:#0a3a20; overflow:hidden; border-bottom:2px solid #0a3a20; }
+  .db__marq-track{ display:inline-flex; white-space:nowrap; padding:7px 0; font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.12em; font-size:14px; animation:marq 22s linear infinite; }
+  .db__marq-track span{ padding:0 16px; }
+  @keyframes marq{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .db__glow{ position:absolute; right:2%; top:52%; transform:translateY(-50%); width:min(440px,44vw); aspect-ratio:1; border-radius:50%; z-index:0;
+    border:1px solid rgba(220,245,122,.28); box-shadow:inset 0 0 90px rgba(220,245,122,.14); }
+  .db__in{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:clamp(1.8rem,5vw,3.2rem) clamp(1.2rem,5vw,3rem); width:100%; flex:1; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; }
+  .db__chip{ display:inline-flex; align-items:center; gap:8px; padding:6px 13px; border-radius:999px; background:rgba(220,245,122,.14); border:1px solid rgba(220,245,122,.4);
+    font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--lime); }
+  .db__chip i{ width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px var(--lime); }
+  .db__logo{ display:block; height:clamp(40px,5.6vw,60px); width:auto; margin:16px 0 4px; filter:brightness(0) invert(1); }
+  .db__t{ font-family:"Anton",sans-serif; font-weight:400; text-transform:uppercase; line-height:.9; letter-spacing:.01em;
+    font-size:clamp(2.6rem,6.4vw,5rem); margin-top:10px; color:var(--lime); max-width:15ch; text-shadow:0 4px 30px rgba(0,0,0,.3); }
+  .db__s{ margin-top:15px; font-size:clamp(15px,1.8vw,18px); line-height:1.55; color:#dcefdc; max-width:40ch; }
+  .db__cta{ display:inline-flex; align-items:center; gap:9px; margin-top:22px; background:var(--lime); color:#0a3a20;
+    font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.05em; font-size:17.5px; padding:14px 32px; border-radius:999px; text-decoration:none; box-shadow:0 14px 32px -12px rgba(220,245,122,.5); transition:transform .18s ease, background .18s ease; }
+  .db__cta:hover{ transform:translateY(-2px); background:#e9ff90; color:#0a3a20; }
+  .db__m{ margin-top:16px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; font-family:"Barlow Condensed",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:12.5px; color:#a9cf9f; }
+  .db__m i{ width:5px;height:5px;border-radius:50%;background:var(--lime); }
+  .gh{ background:#0c0d11; color:#565b66; text-align:center; font-size:12px; padding:12px; }
+</style>
+</head>
+<body>
+  <div class="note">PREVIEW · Diabla — inspirado en betterdiabla.com (verde bosque + lima, bold, marquee).</div>
+  <nav class="mock-nav"><b>Morashop</b><span>Suplementos</span><span>Supermercado</span><span>Electro-Hogar</span><span>Bodega</span><span>Gero Arias</span><span>Cris Grosz</span><span>Club Mora</span></nav>
+
+  <section class="db">
+    <div class="db__marq"><div class="db__marq-track">
+      <span>✦ Super Greens</span><span>✦ Fórmula mejorada</span><span>✦ Super Greens</span><span>✦ Fórmula mejorada</span><span>✦ Super Greens</span><span>✦ Fórmula mejorada</span>
+      <span>✦ Super Greens</span><span>✦ Fórmula mejorada</span><span>✦ Super Greens</span><span>✦ Fórmula mejorada</span><span>✦ Super Greens</span><span>✦ Fórmula mejorada</span>
+    </div></div>
+    <div class="db__glow" aria-hidden="true"></div>
+    <div class="db__in">
+      <span class="db__chip"><i></i> Marca oficial · Bienestar & Super Greens</span>
+      <img class="db__logo" src="https://cdn.jsdelivr.net/gh/AlejoCavuto/morashop-rediseno@main/marcas-logos/diabla.png" alt="Diabla">
+      <h1 class="db__t">Mismo ritual, más beneficios</h1>
+      <p class="db__s">Super greens, colágeno y bienestar de todos los días. Tu ritual, ahora mejor — al precio de siempre.</p>
+      <a class="db__cta" href="#">Ver productos Diabla ↓</a>
+      <div class="db__m"><span>Super Greens</span><i></i><span>Colágeno</span><i></i><span>Bienestar</span></div>
+    </div>
+  </section>
+  <div class="gh">↓ grilla real de productos Diabla ↓</div>
+</body>
+</html>

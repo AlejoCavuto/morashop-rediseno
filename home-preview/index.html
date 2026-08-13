@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Morashop · Home (preview animaciones)</title>
+  <meta name="description" content="Preview de la home de Morashop con capa de animaciones sutil-premium." />
+  <meta name="theme-color" content="#1A2744" />
+  <link rel="icon" href="assets/logo-morashop.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=1" />
+</head>
+<body>
+
+  <!-- barrita demo -->
+  <div class="demo-flag">PREVIEW · animaciones de la home (no es la tienda real)</div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="hd" id="hd">
+    <div class="hd__inner">
+      <a class="hd__logo" href="#top" aria-label="Morashop">
+        <img src="assets/logo-morashop.png" alt="Morashop" width="42" height="42" />
+        <span>Morashop</span>
+      </a>
+      <form class="hd__search" onsubmit="return false">
+        <input type="search" placeholder="¿Qué estás buscando?" aria-label="Buscar" />
+        <button type="submit" aria-label="Buscar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      </form>
+      <div class="hd__actions">
+        <a class="hd__act" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Ingresá</span></a>
+        <button class="hd__cart" id="cartBtn" aria-label="Carrito">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.4 12.3a1 1 0 0 0 1 .7h9.2a1 1 0 0 0 1-.8L21 8H7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.4" fill="currentColor"/><circle cx="18" cy="20" r="1.4" fill="currentColor"/></svg>
+          <span class="hd__cart-badge" id="cartBadge">0</span>
+        </button>
+      </div>
+    </div>
+    <nav class="hd__nav" aria-label="Categorías">
+      <div class="hd__nav-inner">
+        <a href="#">SUPLEMENTOS</a><a href="#">SUPERMERCADO</a><a href="#">ELECTRO-HOGAR</a>
+        <a href="#">BODEGA</a><a href="#">GERO ARIAS</a><a href="#">CLUB MORA</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ (render inmediato, no gateado) -->
+    <section class="hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__inner">
+        <div class="hero__copy">
+          <span class="hero__eyebrow">⚡ Jueves de suplementos</span>
+          <h1 class="hero__title">Comprar suplementos<br><em>es Morashop.</em></h1>
+          <p class="hero__sub">Las mejores marcas, con envío a todo el país, 3 cuotas sin interés y 15% off en efectivo.</p>
+          <div class="hero__cta">
+            <a class="btn btn--red" href="#importados">Ver ofertas</a>
+            <a class="btn btn--ghost" href="#cats">Comprar por categoría</a>
+          </div>
+        </div>
+        <div class="hero__viz" aria-hidden="true">
+          <span class="hero__glow"></span>
+          <img src="https://acdn-us.mitiendanube.com/stores/003/462/441/products/pre-nox-pump-fondo-gris-c894708ebc411bb5a617125302728298-1024-1024.webp" alt="" class="hero__prod" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BENEFICIOS (marquee) ============ -->
+    <div class="bene" role="separator" aria-label="Beneficios">
+      <div class="bene__track" id="beneTrack" aria-hidden="true"></div>
+    </div>
+
+    <!-- ============ TRUST (count-up) ============ -->
+    <section class="trust reveal">
+      <div class="trust__item"><b data-count="2116">0</b><span>productos</span></div>
+      <div class="trust__item"><b data-count="48000" data-suffix="+">0</b><span>clientes felices</span></div>
+      <div class="trust__item"><b data-count="24">0</b><span>marcas oficiales</span></div>
+      <div class="trust__item"><b data-count="100" data-suffix="%">0</b><span>envío al país</span></div>
+    </section>
+
+    <!-- ============ SUPLEMENTOS IMPORTADOS (carrusel) ============ -->
+    <section class="strip" id="importados">
+      <div class="strip__head reveal">
+        <div>
+          <p class="strip__eyebrow">Novedad</p>
+          <h2 class="strip__title">Suplementos importados</h2>
+        </div>
+        <div class="strip__nav">
+          <button class="strip__arrow" data-dir="-1" aria-label="Anterior">‹</button>
+          <button class="strip__arrow" data-dir="1" aria-label="Siguiente">›</button>
+          <a class="strip__all" href="#">Ver todos</a>
+        </div>
+      </div>
+      <div class="strip__rail" id="railImportados"><!-- JS --></div>
+    </section>
+
+    <!-- ============ CATEGORÍAS ============ -->
+    <section class="cats" id="cats">
+      <div class="cats__head reveal">
+        <p class="strip__eyebrow">Explorá</p>
+        <h2 class="strip__title">Comprar por categoría</h2>
+      </div>
+      <div class="cats__grid" id="catsGrid"><!-- JS --></div>
+    </section>
+
+    <!-- ============ LO ÚLTIMO QUE VISTE ============ -->
+    <section class="strip">
+      <div class="strip__head reveal">
+        <div>
+          <p class="strip__eyebrow">Seguí donde dejaste</p>
+          <h2 class="strip__title">Lo último que viste</h2>
+        </div>
+      </div>
+      <div class="strip__rail strip__rail--mini" id="railSeen"><!-- JS --></div>
+    </section>
+
+    <!-- ============ MÁS VENDIDOS ============ -->
+    <section class="best">
+      <div class="strip__head reveal">
+        <div>
+          <p class="strip__eyebrow">Los que más se llevan</p>
+          <h2 class="strip__title">Más vendidos</h2>
+        </div>
+        <a class="strip__all" href="#">Ver todos</a>
+      </div>
+      <div class="best__grid" id="bestGrid"><!-- JS --></div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER (mini) ============ -->
+  <footer class="ft">
+    <p class="ft__slogan">Comprar suplementos <span>es Morashop.</span></p>
+    <p class="ft__note">Preview de animaciones · Morashop</p>
+  </footer>
+
+  <script src="app.js?v=1"></script>
+</body>
+</html>

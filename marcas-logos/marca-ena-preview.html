@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ena · hero a medida</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#fff;color:#16223a;font-family:"Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .note{background:#111827;color:#9fb0d6;text-align:center;font-size:13px;padding:10px}
+  .mock-top{background:#E8341A;color:#fff;text-align:center;font-weight:800;font-size:13px;padding:10px}
+  .mock-nav{background:#001c4b;color:#fff;display:flex;flex-wrap:wrap;gap:20px;justify-content:center;align-items:center;padding:14px;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:15px;letter-spacing:.04em;border-bottom:3px solid #E8341A}
+  .mock-nav b{font-family:"Anton",sans-serif;font-size:20px;letter-spacing:.02em}
+  .mock-nav span{opacity:.9}
+
+  .en{ --navy:#16223a; --steel:#61708a;
+    position:relative; overflow:hidden; min-height:46vh; display:flex; align-items:center;
+    background:
+      radial-gradient(80% 120% at 88% 12%, rgba(22,34,58,.05), transparent 60%),
+      linear-gradient(160deg,#ffffff 0%, #e9eef4 100%);
+    border-bottom:1px solid #e2e7ee;
+  }
+  /* acento navy: esquina superior derecha (no toca el texto) */
+  .en__corner{ position:absolute; top:0; right:0; width:min(340px,40vw); height:min(340px,40vw); z-index:0;
+    background:linear-gradient(150deg,#182742,#0f1728); clip-path:polygon(100% 0, 100% 62%, 0 0); }
+  .en__wm{ position:absolute; right:4%; bottom:6%; z-index:0; font-family:"Anton",sans-serif;
+    font-size:clamp(5rem,15vw,13rem); line-height:.8; color:#dde4ec; letter-spacing:-.02em; user-select:none; }
+  .en__inner{ position:relative; z-index:2; max-width:1180px; margin:0 auto; padding:clamp(1.8rem,5vw,3.4rem) clamp(1.2rem,5vw,3rem); width:100%; }
+  .en__content{ max-width:640px; }
+  .en__eyebrow{ display:inline-flex; align-items:center; gap:9px; font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:14px; letter-spacing:.22em; text-transform:uppercase; color:var(--steel); }
+  .en__eyebrow svg{ width:16px; height:16px; color:var(--navy); }
+  .en__logo{ display:block; height:clamp(46px,7vw,76px); width:auto; margin:14px 0 2px; }
+  .en__title{ font-family:"Anton",sans-serif; font-weight:400; text-transform:uppercase; line-height:.92; letter-spacing:.005em;
+    font-size:clamp(2.6rem,6.4vw,5rem); margin-top:14px; color:var(--navy); }
+  .en__sub{ margin-top:14px; font-size:clamp(15px,1.8vw,18px); line-height:1.55; color:#41506a; max-width:42ch; }
+  .en__cta{ display:inline-flex; align-items:center; gap:9px; margin-top:24px; background:var(--navy); color:#fff;
+    font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.05em; font-size:18px;
+    padding:14px 30px; border-radius:10px; text-decoration:none; box-shadow:0 14px 30px -12px rgba(22,34,58,.45); transition:transform .18s ease; }
+  .en__cta:hover{ transform:translateY(-2px); }
+  .en__meta{ margin-top:18px; display:flex; gap:22px; flex-wrap:wrap; font-family:"Barlow Condensed",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:13px; color:var(--steel); }
+  .en__meta b{ color:var(--navy); }
+
+  .grid-hint{ background:#f2f4f7; color:#8a93a3; text-align:center; font-size:12.5px; padding:16px; }
+  @media (max-width:600px){ .en__corner{ width:150px; height:150px; } .en__wm{ opacity:.5; } }
+</style>
+</head>
+<body>
+  <div class="note">PREVIEW · Ena — hero a medida (light/premium, contrasta con Star oscura). Abajo va la grilla real.</div>
+  <div class="mock-top">🔥 ¡HOY JUEVES DE SUPLEMENTOS! 10% OFF · CÓDIGO JUEVES10</div>
+  <nav class="mock-nav"><b>Morashop</b><span>Suplementos</span><span>Supermercado</span><span>Electro-Hogar</span><span>Bodega</span><span>Gero Arias</span><span>Cris Grosz</span><span>Club Mora</span></nav>
+  <section class="en">
+    <div class="en__corner" aria-hidden="true"></div>
+    <div class="en__wm" aria-hidden="true">ENA</div>
+    <div class="en__inner">
+      <div class="en__content">
+        <span class="en__eyebrow">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z"/></svg>
+          Marca oficial · Distribuidor autorizado
+        </span>
+        <img class="en__logo" src="https://cdn.jsdelivr.net/gh/AlejoCavuto/morashop-rediseno@main/marcas-logos/ena.png" alt="Ena">
+        <h1 class="en__title">Descubrí tu potencial</h1>
+        <p class="en__sub">La fuerza empieza en tu cabeza. El conocimiento potencia tu rendimiento — con la ciencia de Ena, al precio de siempre.</p>
+        <a class="en__cta" href="#">Ver productos Ena ↓</a>
+        <div class="en__meta"><span><b>ANMAT</b> · GMP</span><span>Proteínas · Aminos · Pre-entrenos</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="grid-hint">↓ grilla real de productos Ena ↓</div>
+</body>
+</html>

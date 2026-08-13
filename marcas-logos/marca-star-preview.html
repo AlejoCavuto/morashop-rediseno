@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Star Nutrition · hero a medida</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0a0b0e;color:#fff;font-family:"Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .note{background:#111827;color:#9fb0d6;text-align:center;font-size:13px;padding:10px}
+  .mock-top{background:#E8341A;color:#fff;text-align:center;font-weight:800;font-size:13px;padding:10px}
+  .mock-nav{background:#001c4b;color:#fff;display:flex;flex-wrap:wrap;gap:20px;justify-content:center;align-items:center;padding:14px;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:15px;letter-spacing:.04em;border-bottom:3px solid #E8341A}
+  .mock-nav b{font-family:"Anton",sans-serif;font-size:20px;letter-spacing:.02em}
+  .mock-nav span{opacity:.9}
+
+  :root{ --acid:#A9D42D; --acid-2:#c4f13f; }
+
+  .st{ position:relative; overflow:hidden; min-height:44vh; display:flex; align-items:center;
+    background:
+      radial-gradient(90% 130% at 85% 20%, rgba(169,212,45,.16), transparent 55%),
+      radial-gradient(70% 90% at 10% 90%, rgba(169,212,45,.08), transparent 60%),
+      linear-gradient(160deg,#111318 0%, #0a0b0e 70%);
+    border-bottom:2px solid var(--acid);
+  }
+  /* estrella gigante de fondo */
+  .st__star{ position:absolute; right:-4%; top:50%; transform:translateY(-50%) rotate(-8deg); width:min(560px,60vw); color:rgba(169,212,45,.06); z-index:0; }
+  .st__scan{ position:absolute; inset:0; z-index:0; opacity:.5; pointer-events:none;
+    background:repeating-linear-gradient(115deg, transparent 0 22px, rgba(255,255,255,.012) 22px 23px); }
+
+  .st__inner{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:clamp(1.8rem,5vw,3.4rem) clamp(1.2rem,5vw,3rem); width:100%; }
+  .st__eyebrow{ display:inline-flex; align-items:center; gap:9px; font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:14px; letter-spacing:.24em; text-transform:uppercase; color:var(--acid); }
+  .st__eyebrow svg{ width:15px; height:15px; }
+  /* logo Star en blanco (invertido) sobre el negro */
+  .st__logo{ display:block; height:clamp(58px,9vw,104px); width:auto; margin:14px 0 4px; filter:brightness(0) invert(1); }
+  .st__tag{ margin-top:16px; font-size:clamp(15.5px,1.9vw,19px); line-height:1.5; color:#e9edf2; max-width:40ch; }
+  .st__tag b{ color:var(--acid); font-weight:800; }
+  .st__cta{ display:inline-flex; align-items:center; gap:9px; margin-top:24px; background:var(--acid); color:#10130a;
+    font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.05em; font-size:18px;
+    padding:14px 30px; border-radius:10px; text-decoration:none; box-shadow:0 14px 34px -12px rgba(169,212,45,.5); transition:transform .18s ease, box-shadow .18s ease; }
+  .st__cta:hover{ transform:translateY(-2px); box-shadow:0 20px 44px -12px rgba(169,212,45,.7); }
+  .st__meta{ margin-top:18px; display:flex; gap:22px; flex-wrap:wrap; font-family:"Barlow Condensed",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:13px; color:#8b93a0; }
+  .st__meta b{ color:#fff; }
+
+  .grid-hint{ background:#0f131c; color:#5b6472; text-align:center; font-size:12.5px; padding:16px; }
+</style>
+</head>
+<body>
+  <div class="note">PREVIEW · Star Nutrition — hero a medida (arriba de /marcas/star-nutrition/). Abajo va la grilla real de productos.</div>
+  <div class="mock-top">🔥 ¡HOY JUEVES DE SUPLEMENTOS! 10% OFF · CÓDIGO JUEVES10</div>
+  <nav class="mock-nav"><b>Morashop</b><span>Suplementos</span><span>Supermercado</span><span>Electro-Hogar</span><span>Bodega</span><span>Gero Arias</span><span>Cris Grosz</span><span>Club Mora</span></nav>
+
+  <section class="st">
+    <svg class="st__star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z"/></svg>
+    <div class="st__scan"></div>
+    <div class="st__inner">
+      <span class="st__eyebrow">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z"/></svg>
+        Marca oficial · Distribuidor autorizado
+      </span>
+      <img class="st__logo" src="https://cdn.jsdelivr.net/gh/AlejoCavuto/morashop-rediseno@main/marcas-logos/star-nutrition.png" alt="Star Nutrition">
+      <p class="st__tag">Formulados para alcanzar tus metas. La marca que <b>banca cada serie</b> — al precio de siempre, con la confianza de siempre.</p>
+      <a class="st__cta" href="#">Ver productos Star ↓</a>
+      <div class="st__meta"><span><b>ANMAT</b> · GMP aprobados</span><span>Proteínas · Creatina · Pre-entrenos</span></div>
+    </div>
+  </section>
+  <div class="grid-hint">↓ grilla real de productos Star Nutrition (con filtros) ↓</div>
+</body>
+</html>

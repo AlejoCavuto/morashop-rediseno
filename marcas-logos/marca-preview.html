@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preview · Hero de marca — Morashop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0a0d14;color:#fff;font-family:"Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .note{background:#111827;color:#9fb0d6;text-align:center;font-size:13px;padding:10px;border-bottom:1px solid #22304f}
+
+  .bh{ position:relative; overflow:hidden; min-height:44vh; display:flex; align-items:center;
+    background:
+      radial-gradient(120% 130% at 12% 0%, color-mix(in srgb, var(--c) 60%, transparent), transparent 60%),
+      linear-gradient(125deg, var(--c) 0%, color-mix(in srgb, var(--c) 55%, #05060a) 62%, #05060a 100%);
+  }
+  .bh__wm{ position:absolute; right:-2%; top:50%; transform:translateY(-50%); font-family:"Anton",sans-serif;
+    font-size:clamp(8rem,26vw,22rem); line-height:.75; color:rgba(255,255,255,.06); white-space:nowrap; pointer-events:none; }
+  .bh__inner{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:clamp(2rem,5vw,3.6rem) clamp(1.2rem,5vw,3rem);
+    display:flex; align-items:center; gap:clamp(1.5rem,4vw,3.4rem); width:100%; }
+  .bh__plate{ flex:none; width:min(230px,42vw); aspect-ratio:16/10; border-radius:18px; background:#fff;
+    display:flex; align-items:center; justify-content:center; padding:26px; box-shadow:0 24px 60px -24px rgba(0,0,0,.7); }
+  .bh__plate--dark{ background:#0f1d38; }
+  .bh__plate img{ max-width:100%; max-height:100%; object-fit:contain; }
+  .bh__txt{ min-width:0; }
+  .bh__eyebrow{ display:inline-flex; align-items:center; gap:7px; font-family:"Barlow Condensed",sans-serif; font-weight:700;
+    font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.85); }
+  .bh__eyebrow::before{ content:''; width:22px; height:2px; background:#fff; opacity:.7; }
+  .bh__title{ font-family:"Anton",sans-serif; font-weight:400; text-transform:uppercase; line-height:.92; letter-spacing:.01em;
+    font-size:clamp(2.4rem,6vw,4.4rem); margin:10px 0 0; text-shadow:0 6px 30px rgba(0,0,0,.4); }
+  .bh__tag{ margin-top:14px; font-size:clamp(15px,1.8vw,18px); line-height:1.5; color:rgba(255,255,255,.92); max-width:44ch; }
+  .bh__cta{ display:inline-flex; align-items:center; gap:9px; margin-top:22px; background:#fff; color:#0a0d14;
+    font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.05em; font-size:18px;
+    padding:13px 28px; border-radius:11px; text-decoration:none; box-shadow:0 14px 30px -12px rgba(0,0,0,.5); transition:transform .18s ease; }
+  .bh__cta:hover{ transform:translateY(-2px); }
+  .bh__count{ display:inline-block; margin-top:16px; margin-left:14px; font-size:13px; color:rgba(255,255,255,.7); font-weight:600; }
+
+  .grid-hint{ background:#0f131c; color:#5b6472; text-align:center; font-size:12.5px; padding:14px; letter-spacing:.02em; border-bottom:1px solid #1a2233; }
+
+  @media (max-width:760px){
+    .bh__inner{ flex-direction:column; align-items:flex-start; }
+    .bh__plate{ width:min(200px,60vw); }
+    .bh__count{ display:block; margin-left:0; }
+  }
+</style>
+</head>
+<body>
+  <div class="note">PREVIEW · Hero de marca (arriba de /marcas/&lt;handle&gt;/). Abajo de cada uno iría la grilla real de productos de esa marca.</div>
+
+  <!-- STAR (mono/negro → plate blanca, hero charcoal) -->
+  <section class="bh" style="--c:#20242c">
+    <div class="bh__wm">STAR</div>
+    <div class="bh__inner">
+      <div class="bh__plate"><img src="https://cdn.jsdelivr.net/gh/AlejoCavuto/morashop-rediseno@main/marcas-logos/star-nutrition.png" alt="Star Nutrition"></div>
+      <div class="bh__txt">
+        <span class="bh__eyebrow">Marca oficial</span>
+        <h1 class="bh__title">Star Nutrition</h1>
+        <p class="bh__tag">Fuerza real, sin vueltas. La marca que banca cada serie, al precio de siempre.</p>
+        <a class="bh__cta" href="#">Ver productos ↓</a><span class="bh__count">128 productos</span>
+      </div>
+    </div>
+  </section>
+  <div class="grid-hint">↓ acá va la grilla de productos Star Nutrition (con filtros) ↓</div>
+
+  <!-- UNIVERSAL (logo blanco → plate oscura, hero rojo) -->
+  <section class="bh" style="--c:#EE1922">
+    <div class="bh__wm">UNIVERSAL</div>
+    <div class="bh__inner">
+      <div class="bh__plate bh__plate--dark"><img src="https://cdn.jsdelivr.net/gh/AlejoCavuto/morashop-rediseno@main/marcas-logos/universal.png" alt="Universal"></div>
+      <div class="bh__txt">
+        <span class="bh__eyebrow">Marca oficial</span>
+        <h1 class="bh__title">Universal</h1>
+        <p class="bh__tag">El estándar del hierro. Fórmulas clásicas que hicieron historia en el gym.</p>
+        <a class="bh__cta" href="#">Ver productos ↓</a><span class="bh__count">34 productos</span>
+      </div>
+    </div>
+  </section>
+  <div class="grid-hint">↓ grilla de productos Universal ↓</div>
+
+  <!-- GROSZ (azul marca, logo negro → plate blanca) -->
+  <section class="bh" style="--c:#1F4FD0">
+    <div class="bh__wm">GROSZ</div>
+    <div class="bh__inner">
+      <div class="bh__plate"><img src="https://cdn.jsdelivr.net/gh/AlejoCavuto/morashop-rediseno@main/marcas-logos/grosz-nutrition.png" alt="Grosz Nutrition"></div>
+      <div class="bh__txt">
+        <span class="bh__eyebrow">Marca oficial</span>
+        <h1 class="bh__title">Grosz Nutrition</h1>
+        <p class="bh__tag">Trabajo real. Resultados reales. La línea de Cris Grosz, hecha por quien entrena.</p>
+        <a class="bh__cta" href="#">Ver productos ↓</a><span class="bh__count">8 productos</span>
+      </div>
+    </div>
+  </section>
+  <div class="grid-hint">↓ grilla de productos Grosz Nutrition ↓</div>
+
+  <!-- INNOVANATURALS (verde) -->
+  <section class="bh" style="--c:#009846">
+    <div class="bh__wm">INNOVA</div>
+    <div class="bh__inner">
+      <div class="bh__plate"><img src="https://cdn.jsdelivr.net/gh/AlejoCavuto/morashop-rediseno@main/marcas-logos/innovanaturals.png" alt="InnovaNaturals"></div>
+      <div class="bh__txt">
+        <span class="bh__eyebrow">Marca oficial</span>
+        <h1 class="bh__title">InnovaNaturals</h1>
+        <p class="bh__tag">Ciencia natural para tu bienestar. Omega, vitaminas y más, con calidad certificada.</p>
+        <a class="bh__cta" href="#">Ver productos ↓</a><span class="bh__count">21 productos</span>
+      </div>
+    </div>
+  </section>
+  <div class="grid-hint">↓ grilla de productos InnovaNaturals ↓</div>
+
+</body>
+</html>
