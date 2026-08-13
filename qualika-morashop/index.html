@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Qualika · Espejos Inteligentes × Morashop</title>
+  <meta name="description" content="Espejos inteligentes Qualika — luz LED cálida y fría, touch, desempañador y reloj. Distribuidos por Morashop con envío a todo el país, cuotas y garantía oficial." />
+  <meta property="og:title" content="Qualika · Espejos Inteligentes × Morashop" />
+  <meta property="og:description" content="Espejos inteligentes Qualika con luz cálida/fría, touch, desempañador y hora — directo a tu casa, en Morashop." />
+  <meta name="theme-color" content="#0A0C0F" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230A0C0F'/%3E%3Ccircle cx='16' cy='16' r='8.5' fill='none' stroke='%23E8B873' stroke-width='2.2'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Manrope:wght@300;400;500;600;700&family=Pacifico&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=11" />
+</head>
+<body>
+
+  <div class="aurora" aria-hidden="true"><span class="aura aura--1"></span><span class="aura aura--2"></span><span class="aura aura--3"></span></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+  <div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
+
+  <!-- ============ HEADER MORASHOP ============ -->
+  <header class="mora-header" id="top">
+    <div class="mh__promo">✨ Espejos inteligentes Qualika · 3 cuotas sin interés · Envío a todo el país</div>
+    <div class="mh__top">
+      <div class="mh__inner">
+        <button class="mh__burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+        <a class="mh__logo" href="https://www.morashop.ar" aria-label="Morashop"><img src="https://acdn-us.mitiendanube.com/stores/002/268/228/themes/common/logo-870952170-1753720153-3b9c4a1bf7afa9c438f78517f9465ba61753720153-480-0.webp" alt="Morashop" /></a>
+        <a class="mh__badge" href="https://morashopmayorista.ar" target="_blank" rel="noopener" aria-label="Morashop Mayorista"><img src="https://dcdn-us.mitiendanube.com/stores/005/230/238/themes/common/logo-914084039-1757110351-491c7845ee9f1e87de2755700ad048f51757110351-480-0.webp" alt="Mayoristas" /></a>
+        <form class="mh__search" action="https://www.morashop.ar/search/" method="get" role="search">
+          <input type="search" name="q" placeholder="¿Qué estás buscando?" aria-label="Buscar" />
+          <button type="submit"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.2-3.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Buscar</button>
+        </form>
+        <div class="mh__actions">
+          <a class="mh__acct" href="https://www.morashop.ar/account/">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M5 20a7 7 0 0 1 14 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <span><b>¡Hola! Iniciá sesión</b><small>O podés registrarte</small></span>
+          </a>
+          <a class="mh__cart" href="https://www.morashop.ar/cart/" aria-label="Carrito">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.2 11.3a1.5 1.5 0 0 0 1.5 1.2h8.1a1.5 1.5 0 0 0 1.5-1.2L21 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.5" cy="20" r="1.4" fill="currentColor"/><circle cx="17.5" cy="20" r="1.4" fill="currentColor"/></svg>
+            <span class="mh__count">0</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <nav class="mh__nav" aria-label="Categorías">
+      <div class="mh__inner mh__inner--nav">
+        <a href="https://www.morashop.ar/suplementos/">Suplementos</a>
+        <a href="https://www.morashop.ar/supermercado/">Supermercado</a>
+        <a class="is-active" href="https://www.morashop.ar/electro-hogar/">Electro-Hogar</a>
+        <a href="https://www.morashop.ar/bodega/">Bodega</a>
+        <a href="https://www.morashop.ar/gero-arias/">Gero Arias</a>
+        <a href="https://www.morashop.ar/club-mora/">Club Mora</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Menú mobile (hamburguesa) -->
+  <div class="mh__backdrop" id="mhBackdrop" hidden></div>
+  <aside class="mh__drawer" id="mhDrawer" aria-hidden="true" aria-label="Menú de categorías">
+    <div class="mh__drawer-head"><span>Categorías</span><button class="mh__drawer-close" id="drawerClose" aria-label="Cerrar menú">&times;</button></div>
+    <a href="https://www.morashop.ar/suplementos/">Suplementos</a>
+    <a href="https://www.morashop.ar/supermercado/">Supermercado</a>
+    <a class="is-active" href="https://www.morashop.ar/electro-hogar/">Electro-Hogar</a>
+    <a href="https://www.morashop.ar/bodega/">Bodega</a>
+    <a href="https://www.morashop.ar/gero-arias/">Gero Arias</a>
+    <a href="https://www.morashop.ar/club-mora/">Club Mora</a>
+  </aside>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" aria-label="Espejos inteligentes Qualika en Morashop">
+      <div class="hero__inner">
+
+        <div class="hero__copy">
+          <p class="eyebrow reveal">Qualika &times; <b>Morashop</b></p>
+          <h1 class="hero__title reveal">Tu baño merece un<br><span class="grad-gold">espejo inteligente.</span></h1>
+          <p class="hero__sub reveal">Espejos inteligentes <b>Qualika</b> con luz LED <b>cálida y fría</b>, control <b>touch</b>, <b>desempañador</b> y <b>reloj</b>. La tecnología que le faltaba a tu baño — directo a tu casa por Morashop.</p>
+          <div class="hero__cta reveal">
+            <a class="btn btn--gold" href="#catalogo">Ver los espejos</a>
+            <a class="btn btn--ghost" href="#features">Cómo funciona</a>
+          </div>
+          <ul class="hero__stats reveal" aria-label="Resumen">
+            <li><b data-count="10">0</b><span>modelos smart</span></li>
+            <li><b>Q1 + Q2</b><span>línea oficial</span></li>
+            <li><b>Envío</b><span>a todo el país</span></li>
+          </ul>
+        </div>
+
+        <!-- Espejo interactivo Q1/Q2 (CSS + JS, sin imagen) -->
+        <div class="hero__stage reveal" data-parallax="-40">
+          <div class="mirror" id="mirror" data-line="Q2" style="--led:#f4d3a0">
+            <span class="mirror__wall" aria-hidden="true"></span>
+            <div class="mirror__glass">
+              <span class="mirror__ring" aria-hidden="true"></span>
+              <span class="mirror__reflect" aria-hidden="true"></span>
+              <div class="mirror__panel" aria-hidden="true">
+                <time class="mirror__clock" id="clock">--:--</time>
+                <span class="mirror__ico mirror__ico--fog" title="Desempañador"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3s6 6.4 6 10.2A6 6 0 0 1 6 13.2C6 9.4 12 3 12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span>
+                <span class="mirror__ico mirror__ico--power" title="Touch"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7.6 6.7a7 7 0 1 0 8.8 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+              </div>
+              <span class="mirror__fog" id="fog" aria-hidden="true"></span>
+              <span class="mirror__touch-ripple" id="ripple" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div class="mirror-ctrl">
+            <div class="mc-seg" role="group" aria-label="Elegí la línea">
+              <button class="mc-line" data-line="Q1" data-label="Línea Q1 · touch + luz cálida/fría">Q1</button>
+              <button class="mc-line is-on" data-line="Q2" data-label="Línea Q2 · touch + desempañador + hora">Q2</button>
+            </div>
+            <div class="mc-seg" role="group" aria-label="Probá la luz">
+              <button class="mc-chip" data-led="#f4d3a0" data-label="Luz cálida" aria-pressed="true">Cálida</button>
+              <button class="mc-chip" data-led="#cfe8ff" data-label="Luz fría">Fría</button>
+              <button class="mc-chip" data-led="#ffd24a" data-label="Luz amarilla">Amarilla</button>
+              <button class="mc-chip mc-chip--fog" id="fogBtn" data-label="Desempañador">Desempañar</button>
+            </div>
+          </div>
+          <p class="mirror-hint" id="mirrorHint">Línea Q2 · touch + desempañador + hora</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ SUB-NAV sticky ============ -->
+    <nav class="subnav" id="subnav" aria-label="Secciones">
+      <div class="subnav__inner">
+        <span class="subnav__pill" aria-hidden="true"></span>
+        <a href="#features">Funciones</a>
+        <a href="#catalogo">Espejos</a>
+        <a href="#porque">Por qué</a>
+      </div>
+    </nav>
+
+    <!-- ============ BRIDGE (posicionamiento) ============ -->
+    <section class="bridge" aria-label="Qualika en Morashop">
+      <div class="bridge__inner reveal" data-parallax="26">
+        <p class="bridge__kicker">Distribuidor oficial</p>
+        <h2 class="bridge__title">La tecnología Qualika,<br><span class="grad-gold">directo a tu casa.</span></h2>
+        <p class="bridge__text">Sumamos los espejos inteligentes premium de Qualika a Morashop: stock real, precio final, cuotas y garantía oficial. La mejor tecnología de baño, con la confianza de siempre.</p>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section class="features" id="features" aria-labelledby="feat-title">
+      <div class="cat__head reveal" data-parallax="20">
+        <p class="cat__eyebrow cat__eyebrow--gold">La tecnología</p>
+        <h2 class="cat__title" id="feat-title">Todo lo que hace un espejo Qualika</h2>
+        <p class="cat__lede">Cuatro funciones que cambian tu rutina de todos los días.</p>
+      </div>
+      <div class="feat__grid">
+        <article class="feat reveal">
+          <span class="feat__ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.7"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          </span>
+          <h3>Luz cálida, fría y amarilla</h3>
+          <p>Tres tonos con un toque: cálida para relajarte, fría para maquillarte con precisión y amarilla para el día a día.</p>
+        </article>
+        <article class="feat reveal">
+          <span class="feat__ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 11V6.5a2 2 0 1 1 4 0V11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M13 11V8.5a1.8 1.8 0 1 1 3.6 0V13c0 3.6-2.2 7-6 7-2.2 0-3.6-1-4.8-2.9l-1.6-2.6a1.7 1.7 0 0 1 2.8-1.9l1 1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <h3>Control touch</h3>
+          <p>Sin botones ni cables a la vista. Encendés, apagás y cambiás la luz tocando el vidrio.</p>
+        </article>
+        <article class="feat reveal">
+          <span class="feat__ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 15c0-3 2.5-4 4-6 1.2-1.6 1.5-3 1.5-4 2 1 3.5 3 3.5 5.2 1-.6 1.6-2 1.6-3.4 2 1.6 3.4 4.2 3.4 7C21.5 18 17.8 21 12.7 21 8 21 4 18.6 4 15Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+          </span>
+          <h3>Desempañador</h3>
+          <p>El desempañador mantiene el vidrio limpio al salir de la ducha. Siempre nítido, sin pasarle la mano.</p>
+        </article>
+        <article class="feat reveal">
+          <span class="feat__ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <h3>Reloj integrado <span class="feat__tag">Q2</span></h3>
+          <p>La hora proyectada sobre el espejo mientras te preparás. Disponible en toda la línea Q2.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ CATÁLOGO ============ -->
+    <section class="cat cat--gold" id="catalogo" aria-labelledby="cat-title">
+      <div class="cat__head reveal" data-parallax="20">
+        <p class="cat__eyebrow cat__eyebrow--gold">El catálogo</p>
+        <h2 class="cat__title" id="cat-title">Elegí tu espejo</h2>
+        <p class="cat__lede">Dos líneas, cinco formas. Encontrá el que le va a tu baño.</p>
+      </div>
+
+      <div class="filters reveal" id="filters">
+        <div class="filters__group" role="group" aria-label="Línea">
+          <span class="filters__label">Línea</span>
+          <button class="filter is-on" data-dim="line" data-f="all">Todas</button>
+          <button class="filter" data-dim="line" data-f="Q1">Q1 · touch</button>
+          <button class="filter" data-dim="line" data-f="Q2">Q2 · con reloj</button>
+        </div>
+        <div class="filters__group" role="group" aria-label="Forma">
+          <span class="filters__label">Forma</span>
+          <button class="filter is-on" data-dim="shape" data-f="all">Todas</button>
+          <button class="filter" data-dim="shape" data-f="circular">Circular</button>
+          <button class="filter" data-dim="shape" data-f="ovalado">Ovalado</button>
+          <button class="filter" data-dim="shape" data-f="cuadrado">Cuadrado</button>
+          <button class="filter" data-dim="shape" data-f="rectangular">Rectangular</button>
+        </div>
+      </div>
+
+      <div class="grid" id="grid-espejos"><!-- JS --></div>
+      <p class="cat__empty" id="gridEmpty" hidden>No hay espejos con esa combinación. Probá otra forma.</p>
+      <p class="cat__note reveal">Precio final por unidad · 3 cuotas sin interés · stock real.</p>
+    </section>
+
+    <!-- ============ POR QUÉ MORASHOP ============ -->
+    <section class="why" id="porque" aria-labelledby="why-title">
+      <div class="why__head reveal">
+        <p class="cat__eyebrow cat__eyebrow--gold">La diferencia</p>
+        <h2 class="cat__title" id="why-title">Por qué comprarlo en Morashop</h2>
+      </div>
+      <div class="why__grid">
+        <article class="pill reveal"><span class="pill__ico">🏷️</span><h3>Precio final</h3><p>Distribución directa: el mejor precio para el consumidor final, claro y sin vueltas.</p></article>
+        <article class="pill reveal"><span class="pill__ico">🚚</span><h3>Envío a todo el país</h3><p>Despacho asegurado y embalado. Seguís tu pedido hasta la puerta.</p></article>
+        <article class="pill reveal"><span class="pill__ico">💳</span><h3>Cuotas</h3><p>Hasta 3 cuotas sin interés y 15% off en efectivo. Tecnología accesible.</p></article>
+        <article class="pill reveal"><span class="pill__ico">🛡️</span><h3>Garantía oficial</h3><p>Productos originales Qualika, con respaldo y asesoría real.</p></article>
+      </div>
+    </section>
+
+    <!-- ============ CLOSER ============ -->
+    <section class="closer" aria-label="Renová tu baño">
+      <div class="closer__glow" aria-hidden="true"></div>
+      <p class="closer__kicker">Espejos inteligentes</p>
+      <h2 class="closer__title" data-parallax="-24">Sumale tecnología<br><span class="grad-gold">a tu espejo.</span></h2>
+      <a class="btn btn--gold btn--lg" href="https://www.morashop.ar/qualika">Ver todos los espejos</a>
+
+      <p class="closer__custom">¿Buscás un espejo a medida con medidas muy específicas?</p>
+      <a class="btn btn--wa btn--lg" href="https://wa.me/5491131373961?text=Hola!%20Quiero%20un%20espejo%20Qualika%20a%20medida.%20Te%20paso%20las%20medidas%20y%20detalles%3A" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.2 4.79 1.2h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.03h-.01c-1.52 0-3.01-.41-4.3-1.18l-.31-.18-3.19.84.85-3.11-.2-.32a8.2 8.2 0 0 1-1.26-4.37c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42-.14 0-.31-.02-.47-.02-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+        Pedilo a medida por WhatsApp
+      </a>
+    </section>
+
+    <!-- ============ FOOTER MORASHOP ============ -->
+    <footer class="mora-foot">
+      <div class="mf__hero">
+        <span class="mf__watermark" aria-hidden="true">MORA</span>
+        <span class="mf__tick" aria-hidden="true"></span>
+        <h2 class="mf__tagline">Comprar espejos<br>es Morashop.</h2>
+      </div>
+
+      <div class="mf__cols">
+        <div class="mf__brand">
+          <a class="mf__logo" href="https://www.morashop.ar" aria-label="Morashop"><img src="https://acdn-us.mitiendanube.com/stores/002/268/228/themes/common/logo-870952170-1753720153-3b9c4a1bf7afa9c438f78517f9465ba61753720153-480-0.webp" alt="Morashop" /></a>
+          <p>Distribuidor oficial. Suplementos, almacén y electro al precio de siempre, con la confianza de siempre.</p>
+          <div class="mf__social">
+            <a href="https://www.instagram.com/morashop.ar" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"/></svg></a>
+            <a href="https://www.facebook.com/morashop.ar" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H8v3h3v7h3v-7h2.5l.5-3H14V9c0-.6.4-1 1-1Z"/></svg></a>
+            <a href="https://www.youtube.com/@morashop" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="6" width="19" height="12" rx="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M10 9.4l5 2.6-5 2.6z" fill="currentColor"/></svg></a>
+            <a href="https://www.tiktok.com/@morashop.ar" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 3c.3 2 1.6 3.4 3.6 3.6v2.6c-1.3 0-2.5-.4-3.6-1.1v5.4a5 5 0 1 1-5-5c.3 0 .6 0 .9.1v2.7a2.4 2.4 0 1 0 1.7 2.3V3H14z"/></svg></a>
+          </div>
+        </div>
+
+        <div class="mf__col">
+          <h3>Menú</h3>
+          <a href="https://www.morashop.ar/suplementos/">Suplementos</a>
+          <a href="https://www.morashop.ar/supermercado/">Supermercado</a>
+          <a href="https://www.morashop.ar/electro-hogar/">Electro-Hogar</a>
+          <a href="https://www.morashop.ar/bodega/">Bodega</a>
+          <a href="https://www.morashop.ar/gero-arias/">Gero Arias</a>
+          <a href="https://www.morashop.ar/club-mora/">Club Mora</a>
+        </div>
+
+        <div class="mf__col">
+          <h3>Ayuda</h3>
+          <a href="https://www.morashop.ar">Inicio</a>
+          <a href="https://www.morashop.ar/productos/">Productos</a>
+          <a href="https://www.morashop.ar">Cambios o devoluciones</a>
+          <a href="https://www.morashop.ar">Contacto</a>
+          <a href="https://www.morashop.ar/mayoristas/">Mayoristas</a>
+          <a href="https://www.morashop.ar">Preguntas Frecuentes</a>
+        </div>
+
+        <div class="mf__col mf__sub">
+          <h3>Suscribite!</h3>
+          <form class="mf__form" action="https://www.morashop.ar" method="get">
+            <input type="email" name="email" placeholder="Ingresá tu email..." aria-label="Email" />
+            <button type="submit">Enviar</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="mf__pay">
+        <div>
+          <span class="mf__label">Medios de pago</span>
+          <div class="mf__chips mf__chips--pay">
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/visa@2x.png" alt="Visa" />
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/mastercard@2x.png" alt="Mastercard" />
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/amex@2x.png" alt="American Express" />
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/ar/banelco@2x.png" alt="Banelco" />
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/ar/cabal@2x.png" alt="Cabal" />
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/ar/link@2x.png" alt="Link" />
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/ar/tarjeta-naranja@2x.png" alt="Naranja" />
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/nativa@2x.png" alt="Nativa" />
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/ar/argencard@2x.png" alt="Argencard" />
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/ar/cencosud@2x.png" alt="Cencosud" />
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/ar/provincianet@2x.png" alt="Provincia NET" />
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/maestro@2x.png" alt="Maestro" />
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/cash@2x.png" alt="Efectivo" />
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/payment/new_logos_payment/nuvempago@2x.png" alt="Nuvem Pago" />
+          </div>
+        </div>
+        <div>
+          <span class="mf__label">Medios de envío</span>
+          <div class="mf__chips mf__chips--ship">
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/shipping/api/2682@2x.png" alt="Envío" />
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/shipping/api/3336@2x.png" alt="Envío" />
+            <img loading="lazy" src="https://d26lpennugtm8s.cloudfront.net/assets/common/img/logos/shipping/api/9075@2x.png" alt="Envío" />
+          </div>
+        </div>
+      </div>
+
+      <div class="mf__legal">
+        <p>Copyright Morashop · Espejos inteligentes Qualika en Argentina — 2026. Todos los derechos reservados. · Maqueta con productos del catálogo Morashop.</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="app.js?v=10"></script>
+</body>
+</html>

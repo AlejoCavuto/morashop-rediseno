@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orientador de suplementos · Morashop</title>
+  <meta name="description" content="Test orientativo de Morashop: respondé 4 preguntas y te sugerimos por dónde empezar. No reemplaza la consulta con un profesional." />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=4" />
+</head>
+<body>
+
+  <!-- Contexto simulado del home (solo para el prototipo) -->
+  <div class="demo-frame">
+    <div class="demo-note">Así se vería la <strong>sección chiquita</strong> insertada en tu home ↓</div>
+
+    <!-- ===== SECCIÓN HOME (teaser) — esto es lo que va en la tienda ===== -->
+    <section class="mq" aria-labelledby="mq-title">
+      <div class="mq__inner">
+        <div class="mq__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <div class="mq__txt">
+          <h2 class="mq__title" id="mq-title">¿No sabés qué suplemento tomar?</h2>
+          <p class="mq__sub">Respondé 4 preguntas y te orientamos según tu objetivo. Gratis, en 30 segundos.</p>
+          <p class="mq__disc"><span aria-hidden="true">⚕️</span> Orientación general, <strong>no reemplaza la consulta con un profesional de la salud o nutrición.</strong></p>
+        </div>
+        <button class="mq__btn" data-action="open">
+          Hacer el test
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </section>
+    <!-- ===== FIN SECCIÓN HOME ===== -->
+
+    <div class="demo-note demo-note--b">El botón abre el test en un modal (no cambia de página). ↑</div>
+  </div>
+
+  <!-- ===== MODAL DEL QUIZ ===== -->
+  <div class="mqm" id="mqm" hidden aria-modal="true" role="dialog" aria-labelledby="mqm-title">
+    <div class="mqm__overlay" data-action="close"></div>
+    <div class="mqm__panel" role="document">
+      <header class="mqm__head">
+        <span class="mqm__brand"><span class="mqm__dot"></span>Orientador Morashop</span>
+        <button class="mqm__close" data-action="close" aria-label="Cerrar test">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </button>
+      </header>
+
+      <!-- barra disclaimer persistente -->
+      <div class="mqm__disc" role="note">
+        <span aria-hidden="true">⚕️</span> Esta sugerencia es <strong>orientativa</strong> y no reemplaza la recomendación de un médico o nutricionista.
+      </div>
+
+      <div class="mqm__progress"><div class="mqm__progressbar" id="progressBar"></div></div>
+
+      <div class="mqm__body">
+        <!-- QUIZ -->
+        <section class="screen" data-screen="quiz">
+          <div class="quiz__head">
+            <button class="quiz__back" data-action="back" aria-label="Anterior">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Atrás
+            </button>
+            <span class="quiz__count" id="quizCount">1 / 4</span>
+          </div>
+          <div class="quiz__body" id="quizBody" aria-live="polite"></div>
+        </section>
+        <!-- RESULT -->
+        <section class="screen" data-screen="result" hidden>
+          <div class="result" id="resultBody"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=4"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baño Inteligente · Triton & Qualika × Morashop</title>
+  <meta name="description" content="Distribuidor de Triton y Qualika — inodoros y espejos inteligentes premium directo a tu casa, con envío, cuotas y garantía oficial. Baño inteligente en Morashop." />
+  <meta property="og:title" content="Baño Inteligente · Triton & Qualika × Morashop" />
+  <meta property="og:description" content="Tecnología de baño premium — inodoros Triton y espejos Qualika — directo a tu casa, en Morashop." />
+  <meta name="theme-color" content="#0A0C0F" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230A0C0F'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23E8B873' stroke-width='2'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=3" />
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+</head>
+<body>
+
+  <div class="aurora" aria-hidden="true"><span class="aura aura--1"></span><span class="aura aura--2"></span><span class="aura aura--3"></span></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+  <div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
+
+  <!-- ============ TOP BAR ============ -->
+  <header class="topbar" id="top">
+    <a class="topbar__back" href="https://www.morashop.ar" aria-label="Volvé a Morashop">
+      <span aria-hidden="true">&larr;</span> Morashop
+    </a>
+    <a class="topbar__brand" href="#top">
+      <span class="tb-ring" aria-hidden="true"></span>
+      <span class="tb-name">Baño <b>Inteligente</b></span>
+    </a>
+    <a class="btn btn--mini" href="#catalogo">Ver productos</a>
+  </header>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" aria-label="Baño inteligente Triton y Qualika en Morashop">
+      <div class="hero__media" aria-hidden="true">
+        <img class="hero__img" src="assets/hero-2.png" alt="" data-parallax />
+        <div class="hero__scrim"></div>
+        <div class="hero__halo hero__halo--gold"></div>
+        <div class="hero__halo hero__halo--cyan"></div>
+        <div class="hero__motes"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      </div>
+      <div class="hero__inner">
+        <p class="eyebrow reveal">Triton &middot; Qualika &times; <b>Morashop</b></p>
+        <h1 class="hero__title reveal">El baño del futuro,<br><span class="grad-gold">ahora en tu casa.</span></h1>
+        <p class="hero__sub reveal">Distribuimos inodoros inteligentes <b>Triton</b> y espejos inteligentes <b>Qualika</b> — la mejor tecnología de baño premium, directo a tu hogar con envío, cuotas y garantía oficial.</p>
+        <div class="hero__cta reveal">
+          <a class="btn btn--gold" href="#catalogo">Ver el catálogo</a>
+          <a class="btn btn--ghost" href="#porque">Por qué en Morashop</a>
+        </div>
+        <ul class="hero__stats reveal" aria-label="Resumen">
+          <li><b data-count="34">0</b><span>modelos smart</span></li>
+          <li><b>Triton</b><span>+ Qualika oficial</span></li>
+          <li><b>Envío</b><span>a todo el país</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ SUB-NAV (scrollspy brand-aware) ============ -->
+    <nav class="subnav" id="subnav" aria-label="Secciones">
+      <div class="subnav__inner">
+        <span class="subnav__pill" aria-hidden="true"></span>
+        <a href="#catalogo" data-brand="cyan">Inodoros</a>
+        <a href="#espejos" data-brand="gold">Espejos</a>
+        <a href="#mas" data-brand="cyan">Equipar</a>
+        <a href="#porque" data-brand="gold">Por qué</a>
+      </div>
+    </nav>
+
+    <!-- ============ BRIDGE (posicionamiento) ============ -->
+    <section class="bridge" aria-label="Por qué Morashop">
+      <div class="bridge__inner reveal">
+        <p class="bridge__kicker">Distribuidor oficial</p>
+        <h2 class="bridge__title">Distribuimos Triton y Qualika,<br><span class="grad-cyan">directo a tu casa.</span></h2>
+        <p class="bridge__text">Las marcas premium de baño inteligente, en un solo lugar. Llevamos la mejor tecnología a tu hogar — con stock real, precio final, cuotas y garantía oficial.</p>
+      </div>
+    </section>
+
+    <!-- ============ INODOROS (Triton) ============ -->
+    <section class="cat cat--cyan" id="catalogo" aria-labelledby="inodoros-title">
+      <div class="cat__head reveal">
+        <p class="cat__eyebrow cat__eyebrow--cyan">Triton · Inodoros inteligentes</p>
+        <h2 class="cat__title" id="inodoros-title">Inodoros inteligentes</h2>
+        <p class="cat__lede">Bidet, temperatura, secado y tapa automática. La nueva era del baño.</p>
+      </div>
+      <div class="grid grid--wide" id="grid-inodoros"><!-- JS --></div>
+    </section>
+
+    <!-- ============ ESPEJOS (Qualika) ============ -->
+    <section class="cat cat--gold" id="espejos" aria-labelledby="espejos-title">
+      <div class="cat__head reveal">
+        <p class="cat__eyebrow cat__eyebrow--gold">Qualika · Espejos inteligentes</p>
+        <h2 class="cat__title" id="espejos-title">Espejos inteligentes</h2>
+        <p class="cat__lede">Luz LED cálida/fría, touch, antivaho y reloj. Tecnología que marca la diferencia.</p>
+      </div>
+      <div class="grid" id="grid-espejos"><!-- JS --></div>
+    </section>
+
+    <!-- ============ EQUIPÁ TODO EL BAÑO (resto Triton) ============ -->
+    <section class="cat" id="mas" aria-labelledby="mas-title">
+      <div class="cat__head reveal">
+        <p class="cat__eyebrow cat__eyebrow--cyan">Triton · Equipamiento</p>
+        <h2 class="cat__title" id="mas-title">Equipá todo el baño</h2>
+        <p class="cat__lede">Griferías cascada, duchas, toalleros, secamanos, mingitorios y bachas de diseño.</p>
+      </div>
+      <div class="grid" id="grid-mas"><!-- JS --></div>
+    </section>
+
+    <!-- ============ POR QUÉ MORASHOP ============ -->
+    <section class="why" id="porque" aria-labelledby="why-title">
+      <div class="why__head reveal">
+        <p class="cat__eyebrow">La diferencia</p>
+        <h2 class="cat__title" id="why-title">Por qué comprarlo en Morashop</h2>
+      </div>
+      <div class="why__grid">
+        <article class="pill reveal"><span class="pill__ico">🏷️</span><h3>Precio final</h3><p>Distribución directa: el mejor precio para el consumidor final, claro y sin vueltas.</p></article>
+        <article class="pill reveal"><span class="pill__ico">🚚</span><h3>Envío a todo el país</h3><p>Despacho asegurado y embalado. Seguís tu pedido hasta la puerta.</p></article>
+        <article class="pill reveal"><span class="pill__ico">💳</span><h3>Cuotas</h3><p>Hasta 3 cuotas sin interés y 15% off en efectivo. Tecnología accesible.</p></article>
+        <article class="pill reveal"><span class="pill__ico">🛡️</span><h3>Garantía oficial</h3><p>Productos originales Triton y Qualika, con respaldo y asesoría real.</p></article>
+      </div>
+    </section>
+
+    <!-- ============ CLOSER ============ -->
+    <section class="closer" aria-label="Renová tu baño">
+      <div class="closer__glow" aria-hidden="true"></div>
+      <p class="closer__kicker">Baño inteligente</p>
+      <h2 class="closer__title">Renová tu baño<br><span class="grad-gold">con lo mejor del mercado.</span></h2>
+      <a class="btn btn--gold btn--lg" href="https://www.morashop.ar/" target="_blank" rel="noopener">Ver todo en Morashop</a>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <p class="footer__tagline">Baño <span class="grad-gold">Inteligente</span> — Triton &amp; Qualika, solo en Morashop.</p>
+      <div class="footer__bottom">
+        <span class="footer__lockup">MORA<i>SHOP</i></span>
+        <p>Maqueta · productos del catálogo Morashop · precios y stock sujetos a la tienda.</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="app.js?v=3"></script>
+</body>
+</html>

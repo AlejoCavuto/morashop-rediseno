@@ -1,0 +1,603 @@
+/* ============================================================
+   FRANCO "EL TANQUE" CURIA × MORASHOP — Industrial Forjado
+   Gunmetal + ámbar molten + acero-cian. Ancla: "TANQUE".
+   ============================================================ */
+:root{
+  --gun:#101318; --gun-2:#161B22; --panel:#1B222B; --steel:#2B313B; --steel-2:#222932;
+  --line:rgba(255,255,255,.09); --line-2:#3A424E;
+  --white:#F3F5F7; --text:#E7E9EC; --muted:rgba(231,233,236,.60);
+  --amber:#FF6A1A; --amber-2:#FF8A3D; --amber-deep:#C74A08;
+  --cyan:#2FB6C4; --cyan-soft:rgba(47,182,196,.16);
+  --maxw:1180px; --r:6px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{ margin:0; background:var(--gun); color:var(--text); font-family:"Archivo",system-ui,sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{margin:0}
+section{position:relative}
+
+.kicker{ font-family:"JetBrains Mono",monospace; font-weight:700; font-size:.72rem; letter-spacing:.24em; text-transform:uppercase; color:var(--muted); margin:0 0 .8rem; }
+.kicker--amber{ color:var(--amber-2); }
+
+/* ---------- Botones ---------- */
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:.5rem; font-family:"Archivo",sans-serif; font-weight:800; font-size:.98rem; text-decoration:none; padding:.95rem 1.7rem; cursor:pointer; border:2px solid transparent; letter-spacing:.02em; text-transform:uppercase;
+  clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px); transition:transform .15s ease, box-shadow .15s ease, background .15s ease; position:relative; overflow:hidden; isolation:isolate; }
+.btn--amber{ background:linear-gradient(180deg,var(--amber-2),var(--amber) 60%,var(--amber-deep)); color:#170a02; box-shadow:0 10px 28px rgba(255,106,26,.30), inset 0 1px 0 rgba(255,255,255,.25); }
+.btn--amber:hover{ transform:translateY(-2px); box-shadow:0 14px 36px rgba(255,106,26,.45), inset 0 1px 0 rgba(255,255,255,.3); }
+.btn--ghost{ border-color:var(--line-2); color:#fff; }
+.btn--ghost:hover{ border-color:var(--cyan); color:#fff; box-shadow:0 0 0 1px var(--cyan), 0 8px 24px rgba(47,182,196,.2); transform:translateY(-2px); }
+.btn--lg{ padding:1.15rem 2.4rem; font-size:1.1rem; }
+.btn::after{ content:""; position:absolute; top:0; bottom:0; left:-130%; width:55%; background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent); transform:skewX(-18deg); transition:left .6s ease; z-index:-1; }
+.btn:hover::after{ left:150%; }
+
+/* ---------- scroll progress ---------- */
+.scroll-prog{ position:fixed; top:0; left:0; height:3px; width:0; z-index:60; background:linear-gradient(90deg,var(--amber-deep),var(--amber-2)); box-shadow:0 0 12px rgba(255,106,26,.6); }
+
+/* ---------- Topbar ---------- */
+.topbar{ position:sticky; top:0; z-index:40; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.8rem clamp(1rem,4vw,2.2rem); background:rgba(16,19,24,.82); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); transition:background .25s, box-shadow .25s; }
+.topbar.scrolled{ background:rgba(16,19,24,.96); box-shadow:0 8px 30px rgba(0,0,0,.5); }
+.topbar__back{ font-family:"JetBrains Mono",monospace; font-weight:500; font-size:.8rem; text-decoration:none; color:var(--muted); display:inline-flex; align-items:center; gap:.4rem; transition:color .15s; }
+.topbar__back:hover{color:#fff}
+.topbar__wordmark{ display:inline-flex; align-items:center; gap:.55rem; text-decoration:none; }
+.wm-tanque{ font-family:"Anton",sans-serif; font-size:1.4rem; letter-spacing:.06em; color:#fff; line-height:1; }
+.wm-x{ color:var(--amber); font-weight:800; opacity:.9; }
+.wm-logo{ height:34px; width:auto; }
+
+/* ---------- HERO ---------- */
+.hero{ position:relative; overflow:hidden; display:grid; grid-template-columns:1.15fr .85fr; align-items:center; gap:2rem; max-width:var(--maxw); margin:0 auto; width:100%; padding:clamp(3rem,8vw,6rem) clamp(1.1rem,5vw,2.5rem) clamp(2.5rem,6vw,4.5rem); min-height:min(82svh,720px); }
+.hero__grid{ position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.5; background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size:46px 46px; mask-image:radial-gradient(120% 90% at 30% 30%,#000 30%,transparent 75%); }
+.hero__glow{ position:absolute; z-index:0; top:-15%; left:-10%; width:620px; height:620px; pointer-events:none; background:radial-gradient(circle,rgba(255,106,26,.18),transparent 65%); filter:blur(8px); animation:tq-glow 16s ease-in-out infinite; }
+@keyframes tq-glow{ 0%,100%{transform:translate(0,0) scale(1);opacity:.85} 50%{transform:translate(46px,34px) scale(1.16);opacity:1} }
+.hero__content{ position:relative; z-index:2; }
+.eyebrow{ font-family:"JetBrains Mono",monospace; font-weight:700; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 1.2rem; display:flex; flex-wrap:wrap; gap:.4em; align-items:center; }
+.eyebrow__x{color:var(--amber-2); font-weight:800} .eyebrow__dot{opacity:.4}
+.hero__title{ margin:0 0 .8rem; }
+
+/* ===== wordmark "TANQUE" = placa de blindaje glacis sobre oruga que rueda =====
+   letra ÁMBAR SIEMPRE prendida (color fijo, jamás animado). Solo respira la LUZ. */
+.hero__armor{ position:relative; display:inline-block; isolation:isolate; z-index:1;
+  padding:.30em .55em .86em;
+  clip-path:polygon(0 22px,22px 0,calc(100% - 46px) 0,100% 40px,100% calc(100% - 16px),calc(100% - 16px) 100%,16px 100%,0 calc(100% - 16px));
+  background:
+    radial-gradient(60% 50% at 20% 15%,rgba(74,90,62,.12),transparent 60%),
+    radial-gradient(50% 40% at 85% 80%,rgba(58,66,52,.10),transparent 60%),
+    repeating-linear-gradient(92deg,rgba(255,255,255,.028) 0 2px,rgba(0,0,0,.05) 2px 4px),
+    linear-gradient(158deg,#39414c 0%,#20262f 42%,#12161c 100%);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.10),inset 0 -16px 30px rgba(0,0,0,.55),inset 0 0 0 1px rgba(0,0,0,.5);
+  filter:drop-shadow(0 20px 26px rgba(0,0,0,.55)); /* clip-path clipea box-shadow externo -> uso filter */
+  will-change:transform; animation:tq-idle 2.8s ease-in-out 1.1s infinite; }
+/* bulones remachados (fila arriba + abajo) */
+/* brillo de metal (arriba luz, abajo sombra) — sin bulones */
+.hero__armor::after{ content:""; position:absolute; inset:0; z-index:2; pointer-events:none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.07) 0, transparent 11%),
+    linear-gradient(0deg, rgba(0,0,0,.24) 0, transparent 16%);
+  mix-blend-mode:soft-light; }
+/* bloom = fragua ámbar que respira detrás del stencil */
+.hero__bloom{ position:absolute; inset:-16% -10%; z-index:1; pointer-events:none;
+  background:radial-gradient(55% 62% at 50% 55%,rgba(255,106,26,.5),transparent 70%);
+  filter:blur(16px); animation:tq-bloom 4.4s ease-in-out .95s infinite; }
+@keyframes tq-bloom{ 0%,100%{transform:scale(.92);opacity:.5} 50%{transform:scale(1.12);opacity:.95} }
+/* la letra: color fijo, solo respira el halo de luz (filter drop-shadow) */
+.hero__word{ position:relative; z-index:4; display:inline-block;
+  font-family:"Saira Stencil One","Anton",sans-serif; font-weight:400; text-transform:uppercase;
+  font-size:clamp(3.1rem,1.8rem + 8.5vw,6.8rem); letter-spacing:.03em; line-height:.92;
+  color:var(--amber); -webkit-text-stroke:1px rgba(0,0,0,.30);
+  text-shadow:0 0 5px rgba(255,106,26,.6),0 2px 0 rgba(0,0,0,.55);
+  animation:tq-breathe 4.4s ease-in-out .95s infinite; }
+@keyframes tq-breathe{
+  0%,100%{ filter:drop-shadow(0 0 5px rgba(255,106,26,.5)) drop-shadow(0 0 16px rgba(255,106,26,.22)); }
+  50%{ filter:drop-shadow(0 0 12px rgba(255,138,61,.8)) drop-shadow(0 0 40px rgba(255,106,26,.45)); } }
+/* glint = reflector cálido que cruza la letra (aditivo, nunca apaga el ámbar) */
+.hero__word::after{ content:attr(data-text); position:absolute; inset:0; pointer-events:none;
+  font:inherit; letter-spacing:inherit; text-transform:inherit; line-height:inherit; -webkit-text-stroke:0;
+  background:linear-gradient(105deg,transparent 43%,rgba(255,230,200,.85) 50%,transparent 57%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+  background-size:280% 100%; background-position:180% 0;
+  animation:tq-glint 7s ease-in-out 1.6s infinite; }
+@keyframes tq-glint{ 0%,72%{background-position:180% 0} 100%{background-position:-80% 0} }
+/* número de casco (guiño a +180K) */
+.hero__hull{ position:absolute; top:8px; right:16px; z-index:3; pointer-events:none;
+  font-family:"Saira Stencil One",monospace; font-size:.6rem; letter-spacing:.2em;
+  color:rgba(255,138,61,.5); transform:rotate(-1.5deg); }
+/* franja hazard fina arriba del piso */
+.hero__hazard{ position:absolute; left:14px; right:14px; bottom:24px; height:6px; z-index:2; opacity:.85; border-radius:1px;
+  background:repeating-linear-gradient(-45deg,var(--amber) 0 9px,#0c0f13 9px 18px); }
+/* piso / camino donde maneja el tanque (asfalto, estático) */
+.hero__tread{ position:absolute; left:10px; right:10px; bottom:6px; height:14px; z-index:2; border-radius:3px;
+  background:linear-gradient(180deg,#2b333b 0%,#181d23 44%,#0a0d11 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06), inset 0 -5px 9px rgba(0,0,0,.6), 0 2px 5px rgba(0,0,0,.5); }
+/* idle de motor (sub-pixel, smooth) */
+@keyframes tq-idle{ 0%,100%{transform:translate(0,0) rotate(0deg)} 25%{transform:translate(.35px,-.3px) rotate(.05deg)} 50%{transform:translate(-.3px,.3px) rotate(-.04deg)} 75%{transform:translate(.3px,.25px) rotate(.04deg)} }
+/* entrada: la placa cae y asienta (una vez) */
+.hero__title{ animation:tq-drop .8s .15s cubic-bezier(.2,.9,.25,1.15) both; }
+@keyframes tq-drop{ 0%{opacity:0;transform:translateY(-46px) scaleY(1.05)} 60%{opacity:1;transform:translateY(5px) scaleY(.99)} 78%{transform:translateY(-3px)} 100%{transform:none} }
+/* golpe seco al aterrizar (JS agrega .hero--land) */
+.hero--land{ animation:tq-shake .32s ease-out; }
+@keyframes tq-shake{ 0%,100%{transform:translate(0,0)} 20%{transform:translate(-2px,1px)} 40%{transform:translate(2px,-1px)} 60%{transform:translate(-1px,1px)} 80%{transform:translate(1px,0)} }
+
+/* ===== DISPARO: un proyectil de tanque le pega a la "Q" (JS agrega .is-fire) ===== */
+.hero__word .ltr{ display:inline-block; }
+.hero__hit{ position:relative; }
+/* proyectil / bala de tanque (tracer grueso con estela larga) */
+.hero__shell{ position:absolute; top:50%; left:50%; width:96px; height:14px; border-radius:8px; opacity:0; pointer-events:none; z-index:5;
+  transform:translate(-50%,-50%);
+  background:linear-gradient(90deg,rgba(255,140,50,0) 0,rgba(255,150,60,.55) 40%,rgba(255,170,90,.95) 72%,#fff 100%);
+  box-shadow:0 0 26px 6px rgba(255,140,50,1),0 0 12px 3px #ffd9a0,0 0 4px 1px #fff; }
+/* onda expansiva (anillo) */
+.hero__shock{ position:absolute; top:46%; left:50%; width:34px; height:34px; border-radius:50%; opacity:0; pointer-events:none; z-index:5;
+  transform:translate(-50%,-50%) scale(.2);
+  border:4px solid rgba(255,175,95,.95); box-shadow:0 0 22px rgba(255,138,61,.7),inset 0 0 14px rgba(255,138,61,.5); }
+/* fogonazo de impacto (nucleo grande) */
+.hero__impact{ position:absolute; top:46%; left:50%; width:78px; height:78px; border-radius:50%; opacity:0; pointer-events:none; z-index:6;
+  transform:translate(-50%,-50%) scale(.2); mix-blend-mode:screen;
+  background:radial-gradient(circle,#fff 0,#fff 14%,#ffe0a8 30%,rgba(255,138,61,.75) 52%,rgba(255,106,26,0) 74%); }
+/* chispas que saltan lejos */
+.hero__sparks{ position:absolute; top:46%; left:50%; width:5px; height:5px; border-radius:50%; opacity:0; pointer-events:none; z-index:6;
+  transform:translate(-50%,-50%) scale(.12); background:#fff;
+  box-shadow:34px -22px 0 0 #ffb060,-26px -30px 0 0 #ff8a3d,40px 18px 0 -1px #ffd9a0,-36px 20px 0 0 #ff6a1a,11px -44px 0 -1px #ffb060,-12px 38px 0 0 #ff8a3d,48px -5px 0 -1px #fff,-44px -7px 0 0 #ffcf95,18px 40px 0 -1px #ffb060,-20px -46px 0 -1px #fff; }
+/* gatillo: al agregar .is-fire, cada FX corre una vez */
+.hero__armor.is-fire .hero__shock{ animation:tq-shock .6s ease-out .02s forwards; }
+.hero__armor.is-fire .hero__impact{ animation:tq-impact .55s ease-out 0s forwards; }
+.hero__armor.is-fire .hero__sparks{ animation:tq-sparks .6s ease-out .04s forwards; }
+.hero__armor.is-fire .hero__hit{ animation:tq-recoil .55s cubic-bezier(.3,1.5,.4,1) .02s; }
+@keyframes tq-shell{
+  0%{ opacity:0; transform:translate(calc(-50% - 620px),-50%) scaleX(1.6); }
+  10%{ opacity:1; }
+  80%{ opacity:1; transform:translate(calc(-50% - 20px),-50%) scaleX(1); }
+  100%{ opacity:0; transform:translate(-50%,-50%) scaleX(.4); } }
+@keyframes tq-shock{
+  0%{ opacity:0; transform:translate(-50%,-50%) scale(.2); border-width:5px; }
+  16%{ opacity:.95; }
+  100%{ opacity:0; transform:translate(-50%,-50%) scale(3.8); border-width:1px; } }
+@keyframes tq-impact{
+  0%{ opacity:0; transform:translate(-50%,-50%) scale(.2); }
+  14%{ opacity:1; transform:translate(-50%,-50%) scale(.7); }
+  42%{ opacity:1; transform:translate(-50%,-50%) scale(2.1); }
+  100%{ opacity:0; transform:translate(-50%,-50%) scale(3.3); } }
+@keyframes tq-sparks{
+  0%{ opacity:0; transform:translate(-50%,-50%) scale(.1); }
+  14%{ opacity:1; }
+  100%{ opacity:0; transform:translate(-50%,-50%) scale(2.6); } }
+@keyframes tq-recoil{
+  0%{ transform:translate(0,0) rotate(0); }
+  14%{ transform:translate(13px,-4px) rotate(4deg) scale(1.11); }
+  38%{ transform:translate(-5px,2px) rotate(-1.8deg) scale(.99); }
+  62%{ transform:translate(2px,-1px) rotate(.6deg); }
+  100%{ transform:translate(0,0) rotate(0); } }
+/* sacudón fuerte de impacto (JS agrega .hero--blast) */
+.hero--blast{ animation:tq-blast .42s cubic-bezier(.3,.7,.3,1); }
+@keyframes tq-blast{ 0%,100%{transform:translate(0,0)} 12%{transform:translate(-7px,3px)} 26%{transform:translate(7px,-4px)} 42%{transform:translate(-5px,2px)} 58%{transform:translate(5px,-2px)} 74%{transform:translate(-3px,1px)} 88%{transform:translate(2px,0)} }
+
+/* ===== QUEMADURA / CHAMUSCADO que queda en la "Q" tras el tiro (JS agrega .is-hit) ===== */
+.hero__hole{ position:absolute; top:47%; left:52%; width:52px; height:46px; z-index:7; pointer-events:none;
+  opacity:0; transition:opacity 1.3s ease; /* cicatriza lento */
+  transform:translate(-50%,-50%) rotate(-10deg);
+  border-radius:48% 54% 52% 46% / 52% 46% 54% 48%; /* mancha irregular */
+  background:
+    radial-gradient(58% 66% at 46% 42%, rgba(0,0,0,.88) 0, rgba(0,0,0,.5) 42%, rgba(0,0,0,0) 72%),
+    radial-gradient(40% 46% at 64% 62%, rgba(8,5,2,.8) 0, transparent 70%),
+    radial-gradient(30% 36% at 34% 66%, rgba(8,5,2,.72) 0, transparent 72%);
+  filter:blur(.5px); }
+.hero__armor.is-hit .hero__hole{ opacity:1; transition:opacity .06s; animation:tq-hole .85s ease-out; }
+@keyframes tq-hole{ /* brasa que se enciende y se enfría, deja hollín */
+  0%{ transform:translate(-50%,-50%) rotate(-10deg) scale(.45);
+      box-shadow:0 0 24px 9px rgba(255,150,60,.9); background-color:rgba(255,140,60,.35); }
+  30%{ transform:translate(-50%,-50%) rotate(-10deg) scale(1.12);
+      box-shadow:0 0 16px 6px rgba(255,110,40,.55); background-color:rgba(180,80,30,.15); }
+  100%{ transform:translate(-50%,-50%) rotate(-10deg) scale(1);
+      box-shadow:0 0 12px 4px rgba(6,4,2,.45); background-color:transparent; } }
+/* la Q se ennegrece (quemada) tras el fogonazo y sana lento */
+.hero__hit{ transition:filter 1.2s ease; }
+.hero__armor.is-hit .hero__hit{ filter:brightness(.5) saturate(.7) contrast(1.05); transition:filter .5s ease .5s; }
+
+/* ===== TANQUE que cruza manejando y le dispara a la Q (JS: .is-driving / .is-firing) ===== */
+.hero__tank{ position:absolute; bottom:-2px; left:-96px; width:96px; height:53px; z-index:8; pointer-events:none;
+  filter:drop-shadow(0 3px 4px rgba(0,0,0,.55)); }
+.hero__tank .tank__svg{ overflow:visible; display:block; }
+.hero__tank.is-driving{ animation:tk-drive 5.6s linear forwards; }
+@keyframes tk-drive{ 0%{ left:-96px; } 100%{ left:calc(100% + 30px); } }
+/* rebote de suspensión */
+.tank__svg{ animation:tk-bob .5s ease-in-out infinite; transform-origin:center; }
+@keyframes tk-bob{ 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-1.4px) rotate(-.5deg)} }
+/* ruedas girando */
+.tank__wheel{ transform-box:fill-box; transform-origin:center; animation:tk-wheel .45s linear infinite; }
+@keyframes tk-wheel{ to{ transform:rotate(360deg); } }
+/* oruga rodando */
+.tank__tread{ animation:tk-track .45s linear infinite; }
+@keyframes tk-track{ to{ stroke-dashoffset:-8; } }
+/* cañón (pivota en la torreta) + retroceso al disparar */
+.tank__gun{ transform-box:view-box; transform-origin:58px 30px; transform:rotate(-26deg); }
+.hero__tank.is-firing .tank__gun{ animation:tk-recoil .4s ease-out; }
+@keyframes tk-recoil{ 0%{transform:rotate(-26deg) translate(0,0)} 22%{transform:rotate(-26deg) translate(-8px,0)} 100%{transform:rotate(-26deg) translate(0,0)} }
+/* fogonazo del cañón */
+.tank__muzzle{ transform-box:fill-box; transform-origin:center; opacity:0; }
+.hero__tank.is-firing .tank__muzzle{ animation:tk-muzzle .4s ease-out; }
+@keyframes tk-muzzle{ 0%{opacity:0;transform:scale(.2)} 16%{opacity:1;transform:scale(1.5)} 100%{opacity:0;transform:scale(.4)} }
+.hero__tag{ font-family:"Anton",sans-serif; font-size:clamp(1.1rem,1.6vw,1.5rem); letter-spacing:.06em; text-transform:uppercase; color:var(--amber-2); margin:.2rem 0 1.1rem; }
+.hero__sub{ max-width:48ch; color:rgba(231,233,236,.82); font-size:1.06rem; margin:0 0 1.8rem; }
+.hero__sub strong{color:#fff}
+.hero__actions{ display:flex; flex-wrap:wrap; gap:.8rem; margin-bottom:2.2rem; }
+.hero__creds{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:0; border:1px solid var(--line-2); overflow:hidden; max-width:520px; background:rgba(255,255,255,.02);
+  clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px); }
+.hero__creds li{ flex:1 1 0; min-width:110px; padding:.9rem 1.1rem; border-left:1px solid var(--line); }
+.hero__creds li:first-child{border-left:0}
+.hero__creds b{ display:block; font-family:"Anton",sans-serif; font-weight:400; font-size:1.6rem; color:#fff; line-height:1; }
+.hero__creds span{ font-family:"JetBrains Mono",monospace; font-size:.68rem; color:var(--muted); letter-spacing:.03em; }
+
+.hero__figure{ position:relative; z-index:1; height:100%; display:flex; align-items:center; justify-content:center; }
+.hero__ph{ position:relative; width:100%; max-width:420px; aspect-ratio:3/4; background:radial-gradient(120% 80% at 70% 10%,rgba(255,106,26,.16),transparent 55%),linear-gradient(160deg,#1d232b,#0c1013); border:1px solid var(--line-2); overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.6rem; box-shadow:0 30px 80px rgba(0,0,0,.5);
+  clip-path:polygon(20px 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%,0 20px); }
+.hero__ph::before{ content:""; position:absolute; inset:0; background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size:34px 34px; opacity:.4; }
+.hero__ph-mono{ font-family:"Anton",sans-serif; font-size:clamp(7rem,18vw,12rem); color:rgba(255,255,255,.05); line-height:.8; }
+.hero__ph-note{ font-family:"JetBrains Mono",monospace; font-weight:700; font-size:.7rem; letter-spacing:.26em; color:var(--amber-2); opacity:.8; z-index:1; }
+.hero__img{ width:100%; max-width:420px; aspect-ratio:3/4; object-fit:cover; object-position:50% 20%; border:1px solid var(--line-2); box-shadow:0 30px 80px rgba(0,0,0,.55); clip-path:polygon(20px 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%,0 20px); }
+
+/* ---------- HAZARD (riel diagonal) ---------- */
+.hazard{ overflow:hidden; border-top:1px solid var(--line-2); border-bottom:1px solid var(--line-2); background:#0c0f13; padding:11px 0; }
+.hazard__track{ display:flex; width:max-content; animation:tq-marq 24s linear infinite; will-change:transform; }
+.hazard__track span{ font-family:"Anton",sans-serif; font-size:1rem; letter-spacing:.14em; text-transform:uppercase; color:var(--amber-2); padding:0 1rem; white-space:nowrap; }
+.hazard__track .bar{ width:46px; height:14px; margin:0 .3rem; align-self:center; background:repeating-linear-gradient(45deg,var(--amber) 0 8px,#0c0f13 8px 16px); }
+@keyframes tq-marq{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.hazard:hover .hazard__track{ animation-play-state:paused; }
+
+/* ---------- STORE (combustible) ---------- */
+.store{ max-width:var(--maxw); margin:0 auto; width:100%; padding:clamp(3rem,7vw,5rem) clamp(1.1rem,5vw,2.5rem) clamp(2rem,5vw,3.5rem); }
+.store__head{ text-align:center; max-width:640px; margin:0 auto 2.2rem; }
+.store__head h2{ font-family:"Anton",sans-serif; font-weight:400; text-transform:uppercase; font-size:clamp(2.4rem,1.6rem + 5vw,4rem); line-height:.92; margin:0 0 .6rem; color:#fff; }
+.store__lede{ color:rgba(231,233,236,.72); margin:0 0 1.2rem; }
+.promo-strip{ list-style:none; display:flex; flex-wrap:wrap; justify-content:center; gap:.5rem; padding:0; margin:0; }
+.promo-strip li{ font-family:"JetBrains Mono",monospace; font-weight:700; font-size:.72rem; letter-spacing:.04em; text-transform:uppercase; color:var(--amber-2); border:1px solid rgba(255,106,26,.35); padding:.4rem .9rem; clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px); }
+.store__grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.1rem; perspective:1100px; }
+.store__note{ text-align:center; color:rgba(231,233,236,.4); font-family:"JetBrains Mono",monospace; font-size:.78rem; margin:1.6rem 0 0; }
+
+/* card blindada */
+.card{ background:linear-gradient(180deg,#fff,#f2f4f6); overflow:hidden; display:flex; flex-direction:column; box-shadow:0 6px 24px rgba(0,0,0,.4); color:#12161c; border:1px solid #d3d8de; transition:transform .2s ease, box-shadow .2s ease; transform-style:preserve-3d;
+  clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px); }
+.card:hover{ transform:translateY(-5px); box-shadow:0 16px 40px rgba(0,0,0,.5), 0 0 0 1px var(--amber), 0 0 26px rgba(255,106,26,.4); }
+.card__media{ position:relative; aspect-ratio:1/1; background:#eef1f4; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.card__media img{ width:100%; height:100%; object-fit:contain; padding:8px; transition:transform .45s cubic-bezier(.2,.7,.2,1); }
+.card:hover .card__media img{ transform:scale(1.07); }
+.card__off{ position:absolute; top:10px; left:10px; background:var(--amber); color:#170a02; font-family:"JetBrains Mono",monospace; font-weight:700; font-size:.72rem; padding:.28rem .55rem; }
+.card__body{ padding:.9rem 1rem 1.2rem; display:flex; flex-direction:column; gap:.25rem; flex:1; }
+.card__pick{ font-family:"JetBrains Mono",monospace; font-size:.62rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--amber-deep); margin:0; }
+.card__name{ font-size:.98rem; font-weight:700; line-height:1.25; margin:.1rem 0 .4rem; min-height:2.5em; color:#12161c; }
+.card__was{ font-size:.85rem; color:#8b9096; text-decoration:line-through; margin:0; }
+.card__price{ font-family:"Anton",sans-serif; font-size:1.55rem; color:#12161c; margin:0; letter-spacing:.01em; }
+.card__price em{ display:block; font-family:"Archivo",sans-serif; font-size:.72rem; font-weight:600; color:#5f6b74; font-style:normal; }
+.card__btn{ margin-top:.9rem; display:flex; align-items:center; justify-content:center; gap:.4rem; background:var(--gun); color:#fff; text-decoration:none; font-family:"Archivo",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.02em; padding:.8rem; transition:background .15s ease; clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px); }
+.card__btn:hover{ background:var(--amber); color:#170a02; }
+.card__btn svg{width:18px;height:18px}
+
+/* ---------- QUIÉN ---------- */
+.quien{ max-width:var(--maxw); margin:0 auto; width:100%; padding:clamp(3.5rem,9vw,6rem) clamp(1.1rem,5vw,2.5rem); display:grid; grid-template-columns:.85fr 1.15fr; gap:clamp(2rem,5vw,4rem); align-items:center; }
+.quien--solo{ grid-template-columns:1fr; max-width:820px; }
+.quien__media{ position:relative; }
+.quien__ph{ aspect-ratio:4/5; overflow:hidden; border:1px solid var(--line-2); background:radial-gradient(120% 80% at 30% 10%,rgba(255,106,26,.14),transparent 55%),linear-gradient(160deg,#1c222b,#0c1013); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.5rem; clip-path:polygon(18px 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%,0 18px); }
+.quien__ph-mono{ font-family:"Anton",sans-serif; font-size:clamp(6rem,16vw,10rem); color:rgba(255,255,255,.05); }
+.quien__ph-note{ font-family:"JetBrains Mono",monospace; font-weight:700; font-size:.68rem; letter-spacing:.24em; color:var(--amber-2); opacity:.75; }
+.quien__img{ width:100%; aspect-ratio:4/5; object-fit:cover; object-position:50% 20%; border:1px solid var(--line-2); clip-path:polygon(18px 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%,0 18px); }
+.quien__stamp{ position:absolute; right:-14px; bottom:-14px; width:96px; height:96px; background:var(--amber); color:#170a02; display:flex; align-items:center; justify-content:center; font-family:"Anton",sans-serif; font-size:1.5rem; box-shadow:0 12px 30px rgba(255,106,26,.4); clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px); }
+.quien__text h2{ font-family:"Anton",sans-serif; font-weight:400; text-transform:uppercase; font-size:clamp(2.2rem,1.4rem + 4vw,3.4rem); line-height:.95; margin:0 0 1.1rem; color:#fff; }
+.quien__text p{ color:rgba(231,233,236,.78); margin:0 0 1rem; max-width:54ch; }
+.quien__text strong{color:#fff} .quien__text em{color:var(--amber-2); font-style:italic}
+.creds-list{ list-style:none; margin:1.5rem 0 0; padding:0; display:flex; flex-direction:column; gap:.55rem; }
+.creds-list__item{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.85rem 1.1rem; border:1px solid var(--line-2); background:rgba(255,255,255,.02); clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px); }
+.creds-list__label{ font-weight:600; font-size:.95rem; }
+.creds-list__badge{ font-family:"JetBrains Mono",monospace; font-weight:700; font-size:.66rem; letter-spacing:.06em; text-transform:uppercase; color:var(--amber-2); border:1px solid rgba(255,106,26,.4); padding:.28rem .7rem; white-space:nowrap; }
+
+/* ---------- VIDEOS ---------- */
+.videos{ max-width:var(--maxw); margin:0 auto; width:100%; padding:clamp(2.5rem,6vw,4.5rem) clamp(1.1rem,5vw,2.5rem); }
+.videos__head{ text-align:center; margin:0 0 2rem; }
+.videos__head h2{ font-family:"Anton",sans-serif; font-weight:400; text-transform:uppercase; font-size:clamp(2rem,1.3rem + 4vw,3.2rem); margin:0; color:#fff; }
+.videos__grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.1rem; }
+.video-card{ display:block; text-decoration:none; color:#fff; overflow:hidden; background:var(--gun-2); border:1px solid var(--line-2); transition:transform .2s, border-color .2s, box-shadow .2s; clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px); }
+.video-card:hover{ transform:translateY(-4px); border-color:var(--amber); box-shadow:0 0 20px rgba(255,106,26,.35); }
+.video-card__thumb{ position:relative; aspect-ratio:16/9; background:#000; }
+.video-card__thumb img{ width:100%; height:100%; object-fit:cover; }
+.video-card__play{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+.video-card__play svg{ width:54px; height:38px; filter:drop-shadow(0 4px 12px rgba(0,0,0,.5)); transition:transform .2s; }
+.video-card:hover .video-card__play svg{ transform:scale(1.1); }
+.video-card__title{ padding:.9rem 1rem 1.1rem; font-family:"Archivo",sans-serif; font-weight:600; font-size:.9rem; line-height:1.3; }
+
+/* ---------- PLANES (ficha técnica) ---------- */
+.plans{ max-width:var(--maxw); margin:0 auto; width:100%; padding:clamp(3.5rem,8vw,5.5rem) clamp(1.1rem,5vw,2.5rem); }
+.plans__head{ text-align:center; max-width:640px; margin:0 auto 2.4rem; }
+.plans__head h2{ font-family:"Anton",sans-serif; font-weight:400; text-transform:uppercase; font-size:clamp(2.2rem,1.5rem + 4vw,3.4rem); line-height:.95; margin:0 0 .7rem; color:#fff; }
+.plans__lede{ color:rgba(231,233,236,.72); }
+.plans__grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; align-items:stretch; }
+.plan{ position:relative; background:var(--gun-2); border:1px solid var(--line-2); padding:1.8rem 1.5rem; display:flex; flex-direction:column; clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px); }
+.plan--feat{ border-color:var(--amber); background:linear-gradient(180deg,rgba(255,106,26,.08),var(--gun-2)); box-shadow:0 16px 50px rgba(255,106,26,.16); animation:tq-glowpulse 3.2s ease-in-out infinite; padding-top:2.6rem; }
+@keyframes tq-glowpulse{ 0%,100%{box-shadow:0 16px 50px rgba(255,106,26,.16)} 50%{box-shadow:0 18px 62px rgba(255,106,26,.34)} }
+.plan__code{ font-family:"JetBrains Mono",monospace; font-weight:700; font-size:.7rem; letter-spacing:.14em; color:var(--muted); }
+/* chip PREMIUM dentro de la card (antes sobresalía y el clip-path lo cortaba) */
+.plan__tag{ position:absolute; top:12px; right:14px; background:var(--amber); color:#170a02; font-family:"JetBrains Mono",monospace; font-weight:700; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; padding:.3rem .7rem; white-space:nowrap; box-shadow:0 4px 12px rgba(255,106,26,.4); }
+.plan__name{ font-family:"Anton",sans-serif; font-weight:400; font-size:1.7rem; text-transform:uppercase; margin:.3rem 0 .2rem; color:#fff; }
+.plan__for{ color:var(--muted); font-family:"JetBrains Mono",monospace; font-size:.8rem; margin:0 0 1.2rem; }
+.plan__feats{ list-style:none; padding:0; margin:0 0 1.6rem; display:flex; flex-direction:column; gap:.6rem; flex:1; }
+.plan__feats li{ position:relative; padding-left:1.5rem; font-size:.92rem; color:rgba(231,233,236,.82); }
+.plan__feats li::before{ content:"›"; position:absolute; left:0; color:var(--amber-2); font-weight:800; }
+.plan__feats b{color:#fff}
+.plan__btn{ display:flex; align-items:center; justify-content:center; text-decoration:none; font-family:"Archivo",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.02em; padding:.9rem; border:1.5px solid var(--line-2); color:#fff; transition:all .15s ease; clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px); }
+.plan__btn:hover{ border-color:var(--amber); background:rgba(255,106,26,.1); }
+.plan--feat .plan__btn{ background:var(--amber); color:#170a02; border-color:var(--amber); }
+.plan--feat .plan__btn:hover{ background:var(--amber-2); transform:translateY(-2px); }
+
+/* ---------- FOLLOW ---------- */
+.follow{ text-align:center; padding:clamp(3rem,7vw,5rem) clamp(1.1rem,5vw,2.5rem); }
+.follow__eyebrow{ font-family:"JetBrains Mono",monospace; font-weight:700; font-size:.72rem; letter-spacing:.24em; text-transform:uppercase; color:var(--muted); margin:0 0 .5rem; }
+.follow h2{ font-family:"Anton",sans-serif; font-weight:400; text-transform:uppercase; font-size:clamp(2rem,1.4rem + 4vw,3.2rem); margin:0 0 .3rem; color:#fff; }
+.follow__handle{ color:var(--amber-2); font-family:"JetBrains Mono",monospace; font-weight:700; margin:0 0 1.6rem; }
+.follow__links{ display:flex; flex-wrap:wrap; gap:.7rem; justify-content:center; max-width:620px; margin:0 auto; }
+.follow__links a{ display:inline-flex; align-items:center; gap:.5em; font-family:"Archivo",sans-serif; font-weight:800; text-transform:uppercase; letter-spacing:.02em; font-size:.92rem; text-decoration:none; border:1.5px solid var(--line-2); color:#fff; padding:.7rem 1.2rem; transition:all .2s ease; clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px); }
+.follow__links a .ico{ width:1.2em; height:1.2em; transition:transform .3s ease; }
+.follow__links a:hover{ transform:translateY(-3px); }
+.follow__links a:hover .ico{ transform:rotate(-8deg) scale(1.1); }
+.follow__links a[data-net="ig"]:hover{ background:linear-gradient(45deg,#f09433,#dc2743,#bc1888); border-color:transparent; }
+.follow__links a[data-net="yt"]:hover{ background:#FF0000; border-color:#FF0000; }
+.follow__links a[data-net="tt"]:hover{ background:#000; border-color:#25F4EE; box-shadow:3px 3px 0 #FE2C55,-3px -3px 0 #25F4EE; }
+
+/* ---------- CLOSER ---------- */
+.closer{ position:relative; overflow:hidden; text-align:center; padding:clamp(4rem,10vw,6.5rem) clamp(1.1rem,5vw,2.5rem); border-top:1px solid var(--line-2); background:#0b0e12; }
+.closer__glow{ position:absolute; inset:0; z-index:0; background:radial-gradient(60% 80% at 50% 0%,rgba(255,106,26,.18),transparent 70%); pointer-events:none; }
+.closer__kicker{ position:relative; z-index:1; font-family:"JetBrains Mono",monospace; font-weight:700; font-size:.72rem; letter-spacing:.24em; text-transform:uppercase; color:var(--amber-2); margin:0 0 .8rem; }
+.closer__title{ position:relative; z-index:1; font-family:"Anton",sans-serif; font-weight:400; text-transform:uppercase; font-size:clamp(2.6rem,1.6rem + 7vw,5.4rem); line-height:.88; margin:0 auto 1.8rem; color:#fff; }
+.closer__title span{ color:var(--amber-2); }
+.closer .btn{ position:relative; z-index:1; }
+
+/* ---------- FOOTER ---------- */
+.footer{ background:#08090c; border-top:1px solid var(--line-2); padding:clamp(2.6rem,6vw,4rem) clamp(1.1rem,5vw,2.5rem); text-align:center; }
+.footer__tagline{ font-family:"Anton",sans-serif; font-weight:400; text-transform:uppercase; font-size:clamp(1.9rem,1.3rem + 4vw,3.4rem); line-height:.95; color:#fff; max-width:var(--maxw); margin:0 auto 2rem; }
+.footer__tagline span{ color:var(--amber-2); }
+.footer__bottom{ border-top:1px solid var(--line-2); padding-top:1.6rem; max-width:var(--maxw); margin:0 auto; }
+.footer__lockup{ font-family:"Anton",sans-serif; font-size:1.3rem; letter-spacing:.03em; color:#fff; }
+.footer__lockup i{ color:var(--amber-2); font-style:normal; }
+.footer__bottom p{ color:var(--muted); font-family:"JetBrains Mono",monospace; font-size:.78rem; margin:.6rem 0 0; }
+
+/* ---------- BANDA TANQUE (full-bleed cinematográfica) ---------- */
+.tanquebanda{ position:relative; min-height:min(90svh,760px); display:flex; align-items:center; overflow:hidden; border-top:1px solid var(--line-2); border-bottom:1px solid var(--line-2); }
+.tanquebanda__media{ position:absolute; inset:0; z-index:0; overflow:hidden; }
+.tanquebanda__img{ width:100%; height:122%; object-fit:cover; object-position:52% 20%; will-change:transform; }
+.tanquebanda__scrim{ position:absolute; inset:0; background:linear-gradient(90deg,rgba(8,9,12,.94) 0%,rgba(8,9,12,.74) 44%,rgba(8,9,12,.22) 100%),linear-gradient(0deg,var(--gun) 1%,transparent 26%),linear-gradient(180deg,rgba(255,106,26,.08),transparent 30%); }
+.tanquebanda__grid{ position:absolute; inset:0; opacity:.35; background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size:46px 46px; mask-image:radial-gradient(90% 90% at 22% 45%,#000 18%,transparent 70%); }
+.tanquebanda__inner{ position:relative; z-index:1; max-width:var(--maxw); margin:0 auto; width:100%; padding:clamp(3rem,7vw,5rem) clamp(1.1rem,5vw,2.5rem); }
+.tanquebanda__title{ font-family:"Anton",sans-serif; font-weight:400; text-transform:uppercase; font-size:clamp(2.6rem,1.6rem + 6vw,5rem); line-height:.9; color:#fff; margin:.4rem 0 1rem; max-width:15ch; text-shadow:0 4px 30px rgba(0,0,0,.5); }
+.tanquebanda__title span{ color:var(--amber-2); }
+.tanquebanda__sub{ max-width:44ch; color:rgba(231,233,236,.85); font-size:1.05rem; margin:0 0 1.4rem; }
+.tanquebanda .promo-strip{ justify-content:flex-start; margin:0 0 1.6rem; }
+
+/* word-mask (SplitText) para titulos data-split */
+[data-split] .word{ display:inline-block; overflow:hidden; vertical-align:top; padding-bottom:.1em; margin-bottom:-.1em; }
+
+/* ============================================================
+   REVEAL + animaciones (SIEMPRE activas)
+   ============================================================ */
+.reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); transition-delay:var(--d,0ms); will-change:opacity,transform; }
+.reveal--left{ transform:translateX(-20px) translateY(0); }
+.reveal.is-in{ opacity:1; transform:none; }
+/* hero entrance */
+.hero__content .eyebrow,.hero__tag,.hero__sub,.hero__actions,.hero__creds{ opacity:0; animation:tq-rise .9s cubic-bezier(.2,.7,.2,1) forwards; }
+.hero__content .eyebrow{animation-delay:.05s}.hero__tag{animation-delay:.3s}.hero__sub{animation-delay:.44s}.hero__actions{animation-delay:.58s}.hero__creds{animation-delay:.72s}
+.hero__figure{ opacity:0; animation:tq-figin 1.1s .35s cubic-bezier(.2,.7,.2,1) forwards; }
+@keyframes tq-rise{ from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:none} }
+@keyframes tq-figin{ from{opacity:0;transform:translateY(30px) scale(.97)} to{opacity:1;transform:none} }
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .hero{ grid-template-columns:1fr; min-height:auto; gap:1.8rem; padding-top:2.2rem; }
+  .hero__figure{ order:-1; } .hero__img{ max-width:290px; }
+  .quien{ grid-template-columns:1fr; } .quien__media{ max-width:380px; margin:0 auto; }
+  .store__grid{ grid-template-columns:repeat(2,1fr); }
+  .videos__grid{ grid-template-columns:repeat(2,1fr); }
+  .plans__grid{ grid-template-columns:1fr; max-width:440px; margin:0 auto; gap:1.6rem; }
+  .plan--feat{ padding-top:2.8rem; }
+  /* banda: mas alto de scrim vertical para que el texto se lea sobre la foto */
+  .tanquebanda{ min-height:auto; }
+  .tanquebanda__scrim{ background:linear-gradient(180deg,rgba(8,9,12,.55) 0%,rgba(8,9,12,.82) 55%,var(--gun) 100%),linear-gradient(180deg,rgba(255,106,26,.10),transparent 25%); }
+  .tanquebanda__img{ object-position:52% 16%; }
+  .tanquebanda__title{ max-width:100%; }
+  .reveal{ transform:translateY(26px) scale(.97); }
+  .reveal--left{ transform:translateY(26px) scale(.97); }
+}
+/* Tap feedback (mobile, sin hover) */
+@media (hover:none){
+  .btn:active{ transform:scale(.97); }
+  .plan:active, .video-card:active, .follow__links a:active, .card:active{ transform:scale(.98); transition:transform .1s ease; }
+}
+@media (max-width:520px){
+  .store__grid,.videos__grid{ grid-template-columns:1fr 1fr; gap:.7rem; }
+  .hero__creds li{ min-width:88px; padding:.7rem .8rem; } .hero__creds b{font-size:1.25rem}
+  .topbar__back span{display:none}
+  /* placa TANQUE: glacis mas chico + sin numero de casco para que no apriete */
+  .hero__armor{ padding:.28em .42em .78em;
+    clip-path:polygon(0 14px,14px 0,calc(100% - 28px) 0,100% 26px,100% calc(100% - 10px),calc(100% - 10px) 100%,10px 100%,0 calc(100% - 10px)); }
+  .hero__hull{ display:none; }
+  .hero__hazard{ bottom:22px; } .hero__tread{ bottom:5px; }
+  .closer__tank{ display:none; } /* en mobile el tanque del closer aprieta -> ocultar */
+}
+
+/* ============================================================
+   PAQUETES DE ANIMACIÓN (fase 1+) — todo always-on, TN-safe
+   ============================================================ */
+
+/* #16 FRAGUA: los títulos [data-split] entran gris acero y se calientan a ámbar */
+[data-split].is-forged{ animation:tq-forge 1.15s ease-out; }
+@keyframes tq-forge{
+  0%{ color:#6b7178; text-shadow:none; }
+  32%{ color:#ffd9a0; text-shadow:0 0 18px rgba(255,138,61,.9),0 0 44px rgba(255,106,26,.5); }
+  70%{ color:#fff; text-shadow:0 0 12px rgba(255,138,61,.45); }
+  100%{ color:#fff; text-shadow:0 0 0 rgba(255,138,61,0); } }
+
+/* #13 WIPE HAZARD: franja amarillo/negro barre el header al entrar */
+.fx-wipe{ position:relative; }
+.fx-wipe::before{ content:""; position:absolute; inset:-6px -10px; z-index:5; pointer-events:none; opacity:0;
+  background:repeating-linear-gradient(-45deg,var(--amber) 0 12px,#0c0f13 12px 24px);
+  transform:translateX(-115%); }
+.fx-wipe.is-in::before{ animation:tq-wipe .8s cubic-bezier(.5,0,.2,1) forwards; }
+@keyframes tq-wipe{ 0%{opacity:1;transform:translateX(-115%)} 48%{opacity:1;transform:translateX(0)} 99%{opacity:1} 100%{opacity:0;transform:translateX(116%)} }
+
+/* #7 barra de scroll = medidor de combustible (cabeza de cartucho + readout) */
+.scroll-prog::after{ content:""; position:absolute; right:-3px; top:50%; width:9px; height:9px; border-radius:50%;
+  transform:translateY(-50%); background:radial-gradient(circle at 40% 35%,#ffe6c0,#ffb060 45%,#c74a08 80%);
+  box-shadow:0 0 8px rgba(255,138,61,.9); }
+.fuel-readout{ position:fixed; top:9px; right:12px; z-index:61; font-family:"JetBrains Mono",monospace; font-weight:700;
+  font-size:.62rem; letter-spacing:.14em; color:var(--amber-2); text-shadow:0 1px 3px rgba(0,0,0,.8);
+  background:rgba(16,19,24,.55); padding:.15rem .5rem; border:1px solid rgba(255,138,61,.25); pointer-events:none; }
+.fuel-readout.redline{ color:#ff5a2a; border-color:rgba(255,90,42,.5); animation:tq-redline .5s ease-in-out infinite; }
+@keyframes tq-redline{ 0%,100%{opacity:1} 50%{opacity:.55} }
+
+/* #23 flecha del CTA que "dispara" y se recarga */
+.card__btn:hover svg{ animation:tq-shoot .5s cubic-bezier(.4,0,.6,1); }
+@keyframes tq-shoot{ 0%{transform:translateX(0);opacity:1} 38%{transform:translateX(16px);opacity:0} 39%{transform:translateX(-16px);opacity:0} 100%{transform:translateX(0);opacity:1} }
+
+/* #27 fogonazo + recoil al click de cualquier botón (JS agrega .is-recoil / crea .click-blast) */
+.is-recoil{ animation:tq-btnrecoil .3s cubic-bezier(.3,1.4,.5,1); }
+@keyframes tq-btnrecoil{ 0%{transform:scale(1)} 30%{transform:scale(.93)} 100%{transform:scale(1)} }
+.click-blast{ position:fixed; z-index:9999; width:14px; height:14px; margin:-7px 0 0 -7px; border-radius:50%; pointer-events:none;
+  background:radial-gradient(circle,#fff 0,#ffd9a0 35%,rgba(255,106,26,.5) 60%,transparent 72%); mix-blend-mode:screen;
+  animation:tq-clickblast .5s ease-out forwards; }
+@keyframes tq-clickblast{ 0%{opacity:1;transform:scale(.3)} 100%{opacity:0;transform:scale(3.4)} }
+
+/* #2 CASQUILLO de bronce que salta al disparar (dentro del tanque hero) */
+.tank__casing{ position:absolute; left:50px; top:19px; width:8px; height:3.4px; border-radius:1px; z-index:9; opacity:0; pointer-events:none;
+  background:linear-gradient(180deg,#f0c878,#a8792f); box-shadow:0 0 2px rgba(255,210,140,.6); }
+.hero__tank.is-firing .tank__casing{ animation:tk-casing .85s ease-in; }
+@keyframes tk-casing{
+  0%{ opacity:1; transform:translate(0,0) rotate(0); }
+  28%{ transform:translate(14px,-15px) rotate(200deg); }
+  55%{ opacity:1; transform:translate(28px,5px) rotate(360deg); }
+  70%{ transform:translate(33px,-2px) rotate(430deg); }  /* rebote */
+  100%{ opacity:0; transform:translate(42px,13px) rotate(540deg); } }
+
+/* #5 BRASAS de fragua flotando en el hero (ambiente, siempre-on) */
+.hero__embers{ position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+.hero__embers .ember{ position:absolute; bottom:-12px; width:4px; height:4px; border-radius:50%; opacity:0;
+  background:radial-gradient(circle,#ffc078,rgba(255,106,26,0) 70%); animation:tq-ember 6s ease-in infinite; }
+@keyframes tq-ember{ 0%{opacity:0;transform:translate(0,0) scale(1)} 12%{opacity:.85} 68%{opacity:.6} 100%{opacity:0;transform:translate(26px,-340px) scale(.35)} }
+.hero__embers .ember:nth-child(1){ left:6%;  animation-duration:6.4s; animation-delay:0s; }
+.hero__embers .ember:nth-child(2){ left:14%; animation-duration:7.6s; animation-delay:1.1s; }
+.hero__embers .ember:nth-child(3){ left:22%; animation-duration:5.8s; animation-delay:2.4s; }
+.hero__embers .ember:nth-child(4){ left:31%; animation-duration:8.1s; animation-delay:.6s; }
+.hero__embers .ember:nth-child(5){ left:40%; animation-duration:6.9s; animation-delay:3.1s; }
+.hero__embers .ember:nth-child(6){ left:12%; animation-duration:7.2s; animation-delay:4.2s; }
+.hero__embers .ember:nth-child(7){ left:26%; animation-duration:6.1s; animation-delay:5s; }
+.hero__embers .ember:nth-child(8){ left:36%; animation-duration:8.6s; animation-delay:2.9s; }
+.hero__embers .ember:nth-child(9){ left:4%;  animation-duration:7.9s; animation-delay:1.7s; }
+
+/* #4 chispa/flash cuando la placa aterriza (engancha .hero--land) */
+.hero.hero--land .hero__bloom{ animation:tq-landflash .34s ease-out; }
+@keyframes tq-landflash{ 0%{filter:brightness(2.6);transform:scale(1.16)} 100%{filter:brightness(1);transform:scale(1)} }
+
+/* #15 REMACHES que clavan las cards de PLANES al entrar */
+.plan::after{ content:""; position:absolute; inset:0; z-index:2; pointer-events:none; opacity:0;
+  background-image:
+    radial-gradient(circle at 11px 11px,#7b8590 0 2px,#20262f 3px,transparent 4px),
+    radial-gradient(circle at calc(100% - 11px) 11px,#7b8590 0 2px,#20262f 3px,transparent 4px),
+    radial-gradient(circle at 11px calc(100% - 11px),#7b8590 0 2px,#20262f 3px,transparent 4px),
+    radial-gradient(circle at calc(100% - 11px) calc(100% - 11px),#7b8590 0 2px,#20262f 3px,transparent 4px);
+  background-repeat:no-repeat; }
+.plan.is-in::after{ animation:tq-rivets .5s cubic-bezier(.3,1.5,.5,1) .1s forwards; }
+@keyframes tq-rivets{ 0%{opacity:0;transform:scale(1.7)} 55%{opacity:1;transform:scale(.93)} 100%{opacity:1;transform:scale(1)} }
+
+/* #21 badge de la card que late (ámbar, siempre-on) */
+.card__off{ animation:tq-badge 2.6s ease-in-out infinite; }
+@keyframes tq-badge{ 0%,100%{box-shadow:0 0 0 rgba(255,106,26,0)} 50%{box-shadow:0 0 12px rgba(255,106,26,.75)} }
+
+/* #25 CTA ámbar = medidor de combustible que se llena en hover */
+.btn--amber::before{ content:""; position:absolute; inset:0; z-index:-1; transform:scaleX(0); transform-origin:left;
+  background:linear-gradient(90deg,#ffe0a8,var(--amber-2) 70%); transition:transform .55s cubic-bezier(.35,.9,.3,1); }
+.btn--amber:hover::before{ transform:scaleX(1); }
+
+/* #35 CIERRE: el tanque reaparece en el CTA final y le dispara */
+.closer__cta{ position:relative; display:inline-flex; align-items:center; gap:.4rem; }
+.closer__tank{ position:relative; width:86px; height:48px; flex:0 0 auto; transform:translateX(-30px); opacity:0; }
+.closer__tank .tank__svg{ overflow:visible; display:block; width:86px; height:48px; }
+.closer__tank.is-in{ animation:tk-rollin .9s cubic-bezier(.2,.8,.3,1) forwards; }
+@keyframes tk-rollin{ 0%{opacity:0;transform:translateX(-40px)} 60%{opacity:1;transform:translateX(4px)} 100%{opacity:1;transform:translateX(0)} }
+.closer__tank .tank__gun{ transform-box:view-box; transform-origin:58px 30px; transform:rotate(-4deg); }
+.closer__tank.is-firing .tank__gun{ animation:tk-recoil-h .4s ease-out; }
+@keyframes tk-recoil-h{ 0%{transform:rotate(-4deg) translate(0,0)} 22%{transform:rotate(-4deg) translate(-9px,0)} 100%{transform:rotate(-4deg) translate(0,0)} }
+.closer__tank.is-firing .tank__muzzle{ animation:tk-muzzle .4s ease-out; }
+.closer__blast{ position:absolute; left:74px; top:50%; width:26px; height:26px; border-radius:50%; z-index:3; pointer-events:none; opacity:0;
+  transform:translate(-50%,-50%) scale(.2); border:3px solid rgba(255,175,95,.95); box-shadow:0 0 18px rgba(255,138,61,.7); }
+.closer__cta.is-firing .closer__blast{ animation:tq-shock .55s ease-out .04s forwards; }
+.closer__cta .btn.is-hit{ animation:tq-btnrecoil .34s cubic-bezier(.3,1.4,.5,1); }
+.closer.is-blast{ animation:tq-blast .4s cubic-bezier(.3,.7,.3,1); }
+
+/* ============================================================
+   NAV MORASHOP + GALERIA EL TANQUE + FOOTER MORASHOP (agregados)
+   ============================================================ */
+.mora-nav{ position:sticky; top:0; z-index:60; background:#0c1830; border-bottom:1px solid rgba(255,255,255,.08); }
+.mora-nav__inner{ max-width:1240px; margin:0 auto; display:flex; align-items:center; gap:1.2rem; padding:.6rem 1.1rem; }
+.mora-nav__logo{ flex:0 0 auto; display:flex; align-items:center; }
+.mora-nav__logo img{ height:32px; width:auto; display:block; }
+.mora-nav__links{ display:flex; flex-wrap:wrap; gap:.2rem .3rem; margin:0 auto; }
+.mora-nav__links a{ color:#e8edf5; text-decoration:none; font:700 .82rem/1 'Archivo',system-ui,sans-serif; letter-spacing:.02em; text-transform:uppercase; padding:.55rem .7rem; border-radius:8px; transition:color .18s, background .18s; }
+.mora-nav__links a:hover{ background:rgba(255,106,26,.16); color:#ff8a3c; }
+.mora-nav__cart{ flex:0 0 auto; display:inline-flex; align-items:center; gap:.4rem; color:#e8edf5; text-decoration:none; font:700 .78rem/1 'Archivo',sans-serif; text-transform:uppercase; letter-spacing:.04em; padding:.5rem .8rem; border:1px solid rgba(255,255,255,.18); border-radius:999px; transition:all .18s; }
+.mora-nav__cart:hover{ background:#FF6A1A; border-color:#FF6A1A; color:#160b04; }
+@media (max-width:960px){
+  .mora-nav__inner{ flex-wrap:wrap; gap:.5rem .8rem; }
+  .mora-nav__links{ order:3; width:100%; margin:0; justify-content:flex-start; overflow-x:auto; flex-wrap:nowrap; -webkit-overflow-scrolling:touch; padding-bottom:.2rem; }
+  .mora-nav__links a{ white-space:nowrap; padding:.5rem .55rem; font-size:.76rem; }
+  .mora-nav__cart span{ display:none; }
+}
+
+.tgallery{ max-width:1180px; margin:0 auto; padding:clamp(3rem,7vh,5.5rem) 1.1rem; }
+.tgallery__head{ text-align:center; max-width:640px; margin:0 auto clamp(1.6rem,4vh,2.6rem); }
+.tgallery__lede{ color:rgba(230,225,215,.68); margin:.5rem 0 0; }
+.tgallery__grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:.7rem; }
+.tgallery__cell{ margin:0; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#12100c; }
+.tgallery__cell img{ display:block; width:100%; height:100%; object-fit:cover; aspect-ratio:3/4; transition:transform .5s cubic-bezier(.2,.7,.2,1); }
+.tgallery__cell:hover img{ transform:scale(1.05); }
+.tgallery__cell--wide{ grid-column:span 2; }
+.tgallery__cell--wide img{ aspect-ratio:16/9; }
+@media (max-width:640px){
+  .tgallery__grid{ grid-template-columns:1fr 1fr; }
+  .tgallery__cell--wide img{ aspect-ratio:16/10; }
+}
+
+.mora-footer{ background:#0a0f18; border-top:1px solid rgba(255,255,255,.08); padding:clamp(2.6rem,6vh,4rem) 1.1rem 1.6rem; margin-top:2rem; }
+.mora-footer__tagline{ text-align:center; font:800 clamp(1.4rem,1rem + 2.4vw,2.4rem)/1 'Anton','Archivo',sans-serif; color:#fff; margin:0 0 clamp(1.8rem,4vh,2.8rem); text-transform:uppercase; }
+.mora-footer__tagline span{ color:#FF6A1A; }
+.mora-footer__cols{ max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:1.6rem 2rem; }
+.mora-footer__col h4{ margin:0 0 .8rem; font:700 .74rem/1 'JetBrains Mono',monospace; letter-spacing:.16em; text-transform:uppercase; color:#ff8a3c; }
+.mora-footer__col a{ display:block; color:rgba(230,235,245,.78); text-decoration:none; font:500 .9rem/1 'Archivo',sans-serif; padding:.32rem 0; transition:color .18s; }
+.mora-footer__col a:hover{ color:#fff; }
+.mora-footer__col--brand p{ color:rgba(230,235,245,.6); font-size:.86rem; line-height:1.5; margin:.2rem 0 0; max-width:34ch; }
+.mora-footer__logo{ height:38px; width:auto; }
+.mora-footer__cta{ font-weight:800 !important; color:#FF6A1A !important; }
+.mora-footer__pay{ color:rgba(230,235,245,.5); font:600 .72rem/1.4 'JetBrains Mono',monospace; margin:.8rem 0 0; }
+.mora-footer__bottom{ max-width:1180px; margin:clamp(1.8rem,4vh,2.6rem) auto 0; padding-top:1.4rem; border-top:1px solid rgba(255,255,255,.08); display:flex; flex-wrap:wrap; gap:.5rem 1.2rem; align-items:center; justify-content:space-between; }
+.mora-footer__lockup{ font:800 1rem/1 'Anton','Archivo',sans-serif; color:#fff; }
+.mora-footer__lockup b{ color:#FF6A1A; }
+.mora-footer__lockup i{ color:rgba(255,255,255,.5); font-style:normal; margin:0 .2em; }
+.mora-footer__bottom p{ color:rgba(230,235,245,.5); font-size:.8rem; margin:0; }
+@media (max-width:820px){
+  .mora-footer__cols{ grid-template-columns:1fr 1fr; }
+  .mora-footer__col--brand{ grid-column:span 2; }
+}
+
+video.hero__img{ display:block; background:#0b0805; }
+
+/* ===== Hero: video FULL-BLEED edge-to-edge (no boxed). Texto izquierda,
+   Franco (video espejado) a la derecha. ===== */
+.hero{ position:relative; width:100%; max-width:none; margin:0; overflow:hidden;
+  display:flex; align-items:center; justify-content:flex-start;
+  min-height:min(84svh,760px);
+  padding:clamp(3rem,8vw,6rem) 0 clamp(2.5rem,6vw,4.5rem); }
+.hero__video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% center; z-index:0; background:#0b0805; transform:scaleX(-1); }
+.hero__scrim{ position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    linear-gradient(90deg, rgba(11,8,5,.97) 0%, rgba(11,8,5,.9) 26%, rgba(11,8,5,.5) 54%, rgba(11,8,5,.12) 82%, rgba(11,8,5,.42) 100%),
+    linear-gradient(0deg, rgba(11,8,5,.55) 0%, rgba(11,8,5,0) 46%); }
+.hero__content{ position:relative; z-index:2; max-width:600px;
+  margin-left:max(1.1rem, calc((100% - var(--maxw)) / 2)); margin-right:1.1rem; }
+@media (max-width:900px){
+  .hero{ justify-content:center; align-items:flex-end; min-height:min(90svh,800px); padding-inline:1.1rem; }
+  .hero__content{ max-width:100%; margin:0 0 1rem; }
+  .hero__video{ object-position:54% 14%; }
+  .hero__scrim{ background:linear-gradient(0deg, rgba(11,8,5,.95) 8%, rgba(11,8,5,.4) 42%, rgba(11,8,5,.5) 72%, rgba(11,8,5,.82) 100%); }
+}
