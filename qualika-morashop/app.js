@@ -29,6 +29,43 @@ const ESPEJOS=[
   {img:"espejo-rectangular-vertical-qualika-q1-e0ba47c1b9741589fe17734103808357-480-0.webp", n:"Espejo Rectangular Vertical Q1", p:"151.213", line:"Q1", shape:"rectangular", h:"espejo-inteligente-rectangular-vertical-q1-qualika-luz-calida-fria-amarilla-hmmj4"}
 ];
 
+/* ============================================================
+   HERO — video de fondo
+   Dos cortes de los videos originales: el horizontal para pantallas
+   anchas y el vertical para mobile, cada uno en su orientación nativa
+   (así no hay recortes feos). Muteado y en loop, con poster mientras carga.
+   ============================================================ */
+const HERO_BG = {
+  wide:   { mp4:"assets/hero-bg-desktop.mp4", poster:"assets/hero-bg-desktop.jpg" },
+  tall:   { mp4:"assets/hero-bg-mobile.mp4",  poster:"assets/hero-bg-mobile.jpg"  },
+  /* debajo de este ancho se usa el vertical */
+  breakpoint: 940
+};
+
+function initHeroBg(){
+  const box=document.getElementById("heroBg"); if(!box) return;
+  const tall = innerWidth <= HERO_BG.breakpoint;
+  const src  = tall ? HERO_BG.tall : HERO_BG.wide;
+
+  /* el poster se pinta ya mismo: nada de agujero negro mientras baja el video */
+  box.style.backgroundImage="url('"+src.poster+"')";
+
+  const v=document.createElement("video");
+  v.className="hero__video";
+  v.autoplay=true; v.muted=true; v.loop=true; v.playsInline=true;
+  v.setAttribute("muted",""); v.setAttribute("playsinline","");
+  v.preload="auto"; v.poster=src.poster; v.src=src.mp4;
+  v.addEventListener("playing",()=>box.classList.add("is-playing"),{once:true});
+  box.appendChild(v);
+  const pr=v.play(); if(pr && pr.catch) pr.catch(()=>{});  /* si el navegador lo bloquea queda el poster */
+
+  /* pausar fuera de vista: no gastar bateria scrolleando el resto de la pagina */
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(es=>{ es[0].isIntersecting ? v.play().catch(()=>{}) : v.pause(); },{threshold:.02}).observe(box);
+  }
+  document.addEventListener("visibilitychange",()=>{ document.hidden ? v.pause() : v.play().catch(()=>{}); });
+}
+
 const ARROW='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 function card(p, i){
@@ -99,6 +136,22 @@ function initAnchors(){
 }
 
 /* ---------- ESPEJO interactivo del hero (Q1/Q2 + luz + antivaho) ---------- */
+/* ---------- VIDEO demo (horizontal, largo) ----------
+   preload="none" + src recien al click: 0 bytes hasta que el usuario lo pide. */
+function initDemo(){
+  const wrap=document.getElementById("demoFrame"); if(!wrap) return;
+  const v=wrap.querySelector("video"), btn=document.getElementById("demoPlay");
+  if(!v || !btn) return;
+  btn.addEventListener("click",()=>{
+    if(!v.src) v.src=v.dataset.src;
+    v.controls=true;
+    wrap.classList.add("is-playing");
+    const pr=v.play();
+    if(pr && pr.catch) pr.catch(()=>{ v.controls=true; });
+  });
+  v.addEventListener("ended",()=>wrap.classList.remove("is-playing"));
+}
+
 function initMirror(){
   const mirror=document.getElementById("mirror"); if(!mirror) return;
   const clock=document.getElementById("clock"), ripple=document.getElementById("ripple"),
@@ -177,15 +230,32 @@ function initSubnav(){
   secs.forEach(s=>{ if(s) io.observe(s); });
   links.forEach(a=>a.addEventListener("click",()=>setTimeout(()=>move(a),50)));
   requestAnimationFrame(()=>move(links[0]));
-  const hero=document.querySelector(".hero");
-  if(hero){ const io2=new IntersectionObserver(es=>{ nav.classList.toggle("show", !es[0].isIntersecting); },{threshold:.05}); io2.observe(hero); }
+  /* visible entre el hero y el cierre: en el closer se montaba encima del CTA */
+  const hero=document.querySelector(".hero"), fin=document.querySelector(".closer");
+  let fueraDelHero=false, enElCierre=false;
+  const sync=()=>nav.classList.toggle("show", fueraDelHero && !enElCierre);
+  if(hero){ new IntersectionObserver(es=>{ fueraDelHero=!es[0].isIntersecting; sync(); },{threshold:.05}).observe(hero); }
+  if(fin){  new IntersectionObserver(es=>{ enElCierre=es[0].isIntersecting; sync(); },{threshold:.06}).observe(fin); }
 }
 
 function initReveal(){
   const els=document.querySelectorAll(".reveal");
   if(!("IntersectionObserver" in window)){ els.forEach(e=>e.classList.add("is-in")); return; }
-  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("is-in"); io.unobserve(e.target); } }),{rootMargin:"0px 0px -8% 0px",threshold:.04});
-  els.forEach((e,i)=>{ e.style.setProperty("--d",(i%8)*45+"ms"); io.observe(e); });
+
+  // El retardo se calcula POR SECCION, no sobre el indice global. Antes se usaba
+  // (i % 8) * 45ms: si una seccion tenia 3 elementos, el primero de la siguiente
+  // arrancaba con 135ms de retardo heredado y la cascada entraba descoordinada.
+  document.querySelectorAll("main > section, .mora-foot").forEach(sec=>{
+    const hijos=sec.querySelectorAll(".reveal");
+    hijos.forEach((el,i)=>el.style.setProperty("--d", Math.min(i,7)*55+"ms"));
+  });
+  // Los que quedaron fuera de una seccion arrancan sin retardo.
+  els.forEach(el=>{ if(!el.style.getPropertyValue("--d")) el.style.setProperty("--d","0ms"); });
+
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add("is-in"); io.unobserve(e.target); }
+  }),{rootMargin:"0px 0px -12% 0px",threshold:.06});
+  els.forEach(e=>io.observe(e));
 }
 
 function initCounters(){
@@ -297,7 +367,19 @@ function initCursor(){
 }
 
 document.addEventListener("DOMContentLoaded", ()=>{
-  render(); initFilters(); initAnchors(); initMirror(); initSmooth();
-  initReveal(); initCounters(); initScrollFX(); initParallax();
-  initTilt(); initSubnav(); initMagnetic(); initCursor(); initRipple(); initBurger();
+  /* cada init aislado: si uno falla, el resto de la pagina igual arranca
+     (un error suelto dejaba todos los .reveal en opacity:0 = pantalla negra) */
+  [render, initFilters, initAnchors, initHeroBg, initDemo, initMirror, initSmooth,
+   initReveal, initCounters, initScrollFX, initParallax, initTilt, initSubnav,
+   initMagnetic, initCursor, initRipple, initBurger].forEach(fn=>{
+    try{ fn(); }catch(e){ console.error("[qualika] fallo "+(fn.name||"init")+":", e); }
+  });
+  /* red de seguridad: si initReveal no llego a correr, nada seria visible */
+  setTimeout(()=>{
+    const ocultos=document.querySelectorAll(".reveal:not(.is-in)");
+    if(ocultos.length && !document.querySelector(".reveal.is-in")){
+      ocultos.forEach(el=>el.classList.add("is-in"));
+      console.warn("[qualika] reveal de emergencia:", ocultos.length);
+    }
+  }, 1200);
 });

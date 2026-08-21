@@ -12,6 +12,9 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{ margin:0; background:var(--bg); color:var(--text); font-family:"Manrope",system-ui,sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+
+/* Todo el contenido por encima del fondo ambiente. */
+.topbar, main, .mora-header, .mora-foot{ position:relative; z-index:1; }
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 h1,h2,h3{margin:0;font-family:"Sora",sans-serif;font-weight:700;letter-spacing:-.01em}
@@ -52,9 +55,22 @@ button{font-family:inherit}
 .tb-name b{ font-weight:700; color:var(--gold-2); }
 
 /* ---------- HERO (2 columnas) ---------- */
-.hero{ position:relative; overflow:hidden; border-bottom:1px solid var(--line); }
-.hero__inner{ position:relative; z-index:1; max-width:var(--maxw); margin:0 auto; width:100%; padding:clamp(2.6rem,6vw,4.6rem) clamp(1.2rem,5vw,2.5rem) clamp(3rem,7vw,5rem);
-  display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(1.5rem,4vw,3.5rem); align-items:center; }
+.hero{ position:relative; overflow:hidden; border-bottom:1px solid var(--line);
+  min-height:clamp(540px,86vh,880px); display:flex; align-items:center; }
+
+/* --- video de fondo + velo para que el texto se lea --- */
+.hero__bg{ position:absolute; inset:-5% 0; z-index:0; overflow:hidden;
+  background:#0a0d12 center/cover no-repeat; }
+.hero__video{ width:100%; height:100%; object-fit:cover; display:block; opacity:0; transition:opacity .9s ease; }
+.hero__bg.is-playing .hero__video{ opacity:1; }
+.hero__scrim{ position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    linear-gradient(90deg, rgba(6,8,12,.95) 0%, rgba(6,8,12,.88) 32%, rgba(6,8,12,.58) 60%, rgba(6,8,12,.34) 100%),
+    linear-gradient(180deg, rgba(6,8,12,.80) 0%, rgba(6,8,12,.12) 26%, rgba(6,8,12,.20) 62%, rgba(6,8,12,.92) 100%),
+    linear-gradient(180deg, rgba(139,92,246,.14), rgba(93,63,211,.08)); }
+.hero__inner{ position:relative; z-index:2; max-width:var(--maxw); margin:0 auto; width:100%; padding:clamp(3rem,7vw,5rem) clamp(1.2rem,5vw,2.5rem) clamp(3.4rem,8vw,5.5rem);
+  display:grid; grid-template-columns:minmax(0,640px); gap:clamp(1.5rem,4vw,3.5rem); align-items:center; }
+.hero__copy{ text-shadow:0 2px 24px rgba(0,0,0,.55); }
 .hero__title{ font-size:clamp(2.5rem,1.7rem + 4.8vw,5rem); line-height:1.02; font-weight:800; margin:0 0 1.2rem; max-width:14ch; }
 .hero__sub{ max-width:48ch; color:rgba(234,236,239,.82); font-size:1.08rem; margin:0 0 2rem; }
 .hero__sub b{ color:#fff; font-weight:700; }
@@ -65,8 +81,39 @@ button{font-family:inherit}
 .hero__stats b{ display:block; font-family:"Sora",sans-serif; font-weight:700; font-size:1.7rem; color:#fff; line-height:1; }
 .hero__stats span{ font-size:.72rem; color:var(--muted); letter-spacing:.02em; }
 
-/* ---------- ESPEJO interactivo realista (hero stage) ---------- */
-.hero__stage{ display:flex; flex-direction:column; align-items:center; gap:1.3rem; }
+/* ---------- VIDEO demo (horizontal) ---------- */
+.demo{ max-width:var(--maxw); margin:0 auto; padding:clamp(3rem,7vw,5rem) clamp(1.2rem,5vw,2.5rem); }
+.demo__frame{ position:relative; max-width:940px; margin:0 auto; aspect-ratio:16/9;
+  border-radius:20px; overflow:hidden; background:#05070a;
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 30px 80px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.04); }
+.demo__video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; background:#05070a; }
+.demo__frame.is-playing .demo__video{ object-fit:contain; }
+/* velo + botón: se van cuando arranca */
+.demo__frame::after{ content:""; position:absolute; inset:0; z-index:1; pointer-events:none; transition:opacity .4s ease;
+  background:radial-gradient(90% 70% at 50% 50%, rgba(6,8,12,.30), rgba(6,8,12,.72)); }
+.demo__frame.is-playing::after{ opacity:0; }
+.demo__play{ position:absolute; z-index:2; left:50%; top:50%; transform:translate(-50%,-50%); cursor:pointer;
+  display:inline-flex; align-items:center; gap:.85rem; padding:.85rem 1.5rem .85rem .9rem; border-radius:100px;
+  font-family:"Sora",sans-serif; font-weight:600; font-size:.95rem; color:#fff;
+  background:linear-gradient(180deg,var(--gold),var(--gold-deep)); border:1px solid var(--gold);
+  box-shadow:0 14px 40px rgba(139,92,246,.45); transition:transform .25s ease, box-shadow .25s ease, opacity .3s ease; }
+.demo__play:hover{ transform:translate(-50%,-50%) scale(1.045); box-shadow:0 18px 52px rgba(139,92,246,.6); }
+.demo__frame.is-playing .demo__play{ opacity:0; pointer-events:none; }
+.demo__play-ico{ display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%;
+  background:rgba(255,255,255,.16); }
+.demo__play-ico svg{ width:15px; height:15px; margin-left:2px; }
+.demo__play-txt{ display:flex; flex-direction:column; align-items:flex-start; line-height:1.15; text-align:left; }
+.demo__play-txt b{ font-weight:400; font-size:.72rem; letter-spacing:.08em; color:rgba(255,255,255,.72); }
+@media (max-width:560px){ .demo__play{ font-size:.85rem; padding:.7rem 1.15rem .7rem .7rem; } .demo__play-ico{ width:28px; height:28px; } }
+
+/* ---------- SIMULADOR (sección propia, debajo de Funciones) ---------- */
+.sim{ max-width:var(--maxw); margin:0 auto; padding:clamp(3rem,7vw,5rem) clamp(1.2rem,5vw,2.5rem); }
+.cat__head--center{ text-align:center; }
+.cat__head--center .cat__lede{ margin-inline:auto; }
+.sim__stage{ display:flex; flex-direction:column; align-items:center; gap:1.3rem; }
+
+/* ---------- ESPEJO interactivo realista (simulador) ---------- */
 .mirror{ --led:#f4d3a0; position:relative; width:min(360px,76vw); aspect-ratio:1/1; }
 /* backlight cálido sobre la "pared" detrás del espejo */
 .mirror__wall{ position:absolute; inset:-16%; border-radius:50%; z-index:0; pointer-events:none;
@@ -207,10 +254,20 @@ button{font-family:inherit}
 .pill p{ color:var(--muted); font-size:.9rem; margin:0; }
 
 /* ---------- CLOSER ---------- */
-.closer{ position:relative; overflow:hidden; text-align:center; padding:clamp(4rem,10vw,7rem) clamp(1.2rem,5vw,2.5rem); border-top:1px solid var(--line); background:var(--bg-2); }
+/* Sin fondo sólido ni borde duro: se funde con el ambiente y levanta un halo
+   violeta. Abajo baja al navy del footer para que no haya corte seco entre los
+   dos bloques (el footer es #0b1c37). */
+.closer{ position:relative; overflow:hidden; text-align:center; border-top:0;
+  padding:clamp(3.4rem,8vw,5.6rem) clamp(1.2rem,5vw,2.5rem) clamp(1.8rem,4vw,2.6rem);
+  background:
+    radial-gradient(85% 120% at 50% 40%, rgba(139,92,246,.11), transparent 66%),
+    linear-gradient(180deg, transparent 46%, rgba(11,28,55,.42) 74%, rgba(11,28,55,.82) 100%); }
 .closer__glow{ position:absolute; inset:0; z-index:0; background:radial-gradient(60% 90% at 50% 0%,rgba(139,92,246,.18),transparent 68%); pointer-events:none; }
 .closer__kicker{ position:relative; z-index:1; font-family:"Manrope",sans-serif; font-weight:600; font-size:.74rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold-2); margin:0 0 .9rem; }
-.closer__title{ position:relative; z-index:1; font-size:clamp(2.2rem,1.4rem + 4.6vw,4.4rem); line-height:1.02; margin:0 auto 1.8rem; max-width:16ch; }
+/* Baja de rango a proposito. Antes medía casi lo mismo que el eslogan del footer
+   (4.4rem vs 4.2rem) y los dos titulares se peleaban por ser el cierre.
+   El sello de la marca es "El mejor precio siempre"; esto es el CTA que lo antecede. */
+.closer__title{ position:relative; z-index:1; font-size:clamp(1.8rem,1.1rem + 2.9vw,2.9rem); line-height:1.08; margin:0 auto 1.6rem; max-width:18ch; font-weight:700; }
 .closer .btn{ position:relative; z-index:1; }
 
 /* ---------- FOOTER ---------- */
@@ -222,8 +279,34 @@ button{font-family:inherit}
 .footer__bottom p{ color:var(--muted-2); font-size:.78rem; margin:.6rem 0 0; }
 
 /* ---------- REVEAL ---------- */
-.reveal{ opacity:0; transform:translateY(26px) scale(.955); filter:blur(9px); transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .85s cubic-bezier(.2,.7,.2,1), filter .8s ease; transition-delay:var(--d,0ms); will-change:opacity,transform,filter; }
+/* ---------- Entradas al hacer scroll ----------
+   Antes: translateY(26px) + scale(.955) + blur(9px). El blur fuerte obligaba a
+   repintar en cada frame y se veía "sucio" en textos; el scale hacía saltar la
+   tipografía. Ahora el movimiento es más corto, sin escala, con un blur mínimo
+   solo para suavizar el borde, y una curva que frena de verdad al final. */
+.reveal{ opacity:0; transform:translate3d(0,18px,0); filter:blur(4px);
+  transition:opacity .62s cubic-bezier(.16,.84,.32,1), transform .72s cubic-bezier(.16,.84,.32,1), filter .5s ease-out;
+  transition-delay:var(--d,0ms); will-change:opacity,transform; }
 .reveal.is-in{ opacity:1; transform:none; filter:blur(0); }
+
+/* Variantes para que no entre todo igual */
+.reveal--left { transform:translate3d(-22px,10px,0); }
+.reveal--right{ transform:translate3d(22px,10px,0); }
+.reveal--up   { transform:translate3d(0,34px,0); }
+.reveal--left.is-in, .reveal--right.is-in, .reveal--up.is-in{ transform:none; }
+
+/* ---------- Costuras entre secciones ----------
+   Los bordes de 1px cortaban la página en bloques. Ahora cada sección se funde
+   con la siguiente mediante un degradado, y una línea de luz apenas visible
+   marca el cambio sin partir el fondo. */
+main > section{ position:relative; }
+main > section + section::before{
+  content:""; position:absolute; left:0; right:0; top:0; height:1px; pointer-events:none;
+  background:linear-gradient(90deg, transparent, rgba(167,139,250,.22) 22%, rgba(167,139,250,.30) 50%, rgba(167,139,250,.22) 78%, transparent); }
+main > section + section::after{
+  content:""; position:absolute; left:0; right:0; top:0; height:150px; pointer-events:none; z-index:-1;
+  background:linear-gradient(180deg, rgba(139,92,246,.07), transparent 78%); }
+.hero{ border-bottom:0; }
 
 /* ---------- Nav "cae desde arriba" al saltar a una sección ---------- */
 @keyframes q-drop{ 0%{opacity:0; transform:translateY(-32px)} 55%{opacity:1; transform:translateY(9px)} 78%{transform:translateY(-3px)} 100%{transform:translateY(0)} }
@@ -256,14 +339,44 @@ button{font-family:inherit}
 
 /* ---------- AURORA ambiental ---------- */
 main{ position:relative; z-index:1; }
-.aurora{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-.aura{ position:absolute; border-radius:50%; filter:blur(90px); opacity:.42; mix-blend-mode:screen; }
-.aura--1{ width:52vw; height:52vw; left:-8vw; top:4vh; background:radial-gradient(circle,rgba(139,92,246,.42),transparent 68%); animation:au-drift1 26s ease-in-out infinite; }
-.aura--2{ width:46vw; height:46vw; right:-6vw; top:32vh; background:radial-gradient(circle,rgba(241,206,152,.36),transparent 68%); animation:au-drift2 32s ease-in-out infinite; }
-.aura--3{ width:42vw; height:42vw; left:24vw; bottom:-12vh; background:radial-gradient(circle,rgba(150,110,220,.24),transparent 68%); animation:au-drift3 30s ease-in-out infinite; }
+/* ============================================================
+   FONDO AMBIENTE — cinco capas fijas en lugar del negro plano.
+   Orden: base tonal → auroras → retícula → grano → viñeta.
+   Va todo en position:fixed, así el contenido "flota" al scrollear.
+   ============================================================ */
+.aurora{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+  /* Base tonal: saca el negro plano y da un violeta profundo de fondo. */
+  background:
+    radial-gradient(120% 80% at 50% -10%, #171029 0%, transparent 60%),
+    radial-gradient(90% 60% at 88% 108%, #120d22 0%, transparent 62%),
+    linear-gradient(180deg, #0A0C0F 0%, #0B0A12 46%, #08070C 100%); }
+
+.aura{ position:absolute; border-radius:50%; filter:blur(96px); opacity:.4; mix-blend-mode:screen; will-change:transform; }
+.aura--1{ width:54vw; height:54vw; left:-10vw; top:2vh; background:radial-gradient(circle,rgba(139,92,246,.46),transparent 68%); animation:au-drift1 26s ease-in-out infinite; }
+/* Antes este blob era DORADO (#F1CE98) y quedó del reskin: ensuciaba el violeta. */
+.aura--2{ width:48vw; height:48vw; right:-8vw; top:30vh; background:radial-gradient(circle,rgba(167,139,250,.34),transparent 68%); animation:au-drift2 32s ease-in-out infinite; }
+.aura--3{ width:44vw; height:44vw; left:22vw; bottom:-14vh; background:radial-gradient(circle,rgba(109,40,217,.34),transparent 68%); animation:au-drift3 30s ease-in-out infinite; }
 @keyframes au-drift1{ 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(10vw,6vh) scale(1.16)} }
 @keyframes au-drift2{ 0%,100%{transform:translate(0,0) scale(1.05)} 50%{transform:translate(-8vw,-5vh) scale(.9)} }
 @keyframes au-drift3{ 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-6vw,-8vh) scale(1.2)} }
+
+/* Retícula finísima: da estructura sin ensuciar. Se desvanece hacia los bordes
+   con una máscara, si no parece un mantel. */
+.aura--grid{ position:absolute; inset:0; border-radius:0; filter:none; opacity:.55; mix-blend-mode:normal; animation:none;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.030) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.030) 1px, transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(125% 95% at 50% 30%, #000 18%, transparent 76%);
+          mask-image:radial-gradient(125% 95% at 50% 30%, #000 18%, transparent 76%); }
+
+/* Grano: corta el banding que dejan los degradados grandes en pantallas de 8 bits. */
+.aura--grain{ position:absolute; inset:0; border-radius:0; filter:none; opacity:.15; mix-blend-mode:overlay; animation:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E"); }
+
+/* Viñeta: hunde los bordes y empuja la mirada al centro. */
+.aura--vig{ position:absolute; inset:0; border-radius:0; filter:none; opacity:1; mix-blend-mode:normal; animation:none;
+  background:radial-gradient(115% 80% at 50% 28%, transparent 40%, rgba(3,4,7,.66) 100%); }
 
 /* shine metálico en textos dorados */
 .grad-gold{ background-size:230% 100%; animation:q-textshine 6.5s ease-in-out infinite; }
@@ -283,6 +396,11 @@ main{ position:relative; z-index:1; }
 /* ---------- Responsive ---------- */
 @media (max-width:940px){
   .hero__inner{ grid-template-columns:1fr; text-align:center; }
+  /* texto centrado: el degradado lateral no sirve, oscurecer parejo */
+  .hero__scrim{ background:
+    linear-gradient(180deg, rgba(6,8,12,.80) 0%, rgba(6,8,12,.44) 30%, rgba(6,8,12,.50) 60%, rgba(6,8,12,.92) 100%),
+    linear-gradient(180deg, rgba(139,92,246,.14), rgba(93,63,211,.08)); }
+  .hero{ min-height:clamp(520px,82vh,760px); }
   .hero__title{ max-width:none; margin-inline:auto; }
   .hero__sub{ margin-inline:auto; }
   .hero__cta,.hero__stats{ justify-content:center; }
@@ -385,11 +503,36 @@ main{ position:relative; z-index:1; }
 }
 
 /* ---------- FOOTER ---------- */
+/* ---------- PUENTE Qualika -> Morashop ---------- */
+.handoff{ position:relative; background:linear-gradient(180deg, rgba(11,28,55,.82) 0%, #0b1c37 62%); }
+/* la linea donde se tocan las dos marcas: violeta Qualika -> naranja Morashop */
+.handoff::before{ content:""; position:absolute; left:0; right:0; top:0; height:1px;
+  background:linear-gradient(90deg, transparent, rgba(139,92,246,.55) 26%, rgba(196,181,253,.5) 50%, rgba(244,83,31,.55) 74%, transparent); }
+.handoff__inner{ max-width:1180px; margin:0 auto; padding:1.5rem clamp(1.2rem,5vw,2.5rem) 1.7rem;
+  display:flex; align-items:center; justify-content:center; gap:clamp(.9rem,2.6vw,1.6rem); flex-wrap:wrap; }
+.handoff__mark{ font-family:"Sora",sans-serif; font-weight:300; font-size:clamp(1rem,.85rem + .5vw,1.25rem);
+  letter-spacing:.3em; color:#fff; white-space:nowrap; }
+.handoff__by{ font-family:"Manrope",sans-serif; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
+  color:rgba(255,255,255,.52); text-align:center; }
+.handoff__mora{ display:inline-flex; transition:opacity .2s ease, transform .2s ease; }
+.handoff__mora:hover{ opacity:.85; transform:translateY(-1px); }
+.handoff__mora img{ height:34px; width:auto; display:block; }
+@media (max-width:560px){
+  .handoff__inner{ flex-direction:column; gap:.75rem; padding-block:1.3rem 1.5rem; }
+  .handoff__by{ font-size:.66rem; }
+  .handoff__mora img{ height:30px; }
+}
+
 .mora-foot{ font-family:"Manrope",sans-serif; color:#fff; background:#0b1c37; }
-.mf__hero{ position:relative; overflow:hidden; text-align:center; padding:clamp(3rem,7vw,5rem) 1rem 0; }
-.mf__watermark{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:"Sora",sans-serif; font-weight:800; font-size:clamp(6rem,26vw,19rem); color:rgba(255,255,255,.045); letter-spacing:-.03em; pointer-events:none; user-select:none; }
-.mf__tick{ display:block; width:54px; height:4px; background:var(--mo); border-radius:2px; margin:0 auto 1.4rem; }
-.mf__tagline{ position:relative; font-family:"Sora",sans-serif; font-weight:800; font-size:clamp(2rem,1rem + 5vw,4rem); text-transform:uppercase; line-height:1.02; letter-spacing:-.01em; margin:0; }
+.mf__hero{ position:relative; overflow:hidden; text-align:center; padding:clamp(1.6rem,4vw,2.6rem) 1rem 0; }
+/* Más tenue que antes (.045): con el eslogan en rojo y blanco encima, el
+   watermark competía en vez de acompañar. */
+.mf__watermark{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:"Sora",sans-serif; font-weight:800; font-size:clamp(5rem,22vw,16rem); color:rgba(255,255,255,.028); letter-spacing:-.03em; pointer-events:none; user-select:none; }
+/* Eslogan del footer: replica el de morashop.ar — barra roja #E8341A de 50px,
+   Barlow Condensed 900, line-height .88 y "siempre" en rojo. */
+.mf__tick{ display:block; width:50px; height:4px; background:#E8341A; border-radius:3px; margin:0 auto 1.4rem; }
+.mf__tagline{ position:relative; font-family:"Barlow Condensed","Sora",sans-serif; font-weight:900; font-size:clamp(2rem,1.2rem + 5vw,4.2rem); text-transform:uppercase; line-height:.88; letter-spacing:.005em; margin:0; }
+.mf__tagline span{ color:#E8341A; }
 .mf__cols{ max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1.5fr 1fr 1fr 1.2fr; gap:2rem; padding:clamp(2.4rem,5vw,3.6rem) clamp(1.2rem,5vw,2.5rem); }
 .mf__logo{ display:inline-block; margin-bottom:1rem; }
 .mf__logo img{ height:44px; width:auto; display:block; }
@@ -423,7 +566,6 @@ main{ position:relative; z-index:1; }
 /* ---------- Ajustes finos mobile ---------- */
 @media (max-width:480px){
   .hero__inner{ gap:1.1rem; padding-top:1.8rem; }
-  .hero__stage{ margin-top:.3rem; }
   .mirror{ width:min(310px,72vw); }
   .mirror-hint{ font-size:.72rem; }
   .mirror-ctrl{ gap:.5rem; }
