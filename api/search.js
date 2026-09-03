@@ -10,7 +10,8 @@
    3) Filtra solo published === true y stock > 0
    4) Detecta si la query matchea un type-alias (creatina, proteina, etc.)
    5) Ranking:
-        - Con typeHit  → SOLO ordena por ventas (proxy hash) descending
+        - Con typeHit  → dentro del tipo: match de NOMBRE primero (prefijo de
+                         palabra > contiene > solo-categoria), luego ventas
         - Sin typeHit  → tier-based (starts-with name → brand → contains)
                          con ventas como tiebreaker
    6) Devuelve { matches, total, typeHit, cached }
@@ -340,6 +341,18 @@ async function getIndex() {
 
 // ============== RANKING ==============
 
+// Que tan bien matchea la QUERY con el NOMBRE del producto.
+// 0 = alguna palabra del nombre empieza con la query ("barra" -> "Barras Proteicas")
+// 1 = el nombre la contiene en algun lado
+// 2 = no matchea el nombre (entro solo por categoria)
+function srNameRank(p, qNorm) {
+  const words = String(p.nameKey || '').split(' ');
+  for (let i = 0; i < words.length; i++) {
+    if (words[i] && words[i].startsWith(qNorm)) return 0;
+  }
+  return String(p.nameKey || '').indexOf(qNorm) !== -1 ? 1 : 2;
+}
+
 function srTier(p, qNorm, typeHit) {
   // Tier 1 — match de type por alias
   if (typeHit && p.types.indexOf(typeHit) !== -1) return 1;
@@ -369,15 +382,18 @@ function rankSearch(index, q, limit) {
     if (!inKey && !inType) continue;
     const tier = srTier(p, qNorm, typeHit);
     if (!tier) continue;
-    scored.push({ p, tier, literalHit: inKey ? 0 : 1, sales: p.sales });
+    scored.push({ p, tier, literalHit: inKey ? 0 : 1, nameRank: srNameRank(p, qNorm), sales: p.sales });
   }
 
   scored.sort(function (a, b) {
     if (typeHit) {
-      // Con typeHit: los del tipo van primero, dentro de cada grupo SOLO ventas mandan
+      // Con typeHit: los del tipo van primero. Dentro del grupo, manda el NOMBRE
+      // (prefijo de palabra > contiene > solo-categoria) y recien despues las ventas.
+      // Sin esto, "barra" devolvia geles y pancakes por tener mas ventas que las barras.
       const aMatch = a.p.types.indexOf(typeHit) !== -1 ? 0 : 1;
       const bMatch = b.p.types.indexOf(typeHit) !== -1 ? 0 : 1;
       if (aMatch !== bMatch) return aMatch - bMatch;
+      if (a.nameRank !== b.nameRank) return a.nameRank - b.nameRank;
       return b.sales - a.sales;
     }
     return (a.tier - b.tier) || (a.literalHit - b.literalHit) || (b.sales - a.sales);
