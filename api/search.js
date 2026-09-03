@@ -406,6 +406,81 @@ function rankSearch(index, q, limit) {
   };
 }
 
+// ============== CORRECCION DE TYPOS ==============
+// La query se matchea por substring/prefijo, asi que un error al PRINCIPIO de la
+// palabra ("kreatina") daba 0 resultados. Acá, solo cuando la busqueda no devuelve
+// nada, se busca la palabra mas parecida del catalogo por distancia de edicion.
+
+// Levenshtein acotado: si se pasa de `max` corta y devuelve max+1 (barato).
+function srLev(a, b, max) {
+  const la = a.length, lb = b.length;
+  if (Math.abs(la - lb) > max) return max + 1;
+  let prev = new Array(lb + 1);
+  for (let j = 0; j <= lb; j++) prev[j] = j;
+  for (let i = 1; i <= la; i++) {
+    const cur = new Array(lb + 1);
+    cur[0] = i;
+    let best = cur[0];
+    const ca = a.charCodeAt(i - 1);
+    for (let j = 1; j <= lb; j++) {
+      const cost = ca === b.charCodeAt(j - 1) ? 0 : 1;
+      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost);
+      if (cur[j] < best) best = cur[j];
+    }
+    if (best > max) return max + 1;
+    prev = cur;
+  }
+  return prev[lb];
+}
+
+// Vocabulario = aliases de tipo + palabras de marca/nombre, con frecuencia
+// (la frecuencia desempata: "creatina" aparece mucho mas que un typo del catalogo).
+let _vocabCache = null;
+function srVocab(index) {
+  if (_vocabCache && _vocabCache.n === index.length) return _vocabCache.map;
+  const map = new Map();
+  const add = (w) => {
+    if (!w || w.length < 4 || /^\d+$/.test(w)) return;
+    map.set(w, (map.get(w) || 0) + 1);
+  };
+  for (const type in SR_TYPE_ALIASES) {
+    const aliases = SR_TYPE_ALIASES[type];
+    for (let i = 0; i < aliases.length; i++) {
+      // los aliases pesan como si aparecieran mucho: son el vocabulario "oficial"
+      const a = srNorm(aliases[i]);
+      if (a && a.length >= 4) map.set(a, (map.get(a) || 0) + 500);
+    }
+  }
+  for (let i = 0; i < index.length; i++) {
+    const words = (index[i].brandKey + ' ' + index[i].nameKey).split(' ');
+    for (let w = 0; w < words.length; w++) add(words[w]);
+  }
+  _vocabCache = { n: index.length, map };
+  return map;
+}
+
+// Corrige palabra por palabra. Devuelve la query corregida o null si no cambio nada.
+function srCorrectQuery(qNorm, index) {
+  const vocab = srVocab(index);
+  const parts = qNorm.split(' ').filter(Boolean);
+  if (!parts.length) return null;
+  let changed = false;
+  const out = parts.map(function (w) {
+    if (w.length < 4 || vocab.has(w)) return w;
+    const max = w.length >= 7 ? 2 : 1;
+    let best = null, bestD = max + 1, bestFreq = -1;
+    for (const [v, freq] of vocab) {
+      if (Math.abs(v.length - w.length) > max) continue;
+      const d = srLev(w, v, max);
+      if (d > max) continue;
+      if (d < bestD || (d === bestD && freq > bestFreq)) { bestD = d; bestFreq = freq; best = v; }
+    }
+    if (best) { changed = true; return best; }
+    return w;
+  });
+  return changed ? out.join(' ') : null;
+}
+
 // ============== HANDLER ==============
 
 export default async function handler(req, res) {
@@ -431,7 +506,23 @@ export default async function handler(req, res) {
     }
 
     const { index, cached } = await getIndex();
-    const result = rankSearch(index, q, limit);
+    let result = rankSearch(index, q, limit);
+
+    // Sin resultados -> probar corrigiendo typos ("kreatina" -> "creatina").
+    let didYouMean = null;
+    if (result.total === 0) {
+      const fixed = srCorrectQuery(srNorm(q), index);
+      if (fixed && fixed !== srNorm(q)) {
+        const retry = rankSearch(index, fixed, limit);
+        if (retry.total > 0) { result = retry; didYouMean = fixed; }
+      }
+    }
+
+    // fallback = hay resultados pero NINGUNO matchea el nombre (entraron solo por
+    // categoria). El cliente usa esto para el rotulo "no hay X con stock, te puede servir".
+    const effectiveQ = srNorm(didYouMean || q);
+    const nameMatched = result.matches.filter(m => srNameRank(m, effectiveQ) < 2).length;
+    const fallback = result.total > 0 && nameMatched === 0;
 
     // Bug 5: mapear matches a campos públicos (saca brandKey/nameKey/searchKey/types/sales/published/categories)
     const publicMatches = result.matches.map(p => ({
@@ -455,6 +546,8 @@ export default async function handler(req, res) {
       matches: publicMatches,
       total: result.total,
       typeHit: typeHitObj,
+      didYouMean,
+      fallback,
       cached,
     });
   } catch (err) {
