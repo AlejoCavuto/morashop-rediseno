@@ -440,7 +440,7 @@ function srVocab(index) {
   if (_vocabCache && _vocabCache.n === index.length) return _vocabCache.map;
   const map = new Map();
   const add = (w) => {
-    if (!w || w.length < 4 || /^\d+$/.test(w)) return;
+    if (!w || w.length < 3 || /^\d+$/.test(w)) return;
     map.set(w, (map.get(w) || 0) + 1);
   };
   for (const type in SR_TYPE_ALIASES) {
@@ -448,7 +448,7 @@ function srVocab(index) {
     for (let i = 0; i < aliases.length; i++) {
       // los aliases pesan como si aparecieran mucho: son el vocabulario "oficial"
       const a = srNorm(aliases[i]);
-      if (a && a.length >= 4) map.set(a, (map.get(a) || 0) + 500);
+      if (a && a.length >= 3) map.set(a, (map.get(a) || 0) + 500);
     }
   }
   for (let i = 0; i < index.length; i++) {
@@ -466,7 +466,7 @@ function srCorrectQuery(qNorm, index) {
   if (!parts.length) return null;
   let changed = false;
   const out = parts.map(function (w) {
-    if (w.length < 4 || vocab.has(w)) return w;
+    if (w.length < 3 || vocab.has(w)) return w;
     const max = w.length >= 7 ? 2 : 1;
     let best = null, bestD = max + 1, bestFreq = -1;
     for (const [v, freq] of vocab) {
