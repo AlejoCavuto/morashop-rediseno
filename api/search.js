@@ -49,7 +49,7 @@ const TN_HEADERS = {
   'Content-Type': 'application/json',
 };
 
-const KV_CACHE_KEY = 'tn_products_v1';
+const KV_CACHE_KEY = 'tn_products_v2';   // v2: price ahora usa promotional_price + compareAt
 const KV_TTL_SECONDS = 3600; // 1 hora
 
 // ============== HELPERS ==============
@@ -216,15 +216,43 @@ function pickImage(product) {
   return img.src || img.url || '';
 }
 
+// Precio EFECTIVO de una variante. TN guarda el precio de LISTA en variant.price y,
+// cuando hay oferta, el que realmente se cobra en variant.promotional_price. Leer
+// solo .price devolvia el precio inflado (Ivy Bears: $143.626 en vez de $69.999).
+function variantPrice(v) {
+  const promo = Number(v.promotional_price);
+  if (Number.isFinite(promo) && promo > 0) return promo;
+  return Number(v.price);
+}
+
 // Toma el precio base (mínimo de variantes si hay, sino product.price)
 function pickPrice(product) {
   if (Array.isArray(product.variants) && product.variants.length > 0) {
     const prices = product.variants
-      .map(v => Number(v.price))
+      .map(variantPrice)
       .filter(n => Number.isFinite(n) && n > 0);
     if (prices.length) return Math.min(...prices);
   }
-  return Number(product.price || 0);
+  return Number(product.promotional_price || product.price || 0);
+}
+
+// Precio tachado: el de lista de la variante que define el precio efectivo,
+// y solo si realmente hay descuento. null = sin oferta.
+function pickCompareAt(product) {
+  const eff = pickPrice(product);
+  if (!(eff > 0)) return null;
+  let list = 0;
+  if (Array.isArray(product.variants) && product.variants.length > 0) {
+    for (let i = 0; i < product.variants.length; i++) {
+      if (variantPrice(product.variants[i]) === eff) {
+        list = Number(product.variants[i].price) || 0;
+        break;
+      }
+    }
+  } else {
+    list = Number(product.price) || 0;
+  }
+  return list > eff ? list : null;
 }
 
 // Nombre de la primera categoría (TN: product.categories[0].name es i18n)
@@ -267,6 +295,7 @@ function normalizeProduct(p) {
     name: pickEs(p.name),
     brand: p.brand || '',
     price: pickPrice(p),
+    compareAt: pickCompareAt(p),
     stock: sumStock(p),
     image: pickImage(p),
     handle: pickEs(p.handle) || p.handle || '',
@@ -289,6 +318,7 @@ function hydrateItem(raw) {
     name: raw.name,
     brand: raw.brand,
     price: raw.price,
+    compareAt: raw.compareAt != null ? raw.compareAt : null,
     stock: raw.stock,
     image: raw.image,
     handle: raw.handle,
@@ -530,6 +560,7 @@ export default async function handler(req, res) {
       name: p.name,
       brand: p.brand,
       price: p.price,
+      compareAt: p.compareAt != null ? p.compareAt : null,
       stock: p.stock,
       image: p.image,
       handle: p.handle,
