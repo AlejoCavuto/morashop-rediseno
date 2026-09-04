@@ -421,7 +421,11 @@ function hydrateItem(raw) {
     nameStemKey,
     searchKey,
   };
-  item.sales = srVendidos(item);
+  // salesProxy = el viejo hash (marca+nombre). Solo se usa para desempatar entre
+  // productos SIN ventas registradas, para que el orden no quede al azar.
+  // sales = unidades vendidas de verdad; lo completa el handler con el mapa de KV.
+  item.salesProxy = srVendidos(item);
+  item.sales = 0;
   return item;
 }
 
@@ -444,6 +448,19 @@ async function buildIndex() {
   }
   // Hidratar para el ranking en este request
   return normalizedRaw.map(hydrateItem);
+}
+
+const KV_SALES_KEY = 'tn_sales_v1';
+
+// Mapa product_id -> unidades vendidas, que deja el cron /api/sales.
+async function getSalesMap() {
+  try {
+    const m = await kv.get(KV_SALES_KEY);
+    if (m && typeof m === 'object' && !Array.isArray(m)) return m;
+  } catch (e) {
+    console.error('KV sales get failed:', e.message);
+  }
+  return null;
 }
 
 async function getIndex() {
@@ -548,9 +565,10 @@ function rankSearch(index, q, limit) {
       const aMatch = a.p.types.indexOf(typeHit) !== -1 ? 0 : 1;
       const bMatch = b.p.types.indexOf(typeHit) !== -1 ? 0 : 1;
       if (aMatch !== bMatch) return aMatch - bMatch;
-      return b.sales - a.sales;
+      return (b.sales - a.sales) || (b.p.salesProxy - a.p.salesProxy);
     }
-    return (a.tier - b.tier) || (a.literalHit - b.literalHit) || (b.sales - a.sales);
+    return (a.tier - b.tier) || (a.literalHit - b.literalHit)
+        || (b.sales - a.sales) || (b.p.salesProxy - a.p.salesProxy);
   });
 
   return {
@@ -660,6 +678,20 @@ export default async function handler(req, res) {
     }
 
     const { index, cached } = await getIndex();
+
+    // Ventas reales. Si el cron todavia no corrio, se cae a la aproximacion vieja
+    // en vez de dejar todo en cero (que haria colapsar el orden).
+    const salesMap = await getSalesMap();
+    for (let i = 0; i < index.length; i++) {
+      const it = index[i];
+      if (salesMap) {
+        const real = Number(salesMap[it.id]);
+        it.sales = Number.isFinite(real) && real > 0 ? real : 0;
+      } else {
+        it.sales = it.salesProxy;
+      }
+    }
+
     let result = rankSearch(index, q, limit);
 
     // Sin resultados -> probar corrigiendo typos ("kreatina" -> "creatina").
@@ -690,6 +722,7 @@ export default async function handler(req, res) {
       image: p.image,
       handle: p.handle,
       salesScore: p.sales,
+      unitsSold: p.sales,
     }));
 
     // Bug 1: typeHit como objeto {key, label, handle} en vez de string crudo
