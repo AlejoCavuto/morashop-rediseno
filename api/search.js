@@ -541,10 +541,13 @@ function rankSearch(index, q, limit) {
       // Con typeHit: los del tipo van primero. Dentro del grupo, manda el NOMBRE
       // (prefijo de palabra > contiene > solo-categoria) y recien despues las ventas.
       // Sin esto, "barra" devolvia geles y pancakes por tener mas ventas que las barras.
+      // El NOMBRE manda sobre la pertenencia a la categoria: buscando "gomitas",
+      // un producto que se llama "En Gomitas" tiene que ir antes que una barra que
+      // solo comparte categoria. Recien despues pesa la categoria, y al final ventas.
+      if (a.nameRank !== b.nameRank) return a.nameRank - b.nameRank;
       const aMatch = a.p.types.indexOf(typeHit) !== -1 ? 0 : 1;
       const bMatch = b.p.types.indexOf(typeHit) !== -1 ? 0 : 1;
       if (aMatch !== bMatch) return aMatch - bMatch;
-      if (a.nameRank !== b.nameRank) return a.nameRank - b.nameRank;
       return b.sales - a.sales;
     }
     return (a.tier - b.tier) || (a.literalHit - b.literalHit) || (b.sales - a.sales);
