@@ -154,6 +154,31 @@ const SR_TYPE_LABEL = {
   'bananero':           'Bananero',
 };
 
+// ============== STEMMING ES ==============
+// El matching era literal (substring/prefijo), asi que "barrita" no encontraba
+// "Barras" ni al reves: en castellano el plural (-s/-es) y el diminutivo
+// (-ita/-ito/-illa) generan palabras que no se contienen entre si.
+// srStem lleva query y catalogo a la MISMA raiz:
+//   barras -> barra -> barr      barritas -> barrita -> barr
+//   proteinas -> proteina -> protein     creatine -> creatin
+function srStem(w) {
+  if (!w || w.length < 4) return w || '';
+  var x = w;
+  // plural
+  if (x.length > 4 && x.slice(-2) === 'es') x = x.slice(0, -2);
+  else if (x.length > 3 && x.slice(-1) === 's') x = x.slice(0, -1);
+  // diminutivo (barrita -> barr, gomita -> gom)
+  x = x.replace(/(?:cit|cill|it|ill)[aeo]$/, '');
+  // vocal final (barra -> barr, proteina -> protein, creatine -> creatin)
+  if (x.length > 4 && 'aeiou'.indexOf(x.slice(-1)) !== -1) x = x.slice(0, -1);
+  // si quedo demasiado corto, no vale la pena: se pierde precision
+  return x.length >= 3 ? x : w;
+}
+
+function srStemPhrase(str) {
+  return String(str || '').split(' ').map(srStem).join(' ');
+}
+
 // Detecta si la query coincide con un type por alias
 function srMatchedType(qNorm) {
   if (!qNorm) return null;
@@ -163,6 +188,9 @@ function srMatchedType(qNorm) {
       const a = srNorm(aliases[i]);
       if (!a) continue;
       if (a === qNorm || a.startsWith(qNorm) || qNorm.startsWith(a)) return type;
+      // mismo chequeo por raiz: "barritas" tiene que pegarle al alias "barras"
+      var as = srStemPhrase(a), qs = srStemPhrase(qNorm);
+      if (as && qs && (as === qs || as.startsWith(qs) || qs.startsWith(as))) return type;
     }
   }
   return null;
@@ -313,6 +341,8 @@ function hydrateItem(raw) {
   const brandKey = srNorm(raw.brand);
   const nameKey = srNorm(raw.name);
   const searchKey = srNorm(raw.brand + ' ' + raw.name + ' ' + types.join(' ') + ' ' + raw.categoryName);
+  const stemKey = srStemPhrase(searchKey);
+  const nameStemKey = srStemPhrase(nameKey);
   const item = {
     id: raw.id,
     name: raw.name,
@@ -328,6 +358,8 @@ function hydrateItem(raw) {
     types,
     brandKey,
     nameKey,
+    stemKey,
+    nameStemKey,
     searchKey,
   };
   item.sales = srVendidos(item);
@@ -375,15 +407,28 @@ async function getIndex() {
 // 0 = alguna palabra del nombre empieza con la query ("barra" -> "Barras Proteicas")
 // 1 = el nombre la contiene en algun lado
 // 2 = no matchea el nombre (entro solo por categoria)
-function srNameRank(p, qNorm) {
+// 0 = palabra del nombre empieza con la query literal
+// 1 = el nombre la contiene literal
+// 2 = match por RAIZ al inicio de palabra ("barritas" vs "Barras")
+// 3 = match por raiz en cualquier lado
+// 4 = no matchea el nombre (entro solo por categoria)
+function srNameRank(p, qNorm, qStems) {
   const words = String(p.nameKey || '').split(' ');
   for (let i = 0; i < words.length; i++) {
     if (words[i] && words[i].startsWith(qNorm)) return 0;
   }
-  return String(p.nameKey || '').indexOf(qNorm) !== -1 ? 1 : 2;
+  if (String(p.nameKey || '').indexOf(qNorm) !== -1) return 1;
+  if (qStems && qStems.length) {
+    const nameStems = String(p.nameStemKey || '').split(' ');
+    const allPrefix = qStems.every(st => nameStems.some(w => w && w.startsWith(st)));
+    if (allPrefix) return 2;
+    const nameStemStr = String(p.nameStemKey || '');
+    if (qStems.every(st => nameStemStr.indexOf(st) !== -1)) return 3;
+  }
+  return 4;
 }
 
-function srTier(p, qNorm, typeHit) {
+function srTier(p, qNorm, typeHit, inStem) {
   // Tier 1 — match de type por alias
   if (typeHit && p.types.indexOf(typeHit) !== -1) return 1;
   // Tier 2 — query es exactamente la marca
@@ -395,6 +440,8 @@ function srTier(p, qNorm, typeHit) {
   }
   // Tier 4 — contiene en searchKey
   if (p.searchKey.indexOf(qNorm) !== -1) return 4;
+  // Tier 5 — match por RAIZ (todas las palabras de la query, stemmeadas)
+  if (inStem) return 5;
   return 0;
 }
 
@@ -403,16 +450,19 @@ function rankSearch(index, q, limit) {
   if (!qNorm) return { matches: [], typeHit: null, total: 0 };
 
   const typeHit = srMatchedType(qNorm);
+  // Raices de la query: TODAS tienen que aparecer para considerar match por raiz.
+  const qStems = qNorm.split(' ').filter(Boolean).map(srStem).filter(Boolean);
   const scored = [];
 
   for (let i = 0; i < index.length; i++) {
     const p = index[i];
     const inKey = p.searchKey.indexOf(qNorm) !== -1;
+    const inStem = qStems.length > 0 && qStems.every(st => String(p.stemKey || '').indexOf(st) !== -1);
     const inType = typeHit && p.types.indexOf(typeHit) !== -1;
-    if (!inKey && !inType) continue;
-    const tier = srTier(p, qNorm, typeHit);
+    if (!inKey && !inStem && !inType) continue;
+    const tier = srTier(p, qNorm, typeHit, inStem);
     if (!tier) continue;
-    scored.push({ p, tier, literalHit: inKey ? 0 : 1, nameRank: srNameRank(p, qNorm), sales: p.sales });
+    scored.push({ p, tier, literalHit: inKey ? 0 : 1, nameRank: srNameRank(p, qNorm, qStems), sales: p.sales });
   }
 
   scored.sort(function (a, b) {
@@ -551,7 +601,8 @@ export default async function handler(req, res) {
     // fallback = hay resultados pero NINGUNO matchea el nombre (entraron solo por
     // categoria). El cliente usa esto para el rotulo "no hay X con stock, te puede servir".
     const effectiveQ = srNorm(didYouMean || q);
-    const nameMatched = result.matches.filter(m => srNameRank(m, effectiveQ) < 2).length;
+    const effStems = effectiveQ.split(' ').filter(Boolean).map(srStem).filter(Boolean);
+    const nameMatched = result.matches.filter(m => srNameRank(m, effectiveQ, effStems) < 4).length;
     const fallback = result.total > 0 && nameMatched === 0;
 
     // Bug 5: mapear matches a campos públicos (saca brandKey/nameKey/searchKey/types/sales/published/categories)
