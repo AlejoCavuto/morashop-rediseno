@@ -179,6 +179,64 @@ function srStemPhrase(str) {
   return String(str || '').split(' ').map(srStem).join(' ');
 }
 
+// ============== SINONIMOS ==============
+// Grupos de terminos equivalentes. Nacen de mirar el catalogo real: esta partido
+// entre ingles y castellano, asi que buscar "proteina" (104 productos) se perdia
+// los 180 que se llaman "Protein". Cada grupo se compara por RAIZ, asi que no hace
+// falta listar plurales ni diminutivos (eso ya lo hace srStem).
+// Regla al agregar: solo terminos que EXISTEN en el catalogo. Meter palabras que
+// no aparecen no suma recall y solo agranda el riesgo de traer cosas de mas.
+const SR_SYNONYMS = [
+  ['proteina', 'protein', 'whey'],
+  ['colageno', 'collagen'],
+  ['magnesio', 'magnesium'],
+  ['energia', 'energy', 'energetica', 'energizante'],
+  ['vegano', 'vegana', 'vegan', 'plant based'],
+  ['multivitaminico', 'multivitamina', 'multivitamin'],
+  ['polvo', 'powder'],
+  ['mani', 'peanut', 'manteca de mani', 'mantequilla de mani', 'pasta de mani'],
+  ['gomitas', 'gummies', 'gummy'],
+  ['oxido nitrico', 'nitrico', 'pump'],
+  ['entreno', 'entrenamiento', 'workout', 'preentreno'],
+  ['recuperacion', 'recovery'],
+  ['quemador', 'termogenico', 'fat burner', 'carnitina', 'adelgazar'],
+  ['ganador', 'gainer', 'mass gainer'],
+  ['barra', 'bar'],
+  ['vaso', 'shaker'],
+  ['aceite de pescado', 'fish oil', 'omega'],
+  ['sin tacc', 'sin gluten', 'gluten free', 'celiaco'],
+  ['sin azucar', 'sugar free', 'zero azucar'],
+  ['aminoacidos', 'amino', 'bcaa'],
+  ['cafeina', 'caffeine'],
+  ['isotonico', 'electrolitos', 'hidratacion'],
+  ['pastillero', 'organizador de pastillas'],
+  ['creatina', 'creatine', 'monohidrato']
+];
+
+// raiz del termino -> todas las raices de su grupo (incluida la propia)
+const SR_SYN_INDEX = (function () {
+  const idx = {};
+  for (let g = 0; g < SR_SYNONYMS.length; g++) {
+    const stems = SR_SYNONYMS[g].map(t => srStemPhrase(srNorm(t))).filter(Boolean);
+    for (let i = 0; i < stems.length; i++) {
+      if (!idx[stems[i]]) idx[stems[i]] = stems;
+    }
+  }
+  return idx;
+})();
+
+// Por cada palabra de la query devuelve las raices ACEPTABLES (la propia + sinonimos).
+// Si la query entera es un termino conocido ("oxido nitrico"), se expande como una sola.
+function srSynAlts(qNorm) {
+  const whole = SR_SYN_INDEX[srStemPhrase(qNorm)];
+  if (whole) return [whole.slice()];
+  return qNorm.split(' ').filter(Boolean).map(function (w) {
+    const st = srStem(w);
+    const g = SR_SYN_INDEX[st];
+    return g ? g.slice() : [st];
+  });
+}
+
 // Detecta si la query coincide con un type por alias
 function srMatchedType(qNorm) {
   if (!qNorm) return null;
@@ -428,7 +486,7 @@ function srNameRank(p, qNorm, qStems) {
   return 4;
 }
 
-function srTier(p, qNorm, typeHit, inStem) {
+function srTier(p, qNorm, typeHit, inStem, inSyn) {
   // Tier 1 — match de type por alias
   if (typeHit && p.types.indexOf(typeHit) !== -1) return 1;
   // Tier 2 — query es exactamente la marca
@@ -442,6 +500,8 @@ function srTier(p, qNorm, typeHit, inStem) {
   if (p.searchKey.indexOf(qNorm) !== -1) return 4;
   // Tier 5 — match por RAIZ (todas las palabras de la query, stemmeadas)
   if (inStem) return 5;
+  // Tier 6 — match por SINONIMO (proteina~protein, colageno~collagen, ...)
+  if (inSyn) return 6;
   return 0;
 }
 
@@ -452,15 +512,18 @@ function rankSearch(index, q, limit) {
   const typeHit = srMatchedType(qNorm);
   // Raices de la query: TODAS tienen que aparecer para considerar match por raiz.
   const qStems = qNorm.split(' ').filter(Boolean).map(srStem).filter(Boolean);
+  const qAlts = srSynAlts(qNorm);   // raices aceptables por palabra (con sinonimos)
   const scored = [];
 
   for (let i = 0; i < index.length; i++) {
     const p = index[i];
     const inKey = p.searchKey.indexOf(qNorm) !== -1;
     const inStem = qStems.length > 0 && qStems.every(st => String(p.stemKey || '').indexOf(st) !== -1);
+    const inSyn = !inStem && qAlts.length > 0 &&
+      qAlts.every(alts => alts.some(a => String(p.stemKey || '').indexOf(a) !== -1));
     const inType = typeHit && p.types.indexOf(typeHit) !== -1;
-    if (!inKey && !inStem && !inType) continue;
-    const tier = srTier(p, qNorm, typeHit, inStem);
+    if (!inKey && !inStem && !inSyn && !inType) continue;
+    const tier = srTier(p, qNorm, typeHit, inStem, inSyn);
     if (!tier) continue;
     scored.push({ p, tier, literalHit: inKey ? 0 : 1, nameRank: srNameRank(p, qNorm, qStems), sales: p.sales });
   }
