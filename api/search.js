@@ -165,14 +165,15 @@ function srStem(w) {
   if (!w || w.length < 4) return w || '';
   var x = w;
   // plural
-  if (x.length > 4 && x.slice(-2) === 'es') x = x.slice(0, -2);
-  else if (x.length > 3 && x.slice(-1) === 's') x = x.slice(0, -1);
-  // diminutivo (barrita -> barr, gomita -> gom)
-  x = x.replace(/(?:cit|cill|it|ill)[aeo]$/, '');
+  if (x.length > 5 && x.slice(-2) === 'es') x = x.slice(0, -2);
+  else if (x.length > 4 && x.slice(-1) === 's') x = x.slice(0, -1);
+  // diminutivo — solo si lo que queda sigue siendo distintivo (>=4).
+  // Sin este piso, "gomita" quedaba en "gom" y traia "Dardos de Goma".
+  var dim = x.replace(/(?:cit|cill|it|ill)[aeo]$/, '');
+  if (dim.length >= 4) x = dim;
   // vocal final (barra -> barr, proteina -> protein, creatine -> creatin)
   if (x.length > 4 && 'aeiou'.indexOf(x.slice(-1)) !== -1) x = x.slice(0, -1);
-  // si quedo demasiado corto, no vale la pena: se pierde precision
-  return x.length >= 3 ? x : w;
+  return x;
 }
 
 function srStemPhrase(str) {
@@ -201,7 +202,7 @@ const SR_SYNONYMS = [
   ['recuperacion', 'recovery'],
   ['quemador', 'termogenico', 'fat burner', 'carnitina', 'adelgazar'],
   ['ganador', 'gainer', 'mass gainer'],
-  ['barra', 'bar'],
+  ['barra', 'bar', 'barrita'],
   ['vaso', 'shaker'],
   ['aceite de pescado', 'fish oil', 'omega'],
   ['sin tacc', 'sin gluten', 'gluten free', 'celiaco'],
@@ -518,9 +519,16 @@ function rankSearch(index, q, limit) {
   for (let i = 0; i < index.length; i++) {
     const p = index[i];
     const inKey = p.searchKey.indexOf(qNorm) !== -1;
-    const inStem = qStems.length > 0 && qStems.every(st => String(p.stemKey || '').indexOf(st) !== -1);
+    // Terminos de <=4 letras se comparan como PALABRA COMPLETA: "bar" no debe
+    // matchear "barbacoa" ni "gom" traer "goma". Los largos van por substring.
+    const stemKey = String(p.stemKey || '');
+    const stemWords = stemKey.split(' ');
+    const hasStem = function (a) {
+      return a.length > 4 ? stemKey.indexOf(a) !== -1 : stemWords.indexOf(a) !== -1;
+    };
+    const inStem = qStems.length > 0 && qStems.every(hasStem);
     const inSyn = !inStem && qAlts.length > 0 &&
-      qAlts.every(alts => alts.some(a => String(p.stemKey || '').indexOf(a) !== -1));
+      qAlts.every(alts => alts.some(hasStem));
     const inType = typeHit && p.types.indexOf(typeHit) !== -1;
     if (!inKey && !inStem && !inSyn && !inType) continue;
     const tier = srTier(p, qNorm, typeHit, inStem, inSyn);
