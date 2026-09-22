@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Fútbol del grupo</title>
+  <meta name="description" content="Equipos, ranking, goleadores y pagos de la cancha del grupo." />
+  <meta name="theme-color" content="#0c1511" />
+  <meta name="robots" content="noindex" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="topbar__brand" href="#/partidos">
+      <span class="topbar__ball" aria-hidden="true">⚽</span>
+      <span class="topbar__name" id="groupName">Fútbol</span>
+    </a>
+    <div class="topbar__right">
+      <span class="mode-badge" id="modeBadge" hidden></span>
+      <button class="admin-btn" id="adminBtn" type="button"></button>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Secciones">
+    <a href="#/partidos" data-tab="partidos"><span aria-hidden="true">📅</span>Partidos</a>
+    <a href="#/pagos" data-tab="pagos"><span aria-hidden="true">💸</span>Pagos</a>
+    <a href="#/ranking" data-tab="ranking"><span aria-hidden="true">🏆</span>Ranking</a>
+    <a href="#/jugadores" data-tab="jugadores"><span aria-hidden="true">👥</span>Jugadores</a>
+    <a href="#/ajustes" data-tab="ajustes"><span aria-hidden="true">⚙️</span>Ajustes</a>
+  </nav>
+
+  <main id="view" class="view" aria-live="polite">
+    <p class="empty">Cargando…</p>
+  </main>
+
+  <dialog id="dialog" class="dialog">
+    <div class="dialog__inner" id="dialogBody"></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <script src="app.js?v=1"></script>
+</body>
+</html>
