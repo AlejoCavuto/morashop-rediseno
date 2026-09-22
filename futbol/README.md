@@ -1,5 +1,9 @@
 # Fútbol del grupo
 
+Diseño: sistema generado con la skill ui-ux-pro-max (Sports Team/Club → Vibrant & Block-based + Dark OLED,
+Barlow Condensed + Barlow). Identidad "fútbol 5 de noche": partidos como entradas, marcador sobre pasto,
+pecheras de color por equipo, medidor de cobro con un segmento por jugador y podio en el ranking.
+
 App para el grupo de fútbol: jugadores, armado de equipos, resultados, ranking y **control de pagos de la cancha**.
 Vive en `/futbol` (HTML/CSS/JS sin librerías) y guarda los datos compartidos con `/api/futbol` (Vercel KV).
 

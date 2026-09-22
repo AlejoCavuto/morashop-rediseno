@@ -5,20 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Fútbol del grupo</title>
   <meta name="description" content="Equipos, ranking, goleadores y pagos de la cancha del grupo." />
-  <meta name="theme-color" content="#0c1511" />
+  <meta name="theme-color" content="#07090a" />
+  <meta name="color-scheme" content="dark" />
   <meta name="robots" content="noindex" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=1" />
+  <link rel="stylesheet" href="styles.css?v=2" />
 </head>
 <body>
 
   <header class="topbar">
     <a class="topbar__brand" href="#/partidos">
-      <span class="topbar__ball" aria-hidden="true">⚽</span>
+      <span class="topbar__mark" data-icon="ball" aria-hidden="true"></span>
       <span class="topbar__name" id="groupName">Fútbol</span>
     </a>
     <div class="topbar__right">
@@ -28,14 +29,14 @@
   </header>
 
   <nav class="tabs" aria-label="Secciones">
-    <a href="#/partidos" data-tab="partidos"><span aria-hidden="true">📅</span>Partidos</a>
-    <a href="#/pagos" data-tab="pagos"><span aria-hidden="true">💸</span>Pagos</a>
-    <a href="#/ranking" data-tab="ranking"><span aria-hidden="true">🏆</span>Ranking</a>
-    <a href="#/jugadores" data-tab="jugadores"><span aria-hidden="true">👥</span>Jugadores</a>
-    <a href="#/ajustes" data-tab="ajustes"><span aria-hidden="true">⚙️</span>Ajustes</a>
+    <a href="#/partidos" data-tab="partidos"><span data-icon="calendar" aria-hidden="true"></span>Partidos</a>
+    <a href="#/pagos" data-tab="pagos"><span data-icon="wallet" aria-hidden="true"></span>Pagos</a>
+    <a href="#/ranking" data-tab="ranking"><span data-icon="trophy" aria-hidden="true"></span>Ranking</a>
+    <a href="#/jugadores" data-tab="jugadores"><span data-icon="users" aria-hidden="true"></span>Jugadores</a>
+    <a href="#/ajustes" data-tab="ajustes"><span data-icon="sliders" aria-hidden="true"></span>Ajustes</a>
   </nav>
 
-  <main id="view" class="view" aria-live="polite">
+  <main id="view" class="view">
     <p class="empty">Cargando…</p>
   </main>
 
@@ -45,6 +46,6 @@
 
   <div class="toast" id="toast" role="status" hidden></div>
 
-  <script src="app.js?v=1"></script>
+  <script src="app.js?v=2"></script>
 </body>
 </html>
