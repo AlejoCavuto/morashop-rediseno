@@ -31,6 +31,7 @@
 ============================================================================= */
 
 import { kv } from '@vercel/kv';
+import { waitUntil } from '@vercel/functions';
 
 // Vercel: subir el timeout máximo de la función (Pro lo respeta; en Hobby no daña)
 export const maxDuration = 60;
@@ -50,7 +51,15 @@ const TN_HEADERS = {
 };
 
 const KV_CACHE_KEY = 'tn_products_v2';   // v2: price ahora usa promotional_price + compareAt
-const KV_TTL_SECONDS = 3600; // 1 hora
+// El indice se considera FRESCO 1 hora (stock y precios). Pasada la hora se sigue
+// sirviendo al instante y se reconstruye en segundo plano; se guarda 2 dias para que
+// siempre haya uno para servir. Antes vencia a la hora y el primer buscador de cada
+// hora esperaba la reconstruccion completa dentro de su pedido: 27,6 s medidos el
+// 23/09/2026, mas que los 8 s que espera la lupa, que se le quedaba vacia.
+const KV_TTL_SECONDS = 3600;              // fresco
+const KV_KEEP_SECONDS = 2 * 24 * 3600;    // se conserva para servir mientras se refresca
+const KV_BUILT_AT_KEY = 'tn_products_v2_at';
+const KV_LOCK_KEY = 'tn_products_v2_lock';
 
 // ============== HELPERS ==============
 
@@ -442,7 +451,8 @@ async function buildIndex() {
   }
   // Guardar SÓLO la forma raw (puede fallar silenciosamente si KV está caído)
   try {
-    await kv.set(KV_CACHE_KEY, normalizedRaw, { ex: KV_TTL_SECONDS });
+    await kv.set(KV_CACHE_KEY, normalizedRaw, { ex: KV_KEEP_SECONDS });
+    await kv.set(KV_BUILT_AT_KEY, Date.now(), { ex: KV_KEEP_SECONDS });
   } catch (e) {
     console.error('KV set failed:', e.message);
   }
@@ -465,16 +475,33 @@ async function getSalesMap() {
 
 async function getIndex() {
   try {
-    const cached = await kv.get(KV_CACHE_KEY);
+    const [cached, builtAt] = await Promise.all([kv.get(KV_CACHE_KEY), kv.get(KV_BUILT_AT_KEY)]);
     if (Array.isArray(cached) && cached.length > 0) {
+      // Viejo, o sin marca de tiempo (como el que dejo la version anterior): se sirve
+      // igual, ahora, y se reconstruye en segundo plano para el proximo pedido.
+      if (!(Date.now() - Number(builtAt || 0) < KV_TTL_SECONDS * 1000)) refreshIndexInBackground();
       // Re-hidratar acá: el cache es raw, el ranking necesita los derivados
       return { index: cached.map(hydrateItem), cached: true };
     }
   } catch (e) {
     console.error('KV get failed:', e.message);
   }
+  // No hay ningun indice guardado (primera vez o KV vaciado): no queda otra que armarlo ya.
   const index = await buildIndex();
   return { index, cached: false };
+}
+
+// Una sola reconstruccion a la vez: con el indice viejo, cada busqueda que caia
+// bajaba el catalogo entero de Tiendanube por su cuenta. El lock vence solo a los
+// 120 s: si la reconstruccion falla (Tiendanube caido) se reintenta como mucho cada
+// 2 minutos, no en cada busqueda.
+function refreshIndexInBackground() {
+  const task = (async () => {
+    const got = await kv.set(KV_LOCK_KEY, '1', { nx: true, ex: 120 });
+    if (got) await buildIndex();
+  })().catch(e => console.error('index refresh failed:', e.message));
+  // waitUntil mantiene viva la funcion despues de responder hasta que termine.
+  try { waitUntil(task); } catch (e) { /* fuera de Vercel no hay contexto de request */ }
 }
 
 // ============== RANKING ==============
