@@ -586,7 +586,7 @@ function armarScroll() {
   window.addEventListener('wheel', () => { const n = performance.now(); if (n - ultimo > 260) rafaga++; ultimo = n; }, { passive: true });
   window.addEventListener('touchstart', () => { rafaga++; }, { passive: true });
 
-  let st;
+  let st, libreHasta = 0;   // mientras un botón lleva al catálogo, la sección no se engancha al pasar
   const intento = ST.observe({
     type: 'wheel,touch', wheelSpeed: -1, tolerance: 12, preventDefault: true,
     onUp: () => gesto(1), onDown: () => gesto(-1),
@@ -614,8 +614,8 @@ function armarScroll() {
   st = ST.create({
     trigger: root, pin: stage, start: 'top top', end: () => '+=' + Math.round(innerHeight * 0.5),
     invalidateOnRefresh: true, anticipatePin: 1,
-    onEnter: (self) => { if (LOG) LOG.push(['enter', Math.round(scrollY)]); if (intento.isEnabled) return; self.scroll(self.start + 1); intento.enable(); },
-    onEnterBack: (self) => { if (LOG) LOG.push(['enterBack', Math.round(scrollY)]); if (intento.isEnabled) return; self.scroll(self.end - 1); intento.enable(); },
+    onEnter: (self) => { if (LOG) LOG.push(['enter', Math.round(scrollY)]); if (intento.isEnabled || performance.now() < libreHasta) return; self.scroll(self.start + 1); intento.enable(); },
+    onEnterBack: (self) => { if (LOG) LOG.push(['enterBack', Math.round(scrollY)]); if (intento.isEnabled || performance.now() < libreHasta) return; self.scroll(self.end - 1); intento.enable(); },
   });
   // teclado dentro de la sección
   window.addEventListener('keydown', (e) => {
@@ -625,7 +625,7 @@ function armarScroll() {
     else if (k === 'ArrowUp' || k === 'PageUp') { e.preventDefault(); paso > 0 ? irA(paso - 1) : salir(-1); }
   });
   // los botones "Comprar" / "Ver productos" sueltan el scroll antes de bajar al catálogo
-  root.querySelectorAll('.up-cta').forEach((a) => a.addEventListener('click', () => intento.disable()));
+  root.querySelectorAll('.up-cta').forEach((a) => a.addEventListener('click', () => { libreHasta = performance.now() + 2200; intento.disable(); }));
   botones.forEach((b) => b.addEventListener('click', () => { if (!animando) irA(+b.dataset.ir); }));
   if (/[?&]debug/.test(location.search)) window.__up.irA = (i) => { irA(i); };
 
