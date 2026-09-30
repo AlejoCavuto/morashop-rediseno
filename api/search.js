@@ -161,7 +161,74 @@ const SR_TYPE_LABEL = {
   'destilados':         'Destilados',
   'espumantes':         'Espumantes',
   'bananero':           'Bananero',
+  'lacteos':            'Lácteos',
+  'leches-infantiles':  'Leches infantiles',
 };
+
+// ============== LACTEOS Y LECHES INFANTILES ==============
+// Estos dos rubros NO van en SR_TYPE_ALIASES: esa tabla se aplica por substring al
+// nombre de cada producto y "leche" aparece en salsas y wheys "Dulce de Leche", en un
+// shake "Sabor Cafe Con Leche" y en "Sacaleche"; "bebe" en "bebedero". Aca el rubro
+// sale de reglas sobre el NOMBRE, y la query cae en el rubro por palabras completas.
+function srTipoPorNombre(nameKey) {
+  const n = String(nameKey || '');
+  if (/\b(nutrilon|profutura)\b|\bformula (de )?(inicio|continuacion|infantil)\b|\bleches? de formula\b/.test(n)) return 'leches-infantiles';
+  // Solo si el producto ES leche (el nombre arranca con "Leche"/"Chocolatada") o es de La
+  // Serenisima: un whey "Sabor Leche Condensada" sigue siendo proteina.
+  if (/^(leches?|chocolatadas?)\b/.test(n) || /\bla serenisima\b/.test(n)) return 'lacteos';
+  return null;
+}
+
+// Palabras que, SOLAS, describen el rubro entero ("leche", "leche para bebe",
+// "nutrilon 1"): con esas se muestran todos los productos del rubro. Si la query trae
+// algo mas especifico ("chocolatada", "leche en polvo") se busca por las palabras.
+const SR_GENERICAS = {
+  'lacteos': ['leche', 'leches', 'lacteo', 'lacteos', 'la', 'de', 'en', 'el', 'los'],
+  'leches-infantiles': ['leche', 'leches', 'infantil', 'infantiles', 'formula', 'formulas', 'bebe', 'bebes', 'de', 'para',
+    'en', 'polvo', 'maternizada', 'maternizadas', 'lactante', 'lactantes', 'nutrilon', 'profutura', 'nutricia', 'bago',
+    'etapa', 'fase', 'inicio', 'continuacion', 'a', 'meses', 'anos', 'ano', '0', '1', '2', '3', '4', '6', '12', '24'],
+};
+// lacteos incluye las leches infantiles (van despues de las comunes); al reves no.
+const SR_TYPE_FAMILY = { 'lacteos': ['leches-infantiles'] };
+
+function srTipoPorQuery(qNorm) {
+  const w = qNorm.split(' ').filter(Boolean);
+  const has = (list) => w.some(x => list.indexOf(x) !== -1);
+  if (has(['nutrilon', 'profutura', 'nutricia'])) return 'leches-infantiles';
+  if (has(['leche', 'leches']) && has(['formula', 'formulas'])) return 'leches-infantiles';
+  if (has(['leche', 'leches', 'formula', 'formulas']) &&
+      has(['bebe', 'bebes', 'infantil', 'infantiles', 'maternizada', 'maternizadas', 'lactante', 'lactantes', 'inicio', 'continuacion'])) {
+    return 'leches-infantiles';
+  }
+  // "dulce de leche", "cafe con leche" y "sacaleche" son otra cosa
+  if (has(['leche', 'leches', 'lacteo', 'lacteos', 'chocolatada', 'chocolatadas']) && !has(['dulce', 'cafe', 'sacaleche'])) return 'lacteos';
+  return null;
+}
+
+// Etapa de Nutrilon Profutura: 1 = 0 a 6 meses, 2 = 6 a 12, 3 = 1 a 2 anos.
+// "nutrilon 1" traia tambien la 3 ("... 1 A 2 Años").
+function srEtapaQuery(qNorm) {
+  if (!/\b(nutrilon|profutura|etapa|fase|formula|infantil|bebe)\b/.test(qNorm)) return null;
+  if (/\b0 a 6\b/.test(qNorm)) return 1;
+  if (/\b6 a 12\b/.test(qNorm)) return 2;
+  if (/\b(1 a 2|12 a 24)\b/.test(qNorm)) return 3;
+  const d = (qNorm.match(/(?:^|\s)([1-4])(?=\s|$)/g) || []).map(x => x.trim());
+  const unicas = d.filter((x, i) => d.indexOf(x) === i);
+  return unicas.length === 1 ? Number(unicas[0]) : null;
+}
+function srEtapaNombre(nameKey) {
+  const m = String(nameKey || '').match(/\b(?:profutura|nutrilon) ([1-4])\b/);
+  return m ? Number(m[1]) : null;
+}
+
+// Frases del nombre que NO cuentan como la palabra buscada: buscando "leche", el
+// "Dulce de Leche" de una salsa o el "Cafe con Leche" de un shake no son leche.
+function srNombreParaQuery(nameKey, qNorm) {
+  if (/\bleche/.test(qNorm) && !/\b(dulce|cafe)\b/.test(qNorm)) {
+    return String(nameKey || '').replace(/\bdulce (de )?leche\b|\bcon leche\b/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  return nameKey;
+}
 
 // ============== STEMMING ES ==============
 // El matching era literal (substring/prefijo), asi que "barrita" no encontraba
@@ -220,7 +287,10 @@ const SR_SYNONYMS = [
   ['cafeina', 'caffeine'],
   ['isotonico', 'electrolitos', 'hidratacion'],
   ['pastillero', 'organizador de pastillas'],
-  ['creatina', 'creatine', 'monohidrato']
+  ['creatina', 'creatine', 'monohidrato'],
+  // "leche proteica" / "snack proteico": el catalogo dice "Protein". Grupo aparte para que
+  // buscar "proteina" siga igual (el indice se queda con el primer grupo de cada raiz).
+  ['proteica', 'proteico', 'protein', 'proteina']
 ];
 
 // raiz del termino -> todas las raices de su grupo (incluida la propia)
@@ -250,6 +320,8 @@ function srSynAlts(qNorm) {
 // Detecta si la query coincide con un type por alias
 function srMatchedType(qNorm) {
   if (!qNorm) return null;
+  const lacteo = srTipoPorQuery(qNorm);
+  if (lacteo) return lacteo;
   for (const type in SR_TYPE_ALIASES) {
     const aliases = SR_TYPE_ALIASES[type];
     for (let i = 0; i < aliases.length; i++) {
@@ -266,6 +338,8 @@ function srMatchedType(qNorm) {
 
 // Infiere type del producto a partir del nombre + categoría (sin tildes, lowercase)
 function inferType(name, categoryName) {
+  const porNombre = srTipoPorNombre(srNorm(name));
+  if (porNombre) return porNombre;
   const hay = srNorm((name || '') + ' ' + (categoryName || ''));
   if (!hay) return null;
   // Match al primer type cuyo alias aparezca en el hay-string
@@ -516,16 +590,18 @@ function refreshIndexInBackground() {
 // 3 = match por raiz en cualquier lado
 // 4 = no matchea el nombre (entro solo por categoria)
 function srNameRank(p, qNorm, qStems) {
-  const words = String(p.nameKey || '').split(' ');
+  const nameKey = srNombreParaQuery(p.nameKey, qNorm);
+  const nameStemKey = nameKey === p.nameKey ? p.nameStemKey : srStemPhrase(nameKey);
+  const words = String(nameKey || '').split(' ');
   for (let i = 0; i < words.length; i++) {
     if (words[i] && words[i].startsWith(qNorm)) return 0;
   }
-  if (String(p.nameKey || '').indexOf(qNorm) !== -1) return 1;
+  if (String(nameKey || '').indexOf(qNorm) !== -1) return 1;
   if (qStems && qStems.length) {
-    const nameStems = String(p.nameStemKey || '').split(' ');
+    const nameStems = String(nameStemKey || '').split(' ');
     const allPrefix = qStems.every(st => nameStems.some(w => w && w.startsWith(st)));
     if (allPrefix) return 2;
-    const nameStemStr = String(p.nameStemKey || '');
+    const nameStemStr = String(nameStemKey || '');
     if (qStems.every(st => nameStemStr.indexOf(st) !== -1)) return 3;
   }
   return 4;
@@ -559,9 +635,21 @@ function rankSearch(index, q, limit) {
   const qStems = qNorm.split(' ').filter(Boolean).map(srStem).filter(Boolean);
   const qAlts = srSynAlts(qNorm);   // raices aceptables por palabra (con sinonimos)
   const scored = [];
+  // Lacteos / leches infantiles: el rubro se arma por reglas precisas (srTipoPorNombre),
+  // asi que pertenecer a el pesa MAS que el nombre. Con una query generica ("leche",
+  // "leche para bebe") entra el rubro entero; con una especifica, solo lo que la nombra.
+  const estricto = !!(typeHit && SR_GENERICAS[typeHit]);
+  const familia = typeHit ? [typeHit].concat(SR_TYPE_FAMILY[typeHit] || []) : [];
+  const generica = estricto && qNorm.split(' ').every(w => SR_GENERICAS[typeHit].indexOf(w) !== -1);
+  const etapa = srEtapaQuery(qNorm);
 
   for (let i = 0; i < index.length; i++) {
     const p = index[i];
+    if (etapa) {
+      const e = srEtapaNombre(p.nameKey);
+      if (e && e !== etapa) continue;
+    }
+    const typeRank = !typeHit ? 2 : (p.types[0] === typeHit ? 0 : (familia.indexOf(p.types[0]) !== -1 ? 1 : 2));
     const inKey = p.searchKey.indexOf(qNorm) !== -1;
     // Terminos de <=4 letras se comparan como PALABRA COMPLETA: "bar" no debe
     // matchear "barbacoa" ni "gom" traer "goma". Los largos van por substring.
@@ -573,14 +661,23 @@ function rankSearch(index, q, limit) {
     const inStem = qStems.length > 0 && qStems.every(hasStem);
     const inSyn = !inStem && qAlts.length > 0 &&
       qAlts.every(alts => alts.some(hasStem));
-    const inType = typeHit && p.types.indexOf(typeHit) !== -1;
+    const inType = estricto ? (generica && typeRank < 2) : (typeHit && p.types.indexOf(typeHit) !== -1);
     if (!inKey && !inStem && !inSyn && !inType) continue;
-    const tier = srTier(p, qNorm, typeHit, inStem, inSyn);
+    const tier = (estricto && inType) ? 1 : srTier(p, qNorm, typeHit, inStem, inSyn);
     if (!tier) continue;
-    scored.push({ p, tier, literalHit: inKey ? 0 : 1, nameRank: srNameRank(p, qNorm, qStems), sales: p.sales });
+    scored.push({ p, tier, typeRank, literalHit: inKey ? 0 : 1, nameRank: srNameRank(p, qNorm, qStems), sales: p.sales });
   }
 
   scored.sort(function (a, b) {
+    if (estricto) {
+      // del rubro (o su familia) primero; adentro, lo que se llama asi; despues el rubro
+      // exacto antes que la familia (la leche comun antes que la infantil); al final ventas
+      const aIn = a.typeRank < 2 ? 0 : 1, bIn = b.typeRank < 2 ? 0 : 1;
+      if (aIn !== bIn) return aIn - bIn;
+      if (a.nameRank !== b.nameRank) return a.nameRank - b.nameRank;
+      if (a.typeRank !== b.typeRank) return a.typeRank - b.typeRank;
+      return (b.sales - a.sales) || (b.p.salesProxy - a.p.salesProxy);
+    }
     if (typeHit) {
       // Con typeHit: los del tipo van primero. Dentro del grupo, manda el NOMBRE
       // (prefijo de palabra > contiene > solo-categoria) y recien despues las ventas.
@@ -602,6 +699,7 @@ function rankSearch(index, q, limit) {
     matches: scored.slice(0, limit).map(x => x.p),
     typeHit,
     total: scored.length,
+    rubro: generica,   // la query pedia el rubro entero: que no lo nombren no es "fallback"
   };
 }
 
@@ -736,7 +834,7 @@ export default async function handler(req, res) {
     const effectiveQ = srNorm(didYouMean || q);
     const effStems = effectiveQ.split(' ').filter(Boolean).map(srStem).filter(Boolean);
     const nameMatched = result.matches.filter(m => srNameRank(m, effectiveQ, effStems) < 4).length;
-    const fallback = result.total > 0 && nameMatched === 0;
+    const fallback = result.total > 0 && nameMatched === 0 && !result.rubro;
 
     // Bug 5: mapear matches a campos públicos (saca brandKey/nameKey/searchKey/types/sales/published/categories)
     const publicMatches = result.matches.map(p => ({
