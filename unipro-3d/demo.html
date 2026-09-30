@@ -17,13 +17,19 @@
 <div class="demo-header">Header de Morashop (simulado)</div>
 
 <!-- ============ INICIO: bloque que va al snipplet (cavutia-unipro.tpl) ============ -->
-<section class="up-story" id="up-story" data-base="./" aria-label="Whey Protein UniPro en 3D">
+<section class="up-story up-intro" id="up-story" data-base="./" aria-label="Whey Protein UniPro en 3D">
+  <!-- lo que usa el 3D empieza a bajar ya, en paralelo (antes esperaba a que se leyera todo el script) -->
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.169.0/+esm">
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/loaders/GLTFLoader.js/+esm">
+  <link rel="preload" as="fetch" href="./pote-whey.glb" crossorigin="anonymous">
+  <link rel="preload" as="image" href="./etiqueta-chocolate-3k.webp" media="(max-width:767.98px)" crossorigin="anonymous">
+  <link rel="preload" as="image" href="./etiqueta-chocolate.jpg" media="(min-width:768px)" crossorigin="anonymous">
   <div class="up-stage">
     <canvas class="up-canvas" aria-hidden="true"></canvas>
 
     <div class="up-barra" aria-hidden="true"><span class="up-barra__fill"></span></div>
 
-    <div class="up-hero up-panel" data-paso="0">
+    <div class="up-hero up-panel is-on" data-paso="0">
       <h1 class="up-h1 js-split"><span class="up-h1-marca">UniPro</span><br>Whey<br><span class="up-az">Protein</span></h1>
       <p class="up-sub up-a">Aislado + concentrado. <b>25 g de proteína</b> por porción.</p>
       <div class="up-sabores up-a" role="group" aria-label="Elegí el sabor">
@@ -36,7 +42,7 @@
 
     <article class="up-panel" data-paso="1">
       <p class="up-tag up-a"><span>01</span>La fórmula</p>
-      <h2 class="up-h2 js-split">Whey aislado<br>+ concentrado</h2>
+      <h2 class="up-h2 js-split">Whey aislado<br>+&nbsp;concentrado</h2>
       <p class="up-txt up-a">Concentrado y aislado de proteína de suero, en una fórmula pensada para absorberse rápido.</p>
     </article>
     <article class="up-panel" data-paso="2">
@@ -87,39 +93,52 @@
     --up-t:"Archivo","Montserrat",system-ui,sans-serif; --up-f:"Montserrat",system-ui,sans-serif;
     position:relative; background:var(--up-negro); color:#fff; }
   .up-story *{ box-sizing:border-box; margin:0; padding:0; }
-  .up-stage{ position:relative; height:100vh; height:100svh; overflow:hidden; background:#020612; }
-  .up-canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; z-index:1; }
+  /* el fondo ya viene con el halo azul del estudio (colores medidos del 3D encendido): el texto se ve al
+     instante y el pote aparece encima sin salto de color. El radio es el alto de la sección. */
+  .up-stage{ position:relative; height:calc(100vh - var(--up-top, 0px)); height:calc(100svh - var(--up-top, 0px)); overflow:hidden;
+    background:radial-gradient(circle calc(100vh - var(--up-top, 0px)) at 67% 50%, #1E5CD1 0%, #0A4BBB 12%, #0B46AB 26%, #03327E 40%, #01215D 50%, #001346 65%, #000B35 80%, #000413 100%), #000413;
+    background:radial-gradient(circle calc(100svh - var(--up-top, 0px)) at 67% 50%, #1E5CD1 0%, #0A4BBB 12%, #0B46AB 26%, #03327E 40%, #01215D 50%, #001346 65%, #000B35 80%, #000413 100%), #000413; }
+  .up-canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; z-index:1; opacity:0; transition:opacity .5s ease; }
+  .up-canvas.is-listo{ opacity:1; }
+  /* entrada del hero con CSS (no espera a Three.js ni a GSAP) */
+  .up-story.up-intro .up-hero .up-w > span{ animation:up-entra .7s cubic-bezier(.16,1,.3,1) both; animation-delay:calc(var(--i, 0) * 55ms + 60ms); }
+  .up-story.up-intro .up-hero .up-a{ animation:up-aparece .6s cubic-bezier(.2,.8,.2,1) both; animation-delay:calc(var(--i, 0) * 70ms + 260ms); }
+  @keyframes up-entra{ from{ transform:translateY(110%); } to{ transform:none; } }
+  @keyframes up-aparece{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:none; } }
 
   .up-barra{ position:absolute; z-index:3; left:24px; right:24px; top:18px; height:1px; background:rgba(255,255,255,.14); }
   .up-barra__fill{ display:block; height:100%; width:100%; transform-origin:0 50%; transform:scaleX(0);
     background:linear-gradient(90deg, rgba(255,255,255,.15), #fff); }
 
-  .up-panel{ position:absolute; z-index:2; left:max(24px, calc((100vw - 1240px) / 2 + 32px)); top:50%; width:min(460px, 40vw);
+  .up-panel{ position:absolute; z-index:2; left:max(24px, calc((100vw - 1240px) / 2 + 32px)); top:50%; width:min(600px, 44vw);
     transform:translateY(-50%); visibility:hidden; }
   .up-panel.is-on{ visibility:visible; }
   /* la marca es el primer renglón del título (como en la etiqueta: UNI PRO | WHEY PROTEIN), en contorno como la palabra de fondo */
   .up-h1-marca{ font-size:.5em; letter-spacing:.03em; color:transparent; -webkit-text-stroke:1.6px rgba(255,255,255,.9); }
-  .up-h1{ margin-top:0; font:900 clamp(52px, 7.2vw, 108px)/.86 var(--up-t); font-stretch:118%; text-transform:uppercase; letter-spacing:-.02em; }
+  .up-h1{ margin-top:0; font:900 clamp(40px, min(6.6vw, 11vh), 104px)/.86 var(--up-t); font-stretch:118%; text-transform:uppercase; letter-spacing:-.02em; }
   .up-az{ color:var(--up-azul2); }
-  .up-sub{ margin-top:20px; max-width:34ch; font:500 17px/1.5 var(--up-f); color:rgba(255,255,255,.78); }
+  .up-sub{ margin-top:min(20px, 2.2vh); max-width:34ch; font:500 clamp(14px, 2.1vh, 17px)/1.5 var(--up-f); color:rgba(255,255,255,.78); }
   .up-sub b{ color:#fff; }
-  .up-sabores{ display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
-  .up-sabor{ display:inline-flex; align-items:center; gap:8px; min-height:40px; padding:0 15px 0 11px; border-radius:999px; cursor:pointer;
-    border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.04); color:#fff; font:600 13px var(--up-f); transition:border-color .2s, background .2s; }
-  .up-sabor i{ width:14px; height:14px; border-radius:50%; background:var(--c); box-shadow:inset 0 0 0 1px rgba(255,255,255,.35); }
-  .up-sabor:hover{ border-color:rgba(255,255,255,.55); }
-  .up-sabor.is-on{ border-color:var(--up-azul2); background:rgba(61,139,255,.16); }
-  .up-cta{ display:inline-flex; align-items:center; gap:10px; margin-top:24px; min-height:50px; padding:0 26px; border-radius:999px;
-    background:var(--up-azul); color:#fff !important; text-decoration:none; font:700 14.5px var(--up-f); letter-spacing:.02em;
+  .up-sabores{ display:flex; flex-wrap:wrap; gap:8px; margin-top:min(22px, 2.4vh); }
+  .up-sabor{ display:inline-flex; align-items:center; gap:10px; height:44px; padding:0 18px 0 8px; border-radius:999px; cursor:pointer;
+    border:1px solid rgba(255,255,255,.3); background:rgba(6,14,32,.6); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    color:#fff; font:600 14px/1 var(--up-f); letter-spacing:.01em; transition:border-color .2s, background .2s, color .2s, transform .2s; }
+  .up-sabor i{ flex:none; width:28px; height:28px; border-radius:50%; background:var(--c); box-shadow:inset 0 0 0 2px rgba(255,255,255,.28), 0 2px 6px rgba(0,0,0,.35); }
+  .up-sabor:hover{ border-color:rgba(255,255,255,.7); transform:translateY(-1px); }
+  .up-sabor.is-on{ background:#fff; border-color:#fff; color:#07101F; }
+  .up-sabor.is-on i{ box-shadow:inset 0 0 0 2px rgba(0,0,0,.08); }
+  .up-sabor:focus-visible, .up-cta:focus-visible, .up-nav button:focus-visible{ outline:2px solid #fff; outline-offset:3px; }
+  .up-cta{ display:inline-flex; align-items:center; gap:12px; margin-top:min(24px, 2.6vh); min-height:52px; padding:0 26px 0 28px; border-radius:10px;
+    background:var(--up-azul); color:#fff !important; text-decoration:none; font:800 13.5px/1 var(--up-f); letter-spacing:.1em; text-transform:uppercase;
     box-shadow:0 12px 26px -14px rgba(0,0,0,.7); transition:background .2s, transform .2s; }
   .up-cta:hover{ background:#0A6FD0; transform:translateY(-2px); }
   .up-cta svg, .up-pista i{ width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
 
   .up-tag{ display:inline-flex; align-items:center; gap:10px; font:700 12px var(--up-f); letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.8); }
   .up-tag span{ display:inline-grid; place-items:center; min-width:34px; height:26px; padding:0 9px; background:var(--up-azul); color:#fff; letter-spacing:.04em; }
-  .up-h2{ margin-top:16px; font:900 clamp(34px, 3.8vw, 58px)/.92 var(--up-t); font-stretch:115%; text-transform:uppercase; letter-spacing:-.015em; }
+  .up-h2{ margin-top:min(16px, 1.8vh); font:900 clamp(28px, min(3.4vw, 7vh), 54px)/.92 var(--up-t); font-stretch:115%; text-transform:uppercase; letter-spacing:-.015em; }
   .up-h2 b{ font-weight:900; font-variant-numeric:tabular-nums; }
-  .up-txt{ margin-top:18px; max-width:36ch; font:500 17px/1.55 var(--up-f); color:rgba(255,255,255,.8); }
+  .up-txt{ margin-top:min(18px, 2vh); max-width:38ch; font:500 clamp(14px, 2.1vh, 17px)/1.55 var(--up-f); color:rgba(255,255,255,.8); }
   /* palabras de los títulos: entran desde abajo, recortadas por su renglón */
   .up-w{ display:inline-block; overflow:hidden; vertical-align:top; padding:.04em .02em .08em; margin:-.04em -.02em -.08em; }
   .up-w > span{ display:inline-block; will-change:transform; }
@@ -144,6 +163,9 @@
   .up-story.sin-3d .up-stage{ height:auto; background:radial-gradient(110% 85% at 68% 52%, #0B4193 0%, #062452 30%, #020A1A 62%, #000 100%); }
   .up-story.sin-3d .up-nav, .up-story.sin-3d .up-pista, .up-story.sin-3d .up-barra, .up-story.sin-3d .up-canvas{ display:none; }
 
+  @media (min-width:768px) and (max-height:760px){
+    .up-nav{ gap:10px; } .up-nav button{ width:44px; height:44px; } .up-nav svg{ width:19px; height:19px; }
+  }
   @media (min-width:768px) and (max-height:520px){
     .up-h1{ font-size:clamp(34px, 11vh, 58px); }
     .up-sub{ display:none; }
@@ -153,24 +175,55 @@
     .up-pista{ display:none; }
   }
   @media (max-width:767.98px){
-    .up-panel{ left:20px; right:20px; width:auto; top:auto; bottom:calc(env(safe-area-inset-bottom) + 70px); transform:none; }
-    .up-hero{ bottom:calc(env(safe-area-inset-bottom) + 54px); }
+    .up-stage{ background:radial-gradient(circle 100vh at 50% 35%, #2762D6 0%, #245ECE 10%, #134EB6 20%, #053C97 30%, #022F7B 40%, #012974 50%, #012B7C 100%), #012B7C;
+      background:radial-gradient(circle 100svh at 50% 35%, #2762D6 0%, #245ECE 10%, #134EB6 20%, #053C97 30%, #022F7B 40%, #012974 50%, #012B7C 100%), #012B7C; }
+    .up-panel{ left:20px; right:20px; width:auto; top:auto; bottom:calc(env(safe-area-inset-bottom) + 92px); transform:none; }
+    .up-hero{ bottom:calc(env(safe-area-inset-bottom) + 92px); transform:translateY(calc(-1 * var(--up-sube, 0px))); transition:transform .35s ease; }
     .up-stage::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:58%; z-index:1; pointer-events:none;
       background:linear-gradient(to top, rgba(0,0,0,.92) 18%, rgba(0,0,0,.55) 58%, transparent); }
     .up-h1-marca{ -webkit-text-stroke-width:1.2px; }
-    .up-h1{ margin-top:12px; font-size:clamp(44px, 14vw, 64px); }
+    .up-h1{ margin-top:0; font-size:clamp(40px, min(13vw, 7.4vh), 62px); }
     .up-sub{ margin-top:10px; font-size:15px; }
-    .up-sabores{ margin-top:14px; gap:6px; } .up-sabor{ min-height:36px; font-size:12.5px; }
-    .up-cta{ margin-top:14px; min-height:46px; }
+    .up-sabores{ margin-top:12px; gap:6px; flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; } .up-sabores::-webkit-scrollbar{ display:none; }
+    /* sin desenfoque: encima de un 3D que se redibuja 60 veces por segundo, el blur se recalcula en cada cuadro */
+    .up-sabor{ flex:none; height:38px; padding:0 11px 0 5px; font-size:12px; gap:6px; -webkit-backdrop-filter:none; backdrop-filter:none; background:rgba(8,16,36,.9); } .up-sabor i{ width:20px; height:20px; }
+    .up-cta{ margin-top:14px; min-height:48px; }
     .up-h2{ margin-top:10px; font-size:clamp(28px, 8.6vw, 42px); font-stretch:108%; }
     .up-txt{ margin-top:10px; font-size:15px; }
-    .up-nav{ top:auto; bottom:22px; right:50%; transform:translateX(50%); flex-direction:row; gap:10px; }
+    .up-nav{ top:14%; bottom:auto; right:12px; transform:none; flex-direction:column; gap:10px; }
     .up-nav button{ width:34px; height:34px; } .up-nav svg{ width:16px; height:16px; }
     .up-nav button.is-on::after{ inset:-5px; }
     .up-pista{ display:none; }
   }
 </style>
 
+<script>
+/* Corre apenas se lee la sección, sin esperar a Three.js: separa los títulos en palabras (cada una entra
+   desde abajo, recortada por su renglón) y numera las del hero para su entrada con CSS. */
+(function () {
+  var root = document.getElementById('up-story'); if (!root) return;
+  root.querySelectorAll('.js-split').forEach(function (el) {
+    var nodos = [].slice.call(el.childNodes); el.textContent = '';
+    var envolver = function (contenido) { var w = document.createElement('span'); w.className = 'up-w'; var i = document.createElement('span'); i.append(contenido); w.append(i); return w; };
+    nodos.forEach(function (n) {
+      if (n.nodeType === 3) n.textContent.split(/(\s+)/).forEach(function (p) { if (!p) return; el.append(/^\s+$/.test(p) ? document.createTextNode(' ') : envolver(p)); });
+      else if (n.nodeName === 'BR') el.append(n);
+      else el.append(envolver(n));
+    });
+  });
+  root.querySelectorAll('.up-hero .up-w > span').forEach(function (s, i) { s.style.setProperty('--i', i); });
+  root.querySelectorAll('.up-hero .up-a').forEach(function (s, i) { s.style.setProperty('--i', i); });
+  /* Celu: el texto del hero sube lo que la sección queda fuera de la pantalla (debajo del header del theme),
+     así el botón se ve desde el primer momento. Después lo sigue haciendo levantar() del 3D. */
+  var hero = root.querySelector('.up-hero'), stage = root.querySelector('.up-stage'), vv = window.visualViewport;
+  var subir = function () {
+    if (!window.matchMedia('(max-width:767.98px)').matches || (vv && vv.scale > 1.02)) return;
+    var alto = vv ? Math.round(vv.height * vv.scale) : window.innerHeight;
+    hero.style.setProperty('--up-sube', Math.max(0, Math.round(stage.getBoundingClientRect().top + stage.clientHeight - alto)) + 'px');
+  };
+  subir(); window.addEventListener('scroll', subir, { passive: true }); window.addEventListener('load', subir);
+})();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js" defer></script>
@@ -183,16 +236,26 @@
    haces de luz y partículas. Al cargar: la sala arranca a oscuras, el pote sube girando y se prenden las luces. */
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.169.0/+esm';
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/loaders/GLTFLoader.js/+esm';
-import { EffectComposer } from 'https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/postprocessing/EffectComposer.js/+esm';
-import { RenderPass } from 'https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/postprocessing/RenderPass.js/+esm';
-import { UnrealBloomPass } from 'https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/postprocessing/UnrealBloomPass.js/+esm';
-import { OutputPass } from 'https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/postprocessing/OutputPass.js/+esm';
+// el postproceso (resplandor) solo baja en la compu: ver LIVIANO
+const CDN_POST = 'https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/postprocessing/';
 
 const root = document.getElementById('up-story');
 const stage = root.querySelector('.up-stage');
 const canvas = root.querySelector('.up-canvas');
 const BASE = root.dataset.base;
 const celu = () => window.matchMedia('(max-width:767.98px)').matches;
+/* Celulares y tablets (sobre todo Android de gama media): se dibuja directo a la pantalla, sin postproceso.
+   El resplandor (bloom) eran 10 pasadas extra de pantalla completa por cuadro sobre un buffer de 16 bits con
+   antialias x4: en un Android medio era lo que trababa. El plástico va sin la segunda capa de barniz
+   (clearcoat) y el brillo del dato encendido lo da la etiqueta misma. En la compu queda todo como estaba. */
+const TACTIL = window.matchMedia('(pointer:coarse)').matches;
+const IOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+let LIVIANO = celu() || TACTIL;
+/* Zoom con dos dedos: en el iPhone innerHeight y scrollY pasan a medir lo que se ve ampliado. El alto de
+   pantalla sale del visualViewport sin ampliar, y mientras hay zoom la sección no toca el scroll. */
+const vv = window.visualViewport;
+const zoomado = () => !!vv && vv.scale > 1.02;
+const altoVista = () => (vv ? Math.round(vv.height * vv.scale) : innerHeight);
 const gsap = window.gsap;
 
 let renderer;
@@ -200,10 +263,38 @@ try {
   renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
 } catch (e) { root.classList.add('sin-3d'); throw e; }
 let esCelu = celu();
-/* Calidad según el equipo. Resolución tope (en pantallas retina/4K dibujar a 2x o 3x cuadruplica el trabajo
-   sin que se note), antialias y resolución del resplandor; en el celu un escalón más liviano. */
-const CAL = esCelu ? { dpr: 1.35, msaa: 2, bloomDiv: 3 } : { dpr: 1.5, msaa: 4, bloomDiv: 2 };
-renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, CAL.dpr));
+/* En compu el header del theme es position:fixed (189 px; al bajar esconde la franja roja). La sección se
+   fija JUSTO debajo y mide pantalla − header: así se ve entera desde que carga la página y nunca queda
+   tapada. En el celu el header se va con el scroll (sticky dentro de un padre corto) → 0. */
+function altoHeader() {
+  const h = document.querySelector('.js-head-main');
+  return h && getComputedStyle(h).position === 'fixed' ? Math.round(h.getBoundingClientRect().height) : 0;
+}
+let H_TOP = altoHeader();
+root.style.setProperty('--up-top', H_TOP + 'px');
+/* Celu, antes de fijarse: el header del theme ocupa arriba y la parte de abajo de la sección queda fuera de
+   la pantalla; el texto del hero sube lo que falta (y el pote un poco) para que se vea el botón. */
+let subePx = 0;
+function levantar() {
+  if (zoomado()) return;
+  const v = esCelu ? Math.max(0, Math.round(stage.getBoundingClientRect().top + stage.clientHeight - altoVista())) : 0;
+  if (v === subePx) return; subePx = v;
+  root.querySelector('.up-hero').style.setProperty('--up-sube', v + 'px');
+}
+window.addEventListener('scroll', levantar, { passive: true });
+/* Calidad según el equipo. Resolución tope por escalones: arranca en el primero y, si el equipo no da abasto,
+   baja al siguiente. En compu 1.5x alcanza (en 4K dibujar a 2x cuadruplica el trabajo sin que se note); el
+   celu tiene pantalla 3x y a menos de 2x el pote se veía borroso al estirarse. Un Android con poca memoria o
+   pocos núcleos arranca un escalón abajo. */
+const NIVELES = LIVIANO ? [2, 1.6, 1.25] : [1.5, 1.2, 1];
+const flojo = !IOS && LIVIANO && ((navigator.deviceMemory || 8) <= 3 || (navigator.hardwareConcurrency || 8) <= 4);
+let nivel = flojo ? 1 : 0;
+/* Sin MSAA en el buffer de 16 bits del postproceso: en placas integradas (Intel Iris) triplicaba el costo del
+   cuadro (30 ms contra 12 ms a 1920 px). A cambio, en pantallas comunes (1x) se dibuja a 1.25x y el navegador
+   lo achica: los bordes quedan suaves igual. */
+const CAL = { msaa: 0, bloomDiv: 2 };
+const resolucion = () => Math.min(Math.max(window.devicePixelRatio || 1, LIVIANO ? 0 : 1.25), NIVELES[nivel]);
+renderer.setPixelRatio(resolucion());
 // En el celu, sin nada animándose se dibuja a 30 cuadros por segundo (ahorra batería y temperatura);
 // en giros, entrada, cambio de sabor o al tocar la pantalla vuelve a 60.
 let activoHasta = 0;
@@ -252,8 +343,8 @@ const fondo = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.ShaderMate
     uniform float uTime, uDim, uAspect, uLuz; uniform vec2 uFoco; uniform vec3 uAzul, uAzul2, uNegro; varying vec2 vUv;
     float hash(vec2 p){ return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
     float haz(vec2 p, float x0, float incl, float ancho, float t){
-      float x = p.x - x0 - (1.0 - p.y) * incl + sin(uTime * t) * 0.035;
-      return exp(-pow(x / ancho, 2.0)) * smoothstep(0.05, 1.0, p.y);
+      float x = (p.x - x0 - (1.0 - p.y) * incl + sin(uTime * t) * 0.035) / ancho;
+      return exp(-x * x) * smoothstep(0.05, 1.0, p.y);
     }
     void main(){
       vec2 p = vUv; vec2 q = (p - uFoco) * vec2(uAspect, 1.0); float d = length(q);
@@ -268,31 +359,38 @@ const fondo = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.ShaderMate
       col *= 1.0 - 0.55 * smoothstep(0.45, 1.2, length((p - 0.5) * vec2(uAspect, 1.0)));
       col += (hash(p * vec2(1123.0, 779.0) + fract(uTime)) - 0.5) * 0.02;
       gl_FragColor = vec4(max(col, 0.0), 1.0);
+      #include <tonemapping_fragment>
+      #include <colorspace_fragment>
     }`,
-}));
+}));   // (tono y color de salida: con postproceso no hacen nada; sin él, dejan el fondo igual que antes)
 fondo.renderOrder = -10; fondo.frustumCulled = false; fondo.position.z = -8; camera.add(fondo);
 
-/* ---------- palabra gigante en contorno detrás del pote (una por paso) ---------- */
-const lienzo = document.createElement('canvas'); lienzo.width = 2048; lienzo.height = 512;
-const ctx2 = lienzo.getContext('2d');
-const texPalabra = new THREE.CanvasTexture(lienzo); texPalabra.colorSpace = THREE.SRGBColorSpace;
-const palabra = new THREE.Mesh(new THREE.PlaneGeometry(4, 1), new THREE.MeshBasicMaterial({ map: texPalabra, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }));
+/* ---------- palabra gigante en contorno detrás del pote (una por paso) ----------
+   Cada palabra se dibuja una sola vez en su propia textura al cargar; al cambiar de paso solo se cambia de
+   textura (antes se redibujaba y se volvía a subir a la placa de video en cada paso: un tirón en el celu). */
+const PAL_W = LIVIANO ? 1024 : 2048, PAL_K = PAL_W / 2048;
+const palabra = new THREE.Mesh(new THREE.PlaneGeometry(4, 1), new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }));
 palabra.position.set(0, 0, -0.9); palabra.renderOrder = -5; scene.add(palabra);
-function dibujarPalabra(txt) {
-  ctx2.clearRect(0, 0, 2048, 512);
-  ctx2.font = '900 330px Archivo, Montserrat, sans-serif';
-  if ('fontStretch' in ctx2) ctx2.fontStretch = 'expanded';
-  ctx2.textAlign = 'center'; ctx2.textBaseline = 'middle';
-  if ('letterSpacing' in ctx2) ctx2.letterSpacing = txt.length > 5 ? '14px' : '0px';
-  const gr = ctx2.createLinearGradient(0, 90, 0, 440);            // contorno que se apaga hacia abajo
+const texPal = {};
+function texPalabra(txt) {
+  if (texPal[txt]) return texPal[txt];
+  const c = document.createElement('canvas'); c.width = PAL_W; c.height = PAL_W / 4;
+  const x = c.getContext('2d'); x.scale(PAL_K, PAL_K);
+  x.font = '900 330px Archivo, Montserrat, sans-serif';
+  if ('fontStretch' in x) x.fontStretch = 'expanded';
+  x.textAlign = 'center'; x.textBaseline = 'middle';
+  if ('letterSpacing' in x) x.letterSpacing = txt.length > 5 ? '14px' : '0px';
+  const gr = x.createLinearGradient(0, 90, 0, 440);            // contorno que se apaga hacia abajo
   gr.addColorStop(0, '#B9D4FF'); gr.addColorStop(0.55, '#6FA3FF'); gr.addColorStop(1, 'rgba(60,120,255,0.15)');
-  ctx2.lineWidth = 5; ctx2.strokeStyle = gr;
-  ctx2.strokeText(txt, 1024, 270);
-  texPalabra.needsUpdate = true;
+  x.lineWidth = LIVIANO ? 6 : 5; x.strokeStyle = gr;
+  x.strokeText(txt, 1024, 270);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+  return (texPal[txt] = t);
 }
+function dibujarPalabra(txt) { palabra.material.map = texPalabra(txt); }
 
 /* ---------- partículas en la luz ---------- */
-const NP = celu() ? 170 : 360;
+const NP = LIVIANO ? 110 : 360;
 const pg = new THREE.BufferGeometry(), pp = new Float32Array(NP * 3), ps = new Float32Array(NP);
 for (let i = 0; i < NP; i++) { pp[i * 3] = (Math.random() - 0.5) * 2.6; pp[i * 3 + 1] = (Math.random() - 0.5) * 1.5; pp[i * 3 + 2] = -0.8 + Math.random() * 1.1; ps[i] = Math.random(); }
 pg.setAttribute('position', new THREE.BufferAttribute(pp, 3)); pg.setAttribute('aSem', new THREE.BufferAttribute(ps, 1));
@@ -304,20 +402,25 @@ const particulas = new THREE.Points(pg, new THREE.ShaderMaterial({
       vec4 mv = modelViewMatrix * vec4(p, 1.0); gl_Position = projectionMatrix * mv;
       gl_PointSize = (0.0022 + aSem * 0.0065) * uPx / -mv.z; vA = 0.25 + 0.75 * (0.5 + 0.5 * sin(uTime * (0.6 + aSem) + aSem * 30.0)); }`,
   fragmentShader: `uniform float uAlfa; varying float vA;
-    void main(){ float d = length(gl_PointCoord - 0.5); float a = smoothstep(0.5, 0.0, d); gl_FragColor = vec4(vec3(0.6, 0.78, 1.0) * a, a * vA * uAlfa); }`,
+    void main(){ float d = length(gl_PointCoord - 0.5); float a = smoothstep(0.5, 0.0, d); gl_FragColor = vec4(vec3(0.6, 0.78, 1.0) * a, a * vA * uAlfa);
+      #include <tonemapping_fragment>
+      #include <colorspace_fragment>
+    }`,
 }));
 particulas.renderOrder = -4; scene.add(particulas);
 
 /* ---------- materiales ---------- */
 // Etiqueta: fuera del rectángulo se apaga; adentro brilla; una línea de luz la "escanea" al entrar a cada paso.
+// uK: sin el resplandor del postproceso, el dato encendido y la línea de escaneo brillan un poco más solos
 const U = { uR1: { value: new THREE.Vector4() }, uR2: { value: new THREE.Vector4() }, uA1: { value: 0 }, uA2: { value: 0 },
-  uDim: { value: 0 }, uGlow: { value: 0 }, uScan: { value: 1 }, uFlash: { value: 0 } };
-const matEtq = new THREE.MeshPhysicalMaterial({ roughness: 0.34, clearcoat: 0.55, clearcoatRoughness: 0.14 });
+  uDim: { value: 0 }, uGlow: { value: 0 }, uScan: { value: 1 }, uFlash: { value: 0 }, uK: { value: LIVIANO ? 1.35 : 1 } };
+// liviano: MeshStandardMaterial (sin la capa de barniz); la rugosidad baja un poco para que el reflejo siga nítido
+const matEtq = LIVIANO ? new THREE.MeshStandardMaterial({ roughness: 0.3 }) : new THREE.MeshPhysicalMaterial({ roughness: 0.34, clearcoat: 0.55, clearcoatRoughness: 0.14 });
 matEtq.onBeforeCompile = (sh) => {
   Object.assign(sh.uniforms, U);
   sh.fragmentShader = sh.fragmentShader
     .replace('#include <common>', `#include <common>
-      uniform vec4 uR1; uniform vec4 uR2; uniform float uA1, uA2, uDim, uGlow, uScan, uFlash;
+      uniform vec4 uR1; uniform vec4 uR2; uniform float uA1, uA2, uDim, uGlow, uScan, uFlash, uK;
       float upRect(vec2 q, vec4 r) {
         vec2 f = vec2(0.005, 0.012);
         float x = smoothstep(r.x - f.x, r.x + f.x, q.x) * (1.0 - smoothstep(r.z - f.x, r.z + f.x, q.x));
@@ -333,7 +436,7 @@ matEtq.onBeforeCompile = (sh) => {
       upMask = max(m1 * uA1 * yaPaso, m2 * uA2 * yaPaso);
       diffuseColor.rgb *= mix(1.0 - uDim * 0.95, 1.0 + uGlow * 0.2, upMask);`)
     .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
-      totalEmissiveRadiance += diffuseColor.rgb * upMask * uGlow * 1.05 + vec3(0.45, 0.72, 1.0) * upLinea * uGlow * 2.2 + diffuseColor.rgb * uFlash * 0.8;`);
+      totalEmissiveRadiance += (diffuseColor.rgb * upMask * uGlow * 1.05 + vec3(0.45, 0.72, 1.0) * upLinea * uGlow * 2.2) * uK + diffuseColor.rgb * uFlash * 0.8;`);
 };
 // Plástico: filo de luz (fresnel) para que la silueta se lea aun con la sala apagada.
 const RU = { uRim: { value: 0.35 }, uRimCol: { value: new THREE.Color('#3D86FF') } };
@@ -348,8 +451,10 @@ function conFilo(mat) {
   };
   return mat;
 }
-const matCuerpo = conFilo(new THREE.MeshPhysicalMaterial({ color: 0x08080a, roughness: 0.17, clearcoat: 1, clearcoatRoughness: 0.05 }));
-const matTapa = conFilo(new THREE.MeshPhysicalMaterial({ color: 0x08080a, roughness: 0.4, clearcoat: 0.3, clearcoatRoughness: 0.28 }));
+const matCuerpo = conFilo(LIVIANO ? new THREE.MeshStandardMaterial({ color: 0x08080a, roughness: 0.12 })
+  : new THREE.MeshPhysicalMaterial({ color: 0x08080a, roughness: 0.17, clearcoat: 1, clearcoatRoughness: 0.05 }));
+const matTapa = conFilo(LIVIANO ? new THREE.MeshStandardMaterial({ color: 0x08080a, roughness: 0.36 })
+  : new THREE.MeshPhysicalMaterial({ color: 0x08080a, roughness: 0.4, clearcoat: 0.3, clearcoatRoughness: 0.28 }));
 
 /* ---------- sombra de apoyo (elipse suave debajo del pote) ---------- */
 const lz = document.createElement('canvas'); lz.width = lz.height = 256;
@@ -361,7 +466,8 @@ sombra.renderOrder = -3; scene.add(sombra);
 
 const cacheEtq = {};
 function etiqueta(sabor) {
-  if (!cacheEtq[sabor]) cacheEtq[sabor] = new Promise((ok, mal) => new THREE.TextureLoader().load(BASE + 'etiqueta-' + sabor + (esCelu ? '-3k' : '') + '.jpg', (t) => {
+  // celu: 3072 px en WebP (376 KB en lugar de 589 KB del JPG, misma nitidez); compu: 4096 px
+  if (!cacheEtq[sabor]) cacheEtq[sabor] = new Promise((ok, mal) => new THREE.TextureLoader().load(BASE + 'etiqueta-' + sabor + (esCelu ? '-3k.webp' : '.jpg'), (t) => {
     t.flipY = false; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
     renderer.initTexture(t); ok(t);
   }, undefined, mal));
@@ -376,7 +482,9 @@ exterior.add(giro); scene.add(exterior);
 const R_ETQ = 0.0792, Z_ARR = 0.184, ALTO = 0.173, PIVOTE = 0.134;
 const S = { giro: -0.35, tz: 0.30, tx: 0.12, fx: 0.3, fy: 0, fv: 0.42, s: 1.7, dim: 0, glow: 0,
             r1a: 0.33, r1b: 0.5, r1c: 0.6, r1d: 0.57, r2a: 0, r2b: 0, r2c: 0, r2d: 0, a1: 0, a2: 0, reposo: 1, barrido: 0 };
-const E = { luz: 0, sube: 1, vuelta: 1, extra: 0 };   // entrada al cargar + vuelta de cambio de sabor (no dependen del scroll)
+// entrada al cargar + vuelta de cambio de sabor (no dependen del scroll). La luz arranca casi entera:
+// el fondo CSS ya muestra el estudio iluminado mientras baja el 3D, y el canvas aparece encima sin apagón.
+const E = { luz: 0.85, sube: 1, vuelta: 1, extra: 0 };
 const rect = (n, r) => ({ [n + 'a']: r[0], [n + 'b']: r[1], [n + 'c']: r[2], [n + 'd']: r[3] });
 const giroDe = (u) => -(u - 0.445) * Math.PI * 2;   // lleva la columna u de la etiqueta al frente
 const R1 = { aislado: [0.33, 0.506, 0.606, 0.566], asim: [0.33, 0.575, 0.606, 0.637], bcaa: [0.33, 0.646, 0.606, 0.772],
@@ -386,18 +494,18 @@ const PALABRAS = ['UNIPRO', 'AISLADO', 'ABSORCIÓN', 'BCAA', '25 G', '30 G', 'UN
 function pose(nombre) {
   const c = celu();
   const P = {
-    hero: { giro: -0.35, tz: 0.30, tx: 0.12, fx: c ? 0 : 0.34, fy: c ? 0.30 : 0.0, fv: 0.42, s: c ? 1.25 : 1.75, dim: 0, glow: 0, a1: 0, a2: 0, reposo: 1, barrido: 0 },
-    p1: { giro: giroDe(0.468), tz: 0.16, tx: 0.06, fx: c ? 0 : 0.44, fy: c ? 0.27 : 0.02, fv: 0.536, s: c ? 2.0 : 2.3, dim: 1, glow: 1, ...rect('r1', R1.aislado), a1: 1, a2: 0, reposo: 0, barrido: 1 },
-    p2: { giro: giroDe(0.468), tz: 0.14, tx: 0.06, fx: c ? 0 : 0.44, fy: c ? 0.27 : 0.02, fv: 0.606, s: c ? 2.0 : 2.3, dim: 1, glow: 1, ...rect('r1', R1.asim), a1: 1, a2: 0, reposo: 0, barrido: 2 },
-    p3: { giro: giroDe(0.468), tz: 0.12, tx: 0.05, fx: c ? 0 : 0.44, fy: c ? 0.25 : 0.0, fv: 0.709, s: c ? 1.9 : 2.25, dim: 1, glow: 1, ...rect('r1', R1.bcaa), a1: 1, a2: 0, reposo: 0, barrido: 3 },
-    p4: { giro: giroDe(0.722), tz: 0.14, tx: 0.06, fx: c ? 0 : 0.44, fy: c ? 0.25 : 0.0, fv: 0.27, s: c ? 1.9 : 2.3, dim: 1, glow: 1, ...rect('r1', R1.tabla), a1: 0.55, ...rect('r2', R1.prote), a2: 0.9, reposo: 0, barrido: 4, glow: 0.38 },
-    p5: { giro: giroDe(0.808), tz: 0.14, tx: 0.06, fx: c ? 0 : 0.44, fy: c ? 0.25 : 0.0, fv: 0.76, s: c ? 1.9 : 2.1, dim: 1, glow: 1, ...rect('r1', R1.uso), a1: 1, a2: 0, reposo: 0, barrido: 5, glow: 0.8 },
-    fin: { giro: -Math.PI * 2, tz: 0.30, tx: 0.12, fx: c ? 0 : 0.34, fy: c ? 0.30 : 0.0, fv: 0.42, s: c ? 1.25 : 1.75, dim: 0, glow: 0, a1: 0, a2: 0, reposo: 1, barrido: 6 },
+    hero: { giro: -0.35, tz: 0.30, tx: 0.12, fx: c ? 0 : 0.34, fy: c ? 0.30 : 0.0, fv: 0.34, s: c ? 1.25 : 1.75, dim: 0, glow: 0, a1: 0, a2: 0, reposo: 1, barrido: 0 },
+    p1: { giro: giroDe(0.468), tz: 0.16, tx: 0.06, fx: c ? 0 : 0.42, fy: c ? 0.34 : 0.0, fv: 0.29, s: c ? 1.45 : 1.95, dim: 1, glow: 1, ...rect('r1', R1.aislado), a1: 1, a2: 0, reposo: 0, barrido: 1 },
+    p2: { giro: giroDe(0.468), tz: 0.14, tx: 0.06, fx: c ? 0 : 0.42, fy: c ? 0.34 : 0.0, fv: 0.29, s: c ? 1.45 : 1.95, dim: 1, glow: 1, ...rect('r1', R1.asim), a1: 1, a2: 0, reposo: 0, barrido: 2 },
+    p3: { giro: giroDe(0.468), tz: 0.12, tx: 0.05, fx: c ? 0 : 0.42, fy: c ? 0.34 : 0.0, fv: 0.29, s: c ? 1.45 : 1.95, dim: 1, glow: 1, ...rect('r1', R1.bcaa), a1: 1, a2: 0, reposo: 0, barrido: 3 },
+    p4: { giro: giroDe(0.722), tz: 0.14, tx: 0.06, fx: c ? 0 : 0.42, fy: c ? 0.34 : 0.0, fv: 0.29, s: c ? 1.45 : 1.95, dim: 1, glow: 1, ...rect('r1', R1.tabla), a1: 0.55, ...rect('r2', R1.prote), a2: 0.9, reposo: 0, barrido: 4, glow: 0.38 },
+    p5: { giro: giroDe(0.808), tz: 0.14, tx: 0.06, fx: c ? 0 : 0.42, fy: c ? 0.34 : 0.0, fv: 0.29, s: c ? 1.45 : 1.95, dim: 1, glow: 1, ...rect('r1', R1.uso), a1: 1, a2: 0, reposo: 0, barrido: 5, glow: 0.8 },
+    fin: { giro: -Math.PI * 2, tz: 0.30, tx: 0.12, fx: c ? 0 : 0.34, fy: c ? 0.30 : 0.0, fv: 0.34, s: c ? 1.25 : 1.75, dim: 0, glow: 0, a1: 0, a2: 0, reposo: 1, barrido: 6 },
   };
   return P[nombre];
 }
 Object.assign(S, pose('hero'));
-if (/[?&]debug/.test(location.search)) window.__up = { S, U, E };
+if (/[?&]debug/.test(location.search)) window.__up = { S, U, E, calidad: () => [nivel, renderer.getPixelRatio(), composer ? 'bloom' : 'liviano', renderer.domElement.width + 'x' + renderer.domElement.height] };
 
 const eul = new THREE.Euler(), v3 = new THREE.Vector3(), base3 = new THREE.Vector3();
 let t0 = performance.now(), mx = 0, my = 0, sx = 0, sy = 0, tAnt = 0;
@@ -407,17 +515,19 @@ function aplicar(now) {
   const rep = S.reposo;
   giro.rotation.y = S.giro + rep * Math.sin(t * 0.55) * 0.14 - E.vuelta * 2.6 + E.extra;
   const tz = S.tz + sx * 0.06 * rep, tx = S.tx + sy * 0.05 * rep;
-  exterior.rotation.set(tx, 0, tz); exterior.scale.setScalar(S.s);
+  const k = Math.min(1, subePx / (0.22 * stage.clientHeight)) * rep;   // 0 fijado … 1 con el header a la vista
+  const sEf = S.s * (1 - 0.24 * k), fyEf = S.fy + 0.3 * k;
+  exterior.rotation.set(tx, 0, tz); exterior.scale.setScalar(sEf);
   // el punto de la etiqueta que se quiere mostrar (altura fv) queda en (fx, fy) de la pantalla
   const h = 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)), w = h * camera.aspect;
   eul.set(tx, 0, tz);
-  v3.set(0, Z_ARR - S.fv * ALTO - PIVOTE, R_ETQ).applyEuler(eul).multiplyScalar(S.s);
+  v3.set(0, Z_ARR - S.fv * ALTO - PIVOTE, R_ETQ).applyEuler(eul).multiplyScalar(sEf);
   const flota = Math.sin(t * 0.9) * 0.006 * rep;
-  exterior.position.set(S.fx * w / 2 - v3.x, S.fy * h / 2 - v3.y + flota - E.sube * 0.55, -v3.z);
+  exterior.position.set(S.fx * w / 2 - v3.x, fyEf * h / 2 - v3.y + flota - E.sube * 0.55, -v3.z);
   // sombra de apoyo: debajo de la base, más chica y clara cuanto más flota
-  base3.set(0, -PIVOTE - 0.012, 0).applyEuler(eul).multiplyScalar(S.s).add(exterior.position);
-  sombra.position.set(base3.x, base3.y - 0.03 * S.s, base3.z - 0.05);
-  sombra.scale.set(0.34 * S.s * (1 - flota * 6), 0.07 * S.s, 1);
+  base3.set(0, -PIVOTE - 0.012, 0).applyEuler(eul).multiplyScalar(sEf).add(exterior.position);
+  sombra.position.set(base3.x, base3.y - 0.03 * sEf, base3.z - 0.05);
+  sombra.scale.set(0.34 * sEf * (1 - flota * 6), 0.07 * sEf, 1);
   sombra.material.opacity = 0.75 * (1 - S.dim) * E.luz;
   // luces (la entrada E.luz las prende; en los pasos de foco se apagan)
   const L = E.luz, apaga = 1 - 0.93 * S.dim;
@@ -429,8 +539,10 @@ function aplicar(now) {
   const b = Math.max(bScroll, bReposo), ang = -1.25 + 2.5 * (bScroll >= bReposo ? fase : fI);
   luzBarrido.position.set(Math.sin(ang) * 2, 0.6, Math.cos(ang) * 2);
   luzBarrido.intensity = 3.4 * b * L;
-  matEtq.envMapIntensity = (1 - 0.7 * S.dim) * (0.25 + 0.75 * L); matCuerpo.envMapIntensity = apaga * (0.2 + 0.8 * L); matTapa.envMapIntensity = apaga * (0.2 + 0.8 * L);
-  RU.uRim.value = (0.28 + 0.22 * S.dim) * L;
+  // sin resplandor (LIVIANO) el plástico refleja un poco más y el filo azul se marca más, para no perder brillo
+  const kEnv = LIVIANO ? 1.3 : 1;
+  matEtq.envMapIntensity = (1 - 0.7 * S.dim) * (0.25 + 0.75 * L); matCuerpo.envMapIntensity = kEnv * apaga * (0.2 + 0.8 * L); matTapa.envMapIntensity = kEnv * apaga * (0.2 + 0.8 * L);
+  RU.uRim.value = (0.28 + 0.22 * S.dim) * L * (LIVIANO ? 1.45 : 1);
   U.uR1.value.set(S.r1a, S.r1b, S.r1c, S.r1d); U.uR2.value.set(S.r2a, S.r2b, S.r2c, S.r2d);
   U.uA1.value = S.a1; U.uA2.value = S.a2; U.uDim.value = S.dim; U.uGlow.value = S.glow;
   // fondo, palabra gigante y partículas
@@ -442,97 +554,116 @@ function aplicar(now) {
   PU.uTime.value = t; PU.uAlfa.value = L * (1 - 0.55 * S.dim);
 }
 
-/* ---------- postproceso: bloom sobre brillos y texto encendido ---------- */
-// el render va a un buffer con antialias (MSAA x4): con postproceso el antialias del canvas no aplica
-const composer = new EffectComposer(renderer, new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: CAL.msaa }));
-composer.addPass(new RenderPass(scene, camera));
-const bloom = new UnrealBloomPass(new THREE.Vector2(512, 512), 0.55, 0.55, 0.78);
-composer.addPass(bloom);
-composer.addPass(new OutputPass());
+/* ---------- postproceso (solo compu): bloom sobre brillos y texto encendido ----------
+   El render va a un buffer con antialias (MSAA x4): con postproceso el antialias del canvas no aplica.
+   Sin postproceso (LIVIANO) se dibuja directo a la pantalla con el antialias del canvas. */
+let composer = null, bloom = null;
+async function armarPost() {
+  const [{ EffectComposer }, { RenderPass }, { UnrealBloomPass }, { OutputPass }] = await Promise.all(
+    ['EffectComposer', 'RenderPass', 'UnrealBloomPass', 'OutputPass'].map((n) => import(CDN_POST + n + '.js/+esm')));
+  composer = new EffectComposer(renderer, new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: CAL.msaa }));
+  composer.addPass(new RenderPass(scene, camera));
+  bloom = new UnrealBloomPass(new THREE.Vector2(512, 512), 0.55, 0.55, 0.78);
+  composer.addPass(bloom);
+  composer.addPass(new OutputPass());
+  medir();
+}
+function sinPost() {   // la compu que no da abasto termina igual que el celu
+  if (!composer) return;
+  [composer.renderTarget1, composer.renderTarget2].forEach((rt) => rt.dispose());
+  bloom.dispose(); composer = bloom = null;
+  LIVIANO = true; U.uK.value = 1.35;
+}
+const dibujar = () => (composer ? composer.render() : renderer.render(scene, camera));
 
 function medir() {
   const w = stage.clientWidth, h = stage.clientHeight;
   esCelu = celu();
-  composer.setPixelRatio(renderer.getPixelRatio());
-  renderer.setSize(w, h, false); composer.setSize(w, h);
-  bloom.resolution.set(w / CAL.bloomDiv, h / CAL.bloomDiv);
+  renderer.setSize(w, h, false);
+  if (composer) {
+    composer.setPixelRatio(renderer.getPixelRatio()); composer.setSize(w, h);
+    bloom.resolution.set(w / CAL.bloomDiv, h / CAL.bloomDiv);
+  }
   camera.aspect = w / h; camera.fov = w / h < 0.8 ? 34 : 28; camera.updateProjectionMatrix();
   const hf = 2 * 8 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
   fondo.scale.set(hf * camera.aspect * 1.02, hf * 1.02, 1);
   FU.uAspect.value = camera.aspect; PU.uPx.value = renderer.getPixelRatio() * h / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
 }
-medir();
-window.addEventListener('resize', medir);
+medir(); levantar();
+window.addEventListener('resize', () => { medir(); levantar(); });
 window.addEventListener('pointermove', (e) => { mx = e.clientX / innerWidth * 2 - 1; my = e.clientY / innerHeight * 2 - 1; }, { passive: true });
 window.addEventListener('touchstart', () => avivar(900), { passive: true });
 
 let visible = true, seguirPaso = () => {};
 new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(root);
-/* Si la compu no llega a ~40 cuadros por segundo, baja la resolución a 1x y afloja el resplandor
-   (se mide después de la entrada, cuando ya compiló todo). */
-let medidos = 0, suma = 0, liviano = false, tPrev = 0, cuadro = 0;
-function aliviar() {
-  liviano = true; renderer.setPixelRatio(1); bloom.strength = 0.42;
-  [composer.renderTarget1, composer.renderTarget2].forEach((rt) => { rt.samples = 0; rt.dispose(); });   // sin MSAA
+/* Si el equipo no llega a ~42 cuadros por segundo con el pote en movimiento, baja un escalón de resolución
+   (en la compu, el último escalón además saca el postproceso). Solo cuentan los cuadros con animación en
+   celus y tablets: quietos van a 30 a propósito. En el iPhone el umbral es 25 cuadros por segundo, porque
+   su modo ahorro topea todo en 30 y eso no es "lento". Mediana de 60 cuadros: un tirón suelto (bajar otra
+   etiqueta) no baja la calidad. */
+const UMBRAL = IOS ? 40 : 24;
+let muestras = [], dibujados = 0, tPrev = 0, cuadro = 0;
+function bajarNivel() {
+  if (nivel >= NIVELES.length - 1) return;
+  nivel++;
+  if (nivel === NIVELES.length - 1) sinPost();
+  renderer.setPixelRatio(resolucion());
   medir();
 }
 function loop(now) {
   requestAnimationFrame(loop);
-  if (!visible) { tPrev = 0; return; }
-  if (tPrev && !liviano && ++medidos > 60 && medidos <= 150) { suma += now - tPrev; if (medidos === 150 && suma / 90 > 25) aliviar(); }
+  if (!visible || document.hidden) { tPrev = 0; return; }
+  if (tPrev && ++dibujados > 30 && (!LIVIANO || now < activoHasta)) {
+    muestras.push(now - tPrev);
+    if (muestras.length === 60) { const med = muestras.sort((a, b) => a - b)[30]; muestras = []; if (med > UMBRAL) bajarNivel(); }
+  }
   tPrev = now;
-  if (esCelu && now > activoHasta && (++cuadro & 1)) return;
-  aplicar(now); seguirPaso(); composer.render();
+  if (LIVIANO && now > activoHasta && (++cuadro & 1)) return;
+  aplicar(now); seguirPaso(); dibujar();
 }
 
-/* ---------- títulos: cada palabra en su renglón recortado ---------- */
-root.querySelectorAll('.js-split').forEach((el) => {
-  const nodos = [...el.childNodes]; el.textContent = '';
-  const envolver = (contenido) => { const w = document.createElement('span'); w.className = 'up-w'; const i = document.createElement('span'); i.append(contenido); w.append(i); return w; };
-  nodos.forEach((n) => {
-    if (n.nodeType === 3) n.textContent.split(/(\s+)/).forEach((p) => { if (!p) return; el.append(/^\s+$/.test(p) ? document.createTextNode(' ') : envolver(p)); });
-    else if (n.nodeName === 'BR') el.append(n);
-    else el.append(envolver(n));
-  });
-});
-
 /* ---------- entrada de cada panel (palabras, tag, texto, contadores) ---------- */
+// (los títulos ya vienen separados en palabras por el script de arriba)
 const numAR = (n) => Math.round(n).toLocaleString('es-AR');
+// la primera vez que se mueve el hero, GSAP toma el control de lo que animó el CSS de entrada
+const soltarIntro = () => root.classList.remove('up-intro');
 function entrarPanel(el) {
+  soltarIntro();
   gsap.killTweensOf(el.querySelectorAll('.up-w > span, .up-a'));
-  gsap.fromTo(el.querySelectorAll('.up-w > span'), { yPercent: 110 }, { yPercent: 0, duration: 0.8, ease: 'power4.out', stagger: 0.06 });
-  gsap.fromTo(el.querySelectorAll('.up-a'), { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7, ease: 'power3.out', stagger: 0.07, delay: 0.15 });
+  gsap.fromTo(el.querySelectorAll('.up-w > span'), { yPercent: 110 }, { yPercent: 0, duration: 0.55, ease: 'power4.out', stagger: 0.04 });
+  gsap.fromTo(el.querySelectorAll('.up-a'), { y: 14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.5, ease: 'power3.out', stagger: 0.05, delay: 0.08 });
   el.querySelectorAll('.js-contar').forEach((n) => {
     const o = { v: 0 }, hasta = +n.dataset.hasta;
-    gsap.to(o, { v: hasta, duration: 1.3, ease: 'power2.out', delay: 0.2, onUpdate: () => { n.textContent = numAR(o.v); } });
+    gsap.to(o, { v: hasta, duration: 0.9, ease: 'power2.out', delay: 0.1, onUpdate: () => { n.textContent = numAR(o.v); } });
   });
 }
 function salirPanel(el) {
-  gsap.to(el.querySelectorAll('.up-w > span'), { yPercent: -110, duration: 0.35, ease: 'power2.in' });
-  gsap.to(el.querySelectorAll('.up-a'), { autoAlpha: 0, duration: 0.25 });
+  soltarIntro();
+  gsap.to(el.querySelectorAll('.up-w > span'), { yPercent: -110, duration: 0.25, ease: 'power2.in' });
+  gsap.to(el.querySelectorAll('.up-a'), { autoAlpha: 0, duration: 0.2 });
 }
-gsap.set(root.querySelectorAll('.up-panel .up-w > span'), { yPercent: 110 });
-gsap.set(root.querySelectorAll('.up-panel .up-a'), { autoAlpha: 0 });
+gsap.set(root.querySelectorAll('.up-panel:not(.up-hero) .up-w > span'), { yPercent: 110 });
+gsap.set(root.querySelectorAll('.up-panel:not(.up-hero) .up-a'), { autoAlpha: 0 });
 
-/* ---------- carga + entrada: sala a oscuras → el pote sube girando → se prenden las luces ---------- */
+/* ---------- carga + entrada: el pote sube girando y se terminan de prender las luces ----------
+   El texto del hero ya está en pantalla (CSS): acá solo aparece el 3D, en poco más de un segundo. */
 const cargaModelo = new Promise((ok, mal) => new GLTFLoader().load(BASE + 'pote-whey.glb', ok, undefined, mal));
 const fuentes = document.fonts ? document.fonts.load('900 100px Archivo').catch(() => {}) : Promise.resolve();
-Promise.all([cargaModelo, etiqueta('chocolate'), fuentes]).then(async ([gltf, tex]) => {
+Promise.all([cargaModelo, etiqueta('chocolate'), fuentes, LIVIANO ? null : armarPost().catch(() => sinPost())]).then(async ([gltf, tex]) => {
   matEtq.map = tex;
   gltf.scene.traverse((o) => { if (o.isMesh) o.material = /Etiqueta/.test(o.name) ? matEtq : (/Tapa/.test(o.name) ? matTapa : matCuerpo); });
   gltf.scene.position.y = -PIVOTE; giro.add(gltf.scene);
+  // todas las palabras de fondo, dibujadas y subidas a la placa de video antes de arrancar
+  [...new Set(PALABRAS)].forEach((p) => renderer.initTexture(texPalabra(p)));
   dibujarPalabra(PALABRAS[0]);
   try { await renderer.compileAsync(scene, camera); } catch (e) {}
-  avivar(3200);
+  avivar(2400);
   requestAnimationFrame(loop);
-  canvas.classList.add('is-listo');
-  const hero = root.querySelector('.up-hero');
-  hero.classList.add('is-on');
+  requestAnimationFrame(() => requestAnimationFrame(() => canvas.classList.add('is-listo')));   // recién con el primer cuadro dibujado
   gsap.timeline()
-    .to(E, { sube: 0, vuelta: 0, duration: 1.8, ease: 'power3.out' }, 0)
-    .to(E, { luz: 1, duration: 1.4, ease: 'power2.inOut' }, 0.25)
-    .fromTo(palabra.material, { opacity: 0 }, { opacity: 0.12, duration: 1.6, ease: 'power2.out' }, 0.6)
-    .add(() => entrarPanel(hero), 0.7);
+    .to(E, { sube: 0, vuelta: 0, duration: 1.15, ease: 'power3.out' }, 0)
+    .to(E, { luz: 1, duration: 0.8, ease: 'power2.out' }, 0.1)
+    .fromTo(palabra.material, { opacity: 0 }, { opacity: 0.12, duration: 0.9, ease: 'power2.out' }, 0.3);
   armarScroll();
 }).catch((e) => { console.error('UniPro 3D', e); root.classList.add('sin-3d'); });
 
@@ -540,12 +671,13 @@ Promise.all([cargaModelo, etiqueta('chocolate'), fuentes]).then(async ([gltf, te
 root.querySelectorAll('.up-sabor').forEach((b) => b.addEventListener('click', () => {
   root.querySelectorAll('.up-sabor').forEach((x) => x.classList.toggle('is-on', x.dataset.sabor === b.dataset.sabor));
   const nueva = etiqueta(b.dataset.sabor);
-  avivar(1800);
+  avivar(1400);
+  // (cambiar una textura por otra no necesita recompilar el material: antes needsUpdate daba un tirón)
   gsap.timeline()
-    .to(E, { extra: '+=' + Math.PI * 2, duration: 1.1, ease: 'power3.inOut' }, 0)
-    .to(U.uFlash, { value: 1, duration: 0.25, ease: 'power2.out' }, 0.35)
-    .add(() => nueva.then((t) => { matEtq.map = t; matEtq.needsUpdate = true; }), 0.5)
-    .to(U.uFlash, { value: 0, duration: 0.6, ease: 'power2.in' }, 0.6);
+    .to(E, { extra: '+=' + Math.PI * 2, duration: 0.85, ease: 'power3.inOut' }, 0)
+    .to(U.uFlash, { value: 1, duration: 0.2, ease: 'power2.out' }, 0.25)
+    .add(() => nueva.then((t) => { matEtq.map = t; }), 0.38)
+    .to(U.uFlash, { value: 0, duration: 0.45, ease: 'power2.in' }, 0.45);
 }));
 
 /* ---------- navegación por pasos (como ciaoenergy) ----------
@@ -568,36 +700,79 @@ function armarScroll() {
     tl.time(Math.min(t, tl.duration()));
   };
   armar();
-  ST.addEventListener('refreshInit', armar);   // rotar el celu / cambiar el tamaño recalcula las poses
+  ST.addEventListener('refreshInit', () => { H_TOP = altoHeader(); root.style.setProperty('--up-top', H_TOP + 'px'); medir(); armar(); });   // rotar el celu / cambiar el tamaño
+  /* El recálculo por cambio de tamaño lo decide la página: con zoom no recalcula (con la pantalla ampliada
+     las medidas salen chicas y la sección saltaba), y en el celu ignora la barra del navegador que aparece y
+     se esconde (solo cambia el alto). */
+  ST.config({ autoRefreshEvents: 'visibilitychange,DOMContentLoaded,load' });
+  const tactil = window.matchMedia('(pointer:coarse)').matches;
+  let anchoPrev = document.documentElement.clientWidth, altoPrev = altoVista(), tRes = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(tRes);
+    tRes = setTimeout(() => {
+      if (zoomado()) return;
+      const w = document.documentElement.clientWidth, h = altoVista();
+      if (w === anchoPrev && (tactil ? Math.abs(h - altoPrev) < 0.25 * altoPrev : h === altoPrev)) return;
+      anchoPrev = w; altoPrev = h; ST.refresh();
+    }, 200);
+  });
 
+  /* Cada paso dura 0,8 s (antes 1,2 s) y no hay que esperar a que termine: un gesto nuevo sigue desde donde
+     está el pote, así pasar varios pasos seguidos es rápido. */
   let paso = 0, animando = false, viaje = null;
   function irA(i) {
     i = Math.max(0, Math.min(pasos.length - 1, i));
     const saltos = Math.abs(i - paso) || 1;
-    paso = i; animando = true; avivar(2800);
+    paso = i; animando = true; avivar(1800);
     if (viaje) viaje.kill();
-    viaje = gsap.to(tl, { time: tl.labels[pasos[i]], duration: Math.min(2.4, 1.2 + 0.35 * (saltos - 1)), ease: saltos > 1 ? 'power1.inOut' : 'none',
+    viaje = gsap.to(tl, { time: tl.labels[pasos[i]], duration: Math.min(1.5, 0.8 + 0.22 * (saltos - 1)), ease: saltos > 1 ? 'power1.inOut' : 'none',
       onComplete: () => { animando = false; } });
   }
 
   // Gestos: uno mueve como mucho un paso. Con el dedo, un gesto va de apoyar a levantar (no depende del
   // tiempo: aunque el celu esté trabado, un swipe es un paso). Con rueda/touchpad, 260 ms sin eventos = gesto nuevo.
+  // Pellizcar con dos dedos (o Ctrl + rueda / pellizco del touchpad en la compu) es zoom, no un paso: ese
+  // gesto se marca como usado. Van en captura para correr antes que el observer.
   let rafaga = 0, usada = -1, ultimo = 0;
-  window.addEventListener('wheel', () => { const n = performance.now(); if (n - ultimo > 260) rafaga++; ultimo = n; }, { passive: true });
-  window.addEventListener('touchstart', () => { rafaga++; }, { passive: true });
+  window.addEventListener('wheel', (e) => { const n = performance.now(); if (n - ultimo > 260) rafaga++; ultimo = n; if (e.ctrlKey) usada = rafaga; }, { passive: true, capture: true });
+  window.addEventListener('touchstart', (e) => { if (e.touches.length === 1) rafaga++; else usada = rafaga; }, { passive: true, capture: true });
 
   let st, libreHasta = 0;   // mientras un botón lleva al catálogo, la sección no se engancha al pasar
+  /* Frenar el scroll nativo mientras la sección está enganchada. Lo hace la página (no el observer) para
+     dejar pasar el zoom: con dos dedos, Ctrl + rueda o la pantalla ya ampliada no se frena nada. */
+  const frenar = (e) => {
+    if (zoomado() || (e.type === 'wheel' ? e.ctrlKey : e.touches.length > 1)) return;
+    if (e.cancelable) e.preventDefault();
+  };
   const intento = ST.observe({
-    type: 'wheel,touch', wheelSpeed: -1, tolerance: 12, preventDefault: true,
+    type: 'wheel,touch', wheelSpeed: -1, tolerance: 12,
     onUp: () => gesto(1), onDown: () => gesto(-1),
-    onEnable(self) { const y = self.scrollY(); self._fijar = () => self.scrollY(y); document.addEventListener('scroll', self._fijar, { passive: false }); },
-    onDisable(self) { document.removeEventListener('scroll', self._fijar); },
+    onEnable(self) {
+      self._y = self.scrollY();
+      self._fijar = () => { if (!zoomado()) self.scrollY(self._y); };   // con zoom el iPhone mueve scrollY al ampliar: no pelearle
+      document.addEventListener('scroll', self._fijar, { passive: false });
+      // en captura: corre antes que el observer, así el mismo movimiento que termina la sección también se frena
+      window.addEventListener('wheel', frenar, { passive: false, capture: true });
+      window.addEventListener('touchmove', frenar, { passive: false, capture: true });
+    },
+    onDisable(self) {
+      document.removeEventListener('scroll', self._fijar);
+      window.removeEventListener('wheel', frenar, { capture: true });
+      window.removeEventListener('touchmove', frenar, { capture: true });
+    },
   });
   intento.disable();
+  // Al volver a tamaño normal: si mientras había zoom se movió fuera de la sección, la suelta; si sigue
+  // adentro, la traba toma la posición nueva (sin saltar a la anterior).
+  if (vv) vv.addEventListener('resize', () => {
+    if (zoomado() || !intento.isEnabled) return;
+    const y = scrollY;
+    if (y < st.start - 2 || y > st.end) intento.disable(); else intento._y = y;
+  });
   const LOG = /[?&]debug/.test(location.search) ? (window.__upLog = []) : null;
   function gesto(dir) {
     if (LOG) LOG.push(['gesto', Math.round(performance.now()), dir, animando, rafaga, usada, paso]);
-    if (animando || rafaga === usada) return;
+    if (rafaga === usada || zoomado()) return;
     usada = rafaga;
     const sig = paso + dir;
     if (sig < 0 || sig > pasos.length - 1) return salir(dir);
@@ -608,25 +783,27 @@ function armarScroll() {
     intento.disable();
     // autoKill: si el dedo o la rueda ya están moviendo la página, la bajada automática se cancela
     // (antes se peleaban: el tween tiraba para atrás y la sección se volvía a enganchar).
-    const y = dir > 0 ? st.end + 2 : Math.max(0, st.start - Math.round(innerHeight * 0.6));
+    const y = dir > 0 ? st.end + 2 : Math.max(0, st.start - Math.round(altoVista() * 0.6));
     gsap.to(window, { duration: 0.9, ease: 'power2.inOut', scrollTo: { y, autoKill: true }, overwrite: true });
   }
+  const enganchar = (self) => { if (intento.isEnabled || zoomado() || performance.now() < libreHasta) return; self.scroll(self.start + 1); intento.enable(); };
   st = ST.create({
-    trigger: root, pin: stage, start: 'top top', end: () => '+=' + Math.round(innerHeight * 0.5),
+    trigger: root, pin: stage, start: () => 'top top+=' + H_TOP, end: () => '+=' + Math.round(altoVista() * 0.5),
     invalidateOnRefresh: true, anticipatePin: 1,
-    onEnter: (self) => { if (LOG) LOG.push(['enter', Math.round(scrollY)]); if (intento.isEnabled || performance.now() < libreHasta) return; self.scroll(self.start + 1); intento.enable(); },
-    onEnterBack: (self) => { if (LOG) LOG.push(['enterBack', Math.round(scrollY)]); if (intento.isEnabled || performance.now() < libreHasta) return; self.scroll(self.end - 1); intento.enable(); },
+    onEnter: (self) => { if (LOG) LOG.push(['enter', Math.round(scrollY)]); enganchar(self); },
+    onEnterBack: (self) => { if (LOG) LOG.push(['enterBack', Math.round(scrollY)]); enganchar(self); },
   });
+  if (!intento.isEnabled && scrollY >= st.start - 2 && scrollY <= st.end) { st.scroll(st.start + 1); intento.enable(); }
   // teclado dentro de la sección
   window.addEventListener('keydown', (e) => {
-    if (!intento.isEnabled || animando) return;
+    if (!intento.isEnabled || e.repeat) return;
     const k = e.key;
     if (k === 'ArrowDown' || k === 'PageDown' || k === ' ') { e.preventDefault(); paso < pasos.length - 1 ? irA(paso + 1) : salir(1); }
     else if (k === 'ArrowUp' || k === 'PageUp') { e.preventDefault(); paso > 0 ? irA(paso - 1) : salir(-1); }
   });
   // los botones "Comprar" / "Ver productos" sueltan el scroll antes de bajar al catálogo
   root.querySelectorAll('.up-cta').forEach((a) => a.addEventListener('click', () => { libreHasta = performance.now() + 2200; intento.disable(); }));
-  botones.forEach((b) => b.addEventListener('click', () => { if (!animando) irA(+b.dataset.ir); }));
+  botones.forEach((b) => b.addEventListener('click', () => irA(+b.dataset.ir)));
   if (/[?&]debug/.test(location.search)) window.__up.irA = (i) => { irA(i); };
 
   // Texto, palabra gigante, escaneo y botones siguen al pote (el tiempo del timeline).
@@ -639,13 +816,13 @@ function armarScroll() {
     if (act === actual) return;
     const antes = panels.find((el) => +el.dataset.paso === actual), ahora = panels.find((el) => +el.dataset.paso === act);
     actual = act;
-    if (antes) { salirPanel(antes); gsap.delayedCall(0.35, () => { if (+antes.dataset.paso !== actual) antes.classList.remove('is-on'); }); }
+    if (antes) { salirPanel(antes); gsap.delayedCall(0.25, () => { if (+antes.dataset.paso !== actual) antes.classList.remove('is-on'); }); }
     if (ahora) { ahora.classList.add('is-on'); entrarPanel(ahora); }
     botones.forEach((b) => b.classList.toggle('is-on', +b.dataset.ir === act));
     root.classList.toggle('is-pasos', act >= 1 && act <= 5);
     pista.style.opacity = act === 0 ? 1 : 0;
-    gsap.to(palabra.material, { opacity: 0, duration: 0.25, overwrite: true, onComplete: () => { dibujarPalabra(PALABRAS[act]); gsap.to(palabra.material, { opacity: act >= 1 && act <= 5 ? 0.07 : 0.12, duration: 0.8 }); } });
-    if (act >= 1 && act <= 5) gsap.fromTo(U.uScan, { value: 0 }, { value: 1, duration: 1.1, ease: 'power2.inOut', delay: 0.15, overwrite: true });
+    gsap.to(palabra.material, { opacity: 0, duration: 0.18, overwrite: true, onComplete: () => { dibujarPalabra(PALABRAS[act]); gsap.to(palabra.material, { opacity: act >= 1 && act <= 5 ? 0.07 : 0.12, duration: 0.5 }); } });
+    if (act >= 1 && act <= 5) gsap.fromTo(U.uScan, { value: 0 }, { value: 1, duration: 0.75, ease: 'power2.inOut', delay: 0.1, overwrite: true });
     else U.uScan.value = 1;
   };
 }
