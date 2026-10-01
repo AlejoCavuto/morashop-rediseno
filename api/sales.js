@@ -34,10 +34,15 @@ const TN_HEADERS = {
 export const maxDuration = 300;
 
 const KV_SALES_KEY = 'tn_sales_v1';
-const KV_SALES_TTL = 60 * 60 * 30;   // 30 h: el cron es diario, con margen si falla una vez
+// 8 dias. Con 30 h, un solo cron fallido dejaba al buscador sin ventas reales: el 1/10/2026 el mapa
+// vencio y "creatina" paso a ordenarse por el numero inventado de respaldo, sin que nadie lo notara.
+const KV_SALES_TTL = 60 * 60 * 24 * 8;
 const WINDOW_DAYS = 90;              // ventana de ventas que se considera "reciente"
 const PER_PAGE = 200;
 const MAX_PAGES = 25;                // tope duro: 5000 pedidos
+// La corrida completa ya tarda ~270 s contra un limite de 300 s (maxDuration): si se corta, no se guarda
+// nada. Pasado este tiempo se deja de pedir paginas y se guarda lo juntado (los pedidos mas nuevos).
+const BUDGET_MS = 230 * 1000;
 
 // Un pedido cancelado no es una venta. El resto (open/closed) con pago hecho, si.
 function counts(order) {
@@ -52,8 +57,10 @@ async function fetchSales() {
   let orders = 0;
   let pages = 0;
   let truncated = false;
+  const started = Date.now();
 
   for (let page = 1; page <= MAX_PAGES; page++) {
+    if (page > 1 && Date.now() - started > BUDGET_MS) { truncated = true; break; }
     const url = `${TN_BASE}/orders?per_page=${PER_PAGE}&page=${page}`
       + `&created_at_min=${encodeURIComponent(since)}`
       + `&fields=id,status,payment_status,products`;
