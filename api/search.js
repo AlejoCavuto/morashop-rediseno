@@ -530,49 +530,98 @@ async function buildIndex() {
   } catch (e) {
     console.error('KV set failed:', e.message);
   }
-  // Hidratar para el ranking en este request
-  return normalizedRaw.map(hydrateItem);
+  // Hidratar para el ranking y dejarlo en la memoria de esta instancia
+  const index = normalizedRaw.map(hydrateItem);
+  _mem = { index, builtAt: Date.now() };
+  return index;
+}
+
+// ============== MEMORIA DE LA INSTANCIA ==============
+// Hasta el 11/10/2026 cada busqueda leia de KV el catalogo entero (~1 MB) y el mapa
+// de ventas: 3 pedidos a KV por busqueda. Ese dia KV dejo de responder y, como no
+// habia otra copia, CADA busqueda bajaba el catalogo completo de Tiendanube: 21 s
+// medidos, contra los 8 s que espera la lupa. Ademas el orden caia al numero inventado.
+// Ahora la instancia guarda el indice en memoria (Vercel reusa la instancia entre
+// pedidos) y KV queda solo para arrancar una instancia nueva sin esperar.
+let _mem = null;          // { index (ya hidratado), builtAt }
+let _building = null;     // reconstruccion en curso: las busquedas que llegan juntas la comparten
+let _refreshAt = 0;       // ultimo intento de refresco en segundo plano
+let _salesMem = null;     // { map, at }
+const REFRESH_RETRY_MS = 60 * 1000;
+const SALES_MEM_MS = 10 * 60 * 1000;
+
+function buildIndexOnce() {
+  if (!_building) _building = buildIndex().finally(() => { _building = null; });
+  return _building;
 }
 
 const KV_SALES_KEY = 'tn_sales_v1';
 
 // Mapa product_id -> unidades vendidas, que deja el cron /api/sales.
 async function getSalesMap() {
+  const now = Date.now();
+  if (_salesMem && now - _salesMem.at < SALES_MEM_MS) return _salesMem.map;
   try {
     const m = await kv.get(KV_SALES_KEY);
-    if (m && typeof m === 'object' && !Array.isArray(m)) return m;
+    if (m && typeof m === 'object' && !Array.isArray(m)) {
+      _salesMem = { map: m, at: now };
+      return m;
+    }
   } catch (e) {
     console.error('KV sales get failed:', e.message);
   }
-  return null;
+  // No se pudo leer: se sigue con el ultimo mapa bueno (o sin mapa) y se reintenta en un minuto.
+  _salesMem = { map: _salesMem ? _salesMem.map : null, at: now - SALES_MEM_MS + REFRESH_RETRY_MS };
+  return _salesMem.map;
 }
 
 async function getIndex() {
+  // Lo normal: la instancia ya lo tiene. Viejo o no, se sirve ahora y se refresca atras.
+  if (_mem) {
+    if (!(Date.now() - _mem.builtAt < KV_TTL_SECONDS * 1000)) refreshIndexInBackground();
+    return { index: _mem.index, cached: true };
+  }
+  // Instancia nueva: tomar el que dejo otra instancia en KV.
   try {
     const [cached, builtAt] = await Promise.all([kv.get(KV_CACHE_KEY), kv.get(KV_BUILT_AT_KEY)]);
     if (Array.isArray(cached) && cached.length > 0) {
-      // Viejo, o sin marca de tiempo (como el que dejo la version anterior): se sirve
-      // igual, ahora, y se reconstruye en segundo plano para el proximo pedido.
-      if (!(Date.now() - Number(builtAt || 0) < KV_TTL_SECONDS * 1000)) refreshIndexInBackground();
       // Re-hidratar acá: el cache es raw, el ranking necesita los derivados
-      return { index: cached.map(hydrateItem), cached: true };
+      _mem = { index: cached.map(hydrateItem), builtAt: Number(builtAt || 0) };
+      if (!(Date.now() - _mem.builtAt < KV_TTL_SECONDS * 1000)) refreshIndexInBackground();
+      return { index: _mem.index, cached: true };
     }
   } catch (e) {
     console.error('KV get failed:', e.message);
   }
-  // No hay ningun indice guardado (primera vez o KV vaciado): no queda otra que armarlo ya.
-  const index = await buildIndex();
+  // Ni memoria ni KV: no queda otra que armarlo ya. Una sola vez por instancia.
+  const index = await buildIndexOnce();
   return { index, cached: false };
 }
 
-// Una sola reconstruccion a la vez: con el indice viejo, cada busqueda que caia
-// bajaba el catalogo entero de Tiendanube por su cuenta. El lock vence solo a los
-// 120 s: si la reconstruccion falla (Tiendanube caido) se reintenta como mucho cada
-// 2 minutos, no en cada busqueda.
+// Refresco en segundo plano del indice vencido. Como mucho un intento por minuto
+// por instancia. Entre instancias se coordina con un lock en KV que vence solo a
+// los 120 s; si KV no responde, cada instancia se refresca por su cuenta.
 function refreshIndexInBackground() {
+  const now = Date.now();
+  if (_building || now - _refreshAt < REFRESH_RETRY_MS) return;
+  _refreshAt = now;
   const task = (async () => {
-    const got = await kv.set(KV_LOCK_KEY, '1', { nx: true, ex: 120 });
-    if (got) await buildIndex();
+    try {
+      // ¿Otra instancia ya dejo uno mas nuevo? Se toma ese en vez de ir a Tiendanube.
+      const builtAt = Number(await kv.get(KV_BUILT_AT_KEY) || 0);
+      if (_mem && builtAt > _mem.builtAt && Date.now() - builtAt < KV_TTL_SECONDS * 1000) {
+        const cached = await kv.get(KV_CACHE_KEY);
+        if (Array.isArray(cached) && cached.length > 0) {
+          _mem = { index: cached.map(hydrateItem), builtAt };
+          return;
+        }
+      }
+      const got = await kv.set(KV_LOCK_KEY, '1', { nx: true, ex: 120 });
+      if (!got) return;   // otra instancia lo esta armando: se toma de KV en el proximo intento
+    } catch (e) {
+      console.error('KV refresh check failed:', e.message);
+    }
+    await buildIndexOnce();
   })().catch(e => console.error('index refresh failed:', e.message));
   // waitUntil mantiene viva la funcion despues de responder hasta que termine.
   try { waitUntil(task); } catch (e) { /* fuera de Vercel no hay contexto de request */ }
