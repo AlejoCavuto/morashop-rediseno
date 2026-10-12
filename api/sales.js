@@ -17,6 +17,7 @@
 ============================================================================= */
 
 import { kv } from '@vercel/kv';
+import { getCache } from '@vercel/functions';
 
 const {
   TIENDANUBE_STORE_ID,
@@ -116,7 +117,29 @@ export default async function handler(req, res) {
       });
     }
 
-    await kv.set(KV_SALES_KEY, units, { ex: KV_SALES_TTL });
+    // Dos copias: el cache de las funciones de Vercel y KV. Alcanza con que entre una.
+    // El 12/10/2026 KV (Upstash) rechazaba todo por limite de plan y, como era la unica
+    // copia, el buscador ordenaba por el numero inventado.
+    const saved = { vercel: false, kv: false };
+    let lastError = '';
+    try {
+      await getCache().set(KV_SALES_KEY, units, { ttl: KV_SALES_TTL });
+      saved.vercel = true;
+    } catch (e) {
+      lastError = String(e.message || e);
+      console.error('sales: runtime cache set failed:', lastError);
+    }
+    try {
+      await kv.set(KV_SALES_KEY, units, { ex: KV_SALES_TTL });
+      saved.kv = true;
+    } catch (e) {
+      lastError = String(e.message || e);
+      console.error('sales: KV set failed:', lastError.slice(0, 200));
+    }
+    if (!saved.vercel && !saved.kv) {
+      // El mensaje de Upstash trae pegado el mapa de ventas entero: se corta.
+      return res.status(500).json({ ok: false, error: 'no_se_pudo_guardar', detail: lastError.slice(0, 160) });
+    }
 
     const top = Object.entries(units)
       .sort((a, b) => b[1] - a[1])
@@ -124,11 +147,11 @@ export default async function handler(req, res) {
       .map(([id, qty]) => ({ id: Number(id), units: qty }));
 
     return res.status(200).json({
-      ok: true, updated: true, windowDays: WINDOW_DAYS,
+      ok: true, updated: true, saved, windowDays: WINDOW_DAYS,
       orders, pages, products, truncated, top,
     });
   } catch (err) {
     console.error('sales error:', err);
-    return res.status(500).json({ ok: false, error: 'server_error', detail: String(err.message || err) });
+    return res.status(500).json({ ok: false, error: 'server_error', detail: String(err.message || err).slice(0, 300) });
   }
 }

@@ -31,7 +31,7 @@
 ============================================================================= */
 
 import { kv } from '@vercel/kv';
-import { waitUntil } from '@vercel/functions';
+import { waitUntil, getCache } from '@vercel/functions';
 
 // Vercel: subir el timeout máximo de la función (Pro lo respeta; en Hobby no daña)
 export const maxDuration = 60;
@@ -523,7 +523,8 @@ async function buildIndex() {
     if (!(n.stock > 0)) continue;
     normalizedRaw.push(n);
   }
-  // Guardar SÓLO la forma raw (puede fallar silenciosamente si KV está caído)
+  // Guardar SÓLO la forma raw, en las dos copias. Cualquiera puede fallar sin cortar la busqueda.
+  await rtSet(RT_INDEX_KEY, { builtAt: Date.now(), items: normalizedRaw }, KV_KEEP_SECONDS);
   try {
     await kv.set(KV_CACHE_KEY, normalizedRaw, { ex: KV_KEEP_SECONDS });
     await kv.set(KV_BUILT_AT_KEY, Date.now(), { ex: KV_KEEP_SECONDS });
@@ -555,20 +556,47 @@ function buildIndexOnce() {
   return _building;
 }
 
+// ============== SEGUNDA COPIA: EL CACHE DE VERCEL ==============
+// El 12/10/2026 Upstash (KV) rechazaba todo: "This database has reached current Fixed
+// plan limits". Sin KV no habia de donde leer las ventas, y "creatina" mostraba primero
+// una Body Advance por el numero inventado de respaldo. El cache de las funciones de
+// Vercel no necesita cuenta ni plan aparte: hasta 2 MB por clave, por region. No es
+// permanente (si se llena borra lo mas viejo), asi que es una copia mas y no el
+// reemplazo de KV. Se lee primero porque no gasta la cuota de Upstash.
+const RT_INDEX_KEY = 'tn_products_v2_rt';   // { builtAt, items }
+
+async function rtGet(key) {
+  try { return await getCache().get(key); }
+  catch (e) { console.error('runtime cache get failed:', e.message); return undefined; }
+}
+
+async function rtSet(key, value, ttl) {
+  try { await getCache().set(key, value, { ttl }); return true; }
+  catch (e) { console.error('runtime cache set failed:', e.message); return false; }
+}
+
+// El indice que dejo otra instancia en el cache de Vercel, o null.
+async function rtIndex() {
+  const rt = await rtGet(RT_INDEX_KEY);
+  if (!rt || !Array.isArray(rt.items) || rt.items.length === 0) return null;
+  return { items: rt.items, builtAt: Number(rt.builtAt || 0) };
+}
+
 const KV_SALES_KEY = 'tn_sales_v1';
 
 // Mapa product_id -> unidades vendidas, que deja el cron /api/sales.
 async function getSalesMap() {
   const now = Date.now();
   if (_salesMem && now - _salesMem.at < SALES_MEM_MS) return _salesMem.map;
-  try {
-    const m = await kv.get(KV_SALES_KEY);
-    if (m && typeof m === 'object' && !Array.isArray(m)) {
-      _salesMem = { map: m, at: now };
-      return m;
-    }
-  } catch (e) {
-    console.error('KV sales get failed:', e.message);
+  const valid = (m) => m && typeof m === 'object' && !Array.isArray(m);
+  let map = await rtGet(KV_SALES_KEY);
+  if (!valid(map)) {
+    try { map = await kv.get(KV_SALES_KEY); }
+    catch (e) { console.error('KV sales get failed:', e.message); map = null; }
+  }
+  if (valid(map)) {
+    _salesMem = { map, at: now };
+    return map;
   }
   // No se pudo leer: se sigue con el ultimo mapa bueno (o sin mapa) y se reintenta en un minuto.
   _salesMem = { map: _salesMem ? _salesMem.map : null, at: now - SALES_MEM_MS + REFRESH_RETRY_MS };
@@ -581,7 +609,13 @@ async function getIndex() {
     if (!(Date.now() - _mem.builtAt < KV_TTL_SECONDS * 1000)) refreshIndexInBackground();
     return { index: _mem.index, cached: true };
   }
-  // Instancia nueva: tomar el que dejo otra instancia en KV.
+  // Instancia nueva: tomar el que dejo otra instancia. Primero el cache de Vercel, despues KV.
+  const rt = await rtIndex();
+  if (rt) {
+    _mem = { index: rt.items.map(hydrateItem), builtAt: rt.builtAt };
+    if (!(Date.now() - _mem.builtAt < KV_TTL_SECONDS * 1000)) refreshIndexInBackground();
+    return { index: _mem.index, cached: true };
+  }
   try {
     const [cached, builtAt] = await Promise.all([kv.get(KV_CACHE_KEY), kv.get(KV_BUILT_AT_KEY)]);
     if (Array.isArray(cached) && cached.length > 0) {
@@ -593,7 +627,7 @@ async function getIndex() {
   } catch (e) {
     console.error('KV get failed:', e.message);
   }
-  // Ni memoria ni KV: no queda otra que armarlo ya. Una sola vez por instancia.
+  // Ni memoria ni ninguna copia: no queda otra que armarlo ya. Una sola vez por instancia.
   const index = await buildIndexOnce();
   return { index, cached: false };
 }
@@ -606,8 +640,13 @@ function refreshIndexInBackground() {
   if (_building || now - _refreshAt < REFRESH_RETRY_MS) return;
   _refreshAt = now;
   const task = (async () => {
+    // ¿Otra instancia ya dejo uno mas nuevo? Se toma ese en vez de ir a Tiendanube.
+    const rt = await rtIndex();
+    if (_mem && rt && rt.builtAt > _mem.builtAt && Date.now() - rt.builtAt < KV_TTL_SECONDS * 1000) {
+      _mem = { index: rt.items.map(hydrateItem), builtAt: rt.builtAt };
+      return;
+    }
     try {
-      // ¿Otra instancia ya dejo uno mas nuevo? Se toma ese en vez de ir a Tiendanube.
       const builtAt = Number(await kv.get(KV_BUILT_AT_KEY) || 0);
       if (_mem && builtAt > _mem.builtAt && Date.now() - builtAt < KV_TTL_SECONDS * 1000) {
         const cached = await kv.get(KV_CACHE_KEY);
