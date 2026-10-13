@@ -2,7 +2,7 @@
   "name": "morashop-rediseno",
   "version": "1.0.0",
   "private": true,
-  "description": "Morashop prototype + Vercel Functions (welcome-coupon, search)",
+  "description": "Morashop prototype + Vercel Functions (search, sales, img)",
   "engines": {
     "node": ">=18.0.0"
   },

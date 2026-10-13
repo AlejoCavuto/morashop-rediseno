@@ -13,7 +13,6 @@
 
   const CUPONES = {
     'MORA10':       { tipo: 'porcentaje', valor: 10, label: '10% OFF' },
-    'BIENVENIDO':   { tipo: 'porcentaje', valor: 10, label: '10% OFF (primera compra)' },
     'ENVIOGRATIS':  { tipo: 'envio',      valor: 0,  label: 'Envío gratis' }
   };
 
