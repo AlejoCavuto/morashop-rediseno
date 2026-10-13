@@ -89,16 +89,20 @@ function srVendidos(p) {
 }
 
 // Aliases de types → palabras que tipea el usuario (sub-cats reales del catálogo)
+// Regla: aca NO van productos ni marcas que la tienda no vende. Un alias hace dos cosas: manda
+// la busqueda al rubro entero y, por substring, le pone ese rubro a todo producto que lo tenga
+// en el nombre. Con 'melatonina' quien la buscaba veia omega 3 y magnesio; con 'alfajor',
+// pancakes y barras; y 'c4' convertia en pre-entreno a la cortadora de pelo "Bc4" (13/10/2026).
 const SR_TYPE_ALIASES = {
   // Suplementos
   'proteinas':         ['proteina', 'proteinas', 'protein', 'whey', 'caseina', 'isolate', 'aislada'],
   'creatinas':         ['creatina', 'crea', 'creatinas', 'monohidrato', 'creatine'],
-  'vitaminas-salud':   ['vitamina', 'vitaminas', 'multivitaminico', 'colageno', 'magnesio', 'omega', 'zinc', 'biotina', 'melatonina', 'salud'],
+  'vitaminas-salud':   ['vitamina', 'vitaminas', 'multivitaminico', 'colageno', 'magnesio', 'omega', 'zinc', 'biotina', 'salud'],
   'bcaa-aminos':       ['bcaa', 'aminoacido', 'aminoacidos', 'amino', 'glutamina', 'arginina', 'leucina'],
-  'pre-entrenos':      ['pre-entreno', 'pre-entrenos', 'preentreno', 'pre workout', 'preworkout', 'c4', 'pump'],
+  'pre-entrenos':      ['pre-entreno', 'pre-entrenos', 'preentreno', 'pre workout', 'preworkout', 'pump'],
   'quemadores':        ['quemador', 'quemadores', 'fat burner', 'termogenico', 'lipo', 'cla', 'adelgazante', 'detox'],
   'combos':            ['combo', 'combos', 'pack', 'kit'],
-  'snacks-proteicos':  ['barra', 'barras', 'gel', 'geles', 'snack', 'alfajor', 'cookies', 'pancake', 'gomitas'],
+  'snacks-proteicos':  ['barra', 'barras', 'gel', 'geles', 'snack', 'cookies', 'pancake', 'gomitas'],
   'cafeina-energia':   ['cafeina', 'caffeine', 'cafeine', 'energia'],
   'carbo-isotonicos':  ['isotonico', 'isotonicos', 'carbo', 'carbohidrato', 'electrolitos', 'hidratacion'],
   'ganadores':         ['ganador', 'ganadores', 'mass gainer', 'gainer', 'serious mass', 'mutant mass'],
@@ -288,6 +292,9 @@ const SR_SYNONYMS = [
   ['isotonico', 'electrolitos', 'hidratacion'],
   ['pastillero', 'organizador de pastillas'],
   ['creatina', 'creatine', 'monohidrato'],
+  // "on" es Optimum Nutrition ("Proteína On Gold Standard"). Con las busquedas cortas por
+  // comienzo de palabra (srContiene), "on" sola ya no entra por el "Nutrition" de cualquier nombre.
+  ['on', 'optimum'],
   // "leche proteica" / "snack proteico": el catalogo dice "Protein". Grupo aparte para que
   // buscar "proteina" siga igual (el indice se queda con el primer grupo de cada raiz).
   ['proteica', 'proteico', 'protein', 'proteina']
@@ -673,7 +680,7 @@ function refreshIndexInBackground() {
 // 1 = el nombre la contiene en algun lado
 // 2 = no matchea el nombre (entro solo por categoria)
 // 0 = palabra del nombre empieza con la query literal
-// 1 = el nombre la contiene literal
+// 1 = el nombre la contiene literal (ver srContiene)
 // 2 = match por RAIZ al inicio de palabra ("barritas" vs "Barras")
 // 3 = match por raiz en cualquier lado
 // 4 = no matchea el nombre (entro solo por categoria)
@@ -684,7 +691,7 @@ function srNameRank(p, qNorm, qStems) {
   for (let i = 0; i < words.length; i++) {
     if (words[i] && words[i].startsWith(qNorm)) return 0;
   }
-  if (String(nameKey || '').indexOf(qNorm) !== -1) return 1;
+  if (srContiene(nameKey, qNorm)) return 1;
   if (qStems && qStems.length) {
     const nameStems = String(nameStemKey || '').split(' ');
     const allPrefix = qStems.every(st => nameStems.some(w => w && w.startsWith(st)));
@@ -693,6 +700,21 @@ function srNameRank(p, qNorm, qStems) {
     if (qStems.every(st => nameStemStr.indexOf(st) !== -1)) return 3;
   }
   return 4;
+}
+
+// "El texto contiene la busqueda". Una busqueda de hasta 4 letras tiene que EMPEZAR una
+// palabra: "raw" no es "strawberry", "nac" no es "snacks" y "ema" no es "crema" (13/10/2026:
+// buscando la marca RAW salian un amino y un pre-entreno "Strawberry"). Las mas largas siguen
+// por substring, que es lo que deja encontrar "isoprot" adentro de un nombre.
+function srContiene(texto, qNorm) {
+  const t = String(texto || '');
+  let i = t.indexOf(qNorm);
+  if (qNorm.length > 4) return i !== -1;
+  while (i !== -1) {
+    if (i === 0 || !/[a-z0-9]/.test(t.charAt(i - 1))) return true;
+    i = t.indexOf(qNorm, i + 1);
+  }
+  return false;
 }
 
 function srTier(p, qNorm, typeHit, inStem, inSyn) {
@@ -706,7 +728,7 @@ function srTier(p, qNorm, typeHit, inStem, inSyn) {
     if (words[i] && words[i].startsWith(qNorm)) return 3;
   }
   // Tier 4 — contiene en searchKey
-  if (p.searchKey.indexOf(qNorm) !== -1) return 4;
+  if (srContiene(p.searchKey, qNorm)) return 4;
   // Tier 5 — match por RAIZ (todas las palabras de la query, stemmeadas)
   if (inStem) return 5;
   // Tier 6 — match por SINONIMO (proteina~protein, colageno~collagen, ...)
@@ -738,7 +760,7 @@ function rankSearch(index, q, limit) {
       if (e && e !== etapa) continue;
     }
     const typeRank = !typeHit ? 2 : (p.types[0] === typeHit ? 0 : (familia.indexOf(p.types[0]) !== -1 ? 1 : 2));
-    const inKey = p.searchKey.indexOf(qNorm) !== -1;
+    const inKey = srContiene(p.searchKey, qNorm);
     // Terminos de <=4 letras se comparan como PALABRA COMPLETA: "bar" no debe
     // matchear "barbacoa" ni "gom" traer "goma". Los largos van por substring.
     const stemKey = String(p.stemKey || '');
@@ -844,6 +866,47 @@ function srVocab(index) {
   return map;
 }
 
+// Palabras que NO se corrigen: son nombres reales de marcas y productos que la tienda no vende.
+// "Corregirlas" a la palabra mas parecida del catalogo mostraba otra cosa como si fuera lo
+// buscado: nutremax -> Nutrex, dhea -> DHA (omega 3), xbody -> Body Advance, galletas ->
+// "tabletas", nutrilon (sin stock) -> un whey "Nutriton". Salen del panel de busquedas sin
+// resultado (13/10/2026). Si algun dia se venden, la busqueda las encuentra sola y nunca
+// llega hasta aca: esta lista solo se mira cuando no hubo ningun resultado.
+const SR_NO_CORREGIR = new Set([
+  'nutremax', 'dhea', 'xbody', 'galletas', 'galleta', 'galletitas', 'nutrilon',
+  'onefit', 'xtrenght', 'xtrengh', 'xtrength', 'raw', 'natier', 'htn', 'pulver', 'sigma', 'goom',
+  'ultratech', 'ghost', 'centrum', 'beepure', 'vitatech', 'gomex', 'integralmedica', 'ensure',
+  'curflex', 'isogold', 'cbum', 'isopure', 'laddubar', 'zuelo', 'biocass', 'b3st', 'psychotic',
+  'psicotic', 'berberina', 'albumina', 'ashwagandha', 'ashawanda', 'melatonina', 'mermelada',
+  'straps', 'strap', 'percarbonato', 'tribulus', 'glicerol', 'glycerol', 'granola',
+  'auriculares', 'queratina', 'keratina', 'silimarina', 'psyllium', 'mayonesa', 'boro', 'dmso',
+  'tijera', 'alfajor', 'alfajores', 'rompe', 'jueves10',
+]);
+
+// Formas que la gente escribe y el catalogo no: marcas pegadas ("labsnutrition"), errores que
+// la correccion de typos no acierta ("grozs") y el nombre que usa el dueño para un producto
+// ("hydromax" = Hydroxy Max de Ena). Igual que en el buscador de la tienda (layout.tpl,
+// MR_SINONIMOS). Solo se usan cuando la busqueda original no trajo nada.
+const SR_REESCRIBIR = {
+  'betalanina': 'beta alanina', 'betaalanina': 'beta alanina',
+  'labsnutrition': 'labs nutrition', 'ultramass': 'ultra mass',
+  'ivybears': 'ivy bears', 'ivybear': 'ivy bears', 'myprotein': 'my protein',
+  'grozs': 'grosz', 'groz': 'grosz', 'grozz': 'grosz',
+  'testorona': 'testosterona', 'testoterona': 'testosterona', 'testosterna': 'testosterona',
+  'quelat': 'quelado', 'quelato': 'quelado', 'quelatado': 'quelado',
+  'hidromax': 'hydroxy max', 'hydromax': 'hydroxy max',
+  'ema': 'ena', 'cristina': 'creatina',
+};
+function srReescribir(qNorm) {
+  let changed = false;
+  const out = qNorm.split(' ').filter(Boolean).map(function (w) {
+    if (!Object.prototype.hasOwnProperty.call(SR_REESCRIBIR, w)) return w;
+    changed = true;
+    return SR_REESCRIBIR[w];
+  });
+  return changed ? out.join(' ') : null;
+}
+
 // Corrige palabra por palabra. Devuelve la query corregida o null si no cambio nada.
 function srCorrectQuery(qNorm, index) {
   const vocab = srVocab(index);
@@ -851,7 +914,7 @@ function srCorrectQuery(qNorm, index) {
   if (!parts.length) return null;
   let changed = false;
   const out = parts.map(function (w) {
-    if (w.length < 3 || vocab.has(w)) return w;
+    if (w.length < 3 || vocab.has(w) || SR_NO_CORREGIR.has(w)) return w;
     const max = w.length >= 7 ? 2 : 1;
     let best = null, bestD = max + 1, bestFreq = -1;
     for (const [v, freq] of vocab) {
@@ -907,11 +970,15 @@ export default async function handler(req, res) {
 
     let result = rankSearch(index, q, limit);
 
-    // Sin resultados -> probar corrigiendo typos ("kreatina" -> "creatina").
+    // Sin resultados -> primero las formas conocidas ("labsnutrition" -> "labs nutrition") y
+    // despues la correccion de typos ("kreatina" -> "creatina"). Se queda con la primera que trae algo.
     let didYouMean = null;
     if (result.total === 0) {
-      const fixed = srCorrectQuery(srNorm(q), index);
-      if (fixed && fixed !== srNorm(q)) {
+      const qn = srNorm(q);
+      const intentos = [srReescribir(qn), srCorrectQuery(qn, index)];
+      for (let i = 0; i < intentos.length && !didYouMean; i++) {
+        const fixed = intentos[i];
+        if (!fixed || fixed === qn) continue;
         const retry = rankSearch(index, fixed, limit);
         if (retry.total > 0) { result = retry; didYouMean = fixed; }
       }
