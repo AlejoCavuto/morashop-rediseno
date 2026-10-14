@@ -48,7 +48,7 @@ const MAX_PAGES = 25;
 // tiempo se deja de pedir y se informa lo juntado, que son los pedidos mas nuevos.
 const BUDGET_MS = 240 * 1000;
 const CACHE_TTL = 600;
-const FIELDS = 'id,number,created_at,total,currency,status,payment_status,client_details';
+const FIELDS = 'id,number,created_at,total,currency,status,payment_status,storefront,client_details';
 
 const CANALES = {
   app_ios: 'App · iPhone',
@@ -188,6 +188,24 @@ export default async function handler(req, res) {
   const cacheKey = `app_sales_v1:${dias}`;
 
   try {
+    // ?pedido=<numero>: de donde vino un pedido puntual (para revisar casos dudosos).
+    if (req.query.pedido) {
+      const numero = String(req.query.pedido).replace(/\D/g, '');
+      const { orders } = await fetchOrders(dias);
+      const o = orders.find((x) => String(x.number) === numero);
+      if (!o) return res.status(200).json({ ok: false, error: 'no_encontrado', numero, dias });
+      const ua = o.client_details ? o.client_details.user_agent : undefined;
+      return res.status(200).json({
+        ok: true,
+        numero: o.number,
+        fecha: o.created_at,
+        origen: o.storefront,
+        canal: CANALES[canalDe(ua)],
+        userAgent: ua === undefined ? '(Tiendanube no envió el dato)' : ua,
+        clientDetails: o.client_details ? Object.keys(o.client_details) : null,
+      });
+    }
+
     let reporte;
     if (req.query.fresco !== '1') {
       try { reporte = await getCache().get(cacheKey); } catch (e) { reporte = undefined; }
