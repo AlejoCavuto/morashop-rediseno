@@ -200,6 +200,10 @@ export default async function handler(req, res) {
         numero: o.number,
         fecha: o.created_at,
         origen: o.storefront,
+        estado: o.status,
+        pago: o.payment_status,
+        // El resumen no cuenta los cancelados.
+        enElResumen: o.status !== 'cancelled',
         canal: CANALES[canalDe(ua)],
         userAgent: ua === undefined ? '(Tiendanube no envió el dato)' : ua,
         clientDetails: o.client_details ? Object.keys(o.client_details) : null,
