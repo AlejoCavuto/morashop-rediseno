@@ -93,6 +93,8 @@ function srVendidos(p) {
 // la busqueda al rubro entero y, por substring, le pone ese rubro a todo producto que lo tenga
 // en el nombre. Con 'melatonina' quien la buscaba veia omega 3 y magnesio; con 'alfajor',
 // pancakes y barras; y 'c4' convertia en pre-entreno a la cortadora de pelo "Bc4" (13/10/2026).
+// Lo mismo con 'tostadora' (no hay tostadoras: salia toda la cocina electrica) y 'ghee' (salia un
+// edulcorante) (15/10/2026).
 const SR_TYPE_ALIASES = {
   // Suplementos
   'proteinas':         ['proteina', 'proteinas', 'protein', 'whey', 'caseina', 'isolate', 'aislada'],
@@ -112,10 +114,10 @@ const SR_TYPE_ALIASES = {
   'salsas-jarabes':    ['salsa', 'salsas', 'jarabe', 'syrup'],
   'pasta-mani':        ['pasta mani', 'pasta de mani', 'mantequilla mani', 'manteca de mani'],
   'almacen-fit':       ['almacen', 'fit'],
-  'miel-endulzantes':  ['miel', 'endulzante', 'edulcorante', 'ghee'],
+  'miel-endulzantes':  ['miel', 'endulzante', 'edulcorante'],
   'yerba-mate':        ['yerba', 'mate'],
   // Electro
-  'cocina-electrica':  ['cafetera', 'pava', 'tostadora', 'licuadora', 'batidora', 'air fryer', 'freidora', 'horno', 'yogurtera', 'sandwicher'],
+  'cocina-electrica':  ['cafetera', 'pava', 'licuadora', 'batidora', 'air fryer', 'freidora', 'horno', 'yogurtera', 'sandwicher'],
   'bano-espejos':      ['inodoro', 'bacha', 'griferia', 'espejo', 'baño'],
   'salud-medicion':    ['balanza', 'termometro', 'oximetro', 'tensiometro', 'nebulizador'],
   'cuidado-personal':  ['plancha', 'secador', 'planchita', 'depiladora'],
@@ -877,10 +879,17 @@ const SR_NO_CORREGIR = new Set([
   'onefit', 'xtrenght', 'xtrengh', 'xtrength', 'raw', 'natier', 'htn', 'pulver', 'sigma', 'goom',
   'ultratech', 'ghost', 'centrum', 'beepure', 'vitatech', 'gomex', 'integralmedica', 'ensure',
   'curflex', 'isogold', 'cbum', 'isopure', 'laddubar', 'zuelo', 'biocass', 'b3st', 'psychotic',
-  'psicotic', 'berberina', 'albumina', 'ashwagandha', 'ashawanda', 'melatonina', 'mermelada',
+  'psicotic', 'berberina', 'albumina', 'melatonina', 'mermelada',
   'straps', 'strap', 'percarbonato', 'tribulus', 'glicerol', 'glycerol', 'granola',
   'auriculares', 'queratina', 'keratina', 'silimarina', 'psyllium', 'mayonesa', 'boro', 'dmso',
   'tijera', 'alfajor', 'alfajores', 'rompe', 'jueves10',
+  // segunda tanda del panel (15/10/2026). canarias -> "calorias", guantes -> "grandes", vitalgy ->
+  // "vitalis" y tostadora -> "cortadora" (de pelo) eran las correcciones equivocadas que mostraba.
+  'canarias', 'guantes', 'guante', 'vitalgy', 'tostadora', 'tostadoras', 'tostador', 'ghee', 'xtreng',
+  'huggies', 'membrillo', 'fecula', 'nestum', 'quercetina', 'tudca', 'reishi', 'retinol', 'metilfolato',
+  'fitoesterol', 'redufem', 'dicomere', 'ultraflex', 'holomagnesio', 'holo', 'bronsol', 'satial',
+  'athomx', 'hochsport', 'bigli', 'lander', 'maverick', 'cutter', 'tender', 'scooter', 'tobogan',
+  'patacleta', 'inedito', 'barbacoa', 'insane', 'centrum', 'enzo10', 'eva',
 ]);
 
 // Formas que la gente escribe y el catalogo no: marcas pegadas ("labsnutrition"), errores que
@@ -896,15 +905,68 @@ const SR_REESCRIBIR = {
   'quelat': 'quelado', 'quelato': 'quelado', 'quelatado': 'quelado',
   'hidromax': 'hydroxy max', 'hydromax': 'hydroxy max',
   'ema': 'ena', 'cristina': 'creatina',
+  // 15/10/2026
+  'ashawanda': 'ashwagandha', 'ashwaganda': 'ashwagandha', 'ivibear': 'ivy bears', 'ivibears': 'ivy bears',
+  'onega3': 'omega 3', 'onega': 'omega', 'creatna': 'creatina', 'garger': 'granger', 'mixer': 'licuadora de mano',
 };
+// Frases: "ganador de peso" (los productos dicen "ganador de masa"), "proteina mutant mass" (el ganador se
+// llama asi, sin "proteina"), "creatina por kilo" (dicen "1 kg"; "medio kilo" no se toca) y "omega 3 6 9".
+const SR_FRASES = [
+  [/ ganador(es)? de (peso|masa) /g, ' ganador '],
+  [/ proteinas? (mutant|ultra|serious) mass /g, ' $1 mass '],
+  [/ (por|x|de|un|1) kilos? /g, ' 1 kg '],
+  [/ omegas? 3[ -]6[ -](y )?9 /g, ' omega 369 '],
+];
 function srReescribir(qNorm) {
   let changed = false;
-  const out = qNorm.split(' ').filter(Boolean).map(function (w) {
+  let s = ' ' + qNorm + ' ';
+  for (let i = 0; i < SR_FRASES.length; i++) {
+    const s2 = s.replace(SR_FRASES[i][0], SR_FRASES[i][1]);
+    if (s2 !== s) { s = s2; changed = true; }
+  }
+  const out = s.split(' ').filter(Boolean).map(function (w) {
     if (!Object.prototype.hasOwnProperty.call(SR_REESCRIBIR, w)) return w;
     changed = true;
     return SR_REESCRIBIR[w];
   });
   return changed ? out.join(' ') : null;
+}
+
+// Nombres de producto copiados enteros: "Proteina De Suero Whey Protein Star Nutrition Doypack X 2Lb",
+// "Proteina Vegana Gold Nutrition Vainilla 907g Polvo Vainilla x2", "Creatina Hcl 750mg X60 Caps. Sin Sabor x 1"
+// (el "x 1" sale del mail de la compra). Ninguno trae nada tal cual: sobran la cantidad pegada a su unidad, la
+// variante o una palabra que el nombre no tiene. Con 3 palabras o mas se prueba: primero sin cantidades ni
+// repetidas, despues sacando una palabra y despues dos, y se queda con la version que mas productos trae que
+// la NOMBREN (no relleno de rubro). Los numeros solos se dejan: "creatina 300" elige el tamaño. Y solo se
+// sacan palabras que el catalogo conoce: una desconocida ("hcl", una marca que no se vende) es justo lo que la
+// persona busca, y sacarla mostraria otra cosa como si fuera eso.
+const SR_CANTIDAD = /^(x|×|x?[0-9]+([.,][0-9]+)?(g|gr|grs|kg|kgs|lb|lbs|mg|ml|cc|l|u|un|caps?|comp)?)$/;
+function srNombrados(index, qNorm) {
+  const r = rankSearch(index, qNorm, 12);
+  const st = qNorm.split(' ').filter(Boolean).map(srStem).filter(Boolean);
+  return r.matches.filter(m => srNameRank(m, qNorm, st) < 4).length;
+}
+function srAflojar(qNorm, index) {
+  let w = qNorm.split(' ').filter(Boolean);
+  if (w.length < 3 || w.length > 14) return null;
+  const limpio = w.filter((x, i) => !(/[a-z×]/.test(x) && SR_CANTIDAD.test(x)) && w.indexOf(x) === i);
+  if (limpio.length >= 2 && limpio.length !== w.length && srNombrados(index, limpio.join(' ')) > 0) return limpio.join(' ');
+  w = limpio.length >= 2 ? limpio : w;
+  if (w.length < 3) return null;
+  const vocab = srVocab(index);
+  const sacable = (k) => vocab.has(w[k]);
+  for (let saca = 1; saca <= 2 && w.length - saca >= 2; saca++) {
+    let mejor = null, mejorN = 0;
+    const probar = (q) => { const n = srNombrados(index, q); if (n > mejorN) { mejorN = n; mejor = q; } };
+    // de atras para adelante: lo ultimo suele ser la variante o el tamaño
+    for (let i = w.length - 1; i >= 0; i--) {
+      if (!sacable(i)) continue;
+      if (saca === 1) probar(w.filter((_, k) => k !== i).join(' '));
+      else for (let j = i - 1; j >= 0; j--) if (sacable(j)) probar(w.filter((_, k) => k !== i && k !== j).join(' '));
+    }
+    if (mejor) return mejor;
+  }
+  return null;
 }
 
 // Corrige palabra por palabra. Devuelve la query corregida o null si no cambio nada.
@@ -972,15 +1034,18 @@ export default async function handler(req, res) {
 
     // Sin resultados -> primero las formas conocidas ("labsnutrition" -> "labs nutrition") y
     // despues la correccion de typos ("kreatina" -> "creatina"). Se queda con la primera que trae algo.
+    // Si lo que hay es solo relleno de rubro (ningun producto se llama asi), tambien se prueban las formas
+    // conocidas y aflojar la busqueda, pero solo se aceptan si traen productos que la nombren.
     let didYouMean = null;
-    if (result.total === 0) {
-      const qn = srNorm(q);
-      const intentos = [srReescribir(qn), srCorrectQuery(qn, index)];
+    const qn = srNorm(q);
+    const soloRelleno = result.total > 0 && !result.rubro && srNombrados(index, qn) === 0;
+    if (result.total === 0 || soloRelleno) {
+      const intentos = [() => srReescribir(qn), () => (result.total === 0 ? srCorrectQuery(qn, index) : null), () => srAflojar(qn, index)];
       for (let i = 0; i < intentos.length && !didYouMean; i++) {
-        const fixed = intentos[i];
+        const fixed = intentos[i]();
         if (!fixed || fixed === qn) continue;
         const retry = rankSearch(index, fixed, limit);
-        if (retry.total > 0) { result = retry; didYouMean = fixed; }
+        if (retry.total > 0 && (result.total === 0 || srNombrados(index, fixed) > 0)) { result = retry; didYouMean = fixed; }
       }
     }
 
