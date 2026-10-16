@@ -890,6 +890,9 @@ const SR_NO_CORREGIR = new Set([
   'fitoesterol', 'redufem', 'dicomere', 'ultraflex', 'holomagnesio', 'holo', 'bronsol', 'satial',
   'athomx', 'hochsport', 'bigli', 'lander', 'maverick', 'cutter', 'tender', 'scooter', 'tobogan',
   'patacleta', 'inedito', 'barbacoa', 'insane', 'centrum', 'enzo10', 'eva',
+  // respuestas del dueño (15/10/2026): no vende sulfato ferroso ni Hochsport, Satial, Athomx, Bronsol o
+  // "Rompe OGT"; "cartina" puede ser creatina o carnitina (la tienda pregunta cual; corregirla daba "cafeina")
+  'sulfato', 'ferroso', 'ogt', 'cartina',
 ]);
 
 // Formas que la gente escribe y el catalogo no: marcas pegadas ("labsnutrition"), errores que
@@ -908,6 +911,7 @@ const SR_REESCRIBIR = {
   // 15/10/2026
   'ashawanda': 'ashwagandha', 'ashwaganda': 'ashwagandha', 'ivibear': 'ivy bears', 'ivibears': 'ivy bears',
   'onega3': 'omega 3', 'onega': 'omega', 'creatna': 'creatina', 'garger': 'granger', 'mixer': 'licuadora de mano',
+  'bigli': 'bisglicinato',     // dicho por el dueño: bisglicinato de magnesio
 };
 // Frases: "ganador de peso" (los productos dicen "ganador de masa"), "proteina mutant mass" (el ganador se
 // llama asi, sin "proteina"), "creatina por kilo" (dicen "1 kg"; "medio kilo" no se toca) y "omega 3 6 9".
