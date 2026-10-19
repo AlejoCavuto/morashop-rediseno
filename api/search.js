@@ -1018,6 +1018,103 @@ function srCorrectQuery(qNorm, index) {
   return changed ? out.join(' ') : null;
 }
 
+// ============== PLACAS DE LA HOME ==============
+// La home (19/10/2026) muestra en cada placa "Desde $X", "Hasta X% OFF" o "N productos". Si esos
+// numeros quedaran fijos en el theme, al cambiar los precios mostrarian un precio que ya no existe.
+// Se calculan aca con el mismo indice de la lupa (publicado y con stock), por categoria de Tiendanube:
+// la categoria y todas sus subcategorias. ?placas=creatinas,proteinas,supermercado~bodega
+// ("~" resta las categorias que siguen). El CDN de Vercel cachea la respuesta.
+const CATS_RT_KEY = 'tn_categories_v1';
+const CATS_TTL_MS = 3600 * 1000;
+const PLACAS_MAX = 40;
+const PLACA_RE = /^[a-z0-9-]+(~[a-z0-9-]+)*$/;
+let _catsMem = null;      // { byHandle: { handle: [id] }, hijos: { id: [id] }, at }
+
+async function fetchAllCategories() {
+  const all = [];
+  for (let page = 1; page <= 20; page++) {
+    const r = await fetch(`${TN_BASE}/categories?per_page=200&page=${page}`, { headers: TN_HEADERS });
+    if (r.status === 404) break;   // TN responde 404 cuando la pagina ya no tiene categorias
+    if (!r.ok) throw new Error(`Tiendanube GET /categories page=${page} failed: ${r.status}`);
+    const batch = await r.json();
+    if (!Array.isArray(batch) || batch.length === 0) break;
+    all.push(...batch);
+    if (batch.length < 200) break;
+  }
+  return all;
+}
+
+function armarArbol(items, at) {
+  const byHandle = {}, hijos = {};
+  for (const c of items) {
+    if (c.h) (byHandle[c.h] = byHandle[c.h] || []).push(c.id);
+    if (c.p) (hijos[c.p] = hijos[c.p] || []).push(c.id);
+  }
+  return { byHandle, hijos, at };
+}
+
+async function getCategoryTree() {
+  if (_catsMem && Date.now() - _catsMem.at < CATS_TTL_MS) return _catsMem;
+  let raw = await rtGet(CATS_RT_KEY);
+  const sirve = raw && Array.isArray(raw.items) && raw.items.length > 0;
+  if (!sirve || Date.now() - Number(raw.at || 0) > CATS_TTL_MS) {
+    try {
+      const items = (await fetchAllCategories()).map(c => ({ id: c.id, h: pickEs(c.handle), p: c.parent || 0 }));
+      if (items.length) { raw = { at: Date.now(), items }; await rtSet(CATS_RT_KEY, raw, KV_KEEP_SECONDS); }
+    } catch (e) {
+      console.error('categories fetch failed:', e.message);
+      if (!sirve && !_catsMem) throw e;      // sin ninguna copia no hay con que calcular
+      if (!sirve) return _catsMem;
+    }
+  }
+  _catsMem = armarArbol(raw.items, Number(raw.at || Date.now()));
+  return _catsMem;
+}
+
+// ids de las categorias con esos handles y de todas sus subcategorias
+function conSubcategorias(tree, handles) {
+  const out = new Set(), cola = [];
+  for (const h of handles) for (const id of (tree.byHandle[h] || [])) cola.push(id);
+  while (cola.length) {
+    const id = cola.pop();
+    if (out.has(id)) continue;
+    out.add(id);
+    for (const hijo of (tree.hijos[id] || [])) cola.push(hijo);
+  }
+  return out;
+}
+
+// { n: productos con stock, desde: precio mas bajo, hasta: mayor descuento real (redondeado para abajo) }
+function placasStats(index, tree, specs) {
+  const out = {};
+  for (const spec of specs) {
+    const [h, ...menos] = spec.split('~');
+    const si = conSubcategorias(tree, [h]), no = conSubcategorias(tree, menos);
+    if (si.size === 0) { out[spec] = null; continue; }
+    let n = 0, desde = Infinity, hasta = 0;
+    for (const p of index) {
+      const cats = p.categories || [];
+      if (!cats.some(id => si.has(id)) || cats.some(id => no.has(id))) continue;
+      if (!(p.price > 0)) continue;
+      n++;
+      if (p.price < desde) desde = p.price;
+      if (p.compareAt > p.price) hasta = Math.max(hasta, Math.floor((1 - p.price / p.compareAt) * 100));
+    }
+    out[spec] = n ? { n, desde: Math.round(desde), hasta } : { n: 0, desde: null, hasta: 0 };
+  }
+  return out;
+}
+
+async function placasHandler(res, placasQ) {
+  const specs = [...new Set(placasQ.split(',').map(s => s.trim().toLowerCase()).filter(Boolean))];
+  if (specs.length === 0 || specs.length > PLACAS_MAX || specs.some(s => s.length > 120 || !PLACA_RE.test(s))) {
+    return res.status(400).json({ ok: false, error: 'bad_placas' });
+  }
+  const [{ index }, tree] = await Promise.all([getIndex(), getCategoryTree()]);
+  res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=900, stale-while-revalidate=86400');
+  return res.status(200).json({ placas: placasStats(index, tree, specs), at: tree.at });
+}
+
 // ============== HANDLER ==============
 
 export default async function handler(req, res) {
@@ -1034,6 +1131,9 @@ export default async function handler(req, res) {
   }
 
   try {
+    const placasQ = String(req.query?.placas || '').trim();
+    if (placasQ) return await placasHandler(res, placasQ);
+
     const q = String(req.query?.q || '').trim();
     const limitRaw = parseInt(req.query?.limit, 10);
     const limit = Number.isFinite(limitRaw) && limitRaw > 0 && limitRaw <= 100 ? limitRaw : 10;
