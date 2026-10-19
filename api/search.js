@@ -116,15 +116,20 @@ const SR_TYPE_ALIASES = {
   'almacen-fit':       ['almacen', 'fit'],
   'miel-endulzantes':  ['miel', 'endulzante', 'edulcorante'],
   'yerba-mate':        ['yerba', 'mate'],
-  // Electro
-  'cocina-electrica':  ['cafetera', 'pava', 'licuadora', 'batidora', 'air fryer', 'freidora', 'horno', 'yogurtera', 'sandwicher'],
+  // Electro. 19/10/2026, llegó la línea Kanji / Westinghouse / Harrison: vuelve 'tostadora' (ahora hay), se
+  // sumaron TV y audio y jardín y exterior, y salieron dos alias que metían cosas de otro rubro: 'aire' ponía la
+  // "Pochoclera ... de Aire Caliente" entre las heladeras y 'robot' un juguete entre las aspiradoras. 'air fryer'
+  // tampoco va: ningún nombre lo dice (dicen "Freidora de Aire"); lo resuelve SR_ANTES.
+  'cocina-electrica':  ['cafetera', 'pava', 'licuadora', 'batidora', 'freidora', 'horno', 'yogurtera', 'sandwicher', 'tostadora'],
   'bano-espejos':      ['inodoro', 'bacha', 'griferia', 'espejo', 'baño'],
   'salud-medicion':    ['balanza', 'termometro', 'oximetro', 'tensiometro', 'nebulizador'],
   'cuidado-personal':  ['plancha', 'secador', 'planchita', 'depiladora'],
-  'grandes-electro':   ['lavarropas', 'heladera', 'freezer', 'aire'],
-  'limpieza':          ['aspirador', 'aspiradora', 'robot'],
+  'grandes-electro':   ['lavarropas', 'heladera', 'freezer', 'frigobar', 'secarropas'],
+  'limpieza':          ['aspirador', 'aspiradora'],
   'herramientas':      ['taladro', 'sierra', 'amoladora', 'atornillador', 'motosierra'],
   'climatizacion':     ['ventilador', 'calefactor', 'estufa', 'caloventor'],
+  'tv-audio':          ['televisor', 'parlante', 'proyector'],
+  'exterior':          ['reposera', 'sombrilla', 'mesa plegable', 'silla plegable'],
   // Bodega
   'vinos-tintos':      ['vino', 'vinos', 'tinto', 'tintos', 'malbec', 'cabernet', 'merlot', 'syrah'],
   'vinos-blancos':     ['blanco', 'blancos', 'chardonnay', 'sauvignon', 'torrontes'],
@@ -162,6 +167,8 @@ const SR_TYPE_LABEL = {
   'limpieza':           'Limpieza',
   'herramientas':       'Herramientas',
   'climatizacion':      'Climatización',
+  'tv-audio':           'TV y Audio',
+  'exterior':           'Jardín y Exterior',
   'vinos-tintos':       'Vinos Tintos',
   'vinos-blancos':      'Vinos Blancos',
   'destilados':         'Destilados',
@@ -885,7 +892,7 @@ const SR_NO_CORREGIR = new Set([
   'tijera', 'alfajor', 'alfajores', 'rompe', 'jueves10',
   // segunda tanda del panel (15/10/2026). canarias -> "calorias", guantes -> "grandes", vitalgy ->
   // "vitalis" y tostadora -> "cortadora" (de pelo) eran las correcciones equivocadas que mostraba.
-  'canarias', 'guantes', 'guante', 'vitalgy', 'tostadora', 'tostadoras', 'tostador', 'ghee', 'xtreng',
+  'canarias', 'guantes', 'guante', 'vitalgy', 'ghee', 'xtreng',      // las tostadoras salieron el 19/10/2026: ahora se venden
   'huggies', 'membrillo', 'fecula', 'nestum', 'quercetina', 'tudca', 'reishi', 'retinol', 'metilfolato',
   'fitoesterol', 'redufem', 'dicomere', 'ultraflex', 'holomagnesio', 'holo', 'bronsol', 'satial',
   'athomx', 'hochsport', 'bigli', 'lander', 'maverick', 'cutter', 'tender', 'scooter', 'tobogan',
@@ -921,6 +928,22 @@ const SR_FRASES = [
   [/ (por|x|de|un|1) kilos? /g, ' 1 kg '],
   [/ omegas? 3[ -]6[ -](y )?9 /g, ' omega 369 '],
 ];
+// Frases que se cambian ANTES de buscar (no solo cuando no hubo nada): la búsqueda original sí trae algo, pero es
+// otra cosa. "air fryer" caía en el rubro cocina y la primera era una yogurtera; "freidora sin aceite" traía
+// aceites de coco; "cafetera de capsulas", suplementos en cápsulas; "smart tv", inodoros "Smart". "tv" sola es el
+// televisor ("soporte tv" no se toca). Igual que MR_FRASES en layout.tpl (19/10/2026).
+const SR_ANTES = [
+  [/ air ?fr[aeiy]+e?r /g, ' freidora de aire '],
+  [/ freidoras? (sin aceite|electricas?) /g, ' freidora de aire '],
+  [/ cafeteras? (de |a |para )?capsulas? /g, ' cafetera multicapsula '],
+  [/^ (tv|tvs|tele|teles|smart ?tv|smartv|televisiones?) $/, ' televisor '],
+];
+function srAntes(qNorm) {
+  let s = ' ' + qNorm + ' ';
+  for (let i = 0; i < SR_ANTES.length; i++) s = s.replace(SR_ANTES[i][0], SR_ANTES[i][1]);
+  s = s.replace(/\s+/g, ' ').trim();
+  return s !== qNorm ? s : null;
+}
 function srReescribir(qNorm) {
   let changed = false;
   let s = ' ' + qNorm + ' ';
@@ -1035,15 +1058,20 @@ export default async function handler(req, res) {
     }
 
     let result = rankSearch(index, q, limit);
+    let didYouMean = null;
+    const antes = srAntes(srNorm(q));
+    if (antes) {
+      const r2 = rankSearch(index, antes, limit);
+      if (r2.total > 0) { result = r2; didYouMean = antes; }
+    }
 
     // Sin resultados -> primero las formas conocidas ("labsnutrition" -> "labs nutrition") y
     // despues la correccion de typos ("kreatina" -> "creatina"). Se queda con la primera que trae algo.
     // Si lo que hay es solo relleno de rubro (ningun producto se llama asi), tambien se prueban las formas
     // conocidas y aflojar la busqueda, pero solo se aceptan si traen productos que la nombren.
-    let didYouMean = null;
     const qn = srNorm(q);
-    const soloRelleno = result.total > 0 && !result.rubro && srNombrados(index, qn) === 0;
-    if (result.total === 0 || soloRelleno) {
+    const soloRelleno = !didYouMean && result.total > 0 && !result.rubro && srNombrados(index, qn) === 0;
+    if (!didYouMean && (result.total === 0 || soloRelleno)) {
       const intentos = [() => srReescribir(qn), () => (result.total === 0 ? srCorrectQuery(qn, index) : null), () => srAflojar(qn, index)];
       for (let i = 0; i < intentos.length && !didYouMean; i++) {
         const fixed = intentos[i]();
