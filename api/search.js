@@ -306,7 +306,9 @@ const SR_SYNONYMS = [
   ['on', 'optimum'],
   // "leche proteica" / "snack proteico": el catalogo dice "Protein". Grupo aparte para que
   // buscar "proteina" siga igual (el indice se queda con el primer grupo de cada raiz).
-  ['proteica', 'proteico', 'protein', 'proteina']
+  ['proteica', 'proteico', 'protein', 'proteina'],
+  // el de Ena se llama "Trans Resverastrol": buscando "resveratrol" no salía (20/10/2026)
+  ['resveratrol', 'resverastrol']
 ];
 
 // raiz del termino -> todas las raices de su grupo (incluida la propia)
@@ -900,6 +902,9 @@ const SR_NO_CORREGIR = new Set([
   // respuestas del dueño (15/10/2026): no vende sulfato ferroso ni Hochsport, Satial, Athomx, Bronsol o
   // "Rompe OGT"; "cartina" puede ser creatina o carnitina (la tienda pregunta cual; corregirla daba "cafeina")
   'sulfato', 'ferroso', 'ogt', 'cartina',
+  // panel del 20/10/2026: "sara" -> "para" (60 productos cualquiera), "fynutrition" -> "nutrition" (171) y dos
+  // esteroides que no se venden ni se van a vender: "anadrol" -> el suplemento "Anabol"
+  'sara', 'fynutrition', 'anadrol', 'oxandrolona',
 ]);
 
 // Formas que la gente escribe y el catalogo no: marcas pegadas ("labsnutrition"), errores que
@@ -919,6 +924,12 @@ const SR_REESCRIBIR = {
   'ashawanda': 'ashwagandha', 'ashwaganda': 'ashwagandha', 'ivibear': 'ivy bears', 'ivibears': 'ivy bears',
   'onega3': 'omega 3', 'onega': 'omega', 'creatna': 'creatina', 'garger': 'granger', 'mixer': 'licuadora de mano',
   'bigli': 'bisglicinato',     // dicho por el dueño: bisglicinato de magnesio
+  // 20/10/2026, igual que el theme. "adelgazar" traía primero un vaso shaker y un aceite (relleno de rubro)
+  'thermofuel': 'thermo fuel', 'termofuel': 'thermo fuel', 'carboenergy': 'carbo energy',
+  'reverastrol': 'resveratrol', 'revastrol': 'resveratrol', 'revestrol': 'resveratrol', 'resveratol': 'resveratrol',
+  'bisciglinato': 'bisglicinato', 'bisglisinato': 'bisglicinato',
+  'rasuradora': 'afeitadora', 'rasuradoras': 'afeitadora', 'rasurador': 'afeitadora', 'afeitadoras': 'afeitadora',
+  'adelgazar': 'quemador', 'adelgazante': 'quemador', 'adelgazantes': 'quemador', 'crearon': 'creatina',
 };
 // Frases: "ganador de peso" (los productos dicen "ganador de masa"), "proteina mutant mass" (el ganador se
 // llama asi, sin "proteina"), "creatina por kilo" (dicen "1 kg"; "medio kilo" no se toca) y "omega 3 6 9".
@@ -937,6 +948,8 @@ const SR_ANTES = [
   [/ freidoras? (sin aceite|electricas?) /g, ' freidora de aire '],
   [/ cafeteras? (de |a |para )?capsulas? /g, ' cafetera multicapsula '],
   [/^ (tv|tvs|tele|teles|smart ?tv|smartv|televisiones?) $/, ' televisor '],
+  // 20/10/2026: "colageno con vitamina c" traía primero la creatina "Con Colágeno"
+  [/ colageno (con |y |mas )?(vitamina |vit )?c /g, ' colageno vitamina c '],
 ];
 function srAntes(qNorm) {
   let s = ' ' + qNorm + ' ';
