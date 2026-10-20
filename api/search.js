@@ -1115,6 +1115,21 @@ async function placasHandler(res, placasQ) {
   return res.status(200).json({ placas: placasStats(index, tree, specs), at: tree.at });
 }
 
+// ============== PRODUCTOS POR ID ==============
+// Las páginas de marca con escenas (Kanji, 20/10/2026) muestran precio y link de productos puntuales que pueden no estar
+// en la primera página de la grilla. ?ids=1,2,3 devuelve los que están publicados y con stock (los que faltan = sin stock).
+async function idsHandler(res, idsQ) {
+  const ids = [...new Set(idsQ.split(',').map(s => s.trim()).filter(s => /^\d{1,12}$/.test(s)))];
+  if (ids.length === 0 || ids.length > 80) return res.status(400).json({ ok: false, error: 'bad_ids' });
+  const { index } = await getIndex();
+  const quiero = new Set(ids.map(Number));
+  const productos = index.filter(p => quiero.has(Number(p.id))).map(p => ({
+    id: p.id, name: p.name, price: p.price, compareAt: p.compareAt != null ? p.compareAt : null, stock: p.stock, image: p.image, handle: p.handle,
+  }));
+  res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=600, stale-while-revalidate=86400');
+  return res.status(200).json({ productos });
+}
+
 // ============== HANDLER ==============
 
 export default async function handler(req, res) {
@@ -1133,6 +1148,8 @@ export default async function handler(req, res) {
   try {
     const placasQ = String(req.query?.placas || '').trim();
     if (placasQ) return await placasHandler(res, placasQ);
+    const idsQ = String(req.query?.ids || '').trim();
+    if (idsQ) return await idsHandler(res, idsQ);
 
     const q = String(req.query?.q || '').trim();
     const limitRaw = parseInt(req.query?.limit, 10);
