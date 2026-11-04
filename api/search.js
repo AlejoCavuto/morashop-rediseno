@@ -103,7 +103,8 @@ const SR_TYPE_ALIASES = {
   'bcaa-aminos':       ['bcaa', 'aminoacido', 'aminoacidos', 'amino', 'glutamina', 'arginina', 'leucina'],
   'pre-entrenos':      ['pre-entreno', 'pre-entrenos', 'preentreno', 'pre workout', 'preworkout', 'pump'],
   'quemadores':        ['quemador', 'quemadores', 'fat burner', 'termogenico', 'lipo', 'cla', 'adelgazante', 'detox'],
-  'combos':            ['combo', 'combos', 'pack', 'kit'],
+  // 'combos' salió el 4/11/2026: el dueño no vende combos (están ocultos) y "combo" mostraba de relleno un kit
+  // de Play Doh, un pack de sidra y dardos Nerf.
   'snacks-proteicos':  ['barra', 'barras', 'gel', 'geles', 'snack', 'cookies', 'pancake', 'gomitas'],
   'cafeina-energia':   ['cafeina', 'caffeine', 'cafeine', 'energia'],
   'carbo-isotonicos':  ['isotonico', 'isotonicos', 'carbo', 'carbohidrato', 'electrolitos', 'hidratacion'],
@@ -908,6 +909,7 @@ const SR_NO_CORREGIR = new Set([
   // panel del 4/11/2026: correcciones que mandaban a otra cosa (avena -> "arena" kinética, pringles -> "ingles",
   // un teclado; dao, la enzima, -> "day", los alfajores Day By Day)
   'avena', 'avenas', 'pringles', 'dao',
+  'combo', 'combos',      // no se venden (dueño, 4/11/2026): sin esto se corregían a "como" o "comb"
 ]);
 
 // Formas que la gente escribe y el catalogo no: marcas pegadas ("labsnutrition"), errores que
@@ -957,6 +959,8 @@ const SR_FRASES = [
   [/ proteinas? neutr(a|o|as|os) /g, ' whey protein sin sabor '],
   [/ creatinas? stat /g, ' creatina star '],
   [/ mr tast(y|e) /g, ' mrs taste '],
+  // dicho por el dueño (4/11/2026): las proteínas sin lactosa son las veganas
+  [/ (proteinas?|whey) (sin|libre de|0|cero) lactosa /g, ' proteina vegana '],
 ];
 // Frases que se cambian ANTES de buscar (no solo cuando no hubo nada): la búsqueda original sí trae algo, pero es
 // otra cosa. "air fryer" caía en el rubro cocina y la primera era una yogurtera; "freidora sin aceite" traía
