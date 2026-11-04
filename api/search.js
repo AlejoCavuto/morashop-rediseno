@@ -905,6 +905,9 @@ const SR_NO_CORREGIR = new Set([
   // panel del 20/10/2026: "sara" -> "para" (60 productos cualquiera), "fynutrition" -> "nutrition" (171) y dos
   // esteroides que no se venden ni se van a vender: "anadrol" -> el suplemento "Anabol"
   'sara', 'fynutrition', 'anadrol', 'oxandrolona',
+  // panel del 4/11/2026: correcciones que mandaban a otra cosa (avena -> "arena" kinética, pringles -> "ingles",
+  // un teclado; dao, la enzima, -> "day", los alfajores Day By Day)
+  'avena', 'avenas', 'pringles', 'dao',
 ]);
 
 // Formas que la gente escribe y el catalogo no: marcas pegadas ("labsnutrition"), errores que
@@ -930,6 +933,12 @@ const SR_REESCRIBIR = {
   'bisciglinato': 'bisglicinato', 'bisglisinato': 'bisglicinato',
   'rasuradora': 'afeitadora', 'rasuradoras': 'afeitadora', 'rasurador': 'afeitadora', 'afeitadoras': 'afeitadora',
   'adelgazar': 'quemador', 'adelgazante': 'quemador', 'adelgazantes': 'quemador', 'crearon': 'creatina',
+  // 4/11/2026, igual que el theme. "coq10" no traía la Coenzima Q10
+  'creativa': 'creatina', 'creating': 'creatina', 'creatima': 'creatina', 'creantina': 'creatina',
+  'glutamine': 'glutamina', 'omega3max': 'omega 3 max', 'electrolitros': 'electrolitos',
+  'panquekes': 'pancake', 'panqueke': 'pancake', 'panquques': 'pancake', 'panquque': 'pancake',
+  'prtein': 'protein', 'protien': 'protein', 'coq10': 'coenzima q10', 'isolatada': 'isolate', 'isolatado': 'isolate',
+  'citruline': 'citrulina', 'citrulline': 'citrulina', 'saleas': 'zalea', 'bbq': 'barbacoa', 'vimanida': 'vitamina',
 };
 // Frases: "ganador de peso" (los productos dicen "ganador de masa"), "proteina mutant mass" (el ganador se
 // llama asi, sin "proteina"), "creatina por kilo" (dicen "1 kg"; "medio kilo" no se toca) y "omega 3 6 9".
@@ -938,6 +947,16 @@ const SR_FRASES = [
   [/ proteinas? (mutant|ultra|serious) mass /g, ' $1 mass '],
   [/ (por|x|de|un|1) kilos? /g, ' 1 kg '],
   [/ omegas? 3[ -]6[ -](y )?9 /g, ' omega 369 '],
+  // 4/11/2026, igual que el theme: marcas con "nutricion", integralmedica separada, "mantequilla de mani",
+  // "bcaa polvo", "proteina 3 kilos" y "proteina neutra" (sin sabor)
+  [/ (star|gold|natural) nutricion /g, ' $1 nutrition '],
+  [/ integral ?medic(a|al|as)? /g, ' integralmedica '],
+  [/ (mantequillas?|mantecas?) de mani /g, ' pasta de mani '],
+  [/ bcaas? (en )?polvo /g, ' bcaa '],
+  [/ ([2-9]|10) kilos? /g, ' $1 kg '],
+  [/ proteinas? neutr(a|o|as|os) /g, ' whey protein sin sabor '],
+  [/ creatinas? stat /g, ' creatina star '],
+  [/ mr tast(y|e) /g, ' mrs taste '],
 ];
 // Frases que se cambian ANTES de buscar (no solo cuando no hubo nada): la búsqueda original sí trae algo, pero es
 // otra cosa. "air fryer" caía en el rubro cocina y la primera era una yogurtera; "freidora sin aceite" traía
@@ -950,6 +969,8 @@ const SR_ANTES = [
   [/^ (tv|tvs|tele|teles|smart ?tv|smartv|televisiones?) $/, ' televisor '],
   // 20/10/2026: "colageno con vitamina c" traía primero la creatina "Con Colágeno"
   [/ colageno (con |y |mas )?(vitamina |vit )?c /g, ' colageno vitamina c '],
+  // 4/11/2026: "whey protein start nutrition" se aflojaba a "protein start" y traía el Ena Starter
+  [/ start (nutrition|nutricion) /g, ' star nutrition '],
 ];
 function srAntes(qNorm) {
   let s = ' ' + qNorm + ' ';
