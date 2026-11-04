@@ -512,6 +512,7 @@ function hydrateItem(raw) {
     compareAt: raw.compareAt != null ? raw.compareAt : null,
     stock: raw.stock,
     image: raw.image,
+    imageRef: raw.imageRef || null,
     handle: raw.handle,
     categories: raw.categories,
     categoryName: raw.categoryName,
@@ -531,6 +532,38 @@ function hydrateItem(raw) {
   return item;
 }
 
+// Outlet (4/11/2026): las fotos de un producto "(OUTLET) Nombre - Sabor" son de la unidad real, sacadas con el celular.
+// La franja de la home muestra la foto de estudio de la publicación normal (mismo nombre, la variante de ese sabor) y al
+// lado la real. Se guarda solo en los del outlet (imageRef), para no agrandar el índice. Sin publicación normal con ese
+// nombre, no lleva imageRef y la franja usa la foto propia.
+const OUTLET_RE = /^\s*\(outlet\)\s*/i;
+
+function fotosDeReferencia(raw, items) {
+  const outlet = items.filter(n => OUTLET_RE.test(n.name));
+  if (!outlet.length) return;
+  const porNombre = new Map();
+  for (const p of raw) {
+    const nom = pickEs(p.name);
+    if (nom && !OUTLET_RE.test(nom)) porNombre.set(srNorm(nom), p);
+  }
+  for (const n of outlet) {
+    const sin = n.name.replace(OUTLET_RE, '');
+    const corte = sin.lastIndexOf(' - ');
+    const base = corte > 0 ? sin.slice(0, corte) : sin;
+    const sabor = corte > 0 ? srNorm(sin.slice(corte + 3)) : '';
+    const normal = porNombre.get(srNorm(base)) || porNombre.get(srNorm(sin));
+    if (!normal || !Array.isArray(normal.images) || normal.images.length === 0) continue;
+    let img = null;
+    if (sabor && Array.isArray(normal.variants)) {
+      const v = normal.variants.find(x => (x.values || []).some(val => srNorm(pickEs(val)) === sabor));
+      if (v && v.image_id) img = normal.images.find(i => i.id === v.image_id) || null;
+    }
+    const foto = img || normal.images[0];
+    const src = foto.src || foto.url || '';
+    if (src) n.imageRef = src;
+  }
+}
+
 // Construye el índice (fetch + normalize + filtro publicado/stock) y lo cachea
 // en KV en su forma RAW (campos derivados se recomputan al leer).
 async function buildIndex() {
@@ -542,6 +575,7 @@ async function buildIndex() {
     if (!(n.stock > 0)) continue;
     normalizedRaw.push(n);
   }
+  fotosDeReferencia(raw, normalizedRaw);
   // Guardar SÓLO la forma raw, en las dos copias. Cualquiera puede fallar sin cortar la busqueda.
   await rtSet(RT_INDEX_KEY, { builtAt: Date.now(), items: normalizedRaw }, KV_KEEP_SECONDS);
   try {
@@ -1083,12 +1117,13 @@ async function fetchAllCategories() {
 }
 
 function armarArbol(items, at) {
-  const byHandle = {}, hijos = {};
+  const byHandle = {}, hijos = {}, porId = {};
   for (const c of items) {
     if (c.h) (byHandle[c.h] = byHandle[c.h] || []).push(c.id);
     if (c.p) (hijos[c.p] = hijos[c.p] || []).push(c.id);
+    porId[c.id] = c.h;
   }
-  return { byHandle, hijos, at };
+  return { byHandle, hijos, porId, at };
 }
 
 async function getCategoryTree() {
@@ -1111,8 +1146,14 @@ async function getCategoryTree() {
 
 // ids de las categorias con esos handles y de todas sus subcategorias
 function conSubcategorias(tree, handles) {
-  const out = new Set(), cola = [];
-  for (const h of handles) for (const id of (tree.byHandle[h] || [])) cola.push(id);
+  const ids = [];
+  for (const h of handles) for (const id of (tree.byHandle[h] || [])) ids.push(id);
+  return subarbol(tree, ids);
+}
+
+// esas categorias (por id) y todas sus subcategorias
+function subarbol(tree, ids) {
+  const out = new Set(), cola = [...ids];
   while (cola.length) {
     const id = cola.pop();
     if (out.has(id)) continue;
@@ -1136,7 +1177,8 @@ function placasStats(index, tree, specs) {
       if (!(p.price > 0)) continue;
       n++;
       if (p.price < desde) desde = p.price;
-      if (p.compareAt > p.price) hasta = Math.max(hasta, Math.floor((1 - p.price / p.compareAt) * 100));
+      // + 1e-9: 1 - 800/1000 da 0,19999… y sin esto un 20 % salía 19 %
+      if (p.compareAt > p.price) hasta = Math.max(hasta, Math.floor((1 - p.price / p.compareAt) * 100 + 1e-9));
     }
     out[spec] = n ? { n, desde: Math.round(desde), hasta } : { n: 0, desde: null, hasta: 0 };
   }
@@ -1168,6 +1210,39 @@ async function idsHandler(res, idsQ) {
   return res.status(200).json({ productos });
 }
 
+// ============== PRODUCTOS DE UNA CATEGORÍA ==============
+// La franja de Super Ofertas de la home (4/11/2026) muestra productos de /superofertas/, que tiene dos subcategorías
+// (Outlet y Liquidación) y adentro de cada una, una por rubro. ?cat=superofertas&limit=6 devuelve los publicados y con stock
+// de esa categoría y sus subcategorías, primero los de más descuento. "rama" = la subcategoría directa en la que está cada
+// uno (outlet, liquidacion), para el sello de la tarjeta.
+const CAT_RE = /^[a-z0-9-]{1,80}$/;
+
+async function catHandler(res, catQ, limitQ) {
+  const h = catQ.toLowerCase();
+  if (!CAT_RE.test(h)) return res.status(400).json({ ok: false, error: 'bad_cat' });
+  const n = parseInt(limitQ, 10);
+  const limit = Number.isFinite(n) && n > 0 && n <= 48 ? n : 12;
+  const [{ index }, tree] = await Promise.all([getIndex(), getCategoryTree()]);
+  const raices = tree.byHandle[h] || [];
+  const todas = subarbol(tree, raices);
+  const ramas = [];
+  for (const r of raices) for (const hijo of (tree.hijos[r] || [])) ramas.push({ h: tree.porId[hijo] || '', ids: subarbol(tree, [hijo]) });
+  const off = p => (p.compareAt > p.price ? 1 - p.price / p.compareAt : 0);
+  const productos = index
+    .filter(p => p.price > 0 && (p.categories || []).some(id => todas.has(id)))
+    .sort((a, b) => off(b) - off(a) || a.price - b.price)
+    .slice(0, limit)
+    .map(p => {
+      const rama = ramas.find(r => p.categories.some(id => r.ids.has(id)));
+      return {
+        id: p.id, name: p.name, price: p.price, compareAt: p.compareAt != null ? p.compareAt : null, stock: p.stock,
+        image: p.image, imageRef: p.imageRef, handle: p.handle, rama: rama ? rama.h : null,
+      };
+    });
+  res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=600, stale-while-revalidate=86400');
+  return res.status(200).json({ productos, existe: raices.length > 0, at: tree.at });
+}
+
 // ============== HANDLER ==============
 
 export default async function handler(req, res) {
@@ -1188,6 +1263,8 @@ export default async function handler(req, res) {
     if (placasQ) return await placasHandler(res, placasQ);
     const idsQ = String(req.query?.ids || '').trim();
     if (idsQ) return await idsHandler(res, idsQ);
+    const catQ = String(req.query?.cat || '').trim();
+    if (catQ) return await catHandler(res, catQ, req.query?.limit);
 
     const q = String(req.query?.q || '').trim();
     const limitRaw = parseInt(req.query?.limit, 10);
