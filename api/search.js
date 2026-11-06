@@ -1009,6 +1009,11 @@ const SR_ANTES = [
   [/ colageno (con |y |mas )?(vitamina |vit )?c /g, ' colageno vitamina c '],
   // 4/11/2026: "whey protein start nutrition" se aflojaba a "protein start" y traía el Ena Starter
   [/ start (nutrition|nutricion) /g, ' star nutrition '],
+  // 6/11/2026, búsquedas del Cyber sin resultado: no hay aires acondicionados; con el calor, se muestran los ventiladores.
+  // "horno pizzero" traía electro cualquiera (la freidora primero): son los hornos eléctricos. Igual que el theme.
+  [/ aires? acondicionados?( split| frio calor| inverter)? /g, ' ventilador '],
+  [/^ (split|splits|climatizador|climatizadores|enfriador|enfriadores|aire frio) $/, ' ventilador '],
+  [/ hornos? (pizzeros?|para pizzas?|de pizzas?) /g, ' horno '],
 ];
 function srAntes(qNorm) {
   let s = ' ' + qNorm + ' ';
