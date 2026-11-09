@@ -513,6 +513,7 @@ function hydrateItem(raw) {
     stock: raw.stock,
     image: raw.image,
     imageRef: raw.imageRef || null,
+    refId: raw.refId || null,
     handle: raw.handle,
     categories: raw.categories,
     categoryName: raw.categoryName,
@@ -552,6 +553,9 @@ function fotosDeReferencia(raw, items) {
     const base = corte > 0 ? sin.slice(0, corte) : sin;
     const sabor = corte > 0 ? srNorm(sin.slice(corte + 3)) : '';
     const normal = porNombre.get(srNorm(base)) || porNombre.get(srNorm(sin));
+    // refId (9/11/2026): /superofertas/ ordena por ventas, y una unidad del outlet recién publicada no tiene ventas
+    // propias. Cuentan las de la publicación normal con el mismo nombre.
+    if (normal) n.refId = normal.id;
     if (!normal || !Array.isArray(normal.images) || normal.images.length === 0) continue;
     let img = null;
     if (sabor && Array.isArray(normal.variants)) {
@@ -1220,14 +1224,17 @@ async function idsHandler(res, idsQ) {
 // (Outlet y Liquidación) y adentro de cada una, una por rubro. ?cat=superofertas&limit=6 devuelve los publicados y con stock
 // de esa categoría y sus subcategorías, primero los de más descuento. "rama" = la subcategoría directa en la que está cada
 // uno (outlet, liquidacion), para el sello de la tarjeta.
+// "ventas" (9/11/2026) = unidades vendidas en 90 días de esa publicación, más las de la publicación normal con el mismo
+// nombre si es una unidad del outlet (refId). La página /superofertas/ pide todo (limit hasta 300) y ordena con eso.
 const CAT_RE = /^[a-z0-9-]{1,80}$/;
 
 async function catHandler(res, catQ, limitQ) {
   const h = catQ.toLowerCase();
   if (!CAT_RE.test(h)) return res.status(400).json({ ok: false, error: 'bad_cat' });
   const n = parseInt(limitQ, 10);
-  const limit = Number.isFinite(n) && n > 0 && n <= 48 ? n : 12;
-  const [{ index }, tree] = await Promise.all([getIndex(), getCategoryTree()]);
+  const limit = Number.isFinite(n) && n > 0 && n <= 300 ? n : 12;
+  const [{ index }, tree, salesMap] = await Promise.all([getIndex(), getCategoryTree(), getSalesMap()]);
+  const vendidas = id => { const u = salesMap ? Number(salesMap[id]) : 0; return Number.isFinite(u) && u > 0 ? u : 0; };
   const raices = tree.byHandle[h] || [];
   const todas = subarbol(tree, raices);
   const ramas = [];
@@ -1242,6 +1249,7 @@ async function catHandler(res, catQ, limitQ) {
       return {
         id: p.id, name: p.name, price: p.price, compareAt: p.compareAt != null ? p.compareAt : null, stock: p.stock,
         image: p.image, imageRef: p.imageRef, handle: p.handle, rama: rama ? rama.h : null,
+        ventas: vendidas(p.id) + (p.refId ? vendidas(p.refId) : 0),
       };
     });
   res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=600, stale-while-revalidate=86400');
