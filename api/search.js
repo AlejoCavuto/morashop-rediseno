@@ -979,11 +979,16 @@ const SR_REESCRIBIR = {
   'panquekes': 'pancake', 'panqueke': 'pancake', 'panquques': 'pancake', 'panquque': 'pancake',
   'prtein': 'protein', 'protien': 'protein', 'coq10': 'coenzima q10', 'isolatada': 'isolate', 'isolatado': 'isolate',
   'citruline': 'citrulina', 'citrulline': 'citrulina', 'saleas': 'zalea', 'bbq': 'barbacoa', 'vimanida': 'vitamina',
+  // 9/11/2026, igual que el theme
+  'creaina': 'creatina', 'magnesii': 'magnesio', 'blisguinato': 'bisglicinato', 'synta': 'syntha',
+  'malate': 'malato', 'bns': 'bsn', 'pree': 'pre entreno', 'asha': 'ashwagandha',
+  'oulet': 'outlet', 'aulet': 'outlet', 'outled': 'outlet', 'micronized': 'micronizada',
+  'minipimer': 'licuadora de mano', 'epson': 'epsom',
 };
 // Frases: "ganador de peso" (los productos dicen "ganador de masa"), "proteina mutant mass" (el ganador se
 // llama asi, sin "proteina"), "creatina por kilo" (dicen "1 kg"; "medio kilo" no se toca) y "omega 3 6 9".
 const SR_FRASES = [
-  [/ ganador(es)? de (peso|masa) /g, ' ganador '],
+  [/ (ganador|aumentador)(es)? de (peso|masa) /g, ' ganador '],
   [/ proteinas? (mutant|ultra|serious) mass /g, ' $1 mass '],
   [/ (por|x|de|un|1) kilos? /g, ' 1 kg '],
   [/ omegas? 3[ -]6[ -](y )?9 /g, ' omega 369 '],
@@ -995,10 +1000,17 @@ const SR_FRASES = [
   [/ bcaas? (en )?polvo /g, ' bcaa '],
   [/ ([2-9]|10) kilos? /g, ' $1 kg '],
   [/ proteinas? neutr(a|o|as|os) /g, ' whey protein sin sabor '],
-  [/ creatinas? stat /g, ' creatina star '],
+  [/ creatinas? (stat|start|stra|atar|starr) /g, ' creatina star '],
   [/ mr tast(y|e) /g, ' mrs taste '],
   // dicho por el dueño (4/11/2026): las proteínas sin lactosa son las veganas
   [/ (proteinas?|whey) (sin|libre de|0|cero) lactosa /g, ' proteina vegana '],
+  // 9/11/2026, igual que el theme: "crear una" (autocorrector), "creatina kilo", creatinas en cápsulas, la de
+  // mujer ("Woman Creatina") y la proteína de Nutrex ("Muscle Infusion", sin "proteína" en el nombre)
+  [/^ crear una $/, ' creatina '],
+  [/ (creatinas?|proteinas?|whey) kilos? /g, ' $1 1 kg '],
+  [/ creatinas? (en |de )?(pastillas?|capsulas?|caps) /g, ' creatina capsulas '],
+  [/ creatinas? (para )?(mujer|mujeres|femenina|woman) /g, ' woman creatina '],
+  [/ proteinas? (de )?nutrex /g, ' nutrex muscle infusion '],
 ];
 // Frases que se cambian ANTES de buscar (no solo cuando no hubo nada): la búsqueda original sí trae algo, pero es
 // otra cosa. "air fryer" caía en el rubro cocina y la primera era una yogurtera; "freidora sin aceite" traía
