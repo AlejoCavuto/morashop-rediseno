@@ -1240,6 +1240,45 @@ async function idsHandler(res, idsQ) {
 // nombre si es una unidad del outlet (refId). La página /superofertas/ pide todo (limit hasta 300) y ordena con eso.
 const CAT_RE = /^[a-z0-9-]{1,80}$/;
 
+// "rubro" (12/11/2026): Super Ofertas filtra por rubro (Suplementos, Supermercado, Electro-Hogar…). Tiendanube no le pasa
+// al theme las categorías de cada producto, así que lo calcula la API. El dueño deja las publicaciones de oferta también en
+// su categoría de siempre, y el rubro sale de ahí. Si no tiene ninguna (las medias, una unidad del outlet cargada solo en
+// Super Ofertas), va por el nombre (ropa) y después por la marca o el tipo: el rubro donde está la mayoría de los otros
+// productos de esa marca o de ese tipo. Sin nada de eso, "otros".
+const RUBRO_RAICES = [
+  ['suplementos', 'suplementos'], ['supermercado', 'supermercado'], ['bodega', 'supermercado'],
+  ['electro-hogar', 'electro-hogar'], ['bebes-y-juguetes', 'bebes-y-juguetes'], ['bicicletas', 'bicicletas'],
+];
+const ROPA_RE = /\b(medias|remeras?|gorras?|buzos?|camperas?|calzas?|musculosas?|camisetas?|zapatillas?|ojotas?)\b/;
+
+function rubrosDe(index, tree) {
+  const sets = RUBRO_RAICES.map(([h, r]) => ({ r, ids: conSubcategorias(tree, [h]) }));
+  const porCats = cats => { const s = sets.find(x => (cats || []).some(id => x.ids.has(id))); return s ? s.r : null; };
+  let mayoria = null;   // { marca: {clave: rubro}, tipo: {...} }, se arma la primera vez que hace falta
+  const armarMayoria = () => {
+    const cuenta = { marca: {}, tipo: {} };
+    for (const p of index) {
+      const r = porCats(p.categories);
+      if (!r) continue;
+      const claves = [['marca', p.brandKey], ['tipo', (p.types || [])[0]]];
+      for (const [k, v] of claves) {
+        if (!v) continue;
+        const c = (cuenta[k][v] = cuenta[k][v] || {});
+        c[r] = (c[r] || 0) + 1;
+      }
+    }
+    const gana = m => { const o = {}; for (const v in m) o[v] = Object.keys(m[v]).sort((a, b) => m[v][b] - m[v][a])[0]; return o; };
+    return { marca: gana(cuenta.marca), tipo: gana(cuenta.tipo) };
+  };
+  return p => {
+    const r = porCats(p.categories);
+    if (r) return r;
+    if (ROPA_RE.test(srNorm(p.name))) return 'ropa';
+    mayoria = mayoria || armarMayoria();
+    return (p.brandKey && mayoria.marca[p.brandKey]) || ((p.types || [])[0] && mayoria.tipo[p.types[0]]) || 'otros';
+  };
+}
+
 async function catHandler(res, catQ, limitQ) {
   const h = catQ.toLowerCase();
   if (!CAT_RE.test(h)) return res.status(400).json({ ok: false, error: 'bad_cat' });
@@ -1252,6 +1291,7 @@ async function catHandler(res, catQ, limitQ) {
   const ramas = [];
   for (const r of raices) for (const hijo of (tree.hijos[r] || [])) ramas.push({ h: tree.porId[hijo] || '', ids: subarbol(tree, [hijo]) });
   const off = p => (p.compareAt > p.price ? 1 - p.price / p.compareAt : 0);
+  const rubro = rubrosDe(index, tree);
   const productos = index
     .filter(p => p.price > 0 && (p.categories || []).some(id => todas.has(id)))
     .sort((a, b) => off(b) - off(a) || a.price - b.price)
@@ -1261,7 +1301,7 @@ async function catHandler(res, catQ, limitQ) {
       return {
         id: p.id, name: p.name, price: p.price, compareAt: p.compareAt != null ? p.compareAt : null, stock: p.stock,
         image: p.image, imageRef: p.imageRef, handle: p.handle, rama: rama ? rama.h : null,
-        ventas: vendidas(p.id) + (p.refId ? vendidas(p.refId) : 0),
+        ventas: vendidas(p.id) + (p.refId ? vendidas(p.refId) : 0), rubro: rubro(p),
       };
     });
   res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=600, stale-while-revalidate=86400');
